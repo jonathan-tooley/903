@@ -1,5 +1,5 @@
-*.exe
-*.xml
-*.mdb
-*.pdb
+.exe
+.xml
+.mdb
+.pdb
 
