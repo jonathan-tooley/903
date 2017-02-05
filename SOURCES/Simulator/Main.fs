@@ -5,7 +5,7 @@
 module Sim900.Main
 
 
-open Sim900.Version
+open Version
 open Sim900.Formatting
 open Sim900.Devices
 open Sim900.Shell
