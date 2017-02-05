@@ -1,0 +1,23 @@
+﻿C DEMONSTRATE QCOPY
+
+on 903 8K
+
+nonprinting off
+
+C load QCOPY
+at ptr file ../903utilities/qcopy(iss2).bin
+j 8181
+st 8171
+
+at ptp file demo6.bin
+
+c copy Hunter ALGOL load & go
+at ptr file ../hunter/alg16klg(hunter).bin
+j 21
+
+c check punched tape
+de ptp
+at ptr file demo6.bin
+j 22
+delete demo6.bin
+sh t
