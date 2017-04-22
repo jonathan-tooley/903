@@ -1,4 +1,4 @@
-update=3/16/2017 6:15:10 PM
+update=4/2/2017 8:41:57 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,9 +25,19 @@ version=1
 [cvpcb]
 version=1
 NetIExt=net
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
 [eeschema]
 version=1
-LibDir=
+LibDir=../../../../../Documents/KIT88/KiCad/Elliott.pretty
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -59,13 +69,3 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=switches
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60

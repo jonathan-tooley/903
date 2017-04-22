@@ -34,7 +34,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title ""
 Date "2017-03-07"
 Rev ""
@@ -566,7 +566,7 @@ U 1 1 58C33B11
 P 5700 1250
 F 0 "SW4" H 5700 1450 50  0000 C CNN
 F 1 "Key Switch" H 5700 1050 50  0000 C CNN
-F 2 "Connectors_Molex:Molex_KK-6410-03_03x2.54mm_Straight" H 5075 1425 50  0001 C CNN
+F 2 "Elliott:C&K_Keyswitch" H 5075 1425 50  0001 C CNN
 F 3 "" H 5075 1425 50  0000 C CNN
 	1    5700 1250
 	0    1    1    0   
@@ -1182,4 +1182,10 @@ Wire Wire Line
 	6075 7325 6075 6175
 Wire Wire Line
 	5725 7025 5725 6175
+$Sheet
+S 13650 975  1825 800 
+U 58FC28C7
+F0 "Punch" 60
+F1 "Punch.sch" 60
+$EndSheet
 $EndSCHEMATC
