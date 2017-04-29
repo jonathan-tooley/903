@@ -15,7 +15,7 @@ module Sim900.Devices
 //
 // (The plotter is driven in one of 2 modes: if the machine type is "900" it assumes DGNH's
 // scheme for plotting to a VGA screen, used in the HUNTER ALGOL demonstrations.  For all 
-// other machine types plotting to a 34cm Benson-Lehner plotter is assumed with a 0.005"
+// other machine types plotting to a 34cm Benson-Lehner plotter is assumed with a 0.005 inch
 // step size.
 //  
 // Reader input can be directed to teletype and vice versa.
@@ -479,7 +479,7 @@ module Sim900.Devices
     // VGA screen with y vertically and x horizontally.  For all other aechitectures
     // we simulate an Elliott plotter with y as the long horizontal axis and x as the 
     // shorter vertical axis.  However, the window is not as long in the x-axis as a 
-    // real plotter, so the SCALE command is available.  SCALE 3 fits a 13.750" wide
+    // real plotter, so the SCALE command is available.  SCALE 3 fits a 13.750 inch wide
     // plot (i.e. a 903 Benson Lehner plotter) into the window.
 
     module private GraphPlotter =     
@@ -530,7 +530,7 @@ module Sim900.Devices
                       if yInit = -1 then yInit <- 160
                       x      <- xInit     
                       y      <- yInit 
-                 else maxx   <- 1799 // 2675 = 13.375"
+                 else maxx   <- 1799 // 2675 = 13.375 inch
                       maxy   <-  749   
                       width  <- maxx+1+xMargin
                       height <- maxy+1+yMargin 

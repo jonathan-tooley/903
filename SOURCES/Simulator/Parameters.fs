@@ -4,7 +4,6 @@
   
   // Elliott 900 Simulator command line parameter decoding
 
-        open Sim900.Version
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Models

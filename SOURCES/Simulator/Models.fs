@@ -90,8 +90,8 @@ module Sim900.Models
                             | "900"                       -> E900
                             | _                           -> raise (Machine (sprintf "Unknown machine type '%s'" name))
         
-        // INSTRUCTION TIMES in microseconds * 10, taken from Terry Froggat's "Elliott 900 Series
-        // Instruction Set and Times" document.  (Note times for 920A 4usec are an estimate).
+        // INSTRUCTION TIMES in microseconds * 10, taken from Terry Froggat's Elliott 900 Series
+        // Instruction Set and Times document.  (Note times for 920A 4usec are an estimate).
         //      /,    0,    1,    2,    3,    4,    5,     6,   7<,   7>, 
         //     7=,    8,   9<,  9>=,   10,   11,   12,    13,   14,    n, // 14 shift n
         //     14,    n,   15,    I, 7168, 7169, 7169,  7170, 7170, 7170, // 14 i/o n;

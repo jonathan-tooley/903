@@ -4,10 +4,9 @@
 
 module Sim900.Main
 
-
-open Version
 open Sim900.Formatting
 open Sim900.Devices
+open Sim900.Gpio
 open Sim900.Shell
 open System
 open System.Windows
@@ -18,10 +17,13 @@ open System.Windows.Forms
 do
     CloseReader () // force devices to initialize
 
-    MessagePut simulatorVersion
     MessagePut "Simulation Starting"
 
+    setupControlPorts () 
+
     // Run commands
+    let work = Commands.updateDisplay() |> Async.StartAsTask
+
     async { CommandLineInterpreter () } |> Async.Start
 
     Application.Run()

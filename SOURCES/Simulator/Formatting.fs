@@ -59,7 +59,7 @@ module Sim900.Formatting
         stdout.Write (AddressStr word)
              
     let AlphanumPut word = // use 900 telecode representation 
-        printf "\\"
+        printf "\\" //"
         for pos in [12;6;0] do
             let code = (word>>>pos)&&&mask6
             if   code = 1

@@ -53,7 +53,7 @@ module Sim900.Telecodes
                     
     // printable representation of newline, return and tab
     let VisibleWhiteSpace (str: string) =
-            (((str.Replace ("\\", "\\\\")).Replace ("\n", "\\n")).Replace ("\t", "\\t")).Replace ("\r", "\\r")
+            (((str.Replace ("\\", "\\\\")).Replace ("\n", "\\n")).Replace ("\t", "\\t")).Replace ("\r", "\\r")  //"
 
     let mutable nonPrinting = true  // if true show non-printing characters
     let mutable addRunout   = false // true if runout to be added to text files
@@ -116,7 +116,7 @@ module Sim900.Telecodes
         // 
         // 0      blank            sp    (     0     8   ` ’     H     P     X     @     h     p     x                                                 
         // 1            tab        !     )     1     9     A     I     Q     Y     a     i     q     y
-        // 2            lf         "     *     2     :     B     J     R     Z     b     j     r     z   
+        // 2            lf         ""    *     2     :     B     J     R     Z     b     j     r     z   
         // 3                     # ½     +     3     ;     C     K     S     [     c     k     s                           
         // 4           halt        $     ,     4     <     D     L     T     £     d     l     t      
         // 5            cr         %     -     5     =     E     M     U     ]     e     m     u     
@@ -133,7 +133,7 @@ module Sim900.Telecodes
         // 
         // 0      blank            sp    (     0     8     @     H     P     X   ’ `     h     p     x                                                                        ‘                                           
         // 1            tab        !     )     1     9     A     I     Q     Y     a     i     q     y
-        // 2            lf         "     *     2     :     B     J     R     Z     b     j     r     z   
+        // 2            lf        ""     *     2     :     B     J     R     Z     b     j     r     z   
         // 3                     # £     +     3     ;     C     K     S     [     c     k     s     {                        
         // 4            halt       $     ,     4     <     D     L     T     \     d     l     t     |
         // 5            cr         %     -     5     =     E     M     U     ]     e     m     u     }
@@ -150,7 +150,7 @@ module Sim900.Telecodes
         // 
         // 0      blank            sp    (     0     8     @     H     P     X   ’ `     h     p     x                                                                        ‘                                           
         // 1            tab        !     )     1     9     A     I     Q     Y     a     i     q     y
-        // 2            lf         "     *     2     :     B     J     R     Z     b     j     r     z   
+        // 2            lf        ""     *     2     :     B     J     R     Z     b     j     r     z   
         // 3                       £     +     3     ;     C     K     S     [     c     k     s                              
         // 4            halt       $     ,     4     <     D     L     T   # £     d     l     t      
         // 5                       %     -     5     =     E     M     U     ]     e     m     u      
@@ -314,7 +314,7 @@ module Sim900.Telecodes
         // 
         // 0   space    (      0      8      @      H      P      X               
         // 1    nl      )      1      9      A      I      Q      Y      
-        // 2     "      *      2      :      B      J      R      Z
+        // 2    ""      *      2      :      B      J      R      Z
         // 3    £#      +      3      ;      C      K      S      [
         // 4     $      ,      4      <      D      L      T      \ 
         // 5     %      -      5      =      E      M      U      ]
@@ -543,7 +543,7 @@ module Sim900.Telecodes
                 0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
                 0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
                 0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
-                0o0000;0o2022;0o3000;0o2040;0o2042;0o2104;0o0001;0o2200; //  !"#$%&'
+                0o0000;0o2022;0o3000;0o2040;0o2042;0o2104;0o0001;0o2200; //  !""#$%&'
                 0o2201;0o2202;0o2102;0o2401;0o2044;0o0002;0o2041;0o0014; // ()*+,-./
                 0o0004;0o0010;0o0020;0o0040;0o0100;0o0200;0o0400;0o1000; // 01234567
                 0o2000;0o4000;0o2020;0o2402;0o2101;0o2400;0o2404;0o3004; // 89:;<=>?

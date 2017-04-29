@@ -12,10 +12,11 @@ module Sim900.Machine
 
     open Sim900.Bits
     open Sim900.Telecodes
-    open Sim900.Models    
+    open Sim900.Models
     open Sim900.Devices
     open Sim900.Memory
     open Sim900.Formatting
+    open Sim900.Gpio
                  
     exception Watch       
     exception LoopStop
@@ -23,6 +24,9 @@ module Sim900.Machine
     exception StopLimit
     exception Break
     exception Trace 
+
+    let mutable stopped           = true                             // stop button pushed
+    let mutable reset             = true                             // reset button pushed
 
     // MONITOR POINTS
     // Monitor points are a debugging facility based on the Elliott MONITOR/QCHECK utility.
@@ -187,7 +191,7 @@ module Sim900.Machine
             realTimer.Reset ()
 
         // Speed of simulation
-        let mutable slow = false   
+        let mutable slow = true   
         
         let SlowDown () =
             if   slow
@@ -201,8 +205,7 @@ module Sim900.Machine
                  then System.Threading.Thread.Sleep pause
 
         // MONITORING
-        let mutable stopped           = true                             // stop button pushed
-        let mutable reset             = true                             // reset button pushed
+
         let mutable stopAddr          = -1                               // stop after restart
         let mutable stepCount         = -1                               // counter for STEP command
         let mutable iCount            = 0L                               // instructions executed since last reset
@@ -566,7 +569,7 @@ module Sim900.Machine
         let tapeStopTimeWW       =  250000L     //  25ms - manual says 20ms, XMT71 expects 25ms after write word
         let tapeStopTimeWB       =  200000L     //  20ms
         let tapeStopTimeR        =  118000L     //   11.8 ms
-        let eraseTime            = 1110000L     // erase writes 4" of blank tape - (XMT71 max 111ms)
+        let eraseTime            = 1110000L     // erase writes 4inch of blank tape - (XMT71 max 111ms)
         let backspaceTime        = tapeStartTimeR+tapeStopTimeR // positioning time, also need to add in block time  
      
 
@@ -1099,7 +1102,10 @@ module Sim900.Machine
             // M is (S[16..14}+n)[16..1] or (S[16..14]+B+n)[16..1] if modified
             // m is the contents memory location M
             // Z = N or (N+B)[13..1]
-           
+                      
+
+         
+
             // SHIFT operators for combined accumulator and Q register
             let aqShiftLeft () =
                 accumulator <- (accumulator <<< 1) &&& mask18
@@ -1778,6 +1784,9 @@ module Sim900.Machine
     let SGet ()     = sequenceControlRegister
     let OldSGet ()  = oldSequenceControlRegister
     let SPut value  = sequenceControlRegister 
+    let IGet ()     = iRegister
+    let WGet ()     = wordGenerator
+
     // ACCESS MEMORY     
     
     let ReadStore = ReadMem
@@ -1882,7 +1891,7 @@ module Sim900.Machine
                 with
                 | exn -> stopped <- true 
                          raise exn
-            
+               
                 // increment instruction count
                 iCount <- iCount+1L
                 

@@ -2,7 +2,6 @@
 
 module Sim900.Legible
 
-open Sim900.Version
 open Sim900.Bits
 open Sim900.Telecodes
 open Sim900.Models

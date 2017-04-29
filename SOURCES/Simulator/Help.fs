@@ -8,7 +8,6 @@ module Sim900.Help
         open System.IO
         open System.Windows.Forms
 
-        open Sim900.Version
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Models

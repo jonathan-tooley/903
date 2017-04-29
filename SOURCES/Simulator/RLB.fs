@@ -8,7 +8,6 @@ module Sim900.RLB
 
         open Printf
 
-        open Sim900.Version
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Models

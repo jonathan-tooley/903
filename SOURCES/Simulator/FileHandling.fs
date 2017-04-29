@@ -5,7 +5,6 @@ module Sim900.FileHandling
         open System.IO
         open System.Text
 
-        open Sim900.Version
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Models
@@ -121,7 +120,7 @@ module Sim900.FileHandling
                 // print as integer
                 tw.Write (sprintf " %+8d " number)
                 // print as instruction
-                tw.Write "\\"
+                tw.Write "\\" //"
                 for i in [12;6;0] do
                         let ch = (contents>>>i)&&&mask6
                         tw.Write (match ch with

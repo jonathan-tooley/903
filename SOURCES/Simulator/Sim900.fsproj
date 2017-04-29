@@ -9,10 +9,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Elliott_900_Simulator</RootNamespace>
     <AssemblyName>sim900</AssemblyName>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <Name>Elliott 900 Simulator</Name>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +43,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
@@ -58,13 +59,13 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
-    <Compile Include="Version.fs" />
     <Compile Include="Bits.fs" />
     <Compile Include="TeleCodes.fs" />
     <Compile Include="Models.fs" />
     <Compile Include="Devices.fs" />
     <Compile Include="Memory.fs" />
     <Compile Include="Formatting.fs" />
+    <Compile Include="Gpio.fs" />
     <Compile Include="Machine.fs" />
     <Compile Include="Parameters.fs" />
     <Compile Include="Legible.fs" />
@@ -76,7 +77,6 @@
     <Compile Include="Shell.fs" />
     <Compile Include="Gui.fs" />
     <Compile Include="Main.fs" />
-    <Content Include="TBD and NOTES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

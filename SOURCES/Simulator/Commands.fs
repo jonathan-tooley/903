@@ -6,15 +6,17 @@ module Sim900.Commands
 
         open System.Text
         open System.IO
+        open System
+        open System.Threading
         open System.Windows.Forms
 
-        open Sim900.Version
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Models
         open Sim900.Devices
         open Sim900.Memory
         open Sim900.Formatting
+        open Sim900.Gpio
         open Sim900.Machine
         open Sim900.Parameters
         open Sim900.Legible
@@ -56,10 +58,24 @@ module Sim900.Commands
 
         // display register
         let DisplayRegisters () =
-            stdout.Write "A="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut (AGet()); stdout.Write "    "
-            stdout.Write "Q="; LongSignedPut (QGet ()); stdout.Write "  "; AddressPut (QGet()); stdout.WriteLine ()
-            stdout.Write "B="; LongSignedPut (BGet ()); stdout.Write "  "; AddressPut (BGet()); stdout.Write "    "
-            stdout.Write "S="; LongSignedPut (SGet ()); stdout.Write "  "; AddressPut (SGet()); stdout.WriteLine ()
+            stdout.Write "A="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
+            stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); stdout.WriteLine ()
+
+            stdout.Write "Q="; LongSignedPut (QGet ()); stdout.Write "  "; AddressPut     (QGet ()); 
+            stdout.Write "  "; OctalPut      (QGet ()); stdout.Write "  "; InstructionPut (QGet ()); stdout.WriteLine ()
+
+            stdout.Write "B="; LongSignedPut (BGet ()); stdout.Write "  "; AddressPut     (BGet ()); 
+            stdout.Write "  "; OctalPut      (BGet ()); stdout.Write "  "; InstructionPut (BGet ()); stdout.WriteLine ()
+
+            stdout.Write "S="; LongSignedPut (SGet ()); stdout.Write "  "; AddressPut     (SGet ()); 
+            stdout.Write "  "; OctalPut      (SGet ()); stdout.Write "  "; InstructionPut (SGet ()); stdout.WriteLine ()
+
+            stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()
+
+            stdout.Write "W="; OctalPut      (WGet ()); stdout.WriteLine ()
+             
+
+            //stdout.Write "I=", LongSignedPut (AGetiRegister) 
 
         // display after a problem reported
         let MiniDump () =
@@ -316,123 +332,17 @@ module Sim900.Commands
             Reset ()
             TidyUp ()
 
-       (* // track execution against trace from 903
-        let Track fileName startAddr =
-            let codes = File.ReadAllBytes fileName
-            let Address s index =
-                let relative = (int codes.[index]) &&& 15
-                s + (if relative > 7 then relative-8 else relative)
-            let s0   s index = 
-                        Address s index
-            let sX   s index =
-                let s = Address s index
-                let x = ((((int codes.[index+1]) <<< 16) + ((int codes.[index+2]) <<< 8) + (int codes.[index+3])))        &&& mask18
-                (s, x)
-            let sXY  s index = 
-                let s =  Address s index
-                let x = ((((int codes.[index+1]) <<< 14) + ((int codes.[index+2]) <<< 6) + ((int codes.[index+3])) >>> 2)) &&& mask18                
-                let y = ((((int codes.[index+3]) <<< 16) + ((int codes.[index+4]) <<< 8) +  (int codes.[index+5])))        &&& mask18
-                (s, x, y)
-            let sQAB s index = 
-                let s =  Address s index
-                let q = ((((int codes.[index+1]) <<< 12) + ((int codes.[index+2]) <<< 4) + ((int codes.[index+2])) >>> 4))  &&& mask18
-                let a = ((((int codes.[index+2]) <<< 14) + ((int codes.[index+3]) <<< 6) + ((int codes.[index+4])) >>> 2))  &&& mask18
-                let b = ((((int codes.[index+4]) <<< 16) + ((int codes.[index+6]) <<< 8) +  (int codes.[index+7])))         &&& mask18
-                (s, q, a , b)
-            let S0   index = 
-                        (((int codes.[index+1]) <<<  8) + (int codes.[index+2])) &&& mask16
-            let SX   index = 
-                let s = S0 index
-                let x = ((((int codes.[index+3]) <<< 16) + ((int codes.[index+4]) <<< 8) + (int codes.[index+5])))         &&& mask18
-                (s, x)
-            let SXY  index =
-                let s = S0 index
-                let x = ((((int codes.[index+3]) <<< 14) + ((int codes.[index+4]) <<< 6) + ((int codes.[index+5])) >>> 2)) &&& mask18                
-                let y = ((((int codes.[index+5]) <<< 16) + ((int codes.[index+6]) <<< 8) +  (int codes.[index+7])))        &&& mask18
-                (s, x, y)
-            let SQAB index =  
-                let s = S0 index
-                let q = ((((int codes.[index+3]) <<< 12) + ((int codes.[index+4]) <<< 4) + ((int codes.[index+4])) >>> 4)) &&& mask18
-                let a = ((((int codes.[index+4]) <<< 14) + ((int codes.[index+5]) <<< 6) + ((int codes.[index+6])) >>> 2)) &&& mask18
-                let b = ((((int codes.[index+6]) <<< 16) + ((int codes.[index+8]) <<< 8) +  (int codes.[index+9])))        &&& mask18
-                (s, q, a , b)
-            let rec Decode index a q b s =
-                if   index = codes.Length
-                then printfn "Finished Tracking"
-                elif index > codes.Length
-                then failwith "Decoding Error (shouldn't happen)"
-                else let ci = int codes.[index]
-                     if    ci = 0
-                     then Decode (index+1) a q b s
-                     else let fn = ci >>> 4
-                          let regs = [|"s---"; "s--Q"; "s-A-"; "s-AQ"; "sB--"; "sB-Q"; "sBA-"; "sBAQ"; "S---"; "S--Q"; "S-A-"; "S-AQ"; "SB--"; "SB-Q"; "SBA-"; "SBAQ"|]
-                          printf "%s " regs.[fn]
-                          match fn with
-                            |  0   ->   // s
-                                        let s = Address s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+1) a q b s
-                            |  1   ->   // sQ
-                                        let s, q = sX s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+4)  a q b s
-                            |  2   ->   // sA
-                                        let s, a = sX s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+4) a q b s
-                            |  3   ->   // sQA
-                                        let s, q, a = sXY s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+6) a q b s
-                            |  4   ->   // sB
-                                        let ss b = sX s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+4) a q b s
-                            |  5   ->   // sQB
-                                        let s, q, b = sXY s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+6) a q b s
-                            |  6   ->   // sAB
-                                        let s, a, b = sXY s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+6) a q b s
-                            |  7   ->   // sQAB
-                                        let s, q, a, b = sQAB s index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+8) a q b s
-                            |  8   ->   // S
-                                        let s = S0 index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+3) a q b s
-                            |  9   ->   // SQ
-                                        let s, q = SX index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+6) a q b s
-                            | 10   ->   // SA
-                                        let s, a = SX index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+6) a q b s
-                            | 11   ->   // SQA
-                                        let s, q, a = SXY index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+8) a q b s
-                            | 12   ->   // SB
-                                        let s, b = SX index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+8) a q b s
-                            | 13  ->    // SQB
-                                        let s, q, b = SXY index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+8) a q b s
-                            | 14   ->   // SAB
-                                        let s, a, b = SXY index
-                                        TracePut 4 s 0 a q b
-                                        Decode (index+8) a q b s
-                            | 15   ->   // SQAB
-                                        TracePut 4 s 0 a q b
-                                        let s, q, a, b = SQAB index
-                                        Decode (index+10) a q b s
-                            |  _   ->   failwith "Internal Error in Tracker (shouldn't happen!)"
-            Decode 0 0 0 0 0*)
+        let mutable disp = 0
 
-        
+        let updateDisplay() =
+            async {
+                while true do
+                    Thread.Sleep(5000)
+                    disp <- 0 
+                    if reset   then disp <- (disp ||| 0x80)
+                    wiringPiI2CWriteReg8 controlPanelU1 0x14 ( disp )  |> ignore
+                    disp <- wiringPiI2CReadReg8 controlPanelU1 0x12
+                    //OctalPut disp 
+                    if disp &&& 0x40 = 0x40 then Reset ()
+                    }
+
