@@ -19,7 +19,7 @@ do
 
     MessagePut "Simulation Starting"
 
-    setupControlPorts () 
+    setupControlPorts ()
 
     // Run commands
     let work = Commands.updateDisplay() |> Async.StartAsTask

@@ -63,6 +63,7 @@ module Sim900.Gpio
      extern int wiringPiI2CReadReg16 (int fd, int reg);
 
    let mutable controlPanelU1 = 0
+   let mutable controlPanelU2 = 0
    let mutable punchPort      = 0
 
    let wiringPiSetup                    = wiringPi.wiringPiSetup
@@ -73,6 +74,19 @@ module Sim900.Gpio
    let wiringPiI2CWriteReg8 fd reg data = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
    let wiringPiI2CReadReg8  fd reg      = I2C.wiringPiI2CReadReg8 (fd, reg)
 
+   type MCP23017 =
+       | IODIRA = 0x00 //GPIO Bank A pin directions
+       | IODIRB = 0x01 //GPIO Bank B pin directions
+       | IPOLA  = 0x02 //GPIO Bank A input polarity
+       | IPOLB  = 0x03 //GPIO Bank B input polarity
+       | GPPUA  = 0x0C //GPIO Bank A pull up resistor settings
+       | GPPUB  = 0x0D //GPIO Bank A pull up resistor settings
+       | GPIOA  = 0x12 //GPIO Bank A input values
+       | GPIOB  = 0x13 //GPIO Bank B input values
+       | OLATA  = 0x14 //Output Latch Bank A
+       | OLATB  = 0x15 //Output Latch Bank B
+
+
    let setupControlPorts () =
        wiringPiSetup ()
 
@@ -80,7 +94,60 @@ module Sim900.Gpio
        pinMode 2 GPIO.pinType.Input   // Setup pin 2 as in input.  This is for the punch to effect a handshake by reporting when it is busy
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
-       wiringPiI2CWriteReg8 controlPanelU1 0x00 0x40 //Just for now set everything as an output except pin 27 of the MCP
+       controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
+
+       // U1 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //27 : Reset push button               |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //25 : On push button                  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //23 : Off push button                 |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //22 : Key Switch "Operate"            |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
+       //21 : Key Switch "Test"               |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
+       // 7 : Restart push button                                        |  | 1|  |  |  |  |  |  |
+       // 5 : Stop push button                                           |  |  |  | 1|  |  |  |  |
+       // 3 : Jump push button                                           |  |  |  |  |  | 1|  |  |
+       // 2 : WG Switch 2                                                |  |  |  |  |  |  | 1|  |
+       // 1 : WG Switch 1                                                |  |  |  |  |  |  |  | 1|
+
+       // U1 Outputs
+       //28 : Reset button indicator          | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //26 : On button indicator light       |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //24 : Off button indicator light      |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
+       // 8 : Restart button indicator light                             | 1|  |  |  |  |  |  |  |
+       // 6 : Stop button indicator light                                |  |  | 1|  |  |  |  |  |
+       // 4 : Jump indicator light                                       |  |  |  |  | 1|  |  |  |
+
+       //Setup Registors for GPIO 
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IODIRA) 0b01010111 |> ignore //Set bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IODIRB) 0b01010111 |> ignore //Set bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.GPPUA ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.GPPUB ) 0b01010111 |> ignore //Set pull up resistors on bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IPOLA ) 0b01010111 |> ignore //Reverse bank A input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IPOLB ) 0b01010111 |> ignore //Reverse bank B input polarity
+
+       // U2 Inputs
+       //28 : 512   Bit 10
+       //27 : 256   Bit  9
+       //26 : 128   Bit  8
+       //25 : 64    Bit  7
+       //24 : 32    Bit  6
+       //23 : 16    Bit  5
+       //22 : 8     Bit  4
+       //21 : 4     Bit  3
+       // 8 : /     Bit 18
+       // 7 : 8     Bit 17
+       // 6 : 4     Bit 16
+       // 5 : 2     Bit 15
+       // 4 : 1     Bit 14
+       // 3 : 4096  Bit 13
+       // 2 : 2048  Bit 12
+       // 1 : 1024  Bit 11
+
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IODIRA) 0b11111111 |> ignore //Bank A is all inputs
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.GPPUA ) 0b11111111 |> ignore //Bank A pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.GPPUB ) 0b11111111 |> ignore //Bank B pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IPOLA ) 0b11111111 |> ignore //Bank A polarity 
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IPOLB ) 0b11111111 |> ignore //Bank A polarity
 
    let mutable handShake = GPIO.pinValue.Low
    

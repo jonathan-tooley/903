@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="Sim900.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Gpio.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Commands.fs">
     <Files>
-      <File FileName="Commands.fs" Line="346" Column="50" />
-      <File FileName="Gpio.fs" Line="90" Column="50" />
-      <File FileName="Main.fs" Line="13" Column="26" />
+      <File FileName="Commands.fs" Line="341" Column="40" />
       <File FileName="Formatting.fs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

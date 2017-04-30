@@ -25,8 +25,15 @@ module Sim900.Machine
     exception Break
     exception Trace 
 
-    let mutable stopped           = true                             // stop button pushed
-    let mutable reset             = true                             // reset button pushed
+    let mutable stopped           = false                             // stop button pushed
+    let mutable reset             = false                             // reset button pushed
+
+    type mode =
+        | Auto
+        | Operate
+        | Test
+
+    let mutable operate           = mode.Auto                        // Keyswitch position defaults to auto
 
     // MONITOR POINTS
     // Monitor points are a debugging facility based on the Elliott MONITOR/QCHECK utility.
@@ -52,6 +59,8 @@ module Sim900.Machine
     // MACHINE INTERNAL STATE
 
     // Initial values are for 64K 920b
+
+    let mutable wordGenerator              = 0       // setting of keys on control panel
 
     module private MachineStateHelper =
 
@@ -160,7 +169,7 @@ module Sim900.Machine
         let mutable relative                   = true    // false for 920C style absolute addressing
         let mutable holdUp                     = true    // true if paper tape station i/o is blocking, false otherwise
         
-        let mutable wordGenerator              = 0       // setting of keys on control panel
+     
 
         // TIMING
         let mutable cpuTime           = 0L    // execution time in microseconds * 10

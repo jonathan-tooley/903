@@ -322,7 +322,8 @@ module Sim900.Commands
         let turnOff () =
             TidyUpDevices ()
             TidyUpMachine ()
-            on <- false
+            reset <- false
+            on    <- false
 
         // turn on machine in specified configuration                  
         let turnOn arch memSize memSpeed ptrSpeed =
@@ -332,17 +333,91 @@ module Sim900.Commands
             Reset ()
             TidyUp ()
 
-        let mutable disp = 0
+        //For our control panel we will need some variables to read inputs, write outputs and debounce keys
+        let mutable PanelInput  = 0
+        let mutable PanelOutput = 0
+        let mutable ResetButton = false
+        let mutable OnButton    = false
+        let mutable OffButton   = false
 
         let updateDisplay() =
             async {
                 while true do
-                    Thread.Sleep(5000)
-                    disp <- 0 
-                    if reset   then disp <- (disp ||| 0x80)
-                    wiringPiI2CWriteReg8 controlPanelU1 0x14 ( disp )  |> ignore
-                    disp <- wiringPiI2CReadReg8 controlPanelU1 0x12
-                    //OctalPut disp 
-                    if disp &&& 0x40 = 0x40 then Reset ()
-                    }
+                    Thread.Sleep(250)
+
+                    //Update MCP23017 U2 Inputs which are all from the word generator
+                    //Read from bank B and shift left 10 digits.  This is the most significant inputs
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOB) <<< 10
+                    //Read from bank A and shift left  2 digits.  The final 2 bits are read from the U1 chip
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOA) <<< 2)
+                    InstructionPut PanelInput; EnsureNewLine () 
+
+                    //Update MCP23017 U1 Outputs
+                    (* PanelOutput <- 0
+                     
+                    if reset   then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on      then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator
+                    if not on  then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+
+                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.OLATA) ( PanelOutput )  |> ignore
+
+                    PanelOutput <- 0
+
+                    // The restart button on the original ELLIOT did not have an indicator
+                    // We have defined an indicator logic here to indicate when restart can be used
+                    if on      && 
+                       stopped &&
+                       (operate = mode.Operate || operate = mode.Test) &&
+                       not reset  then PanelOutput <- (PanelOutput ||| 0b10000000)
+                    if stopped    then PanelOutput <- (PanelOutput ||| 0b00100000)
+                    // The Jump button on the original ELLIOT did not have an indicator
+                    // We have defined an indicator logic here to indicate when jum can be used
+                    if on      &&
+                       stopped &&
+                       (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
+
+                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.OLATB) ( PanelOutput )  |> ignore
+
+                    // Handle MCP23017 U1 inputs
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOA)
+                    if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton
+                        then MessagePut ("Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177")
+                             ResetButton <- true;     Reset ()
+                             WordGeneratorPut (GetConstant "8177"); Jump TracePut MonitorPut
+
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on && not (operate = mode.Auto) && not ResetButton
+                        then MessagePut ("Reset button pressed.  Resetting.")
+                             ResetButton <- true;     Reset ()
+                    
+                    if PanelInput &&& 0b00010000 = 0b00010000 && not on
+                        then MessagePut ("On button pressed.  Starting default system")
+                             turnOn Generic900.name Generic900.memSize Generic900.memSpeed Generic900.ptrSpeed
+
+                    if PanelInput &&& 0b00000100 = 0b00000100 && on
+                        then MessagePut ("Off button pressed.  Turning off")
+                             turnOff ()
+
+                    if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
+                        then MessagePut ("Keyswitch turned to test")
+                             operate <- mode.Test
+
+                    if PanelInput &&& 0b00000010 = 0b00000010 && not (operate = mode.Operate)
+                        then MessagePut ("Keyswitch turned to operate")
+                             operate <- mode.Operate
+
+                    if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
+                        then MessagePut ("Keyswitch turned to auto")
+                             operate <- mode.Auto
+
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOB)
+
+                    // Update the number generator
+                    if wordGenerator <> (wordGenerator &&& 0x3FFFC ||| (PanelInput &&& 0b00000011))
+                        then wordGenerator <- wordGenerator &&& 0x3FFFC ||| (PanelInput &&& 0b00000011)
+                             MessagePut ("Word Generator Updated"); InstructionPut wordGenerator *)
+                    
+                   
+
+                  }
 
