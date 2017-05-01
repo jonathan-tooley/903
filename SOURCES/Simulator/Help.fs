@@ -1,6 +1,6 @@
 ﻿#light
 
-// Elliott 903 Algol simulator HELP command
+// Elliott 903 simulator HELP command
 
 module Sim900.Help
 
@@ -17,15 +17,11 @@ module Sim900.Help
         open Sim900.Machine
         open Sim900.Parameters
         open Sim900.Legible
-        open Sim900.RLB
         open Sim900.FileHandling
-        open Sim900.Loaders
         open Sim900.Commands
 
         let Help word =
             let helptxt = [|
-                    "ALGol ON | OFF";
-                    "    Trace Algol parameter words";
                     "ATtach CRD FILE filename";
                     "    Take card reader input from file";
                     "ATtach CRD INLINE";
@@ -46,8 +42,6 @@ module Sim900.Help
                     "   Take teleprinter input from command input as text";
                     "ATtach TTY INLINE BIN [mode]"
                     "    Take teleprinter input from command input as binary";
-                    "AUTO";
-                    "    Simulate an AUTOSTART";
                     "Break OFF";
                     "   Disable all breakpoints";
                     "Break OFF address {address}";
@@ -62,8 +56,6 @@ module Sim900.Help
                     "   Clear all of store";
                     "CLear address";
                     "   Clear 8K store module which includes address";
-                    "COMPare copy master";
-                    "   Compare two paper tape files";
                     "DELete file";
                     "    Delete file";
                     "DEtach CRD";
@@ -76,8 +68,6 @@ module Sim900.Help
                     "   Disconnect punch from current output (if any)";
                     "DEtach PTR";
                     "   Disconnect reader from current input (if any)";
-                    "DIRectory";
-                    "   List files in current directory";
                     "Display first last";
                     "   Show contents of memory in range first..last";
                     "Display address"; 
@@ -92,8 +82,6 @@ module Sim900.Help
                     "   Store value in specified memory location";
                     "Find value";
                     "   Report locations in store cotaining specified value";
-                    "FIXrlb from to";
-                    "   Repair checksum in rlb";
                     "FAST";
                     "   Run simulation at full speed";
                     "Help ";
@@ -114,12 +102,6 @@ module Sim900.Help
                     "   Load image file into memory";
                     "LoadModule moduleNo file";
                     "   Load memory module from file";
-                    "LOG OFF";
-                    "   Switch off logging";
-                    "LOG ON";
-                    "   Switch on logging";
-                    "LOG filename";
-                    "   Send logging output to specified file";
                     "MONitor ON address regions";
                     "   Display memory regions if execution reaches specified address";
                     "MONITOR OFF address";
@@ -151,10 +133,6 @@ module Sim900.Help
                     "    Set plotter origin relative to (0, 0)";
                     "Pause";
                     "   Wait for input before continuing"
-                    "PRint file [mode]";
-                    "   Pretty print file (format based on extension; mode applies to .RAW, .BIN and .RLB input)";
-                    "PRintAlgol file [mode]";
-                    "   Pretty print file as ALGOL intermediate code";
                     "QCheck from to format [from to format]";
                     "   Output memory in AMEND format"
                     "Quit";
@@ -171,14 +149,10 @@ module Sim900.Help
                     "    Rewind card reader input";
                     "ReWind PTR";
                     "   Rewind paper tape input"
-                    "RLBTOSIR src dest [MODE1]";
-                    "    Read RLB from file src and output as SIR to file dest";
                     "RUNOUT ON | OFF";
                     "    Turn on (off) addition of runout padding to text files";
                     "SCALE n";
                     "    Scale plotting by 1/n";
-                    "SCBdecode";
-                    "    Decode sum checked binary tape";
                     "SELECT IN PTR | AUTO | TTY"
                     "    Select paper tape input device";
                     "SELECT OUT PTP | AUTO | TTY";
@@ -221,8 +195,7 @@ module Sim900.Help
                     "    Apply tracing to entire store"; 
                     "TraceRegion from to";
                     "    Restrict tracing to specified address range";
-                    (*"TRACK file start";
-                    "    Run tracking against file, triggering at address";*)
+
                     "Watch ON loc";
                     "    Monitor store location";
                     "Watch OFF";

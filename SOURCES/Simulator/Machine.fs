@@ -219,12 +219,9 @@ module Sim900.Machine
         let mutable stepCount         = -1                               // counter for STEP command
         let mutable iCount            = 0L                               // instructions executed since last reset
         let mutable tracing           = false                            // true to turn on instruction by instruction trace output
-        let mutable algolTracing      = false                            // true to turn on Algol tracing
-        let mutable nxpordAddr        = -1                               // location of nxpord in Algol interpreter
         let mutable traceLevel        = [|true; true; true; true; true|] // which levels should appear in a trace    
         let mutable traceStart        = -1                               // if >= 0, start of region to trace
         let mutable traceFinish       = 0                                // if traceStart >= 0, end of region to trace        
-        let mutable logging           = false                            // true to turn on logging of instruction execution
         let mutable strobe            = false                            // true if any monitoring function is enabled
 
         let monitors    = new Dictionary<int, list<region>> ()
@@ -242,7 +239,7 @@ module Sim900.Machine
 
         let CheckForStrobe () = 
             strobe <- Seq.length monitors > 0 || breakpoints.Count > 0 ||  stepCount >= 0 || stopAddr >= 0
-            || tracing || algolTracing || logging || lpTime > elapsedTime || crTime > elapsedTime 
+            || tracing || lpTime > elapsedTime || crTime > elapsedTime 
             || mtIntTime > elapsedTime || watchLoc >= 0
                       
         // INTERRUPTS 
@@ -1080,8 +1077,8 @@ module Sim900.Machine
         let Reader Z = 
             match SelectInput with
             | ReaderIn
-            | AutoIn        -> ReaderInput Z
-            |teleprinterIn  -> TTYInput Z
+            | AutoIn         -> ReaderInput Z
+            | TeleprinterIn  -> TTYInput Z
 
         let TTYIn Z =
             match SelectInput with
@@ -1093,7 +1090,7 @@ module Sim900.Machine
             match SelectOutput with
             | PunchOut
             | AutoOut         -> PunchOutput Z
-            | teleprinterOut  -> TTYOutput Z
+            | TeleprinterOut  -> TTYOutput Z
 
         let TTYOut Z =
             match SelectOutput with
@@ -1692,24 +1689,6 @@ module Sim900.Machine
      
     // DEBUGGING FACILITIES  
 
-    let AlgolOff () = 
-        algolTracing <- false
-        CheckForStrobe ()
-
-    let AlgolOn ()  = 
-        let rec Helper n = // look for NXPORD in interpreter
-            if    n >= 4000
-            then raise(Machine "NXPORD not found")
-            elif (memory.[n]   = 135) &&
-                 (memory.[n+1] = (bit18+bit16)) &&
-                 (memory.[n+2] = (bit17+bit15+135))
-            then // found NXPORD sequence
-                 n+2
-            else Helper (n+1)
-        nxpordAddr <- Helper 8
-        algolTracing <- true
-        strobe <- true
-
     let MonitorOn (m: monitor) = // add a monitor, merging with any pre-existing monitor for same address
         let found, regions = monitors.TryGetValue m.addr
         if   found
@@ -1748,15 +1727,6 @@ module Sim900.Machine
 
     let BreakpointOffAll () =
         breakpoints.Clear ()
-        CheckForStrobe ()
-
-    let LoggingOn () =
-        if   LogFileOpen ()
-        then logging <- true
-             strobe  <- true
-
-    let LoggingOff () =
-        logging <- false
         CheckForStrobe ()
 
     let Steps count  = 
@@ -1911,10 +1881,6 @@ module Sim900.Machine
                 // check for any strobes (breakpoints etc)
                 if   strobe
                 then YieldToDevices ()
-                     if   logging
-                     then Log (fun () -> TracePut oldLevel oldSequenceControlRegister 
-                                                     (ReadStore oldSequenceControlRegister)
-                                                      accumulator qRegister memory.[bRegisterAddr])
                      if   tracing 
                      then if traceLevel.[oldLevel] && (traceStart < 0 
                                                    || (traceStart <= oldSequenceControlRegister 
@@ -1922,10 +1888,6 @@ module Sim900.Machine
                           then tracePut oldLevel oldSequenceControlRegister 
                                              (ReadStore oldSequenceControlRegister)
                                                 accumulator qRegister memory.[bRegisterAddr]
-
-                     if   algolTracing && sequenceControlRegister = nxpordAddr
-                     then let pp = ReadStore 135
-                          algolPut pp (ReadStore pp)
 
                      if watch
                      then YieldToDevices ()
@@ -2058,8 +2020,7 @@ module Sim900.Machine
         SelectInput  <- AutoIn
         SelectOutput <- AutoOut
         TidyUpMT ()
-        algolTracing <- false
-        
+         
     // TIMING INFO
     let Times () = 
         let pcTime = realTimer.ElapsedMilliseconds

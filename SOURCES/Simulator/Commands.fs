@@ -1,7 +1,5 @@
 ﻿#light
 
-// Elliott 903 Algol simulator commands
-
 module Sim900.Commands
 
         open System.Text
@@ -20,9 +18,7 @@ module Sim900.Commands
         open Sim900.Machine
         open Sim900.Parameters
         open Sim900.Legible
-        open Sim900.RLB
         open Sim900.FileHandling
-        open Sim900.Loaders
 
         exception Quit
    
@@ -224,86 +220,7 @@ module Sim900.Commands
             Helper -1 words
             stdout.WriteLine "%" 
             
-        // show Algol stack
-        let Stack () =
-            let epLoc  = 137
-            let evnLoc =  16
-            let spLoc  = 136
-            let ppLoc  = 135
-            let bnLoc  = 139
-            let ep     = ReadStore epLoc
-            let evn    = ReadStore evnLoc
-            let bn     = ReadStore bnLoc
-            let pp     = ReadStore ppLoc
 
-            // Output current stack information
-            stdout.Write "EP=  "; AddressPut      ep;  stdout.WriteLine ()
-            stdout.Write "ENV= "; AddressPut      evn; stdout.WriteLine ()
-            stdout.Write "BN=  "; ShortNaturalPut bn;  stdout.WriteLine ()
-            stdout.Write "PP=  "; AddressPut (ReadStore ppLoc);  stdout.Write "  "
-            // identify current instruction and print
-            let instruction = ReadStore (pp-1)
-            let block = instruction &&& 0o017760
-            let op = MFAlgol instruction
-            if    op = ""
-            then stdout.Write (Prim instruction)
-            else stdout.Write op; stdout.Write ' '; ShortNaturalPut (instruction&&&mask13)
-            stdout.Write"  Block= "; stdout.WriteLine block
-            stdout.Write "SP=  "; AddressPut (ReadStore spLoc);  stdout.WriteLine ()
-            stdout.WriteLine (); stdout.WriteLine ()
-
-            // print a stack recursively
-            let rec Entry ep evn bn block count =
-                let evnNext = ReadStore (ep+4)
-                let bnNext  = ReadStore (ep+3)
-                let spNext  = ReadStore (ep+2)
-                let ppNext  = ReadStore (ep+1)
-                let epNext  = ReadStore ep
-                let forEntry = spNext &&& bit18 = bit18
-                // output stack frame
-                stdout.Write "          "; 
-                if   forEntry then stdout.Write "*******" else AddressPut evnNext
-                stdout.WriteLine ()
-                stdout.Write "          "; AddressPut bnNext;  stdout.WriteLine ()
-                stdout.Write "          "; AddressPut spNext;  stdout.WriteLine ()
-                stdout.Write "          "; AddressPut ppNext;  stdout.WriteLine ()
-                AddressPut ep; stdout.Write "   "; AddressPut epNext; 
-                // output stack frame type
-                if forEntry 
-                then stdout.Write " FOR" 
-                elif bn = 16
-                then stdout.Write " THUNK"
-                else printf " PROC %4d" bn
-                // print arguments
-                if    count > 10
-                then stdout.WriteLine "\n          etc, etc"
-                else let Formals () = 
-                         // print out arguments
-                         let rec Helper i =
-                             if  i >= epNext+4
-                             then printfn "          %+7d %+7d %+7d" 
-                                            (Normalize (ReadStore i)) 
-                                            (Normalize (ReadStore (i+1))) 
-                                            (Normalize (ReadStore (i+2)))
-                                  Helper (i-3)
-                         Helper (ep-3)                
-                     if epNext <> ep
-                     then // not at base of stack
-                          if    ep = evn
-                          then // found right environment
-                               stdout.Write " *" 
-                               if   bn = block
-                               then stdout.WriteLine " <<<<"; stdout.WriteLine (); Formals (); stdout.WriteLine ()
-                                    Entry epNext -1 bnNext -1 (count+1) // stop looking for block
-                               else stdout.WriteLine ();      stdout.WriteLine (); Formals (); stdout.WriteLine ()
-                                    Entry epNext evnNext bnNext block (count+1) // continue looking for block
-                          else // still looking for environment
-                               stdout.WriteLine (); stdout.WriteLine (); Formals (); stdout.WriteLine ()
-                               Entry epNext evn bnNext block (count+1)
-
-            // print stack
-            Entry ep ep bn block 1  
-            
         // display trace buffer
         let TraceBuffer () =
             for i in TraceBuffer () do
@@ -345,15 +262,22 @@ module Sim900.Commands
                 while true do
                     Thread.Sleep(250)
 
-                    //Update MCP23017 U2 Inputs which are all from the word generator
-                    //Read from bank B and shift left 10 digits.  This is the most significant inputs
+                    // Update the word generator using MCP23017 U1 & U2 Inputs  
+                    // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOB) <<< 10
-                    //Read from bank A and shift left  2 digits.  The final 2 bits are read from the U1 chip
+                    // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
                     PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOA) <<< 2)
-                    InstructionPut PanelInput; EnsureNewLine () 
+                    // Read from U1 bank B the final two bits, 2 and 1
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOB) &&& 0x3)
+
+                    // Update the word generator
+
+                    if wordGenerator <> PanelInput 
+                      then wordGenerator <- PanelInput
+                           MessagePut ("Word Generator has been updated to: "); InstructionPut PanelInput; 
 
                     //Update MCP23017 U1 Outputs
-                    (* PanelOutput <- 0
+                    PanelOutput <- 0
                      
                     if reset   then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
                     if on      then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator
@@ -410,12 +334,6 @@ module Sim900.Commands
                         then MessagePut ("Keyswitch turned to auto")
                              operate <- mode.Auto
 
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOB)
-
-                    // Update the number generator
-                    if wordGenerator <> (wordGenerator &&& 0x3FFFC ||| (PanelInput &&& 0b00000011))
-                        then wordGenerator <- wordGenerator &&& 0x3FFFC ||| (PanelInput &&& 0b00000011)
-                             MessagePut ("Word Generator Updated"); InstructionPut wordGenerator *)
                     
                    
 

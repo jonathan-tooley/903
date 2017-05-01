@@ -14,9 +14,8 @@ module Sim900.FileHandling
         open Sim900.Machine
         open Sim900.Parameters
         open Sim900.Legible
-        open Sim900.RLB
 
-        // Elliott 903 Algol simulator file handling commands
+        // Elliott 903 simulator file handling commands
 
         // Delete
         let Delete file =
@@ -222,85 +221,6 @@ module Sim900.FileHandling
             Directory.EnumerateFileSystemEntries "." 
                 |> Seq.iter (fun s -> printfn "%s" s.[2..])
 
-        // pretty printer
-        let TabText  telecode (chars: byte[]) =
-            let rec tabs inx out =
-                if   inx < chars.Length
-                then let text = UTFOf telecode chars.[inx]
-                     if   text = "\r\n" || text = "\n"  // 920 telecode maps \n to \r\n
-                     then TTYPrint "\r\n"
-                          tabs (inx+1) 1
-                     elif text = "\r"  
-                     then tabs (inx+1) 1 // ignore return  
-                     elif text <> "\t"
-                     then (sprintf "%s" text) |> TTYPrint
-                          tabs (inx+1) (out+text.Length)
-                     else let col =
-                             if out < 11 then 11 else (out + 3) / 10 * 10 + 7 // 1,11,17,27,37,47,...
-                          // printfn "\n inx %3d out %3d col %3d" inx out col 
-                          for i = out to col-1 do TTYPrint " "
-                          tabs (inx+1) col
-            tabs 0 0
-
-        let Title f = (sprintf "\r\n\nPrint File %s\n\n" f) |> TTYPrint
-
-        let PrettyACD f = 
-            Title f
-            File.ReadAllText f |> TranslateFromText TACD Mode3 |> TabText TACD
-
-        let Pretty900 f = 
-            Title f
-            File.ReadAllText f |> TranslateFromText T900 Mode3 |> TabText T900
-
-        let Pretty903 f = 
-            Title f
-            File.ReadAllText f |> TranslateFromText T903 Mode3 |> TabText T903
-
-        let Pretty920 f = 
-            Title f
-            File.ReadAllText f |> TranslateFromText T920 Mode3 |> TabText T920
-
-        let TabBinary (bytes: byte[]) =
-            for i = 0 to bytes.Length-1 do
-                    (sprintf "%4d" bytes.[i]) |> TTYPrint
-                    if i%20 = 19 then TTYPrint "\n"
-
-        let PrettyBin f mode = 
-            Title f
-            TranslateFromBinary mode (File.ReadAllText  f) |> TabBinary
-
-        let PrettySIRRLB f mode =  
-            Title f     
-            TranslateFromBinary mode (File.ReadAllText  f) |> DecodeSIRRLB
-
-        let PrettyALGRLB f mode =  
-            Title f      
-            TranslateFromBinary mode (File.ReadAllText  f) |> DecodeALGRLB
-        
-        let PrettyDat f = 
-            Title f
-            TTYPrint (File.ReadAllText f)   
-
-        let PrettyRaw f mode = 
-            Title f            
-            TranslateFromRaw mode (File.ReadAllBytes  f) |> TabBinary
-
-        let Print (f: string) mode =
-            if f.Length > 4
-            then let extn = f.[f.Length-4..]
-                 match extn with 
-                 | ".ACD" -> PrettyACD f
-                 | ".900" -> Pretty900 f 
-                 | ".903" -> Pretty903 f 
-                 | ".920" -> Pretty920 f
-                 | ".BIN" -> PrettyBin f mode 
-                 | ".RLB" -> PrettySIRRLB f mode
-                 | ".RAW" -> PrettyRaw f mode
-                 | ".DAT" 
-                 | ".TXT" -> PrettyDat f
-                 | _      -> raise (Syntax "Not a DAT, TXT, 900, 903, 920, BIN, RLB or RAW file")
-             else raise (Syntax "File name does not include an extension, e.g., .903")                 
-
         // read inline text
         let ReadInlineText () =
             let s = new StringBuilder ()
@@ -410,68 +330,7 @@ module Sim900.FileHandling
                  use out = new StreamWriter (prefix+extn)
                  for b in bytes do out.Write (UTFOf telecode b)
                  out.Close ()
-
-        // compare files
-        let Compare (master: string) (copy: string)  =
-            let BadFile f = raise (Syntax (f + " file extension must be .ACD, .BIN, .RLB, .RAW, .DAT, .TXT, .900, .903 or .920"))
-            if   master.Length < 5
-            then BadFile master
-            elif copy.Length < 5
-            then BadFile copy
-            else let mextn = master.Substring(master.Length-4, 4)
-                 let mbytes =
-                    match mextn with
-                    | ".BIN" | ".RLB"           -> File.ReadAllText master  |> TranslateFromBinary    Mode3
-                    | ".RAW"                    -> File.ReadAllBytes master |> TranslateFromRaw       Mode3
-                    | ".ACD"                    -> File.ReadAllText master  |> TranslateFromText TACD Mode3
-                    | ".900" | ".DAT" | ".TXT"  -> File.ReadAllText master  |> TranslateFromText T900 Mode3
-                    | ".903"                    -> File.ReadAllText master  |> TranslateFromText T903 Mode3
-                    | ".920"                    -> File.ReadAllText master  |> TranslateFromText T920 Mode3
-                    | _                         -> BadFile master
-                 let cextn = copy.Substring(copy.Length-4, 4)
-                 let cbytes =
-                    match cextn with
-                    | ".BIN" | ".RLB"           -> File.ReadAllText copy  |> TranslateFromBinary    Mode3
-                    | ".RAW"                    -> File.ReadAllBytes copy |> TranslateFromRaw       Mode3
-                    | ".ACD"                    -> File.ReadAllText copy  |> TranslateFromText TACD Mode3
-                    | ".900" | ".DAT" | ".TXT"  -> File.ReadAllText copy  |> TranslateFromText T900 Mode3
-                    | ".903"                    -> File.ReadAllText copy  |> TranslateFromText T903 Mode3
-                    | ".920"                    -> File.ReadAllText copy  |> TranslateFromText T920 Mode3
-                    | _                         -> BadFile copy
-                 let sm, fm = Trim mbytes
-                 let lm = fm-sm+1
-                 let sc, fc = Trim cbytes
-                 let lc = fc-sc+1
-                 if   lm < lc
-                 then printfn "Master file (%s) is smaller than copy (%s): %d %d" master copy lm lc
-                 else let rec Scan midx cidx errors =
-                        if   midx <= fm
-                        then // still have bytes to scan
-                             if   mbytes.[midx] = cbytes.[cidx]
-                             then // match
-                                  Scan (midx+1) (cidx+1) errors
-                             elif (midx+1) <= fm
-                             then // more bytes left to scan
-                                  if   mbytes.[midx+1] = cbytes.[cidx]
-                                  then // dropped character
-                                       printfn "%6d %4d (Missing byte)" (midx-sm) mbytes.[midx]
-                                       Scan (midx+2) (cidx+1) (errors+1)
-                                  elif mbytes.[midx+1] = cbytes.[cidx+1]
-                                  then // mispunch
-                                       printfn "%6d %4d (Mispunch)" (midx-sm) (256+(int mbytes.[midx]))
-                                       Scan (midx+1) (cidx+1) (errors+1)
-                                  else // other error
-                                       printfn "Compare abandoned - files diverge at byte %d" (midx+1)
-                             else // at last byte
-                                  printfn "%6d %+3d (Mispunch)" (midx-sm) (256+(int mbytes.[midx]))
-                                  Scan (midx+1) (cidx+1) (errors+1)
-                        elif cidx <= fc
-                        then  printfn "Problem: %d unused bytes in copy file" (fc-cidx+1)
-                        elif errors > 0 
-                        then printfn "%6d %6d (Complete)" -1 (lc-1)
-                        else printfn "No mismatches found in %d bytes" (fm-sm+1)
-                      Scan sm sc  0                                    
-                        
+                     
         // verify image
         let VerifyImage fileName =
             let fi = fileName+".IMG"

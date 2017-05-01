@@ -16,9 +16,7 @@ open Sim900.Formatting
 open Sim900.Machine
 open Sim900.Parameters
 open Sim900.Legible
-open Sim900.RLB
 open Sim900.FileHandling
-open Sim900.Loaders
 open Sim900.Commands
 open Sim900.Help
 
@@ -44,13 +42,6 @@ open Sim900.Help
             let words = Lexer interactive
             let BadExtension () = raise (Syntax "Inappropriate file extension")
             match (on, words) with 
-
-            | (true,  [|"ALG"; "OFF"|]) 
-            | (true,  [|"ALGOL"; "OFF"|])   -> AlgolOff ()
-
-            | (true,  [|"ALG"; "ON"|]) 
-            | (true,  [|"ALGOL"; "ON"|])    
-                                            -> AlgolOn ()
 
             | (true,  [|"AT";     "CRD"; "FILE"; f|])
             | (true,  [|"ATTACH"; "CRD"; "FILE"; f|])
@@ -234,7 +225,6 @@ open Sim900.Help
             | (true,  [|"ATTACH"; "TTY"; "INLINE"; "BIN"|])
                                             ->  OpenTTYInBinaryString Mode3 (ReadInlineText ()) 
 
-            | (true,  [|"AUTO"|])           ->  WordGeneratorPut 8177; Jump TracePut MonitorPut
             | (true,  [|"B"; "OFF"; n|]) 
             | (true,  [|"BREAK"; "OFF"; n|])
                                             ->  BreakpointOff (GetAddress n)
@@ -253,9 +243,6 @@ open Sim900.Help
 
             | (true,  [|"CL"; n|]) | (true, [|"CLEAR"; n|])  
                                             -> ClearModule (GetAddress n)
-
-            | (_,     [|"COMP";    m; c|])
-            | (_,     [|"COMPARE"; m; c|])  -> Compare m c
 
             | (true,  [|"DE";     "CRD"|]) 
             | (true,  [|"DETACH"; "CRD"|])  -> CloseCardReader ()
@@ -292,9 +279,6 @@ open Sim900.Help
             | (true,  [|"D"|]) 
             | (true,  [|"DISPLAY"|])        -> DisplayRegisters ()
 
-            | (_,     [|"DIR"|])
-            | (_,     [|"DIRECTORY"|])      -> ListDirectory ()
-
             | (true,  [|"DAS";       file|])
             | (true,  [|"DUMPASSIR"; file|]) 
                                             -> DumpAsSir file memorySize // no literals
@@ -324,12 +308,6 @@ open Sim900.Help
             
             | (true,  [|"FAST"|])           -> Fast ()
 
-            | (_,     [|"FIXRLB"; fromFile; toFile|])       
-                                            -> FixRLB fromFile toFile Mode3
-
-            | (_,     [|"FIXRLB"; fromFile; toFile; "MODE1"|])       
-                                            -> FixRLB fromFile toFile Mode1
-
             | (_,     [|"H"|]) | (true, [|"HELP"|])
                                             -> Help ""
             | (_,     [|"H"; t|]) 
@@ -344,7 +322,7 @@ open Sim900.Help
             | (true,  [| "JUMP"; "II"|])    -> JumpII TracePut MonitorPut
 
             | (true,  [| "J";    k|])
-            | (true,  [| "JUMP"; k|])       -> WordGeneratorPut (GetConstant k); Jump TracePut MonitorPut
+            | (true,  [| "JUMP"; k|])       -> JumpToAddr TracePut MonitorPut (GetConstant k)
             
             | (true,  [|"J"|]) | (true, [|"JUMP"|])          
                                             -> Jump TracePut MonitorPut
@@ -355,9 +333,7 @@ open Sim900.Help
             | (true,  [|"K"; f; n|]) 
             | (true,  [|"KEYS"; f; n|])     -> WordGeneratorPut (GetInstruction f n)
 
-            | (_,     [|"LD"|])
-            | (_,     [|"LS"|])            
-            | (_,     [|"LISTDIRECTORY"|])  -> ListDirectory ()
+            | (_,     [|"LS"|])             -> ListDirectory ()
 
             | (true,  [|"LM"; m; f|])
             | (true,  [|"LOADMODULE"; m; f|])
@@ -366,13 +342,6 @@ open Sim900.Help
             | (true,  [|"LO"; f|]) 
             | (true,  [|"LOADIMAGE"; f|])   -> LoadImage f
 
-            | (_,     [|"LOG"; o|])         ->  if   o = "ON"
-                                                then LoggingOn ()
-                                                elif o = "OFF"
-                                                then LoggingOff ()
-                                                else LogToFile o
-                                                     LoggingOn ()
-                   
             | (_,     [|"NL";      "OFF"|])
             | (_,     [|"NEWLINE"; "OFF"|]) -> SetTTYNewline false                                                    
                                             
@@ -416,26 +385,6 @@ open Sim900.Help
             | (_,     [|"P"|])
             | (_,     [|"PAUSE"|])          -> Pause ()
 
-            | (_,     [|"PR";    f|])
-            | (_,     [|"PRINT"; f|])       
-            | (_,     [|"PR";    f; "MODE3"|])
-            | (_,     [|"PRINT"; f; "MODE3"|])       
-                                            -> Print f Mode3   
-                                               
-            | (_,     [|"PR";    f; "MODE1"|])
-            | (_,     [|"PRINT"; f; "MODE1"|])       
-                                            -> Print f Mode3
-
-            | (_,     [|"PRA";        f|])
-            | (_,     [|"PRINTALGOL"; f|])       
-            | (_,     [|"PRA";        f; "MODE3"|])
-            | (_,     [|"PRINTALGOL"; f; "MODE3"|])       
-                                            -> PrettyALGRLB f Mode3   
-                                               
-            | (_,     [|"PRA";        f; "MODE1"|])
-            | (_,     [|"PRINTALGOL"; f; "MODE1"|])       
-                                            -> PrettyALGRLB f Mode3
-
             | (_,     [|"REV"; f |])
             | (_,     [|"REVERSE"; f |])    -> Reverse f
 
@@ -456,20 +405,11 @@ open Sim900.Help
             | (true,  [|"RESTART"; n|])     -> let addr = GetAddress n
                                                Restart TracePut MonitorPut addr
 
-            | (_,     [|"RLBTOSIR"; src; dest |])
-                                            -> RLBtoSIR src dest Mode3
-
-            | (_,     [|"RLBTOSIR"; src; dest; "MODE1" |])
-                                            -> RLBtoSIR src dest Mode1
-
             | (_,     [|"RUNOUT"; "OFF"|])  -> addRunout <- false
 
             | (_,     [|"RUNOUT"; "ON"|])   -> addRunout <- true
 
             | (true,  [|"SCALE"; n|])       -> SetScale (GetNatural n)
-
-            | (true,  [|"SCB"|])
-            | (true,  [|"SCBDECODE"|])      -> SCBDecode ()
 
             | (true,  [|"SEL";    "IN"; "PTR"|])
             | (true,  [|"SELECT"; "IN"; "PTR"|])
@@ -529,8 +469,6 @@ open Sim900.Help
 
             | (true,  [|"S"|]) 
             | (true,  [|"STEP"|])           -> Steps 1; Restart TracePut MonitorPut -1
-
-            | (true,  [|"STACK"|])          -> Stack ()
 
             | (true,  [|"ST";      n|]) 
             | (true,  [|"STOP";    n|])
@@ -665,7 +603,6 @@ open Sim900.Help
             | Finished     ->   raise Finished // end of current command level
             | LoopStop     ->   MessagePut (sprintf "Loop stop at location %s" (AddressStr(SGet ())))
             | Machine s    ->   MessagePut s;                                        if not nonStop then raise Finished
-            | NoLog        ->   MessagePut "No log file";                            if not nonStop then raise Finished
             | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      if not nonStop then raise Finished
             | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      if not nonStop then raise Finished
             | Syntax s     ->   MessagePut s;                                        if not nonStop then raise Finished
@@ -703,6 +640,5 @@ open Sim900.Help
         try 
             try ReadCommandsFromConsole () with | Quit -> ()
         finally     
-            CloseLog ()
             Application.Exit ()
 

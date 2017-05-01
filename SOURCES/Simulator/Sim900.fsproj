@@ -69,9 +69,7 @@
     <Compile Include="Machine.fs" />
     <Compile Include="Parameters.fs" />
     <Compile Include="Legible.fs" />
-    <Compile Include="RLB.fs" />
     <Compile Include="FileHandling.fs" />
-    <Compile Include="Loaders.fs" />
     <Compile Include="Commands.fs" />
     <Compile Include="Help.fs" />
     <Compile Include="Shell.fs" />
