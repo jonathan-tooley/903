@@ -390,10 +390,10 @@ module Sim900.Devices
                                     | TACD -> TranslateFromText    TACD mode text
                                     | TTXT -> TranslateFromText    TTXT mode text) 
 
-    let TTYInputReady () =
-        if ttyInline
-        then true
-        else TTYCharsAvailable ()
+    let TTYInputReady () = true
+        //if ttyInline
+        //then true
+        //else TTYCharsAvailable ()
 
     let rec GetTTYChar () =  
         let telecode = if ttyInline then ttyTelecode else defaultTelecode
