@@ -262,13 +262,16 @@ module Sim900.Commands
                 while true do
                     Thread.Sleep(250)
 
+
+                   
+
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOB) <<< 10
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOB) <<< 10
                     // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
-                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP23017.GPIOA) <<< 2)
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOA) <<< 2)
                     // Read from U1 bank B the final two bits, 2 and 1
-                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOB) &&& 0x3)
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
 
                     // Update the word generator
 
@@ -283,7 +286,7 @@ module Sim900.Commands
                     if on      then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator
                     if not on  then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
-                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.OLATA) ( PanelOutput )  |> ignore
+                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
                     PanelOutput <- 0
 
@@ -300,10 +303,10 @@ module Sim900.Commands
                        stopped &&
                        (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
 
-                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.OLATB) ( PanelOutput )  |> ignore
+                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATB) ( PanelOutput )  |> ignore
 
                     // Handle MCP23017 U1 inputs
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP23017.GPIOA)
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
                     if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton
                         then MessagePut ("Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177")
@@ -333,9 +336,7 @@ module Sim900.Commands
                     if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
                         then MessagePut ("Keyswitch turned to auto")
                              operate <- mode.Auto
-
-                    
-                   
+           
 
                   }
 
