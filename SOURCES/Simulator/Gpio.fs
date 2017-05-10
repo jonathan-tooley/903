@@ -62,19 +62,17 @@ module Sim900.Gpio
      [<DllImport("libwiringPiI2C.so" , EntryPoint = "wiringPiI2CReadReg16" , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CReadReg16 (int fd, int reg);
 
-   let mutable controlPanelU1 = 0
-   let mutable controlPanelU2 = 0
-   let mutable punchPort      = 0
+   module public SPI =
+     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiSPISetup"     , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern int wiringPiSPISetup     (int channel, int speed);
+     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiSPIDataRW"    , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern int wiringPiSPIDataRW    (int channel, byte* data, int len);  
 
-   let wiringPiSetup                    = wiringPi.wiringPiSetup
-   let pinMode pin mode                 = GPIO.pinMode (pin, mode)
-   let digitalWrite pin value           = GPIO.digitalWrite (pin, value)
-   let digitalRead  pin                 = GPIO.digitalRead  (pin)
-   let wiringPiI2CSetup devId           = I2C.wiringPiI2CSetup (devId)
-   let wiringPiI2CWriteReg8 fd reg data = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
-   let wiringPiI2CReadReg8  fd reg      = I2C.wiringPiI2CReadReg8 (fd, reg)
+   module public MCP =
+     [<DllImport( "libwiring.so"   , EntryPoint = "mcp23s17Setup"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern int mcp23s17Setup        (int pinBase, int spiPort, int devId);
 
-   type MCP23017 =
+     type MCP23017 =
        | IODIRA = 0x00 //GPIO Bank A pin directions
        | IODIRB = 0x01 //GPIO Bank B pin directions
        | IPOLA  = 0x02 //GPIO Bank A input polarity
@@ -86,9 +84,31 @@ module Sim900.Gpio
        | OLATA  = 0x14 //Output Latch Bank A
        | OLATB  = 0x15 //Output Latch Bank B
 
+   let wiringPiSetup                    = wiringPi.wiringPiSetup
+   let pinMode pin mode                 = GPIO.pinMode             (pin, mode)
+   let digitalWrite pin value           = GPIO.digitalWrite        (pin, value)
+   let digitalRead  pin                 = GPIO.digitalRead         (pin)
+   let wiringPiI2CSetup devId           = I2C.wiringPiI2CSetup     (devId)
+   let wiringPiI2CWriteReg8 fd reg data = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
+   let wiringPiI2CReadReg8  fd reg      = I2C.wiringPiI2CReadReg8  (fd, reg)
+   let wiringPiSPISetup channel speed   = SPI.wiringPiSPISetup     (channel, speed)
+   let mcp23s17Setup pin0 port devId    = MCP.mcp23s17Setup        (pin0, port, devId)
+
+   let mutable controlPanelU1 = 0
+   let mutable controlPanelU2 = 0
+   let mutable punchPort      = 0
+
 
    let setupControlPorts () =
        wiringPiSetup ()
+
+       wiringPiSPISetup 0 1000000 |> ignore
+
+       let err = mcp23s17Setup 65 0x0 0
+
+       pinMode 65 GPIO.pinType.Output
+
+       digitalWrite 65 GPIO.pinValue.High
 
        pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A one on this pin instructs the tape punch to comit the data on the mcp to paper
        pinMode 2 GPIO.pinType.Input   // Setup pin 2 as in input.  This is for the punch to effect a handshake by reporting when it is busy
@@ -117,12 +137,12 @@ module Sim900.Gpio
        // 4 : Jump indicator light                                       |  |  |  |  | 1|  |  |  |
 
        //Setup Registors for GPIO 
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IODIRA) 0b01010111 |> ignore //Set bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IODIRB) 0b01010111 |> ignore //Set bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.GPPUA ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.GPPUB ) 0b01010111 |> ignore //Set pull up resistors on bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IPOLA ) 0b01010111 |> ignore //Reverse bank A input polarity
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP23017.IPOLB ) 0b01010111 |> ignore //Reverse bank B input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRA) 0b01010111 |> ignore //Set bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRB) 0b01010111 |> ignore //Set bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUA ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUB ) 0b01010111 |> ignore //Set pull up resistors on bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLA ) 0b01010111 |> ignore //Reverse bank A input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLB ) 0b01010111 |> ignore //Reverse bank B input polarity
 
        // U2 Inputs
        //28 : 512   Bit 10
@@ -142,12 +162,12 @@ module Sim900.Gpio
        // 2 : 2048  Bit 12
        // 1 : 1024  Bit 11
 
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IODIRA) 0b11111111 |> ignore //Bank A is all inputs
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.GPPUA ) 0b11111111 |> ignore //Bank A pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.GPPUB ) 0b11111111 |> ignore //Bank B pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IPOLA ) 0b11111111 |> ignore //Bank A polarity 
-       wiringPiI2CWriteReg8 controlPanelU2 (int MCP23017.IPOLB ) 0b11111111 |> ignore //Bank A polarity
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IODIRA) 0b11111111 |> ignore //Bank A is all inputs
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.GPPUA ) 0b11111111 |> ignore //Bank A pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.GPPUB ) 0b11111111 |> ignore //Bank B pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLA ) 0b11111111 |> ignore //Bank A polarity 
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLB ) 0b11111111 |> ignore //Bank A polarity
 
    let mutable handShake = GPIO.pinValue.Low
    
@@ -163,121 +183,3 @@ module Sim900.Gpio
        // Then we can stop telling to write as it has started working on our command
        digitalWrite 0 GPIO.pinValue.Low
 
- (*      
-        public class GPIO
-    {
-
-        [DllImport("libwiringPi.so", EntryPoint = "digitalWriteByte")]      //Uses Gpio pin numbers
-        public static extern void digitalWriteByte(int value);
-
-
-        [DllImport("libwiringPi.so", EntryPoint = "pullUpDnControl")]         //Uses Gpio pin numbers  
-        public static extern void pullUpDnControl(int pin, int pud);
-
-        //This pwm mode cannot be used when using GpioSys mode!!
-        [DllImport("libwiringPi.so", EntryPoint = "pwmWrite")]              //Uses Gpio pin numbers
-        public static extern void pwmWrite(int pin, int value);
-
-        [DllImport("libwiringPi.so", EntryPoint = "pwmSetMode")]             //Uses Gpio pin numbers
-        public static extern void pwmSetMode(int mode);
-
-        [DllImport("libwiringPi.so", EntryPoint = "pwmSetRange")]             //Uses Gpio pin numbers
-        public static extern void pwmSetRange(uint range);
-
-        [DllImport("libwiringPi.so", EntryPoint = "pwmSetClock")]             //Uses Gpio pin numbers
-        public static extern void pwmSetClock(int divisor);
-
-        [DllImport("libwiringPi.so", EntryPoint = "gpioClockSet")]              //Uses Gpio pin numbers
-        public static extern void ClockSetGpio(int pin, int freq);
-
-
-    }
-
-
-    /// <summary>
-    /// Provides use of the Timing functions such as delays
-    /// </summary>
-    public class Timing
-    {
-        [DllImport("libwiringPi.so", EntryPoint = "millis")]
-        public static extern uint millis();
-
-        [DllImport("libwiringPi.so", EntryPoint = "micros")]
-        public static extern uint micros();
-
-        [DllImport("libwiringPi.so", EntryPoint = "delay")]
-        public static extern void delay(uint howLong);
-
-        [DllImport("libwiringPi.so", EntryPoint = "delayMicroseconds")]
-        public static extern void delayMicroseconds(uint howLong);
-    }
-
-    /// <summary>
-    /// Provides access to the Thread priority and interrupts for IO
-    /// </summary>
-    public class PiThreadInterrupts
-    {
-        [DllImport("libwiringPi.so", EntryPoint = "piHiPri")]
-        public static extern int piHiPri(int priority);
-
-        [DllImport("libwiringPi.so", EntryPoint = "waitForInterrupt")]
-        public static extern int waitForInterrupt(int pin, int timeout);
-
-        //This is the C# equivelant to "void (*function)(void))" required by wiringPi to define a callback method
-        public delegate void ISRCallback();
-
-        [DllImport("libwiringPi.so", EntryPoint = "wiringPiISR")]
-        public static extern int wiringPiISR(int pin, int mode, ISRCallback method);
-
-        public enum InterruptLevels
-        {
-            INT_EDGE_SETUP = 0,
-            INT_EDGE_FALLING = 1,
-            INT_EDGE_RISING = 2,
-            INT_EDGE_BOTH = 3
-        }
-
-        //static extern int piThreadCreate(string name);
-    }
-
-    public class MiscFunctions
-    {
-        [DllImport("libwiringPi.so", EntryPoint = "piBoardRev")]
-        public static extern int piBoardRev();
-
-        [DllImport("libwiringPi.so", EntryPoint = "wpiPinToGpio")]
-        public static extern int wpiPinToGpio(int wPiPin);
-
-        [DllImport("libwiringPi.so", EntryPoint = "physPinToGpio")]
-        public static extern int physPinToGpio(int physPin);
-
-        [DllImport("libwiringPi.so", EntryPoint = "setPadDrive")]
-        public static extern int setPadDrive(int group, int value);
-    }
-
-    /// <summary>
-    /// Provides SPI port functionality
-    /// </summary>
-    public class SPI
-    {
-        /// <summary>
-        /// Configures the SPI channel specified on the Raspberry Pi
-        /// </summary>
-        /// <param name="channel">Selects either Channel 0 or 1 for use</param>
-        /// <param name="speed">Selects speed, 500,000 to 32,000,000</param>
-        /// <returns>-1 for an error, or the linux file descriptor the channel uses</returns>
-        [DllImport("libwiringPi.so", EntryPoint = "wiringPiSPISetup")]
-        public static extern int wiringPiSPISetup(int channel, int speed);
-
-        /// <summary>
-        /// Read and Write data over the SPI bus, don't forget to configure it first
-        /// </summary>
-        /// <param name="channel">Selects Channel 0 or Channel 1 for this operation</param>
-        /// <param name="data">signed byte array pointer which holds the data to send and will then hold the received data</param>
-        /// <param name="len">How many bytes to write and read</param>
-        /// <returns>-1 for an error, or the linux file descriptor the channel uses</returns>
-        [DllImport("libwiringPi.so", EntryPoint = "wiringPiSPIDataRW")]
-        public static unsafe extern int wiringPiSPIDataRW(int channel, byte* data, int len);  //char is a signed byte
-    }
-
-*)
