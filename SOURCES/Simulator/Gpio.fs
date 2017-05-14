@@ -84,6 +84,14 @@ module Sim900.Gpio
        | OLATA  = 0x14 //Output Latch Bank A
        | OLATB  = 0x15 //Output Latch Bank B
 
+     type MCP23008 =
+       | IODIR  = 0x00 //GPIO Bank A pin directions
+       | IPOL   = 0x01 //GPIO Bank A input polarity
+       | GPPU   = 0x06 //GPIO Bank A pull up resistor settings
+       | GPIO   = 0x09 //GPIO Bank A input values
+       | OLAT   = 0x0A //Output Latch Bank A
+
+
    let wiringPiSetup                    = wiringPi.wiringPiSetup
    let pinMode pin mode                 = GPIO.pinMode             (pin, mode)
    let digitalWrite pin value           = GPIO.digitalWrite        (pin, value)
