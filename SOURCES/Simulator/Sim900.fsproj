@@ -73,7 +73,6 @@
     <Compile Include="Commands.fs" />
     <Compile Include="Help.fs" />
     <Compile Include="Shell.fs" />
-    <Compile Include="Gui.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>
