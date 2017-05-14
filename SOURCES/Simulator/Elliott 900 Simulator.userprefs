@@ -1,14 +1,9 @@
 ﻿<Properties StartupItem="Sim900.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="FileHandling.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Gpio.fs">
     <Files>
-      <File FileName="Commands.fs" Line="20" Column="28" />
-      <File FileName="Formatting.fs" Line="158" Column="1" />
-      <File FileName="Shell.fs" Line="388" Column="1" />
-      <File FileName="Help.fs" Line="135" Column="58" />
-      <File FileName="Machine.fs" Line="1890" Column="27" />
-      <File FileName="Devices.fs" Line="17" Column="60" />
-      <File FileName="FileHandling.fs" Line="224" Column="1" />
+      <File FileName="Commands.fs" Line="339" Column="1" />
+      <File FileName="Gpio.fs" Line="111" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

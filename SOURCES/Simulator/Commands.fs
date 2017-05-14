@@ -206,12 +206,7 @@ module Sim900.Commands
                      Helper last words.[3..]
             Helper -1 words
             stdout.WriteLine "%" 
-            
-
-        // display trace buffer
-        let TraceBuffer () =
-            for i in TraceBuffer () do
-                stdout.Write "   "; AddressPut i.scr;  stdout.Write "    "; LongSignedPut i.acc; stdout.WriteLine ()                                          
+                              
              
         let mutable nonStop = false; // set true to continue after stops
 
@@ -226,8 +221,12 @@ module Sim900.Commands
         let turnOff () =
             TidyUpDevices ()
             TidyUpMachine ()
-            reset <- false
-            on    <- false
+            // Make sure front panel indicators are off
+            reset   <- false
+            on      <- false
+            stopped <- false
+            // Turn off the interrupt indicators
+            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000000 |> ignore
 
         // turn on machine in specified configuration                  
         let turnOn arch memSize memSpeed ptrSpeed =
@@ -238,19 +237,25 @@ module Sim900.Commands
             TidyUp ()
 
         //For our control panel we will need some variables to read inputs, write outputs and debounce keys
-        let mutable PanelInput  = 0
-        let mutable PanelOutput = 0
-        let mutable ResetButton = false
-        let mutable OnButton    = false
-        let mutable OffButton   = false
+        let mutable PanelInput    = 0
+        let mutable PanelOutput   = 0
+        let mutable HeartBeat     = 0
+        let mutable Flash         = false
+        // These are for key debounce
+        let mutable ResetButton   = false
+        let mutable StopButton    = false
+        let mutable RestartButton = false
+        let mutable JumpButton    = false
+        let mutable EnterButton   = false
+        let mutable ObeyButton    = false
 
         let updateDisplay() =
             async {
                 while true do
-                    Thread.Sleep(250)
 
-
-                   
+                    HeartBeat <- HeartBeat + 1
+                    if HeartBeat > 4 then Flash <- true
+                    if HeartBeat > 8 then Flash <- false; HeartBeat <- 0
 
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
@@ -262,16 +267,16 @@ module Sim900.Commands
 
                     // Update the word generator
 
-                    if wordGenerator <> PanelInput 
+                    if wordGenerator <> PanelInput && on && not (operate = mode.Auto)
                       then wordGenerator <- PanelInput
-                           MessagePut ("Word Generator has been updated to: "); InstructionPut PanelInput; 
+                           MessagePut ("Word Generator has been updated to: "); InstructionPut PanelInput; stdout.WriteLine ()
 
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
                      
-                    if reset   then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on      then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator
-                    if not on  then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+                    if reset       then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on && Flash then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if not on      then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
@@ -282,10 +287,12 @@ module Sim900.Commands
                     if on      && 
                        stopped &&
                        (operate = mode.Operate || operate = mode.Test) &&
-                       not reset  then PanelOutput <- (PanelOutput ||| 0b10000000)
-                    if stopped    then PanelOutput <- (PanelOutput ||| 0b00100000)
+                       (not reset)  then PanelOutput <- (PanelOutput ||| 0b00100000)
+
+                    if stopped      then PanelOutput <- (PanelOutput ||| 0b10000000)
+
                     // The Jump button on the original ELLIOT did not have an indicator
-                    // We have defined an indicator logic here to indicate when jum can be used
+                    // We have defined an indicator logic here to indicate when jump can be used
                     if on      &&
                        stopped &&
                        (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
@@ -294,13 +301,14 @@ module Sim900.Commands
 
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+
                     if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton && not reset
                         then MessagePut ("Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177")
                              ResetButton <- true;     Reset ()
-                             WordGeneratorPut (GetConstant "8177"); Jump TracePut MonitorPut
+                             //Handle Jump
 
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && not (operate = mode.Auto) && not ResetButton
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on && not (operate = mode.Auto) && not ResetButton && not reset
                         then MessagePut ("Reset button pressed.  Resetting.")
                              ResetButton <- true;     Reset ()
                     
@@ -323,7 +331,102 @@ module Sim900.Commands
                     if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
                         then MessagePut ("Keyswitch turned to auto")
                              operate <- mode.Auto
-           
 
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
+           
+                    if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
+                    if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && on && not (operate = mode.Auto)
+                        then MessagePut ("Jump Button Pressed")
+                             JumpButton <- true
+                             DisplayRegisters ()
+
+                    if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
+                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on && not (operate = mode.Auto)
+                        then MessagePut ("Stop Button Pressed")
+                             stopped <- true
+                             StopButton <- true
+                             //
+                    
+                    if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
+                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && on && not (operate = mode.Auto)
+                        then MessagePut ("Restart Button Pressed")
+                             stopped <- false
+                             RestartButton <- true
+                             //
+
+                    // Handle MCP23017 U3 Inputs
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOA); 
+
+                    if PanelInput &&& 0b00000100 = 0b00000100 && on
+                        then MessagePut ("Interrupt 1: Manual")
+                    
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on
+                        then MessagePut ("Interrupt 1: Trace")
+                    
+                    if PanelInput &&& 0b00010000 = 0b00010000 && on
+                        then MessagePut ("Interrupt 2: Manual")
+                    
+                    if PanelInput &&& 0b00100000 = 0b00100000 && on
+                        then MessagePut ("Interrupt 2: Trace")
+                    
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on
+                        then MessagePut ("Interrupt 3: Manual")
+                    
+                    if PanelInput &&& 0b10000000 = 0b10000000 && on
+                        then MessagePut ("Interrupt 3: Trace")
+                    
+                    
+
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOB); 
+
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on
+                        then MessagePut ("Interrupt 1: Request")
+                             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b10000000 |> ignore
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on
+                        then MessagePut ("Interrupt 2: Request")
+                             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00010000 |> ignore
+                    if PanelInput &&& 0b00000001 = 0b00000001 && on
+                        then MessagePut ("Interrupt 3: Request")
+                             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000010 |> ignore
+
+                    // Handle MCP23008 U4 Inputs
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
+
+                    if PanelInput &&& 0b00000001 = 0b00000001 && on
+                        then MessagePut ("Order Stop")
+                    
+                    if PanelInput &&& 0b00000010 = 0b00000010 && on
+                        then MessagePut ("Cycle Stop")
+
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on
+                        then MessagePut ("Cycle Repeat")
+
+                    if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
+                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
+                        then stdout.Write ("Enter (Single) selected: Accumulator set to "); OctalPut (WGet()) 
+                             stdout.Write (" ")                                           ; InstructionPut (WGet()); stdout.WriteLine ()
+                             EnterButton <- true
+                             reset <- false
+                             APut (WGet())
+                    
+                    if PanelInput &&& 0b00010000 = 0b00010000 && on && stopped && operate = mode.Test
+                        then stdout.Write ("Enter (Run) selected: Accumulator set to "  ); OctalPut (WGet())
+                             stdout.Write (" ")                                          ; InstructionPut (WGet()); stdout.WriteLine ()
+                             reset <- false
+                             APut (WGet())
+                    
+                    if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButton <- false 
+                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && on && stopped && operate = mode.Test
+                        then MessagePut ("Obey (Single)") 
+                             ObeyButton <- true
+                             reset      <- false
+                             Obey ()
+                    
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on && stopped && operate = mode.Test
+                        then MessagePut ("Obey (Run)")
+                             reset     <- false
+                             Obey ()
+
+                    Thread.Sleep(100)
                   }
 

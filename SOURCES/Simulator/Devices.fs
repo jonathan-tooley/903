@@ -35,8 +35,11 @@ module Sim900.Devices
     exception CRManual          // attempt to use card reader when no file attached
     exception LPManual          // attempt to use line printer when detached (i.e., offline)
 
+    let mutable r = 0
+
     let YieldToDevices () =     // Allow other threads to run
-        System.Threading.Thread.Yield () |> ignore
+        r <- 0
+        // System.Threading.Thread.Yield () |> ignore
 
     // provide a dummy context to represent console "form"
     let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
