@@ -100,22 +100,6 @@ module Sim900.Formatting
         printf "%c=" name
         f value       
                  
-    let TracePut i s instruction a q b =
-        let spaces () = printf "   "
-        printf "L%1d   " i
-        AddressPut s
-        spaces () 
-        InstructionPut instruction
-        spaces ()
-        RegisterPut 'A' a LongSignedPut
-        spaces ()  
-        RegisterPut 'Q' q LongSignedPut
-        spaces ()  
-        RegisterPut 'B' b AddressPut
-        printf "  ("
-        LongSignedPut  b 
-        printfn ")"
-
     let StoreWordPut (address: int option) value = 
         match address with
         | Some (address) -> AddressPut address 
