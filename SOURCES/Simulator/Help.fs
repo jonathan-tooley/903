@@ -78,12 +78,6 @@ module Sim900.Help
                     "    Dump all of memory as a SIR program to specified file";
                     "DUmpimage words file";
                     "   Dump a memory image of size specified from memory location 0 upwards to file";  
-                    "Enter address value";
-                    "   Store value in specified memory location";
-                    "Find value";
-                    "   Report locations in store cotaining specified value";
-                    "FAST";
-                    "   Run simulation at full speed";
                     "Help ";
                     "   Show help"; 
                     "INTerrupt level";
@@ -92,8 +86,6 @@ module Sim900.Help
                     "   Jump to address specified on word generator";
                     "Jump keys";
                     "   Set word generator to specified value and jump";
-                    "Keys value";
-                    "   Set word generator to specified value";
                     "LEGible file text...";
                     "   Write text as legible header at front of file";
                     "ListDirectory / LiStdirectory";

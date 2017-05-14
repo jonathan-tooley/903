@@ -291,23 +291,6 @@ open Sim900.Help
             | (true,  [|"DUMPIMAGE"; n; f|]) 
                                             -> DumpImage f (GetNatural n)
 
-            | (true,  [|"E"; loc; value|]) 
-            | (true,  [|"ENTER"; loc; value|])   
-                                            -> Enter loc (GetConstant value)
-
-            | (true,  [|"E"; loc; f; n|]) 
-            | (true,  [|"ENTER"; loc; f; n|])
-                                            -> Enter loc (GetInstruction f n)
-
-            | (true,  [|"F"; value|])               
-            | (true,  [|"FIND"; value|])    -> Find (GetConstant value)
-
-            | (true,  [|"F"; f; n|])               
-            | (true,  [|"FIND"; f; n|])     -> Find (GetInstruction f n)
-             
-            
-            | (true,  [|"FAST"|])           -> Fast ()
-
             | (_,     [|"H"|]) | (true, [|"HELP"|])
                                             -> Help ""
             | (_,     [|"H"; t|]) 

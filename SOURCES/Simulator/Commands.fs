@@ -104,18 +104,6 @@ module Sim900.Commands
             let addr = GetAddress text
             StoreWordPut (Some(addr)) (ReadStore addr)
 
-        // enter value
-        let Enter loc value =
-            match loc with
-            | "A" -> APut value
-            | "Q" -> QPut value
-            | "B" -> BPut value
-            | _   -> WriteStore (GetAddress loc) value
-
-        let Find value =
-            for addr = 0 to memorySize - 1 do
-                if   (ReadStore addr) = value
-                then AddressPut addr; stdout.WriteLine ()
 
         // monitor
         let MonitorOnCmd (words: string[]) = 
