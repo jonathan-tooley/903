@@ -104,6 +104,8 @@ module Sim900.Gpio
 
    let mutable controlPanelU1 = 0
    let mutable controlPanelU2 = 0
+   let mutable controlPanelU3 = 0
+   let mutable controlPanelU4 = 0
    let mutable punchPort      = 0
 
 
@@ -123,6 +125,8 @@ module Sim900.Gpio
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
+       controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
+       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
 
        // U1 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //27 : Reset push button               |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -130,8 +134,8 @@ module Sim900.Gpio
        //23 : Off push button                 |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
        //22 : Key Switch "Operate"            |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
        //21 : Key Switch "Test"               |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
-       // 7 : Restart push button                                        |  | 1|  |  |  |  |  |  |
-       // 5 : Stop push button                                           |  |  |  | 1|  |  |  |  |
+       // 7 : Stop push button                                           |  | 1|  |  |  |  |  |  |
+       // 5 : Restart push button                                        |  |  |  | 1|  |  |  |  |
        // 3 : Jump push button                                           |  |  |  |  |  | 1|  |  |
        // 2 : WG Switch 2                                                |  |  |  |  |  |  | 1|  |
        // 1 : WG Switch 1                                                |  |  |  |  |  |  |  | 1|
@@ -140,11 +144,11 @@ module Sim900.Gpio
        //28 : Reset button indicator          | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //26 : On button indicator light       |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //24 : Off button indicator light      |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
-       // 8 : Restart button indicator light                             | 1|  |  |  |  |  |  |  |
-       // 6 : Stop button indicator light                                |  |  | 1|  |  |  |  |  |
+       // 8 : Stop button indicator light                                | 1|  |  |  |  |  |  |  |
+       // 6 : Restart button indicator light                             |  |  | 1|  |  |  |  |  |
        // 4 : Jump indicator light                                       |  |  |  |  | 1|  |  |  |
 
-       //Setup Registors for GPIO 
+       // Setup Registors for GPIO U1
        wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRA) 0b01010111 |> ignore //Set bank A inputs
        wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRB) 0b01010111 |> ignore //Set bank B inputs
        wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUA ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
@@ -170,12 +174,57 @@ module Sim900.Gpio
        // 2 : 2048  Bit 12
        // 1 : 1024  Bit 11
 
+       // Setup Registers for GPIO U2
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IODIRA) 0b11111111 |> ignore //Bank A is all inputs
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.GPPUA ) 0b11111111 |> ignore //Bank A pull up resistors
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.GPPUB ) 0b11111111 |> ignore //Bank B pull up resistors
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLA ) 0b11111111 |> ignore //Bank A polarity 
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLB ) 0b11111111 |> ignore //Bank A polarity
+
+       // U3 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //GPA7  Trace 3                        | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA6  Manual 3                       |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA5  Trace 2                        |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA4  Manual 2                       |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA3  Trace 1                        |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA2  Manual 1                       |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //GPA1  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA0  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPB6  IR 1 SW                        |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |
+       //GPB5  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPB3  IR 2 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
+       //GPB2  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPB0  IR 3 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
+
+       // U3 Outputs
+       //GPB7  IR 1 Led                       |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |
+       //GPB4  IR 2 Led                       |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |
+       //GPB1  IR 3 Led                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
+
+       // Setup registers for GPIO U3
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IODIRA) 0b11111100 |> ignore //Bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IODIRB) 0b01001001 |> ignore //Bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.GPPUA ) 0b11111100 |> ignore //Bank A pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.GPPUB ) 0b01001001 |> ignore //Bank B pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IPOLA ) 0b11111100 |> ignore //Bank A polarity
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IPOLB ) 0b01001001 |> ignore //Bank B polarity
+
+       // U4 Inputs                           | 7| 6| 5| 4| 3| 2| 1| 0| 
+       //GP7 Obey                             | 1|  |  |  |  |  |  |  | 
+       //GP6 Obey                             |  | 1|  |  |  |  |  |  | 
+       //GP5 Enter                            |  |  | 1|  |  |  |  |  | 
+       //GP4 Enter                            |  |  |  | 1|  |  |  |  | 
+       //GP3 Cycle Repeat                     |  |  |  |  | 1|  |  |  | 
+       //GP2 nc                               |  |  |  |  |  |  |  |  | 
+       //GP1 Cycle Stop                       |  |  |  |  |  |  | 1|  | 
+       //GP0 Order Stop                       |  |  |  |  |  |  |  | 1| 
+
+       // Setup registers for GPIO U4
+       wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IODIR) 0b11111011 |> ignore //Bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.GPPU ) 0b11111011 |> ignore //Bank A pull up resistors
+       wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
+
 
    let mutable handShake = GPIO.pinValue.Low
    
