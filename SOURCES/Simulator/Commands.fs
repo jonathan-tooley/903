@@ -68,10 +68,9 @@ module Sim900.Commands
 
             stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()
 
-            stdout.Write "W="; OctalPut      (WGet ()); stdout.WriteLine ()
+            stdout.Write "W="; LongSignedPut (WGet ()); stdout.Write "  "; AddressPut     (WGet ()); 
+            stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ());stdout.WriteLine ()
              
-
-            //stdout.Write "I=", LongSignedPut (AGetiRegister) 
 
         // display after a problem reported
         let MiniDump () =
