@@ -302,13 +302,12 @@ open Sim900.Help
                                             -> ManualInterrupt (int (GetNatural level))
 
             | (true,  [| "J";    "II"|])
-            | (true,  [| "JUMP"; "II"|])    -> JumpII TracePut MonitorPut
+            | (true,  [| "JUMP"; "II"|])    -> JumpII MonitorPut
 
             | (true,  [| "J";    k|])
-            | (true,  [| "JUMP"; k|])       -> JumpToAddr TracePut MonitorPut (GetConstant k)
+            | (true,  [| "JUMP"; k|])       -> JumpToAddr MonitorPut (GetConstant k)
             
             | (true,  [|"J"|]) | (true, [|"JUMP"|])          
-                                            -> Jump TracePut MonitorPut
 
             | (true,  [|"K"; n|]) 
             | (true,  [|"KEYS"; n|])        -> WordGeneratorPut (GetConstant n)
@@ -379,14 +378,13 @@ open Sim900.Help
             | (true,  [|"RW";     "PTR"|])
             | (true,  [|"REWIND"; "PTR"|])  -> RewindReader ()
 
-            | (true,  [|"RESET"|])          -> Reset ()
 
             | (true,  [|"R"|])
-            | (true,  [|"RESTART"|])        -> Restart TracePut MonitorPut -1
+            | (true,  [|"RESTART"|])        -> Restart MonitorPut -1
 
             | (true,  [|"R"; n|])
             | (true,  [|"RESTART"; n|])     -> let addr = GetAddress n
-                                               Restart TracePut MonitorPut addr
+                                               Restart MonitorPut addr
 
             | (_,     [|"RUNOUT"; "OFF"|])  -> addRunout <- false
 
@@ -451,7 +449,7 @@ open Sim900.Help
             | (true,  [|"STEP"; n|])        -> Steps (GetNatural n)
 
             | (true,  [|"S"|]) 
-            | (true,  [|"STEP"|])           -> Steps 1; Restart TracePut MonitorPut -1
+            | (true,  [|"STEP"|])           -> Steps 1; Restart MonitorPut -1
 
             | (true,  [|"ST";      n|]) 
             | (true,  [|"STOP";    n|])
@@ -504,51 +502,7 @@ open Sim900.Help
             | (_,     [|"TOTELECODE"; f; "ASCII"|])
                                             -> ToTelecode f TTXT
 
-            | (true,  [|"TR"; "OFF"|]) 
-            | (true,  [|"TRACE"; "OFF"|])   -> TraceOff 0
 
-            | (true,  [|"TR"; "OFF"; level|]) 
-            | (true,  [|"TRACE"; "OFF"; level|])    
-                                            -> let l = GetNatural level
-                                               if l <= 0 || l > 4 then BadParameter ()
-                                               TraceOff l
-
-            | (true,  [|"TR"; "ON"; level|]) 
-            | (true,  [|"TRACE"; "ON"; level|])     
-                                            -> let l = GetNatural level
-                                               if l <= 0 || l > 4 then BadParameter ()
-                                               TraceOn l
-
-            | (true,  [|"TR"; "ON"|]) 
-            | (true,  [|"TRACE"; "ON"|])    -> TraceOn 0  
-
-            | (true,  [|"TRACEINTERRUPT"; level; "OFF"|]) 
-            | (true,  [|"TINT";           level; "OFF"|])
-                                            -> TraceInterruptOff (int (GetNatural level))
-
-            | (true,  [|"TRACEBUFFER"|])
-            | (true,  [|"TB"|])             -> TraceBuffer ()
-
-            | (true,  [|"TRACEINTERRUPT"; level; "ON"|])
-            | (true,  [|"TINT";           level; "ON"|])
-                                            -> TraceInterruptOn (int (GetNatural level))            
-
-            | (true,  [|"TRACEREGION"; "OFF"|])
-            | (true,  [|"TR";          "OFF"|])
-                                            -> TraceRegion -1 0
-
-            | (true,  [|"TRACEREGION"; start; finish|])
-            | (true,  [|"TR";          start; finish|])
-                                            -> TraceRegion (GetAddress start) (GetAddress finish)
-
-           (* | (true, [|"TRACK"; f; start|]) -> Track f (GetAddress start) *)
-
-            | (true, [|"WATCH"; "OFF"|])
-            | (true, [|"W";     "OFF"|])    -> WatchOff ()
-
-
-            | (true, [|"WATCH"; "ON"; n|])
-            | (true, [|"W";     "ON"; n|])  -> WatchOn (GetAddress n)
 
             | (true,  [|"VERIFYIMAGE"; f|])  
             | (true,  [|"VI";          f|]) -> VerifyImage f             
@@ -589,7 +543,6 @@ open Sim900.Help
             | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      if not nonStop then raise Finished
             | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      if not nonStop then raise Finished
             | Syntax s     ->   MessagePut s;                                        if not nonStop then raise Finished
-            | Watch        ->   MessagePut "Watch location accessed"; MiniDump ();   if not nonStop then raise Finished
             | Quit         ->   raise Quit 
             | err          ->   MessagePut err.Message;                              if not nonStop then raise Finished
             ReadCommands interactive
