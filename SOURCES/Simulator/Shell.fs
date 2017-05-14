@@ -301,12 +301,7 @@ open Sim900.Help
             | (true,  [| "JUMP"; k|])       -> JumpToAddr MonitorPut (GetConstant k)
             
             | (true,  [|"J"|]) | (true, [|"JUMP"|])          
-
-            | (true,  [|"K"; n|]) 
-            | (true,  [|"KEYS"; n|])        -> WordGeneratorPut (GetConstant n)
-
-            | (true,  [|"K"; f; n|]) 
-            | (true,  [|"KEYS"; f; n|])     -> WordGeneratorPut (GetInstruction f n)
+                                            -> Jump MonitorPut
 
             | (_,     [|"LS"|])             -> ListDirectory ()
 
@@ -338,11 +333,7 @@ open Sim900.Help
             | (_,     [|"NP";         "ON"|])
             | (_,     [|"NONPRINTING";"ON"|])   
                                             -> nonPrinting <- true
-            
-            | (true,  [|"OBEY"|])           -> Obey ()  
 
-            | (_,     [|"OFF"|])            -> turnOff ()
-                         
             | (_,     [|"ON"; a; mz; ms; ps|])
                                             -> turnOn a mz (GetNatural ms) (GetNatural ps)
             | (_,     [|"ON"; a; mz; ms|])
@@ -353,7 +344,7 @@ open Sim900.Help
             | (_,     [|"ON"; a|])          -> turnOn a "8K" 0 0
             | (_,     [|"ON"|])
                                             -> turnOn Generic900.name Generic900.memSize Generic900.memSpeed Generic900.ptrSpeed
-
+            
             | (true,  [|"O";      x; y|])
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
