@@ -18,13 +18,11 @@ module Sim900.Machine
     open Sim900.Formatting
     open Sim900.Gpio
                  
-    exception Watch       
     exception LoopStop
     exception StopAddr
     exception StopLimit
     exception Break
-    exception Trace 
-
+  
     let mutable stopped           = false                             // stop button pushed
     let mutable reset             = false                             // reset button pushed
 
@@ -48,13 +46,6 @@ module Sim900.Machine
         start:  list<int>;
         finish: list<int>}
 
-    // INSTRUCTION TRACE RECORD
-    // A buffer of the addresses of the most recently executed instructions and the acumulator value they
-    // produce is available
-    type TraceRec = {
-        scr: int; // address of instruction
-        acc: int  // accumulator value
-        }
 
     // MACHINE INTERNAL STATE
 
@@ -129,11 +120,11 @@ module Sim900.Machine
             | _                             -> initialInstructionsBase    <- 8180     
                 
 
-        let mutable watchLoc       = -1 // if set > 0 then generate a watch if this location is accessed
-        let mutable watch          = false 
+    
+
        
         let rec ReadMem address = 
-            if   address = watchLoc then watch <- true
+
             if   address < 0 || address >= memorySize
             then raise (Machine (sprintf "Read from store address %d outside memory bounds" address))
             elif initialInstructionsEnabled
@@ -145,7 +136,6 @@ module Sim900.Machine
             else memory.[address]
 
         let WriteMem address contents =
-            if   address = watchLoc then watch <- true
             if   address < 0 || address >= memorySize
             then raise (Machine (sprintf "Write to store address %d outside memory bounds" address))
             elif initialInstructionsEnabled
@@ -218,29 +208,16 @@ module Sim900.Machine
         let mutable stopAddr          = -1                               // stop after restart
         let mutable stepCount         = -1                               // counter for STEP command
         let mutable iCount            = 0L                               // instructions executed since last reset
-        let mutable tracing           = false                            // true to turn on instruction by instruction trace output
-        let mutable traceLevel        = [|true; true; true; true; true|] // which levels should appear in a trace    
-        let mutable traceStart        = -1                               // if >= 0, start of region to trace
-        let mutable traceFinish       = 0                                // if traceStart >= 0, end of region to trace        
         let mutable strobe            = false                            // true if any monitoring function is enabled
 
         let monitors    = new Dictionary<int, list<region>> ()
         let breakpoints = new List<int> ()
 
-        let nullTraceRec = {scr=1; acc=0}
-
-        let traceBufLen = 64
-        let traceBuffer: TraceRec[] = Array.create traceBufLen nullTraceRec
-        let mutable traceBufPtr = 0;
-
-        let TraceBufferClear () = 
-            for i=0 to traceBufLen-1 do 
-                traceBuffer.[i] <- nullTraceRec
 
         let CheckForStrobe () = 
             strobe <- Seq.length monitors > 0 || breakpoints.Count > 0 ||  stepCount >= 0 || stopAddr >= 0
-            || tracing || lpTime > elapsedTime || crTime > elapsedTime 
-            || mtIntTime > elapsedTime || watchLoc >= 0
+            || lpTime > elapsedTime || crTime > elapsedTime 
+            || mtIntTime > elapsedTime 
                       
         // INTERRUPTS 
         let mutable interruptLevel             = 1                   // current interrupt level 1..4 
@@ -949,14 +926,7 @@ module Sim900.Machine
                 mtHandler.[hdlr] <- None
             ResetMT ()
                   
-        // ERROR HANDLING                                                  
-        let BadInstruction F N =
-            raise (Machine (sprintf "Instruction %d %d is not supported" F N))
 
-        let Bad15Instruction Z = BadInstruction 15 Z
-            
-        let StoppedError ()    = 
-            raise (Machine "Machine in stopped state")
         let NotStoppedError () = 
             raise (Machine "Machine not in stopped state") 
             
@@ -1108,9 +1078,6 @@ module Sim900.Machine
             // M is (S[16..14}+n)[16..1] or (S[16..14]+B+n)[16..1] if modified
             // m is the contents memory location M
             // Z = N or (N+B)[13..1]
-                      
-
-         
 
             // SHIFT operators for combined accumulator and Q register
             let aqShiftLeft () =
@@ -1179,6 +1146,7 @@ module Sim900.Machine
                 then cpuTime <- cpuTime - modifyTime; elapsedTime <- elapsedTime - modifyTime     
                       
             // ORDER CODE
+
             match iRegister with
                 |  0  -> // set B register 
                          // B:=Q[18..1]:=m
@@ -1422,7 +1390,7 @@ module Sim900.Machine
                                                         let buffer = Array.zeroCreate count
                                                         for i=0 to count-1 do buffer.[i] <- ReadMem (accumulator+i+1)
                                                         LPTransfer buffer                                                            
-                         | (_, _)                    -> BadInstruction 14 Z                   
+                         | (_, _)                    -> ignore ()                  
                              
                 | 15  -> // input/output
                          let Z = M &&& operandMask
@@ -1681,7 +1649,7 @@ module Sim900.Machine
                          | (E900,      4866) -> // initialize plotter Y coord (also an invented instruction)
                                                 PlotterSetY accumulator 
 
-                         | (_,         _)    -> Bad15Instruction Z 
+                         | (_, _)     -> ignore ()
 
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
@@ -1733,26 +1701,6 @@ module Sim900.Machine
         stepCount <- count
         strobe <- true
 
-    let TraceRegion start finish =
-        traceStart  <- start
-        traceFinish <- finish
-
-    let TraceOn level = 
-        tracing <- true 
-        strobe <- true
-        if   level = 0
-        then for i = 1 to 4 do traceLevel.[i] <- true
-        else traceLevel.[level] <- true
-
-    let TraceOff level =
-        tracing <- false
-        if   level = 0
-        then for i = 1 to 4 do traceLevel.[i] <- false
-             tracing <- false
-        else traceLevel.[level] <- false
-             for i = 1 to 4 do tracing <- tracing || traceLevel.[i]
-        CheckForStrobe ()
-        
     // ACCESS REGISTERS
     let AGet ()     = accumulator 
     let APut value  = accumulator <- value &&& mask18
@@ -1831,9 +1779,8 @@ module Sim900.Machine
         for i = 0 to maxAddr do memory.[index+i] <- words.[i]        
              
     // RESTART after STOP         
-    let Restart tracePut monitorPut addr = // keep executing instructions until SCR = addr (or loop stop)  
+    let Restart monitorPut addr = // keep executing instructions until SCR = addr (or loop stop)  
         if not stopped then NotStoppedError ()
-        traceBufPtr <- 0
         stopped  <- false
         reset    <- false
         stopAddr <- addr
@@ -1848,7 +1795,6 @@ module Sim900.Machine
                      then SaveSB () // switch to new level
                           takeInterrupt <- false
                           interruptLevel <- HighestActiveLevel ()
-                          if tracing then printfn "INTERRUPT (%d)" interruptLevel
                           RestoreSB ()
                           // update timers
                           let intTime = (int64 timing.[23])
@@ -1874,26 +1820,10 @@ module Sim900.Machine
                 // increment instruction count
                 iCount <- iCount+1L
                 
-                // update instruction trace     
-                traceBuffer.[traceBufPtr] <- {scr=oldSequenceControlRegister; acc=accumulator}
-                traceBufPtr <- (traceBufPtr+1) % traceBufLen   
-                
-                // check for any strobes (breakpoints etc)
+                 // check for any strobes (breakpoints etc)
                 if   strobe
                 then YieldToDevices ()
-                     if   tracing 
-                     then if traceLevel.[oldLevel] && (traceStart < 0 
-                                                   || (traceStart <= oldSequenceControlRegister 
-                                                   && oldSequenceControlRegister <= traceFinish))
-                          then tracePut oldLevel oldSequenceControlRegister 
-                                             (ReadStore oldSequenceControlRegister)
-                                                accumulator qRegister memory.[bRegisterAddr]
-
-                     if watch
-                     then YieldToDevices ()
-                          watch <- false
-                          stopped <- true
-                          raise Watch 
+                     
                      let found, regions = monitors.TryGetValue oldSequenceControlRegister
                      if   found
                      then YieldToDevices ()
@@ -1937,9 +1867,9 @@ module Sim900.Machine
                 YieldToDevices ()        
         
     // JUMP START EXECUTION             
-    let JumpToAddr tracePut monitorPut address =
+    let JumpToAddr monitorPut address =
         // JUMP forces level 1 on 920A and 920B
-        TraceBufferClear ()
+
         scrAddr         <- 0
         bRegisterAddr   <- 1
         interruptLevel  <- 1  
@@ -1948,11 +1878,11 @@ module Sim900.Machine
         EnableInitialInstructions () 
         sequenceControlRegister <- address
         if machineType <> E920c then memory.[scrAddr] <- sequenceControlRegister
-        Restart tracePut monitorPut -1 
+        Restart monitorPut -1 
         
-    let Jump tracePut monitorPut = JumpToAddr tracePut monitorPut (wordGenerator &&& mask13)
+    let Jump monitorPut = JumpToAddr monitorPut (wordGenerator &&& mask13)
                   
-    let JumpII tracePut monitorPut = JumpToAddr tracePut monitorPut 8181
+    let JumpII monitorPut = JumpToAddr monitorPut 8181
             
     // GENERATE A MANUAL INTERRUPT      
     let ManualInterrupt level = // Signal a manual interrupt
@@ -1962,7 +1892,6 @@ module Sim900.Machine
 
     // EXECUTE SINGLE INSTRUCTION
     let Obey () = // Execute one instruction from word generator
-        if not stopped then NotStoppedError ()
         try Execute wordGenerator finally stopped <- true
 
     // MACHINE RESET
@@ -2009,11 +1938,8 @@ module Sim900.Machine
     let TidyUpMachine () =
         slow <- false
         Reset ()
-        watchLoc <- -1
         iCount <- 0L
         stepCount <- -1   
-        TraceOff 0
-        TraceRegion -1 0
         BreakpointOffAll ()   
         MonitorOffAll ()                            
         ResetTimes ()
@@ -2030,11 +1956,6 @@ module Sim900.Machine
         ResetTimes ()
         (ct, et, pcTime, machineName, ic)     
         
-    // TRACE BUFFER
-    let TraceBuffer () =
-        printfn("TraceBuffer")
-        Array.append traceBuffer.[traceBufPtr..traceBufLen-1] traceBuffer.[0..traceBufPtr-1]   
-            |> Array.filter (fun (t: TraceRec) -> t.scr <> -1) 
                         
     // TRACE INTERRUPTS
     let TraceInterruptOn level =
@@ -2060,15 +1981,7 @@ module Sim900.Machine
     let OutputSelectAuto ()        = SelectOutput <- AutoOut
     let OutputSelectTeleprinter () = SelectOutput <- TeleprinterOut
 
-    // Memory watch
-    let WatchOn loc = 
-        watchLoc <- loc
-        strobe <- true
-
-    let WatchOff () = 
-        watchLoc <- -1
-        CheckForStrobe ()
-
+ 
     // MAGNETIC TAPE
     let MTMount hdlr fileName wp = 
         // Attach command for MT - open file
