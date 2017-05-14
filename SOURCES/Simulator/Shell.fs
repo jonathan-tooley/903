@@ -44,7 +44,6 @@ open Sim900.Help
             match (on, words) with 
 
             | (true,  [|"AT";     "CRD"; "FILE"; f|])
-            | (true,  [|"ATTACH"; "CRD"; "FILE"; f|])
                                             -> if   f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
                                                then OpenCardTxt f T900
                                                elif f.EndsWith ".903"
@@ -54,26 +53,20 @@ open Sim900.Help
                                                else BadExtension ()
 
             | (true,  [|"AT";     "CRD"; "INLINE"|])
-            | (true,  [|"ATTACH"; "CRD"; "INLINE"|])
                                             -> OpenCardTextString (DefaultTelecode ()) (ReadInlineText ())
 
             | (true,  [|"AT";     "LPR"|])
-            | (true,  [|"ATTACH"; "LPR"|])
                                             -> OpenLinePrinter ()
 
             | (true,  [| "AT";     "MT"; n; file; |])
-            | (true,  [| "ATTACH"; "MT"; n; file; |])
                                             -> MTMount (GetNatural n) file false
 
             | (true,  [| "AT";     "MT"; n; file; "WP"|])
-            | (true,  [| "ATTACH"; "MT"; n; file; "WP"|])
                                             -> MTMount (GetNatural n) file true
 
-            | (true,  [|"AT";     "PLT";|])
-            | (true,  [|"ATTACH"; "PLT";|])  -> OpenPlotter ()
+            | (true,  [|"AT";     "PLT";|]) -> OpenPlotter ()
  
-            | (true,  [|"AT";     "PTP"; "FILE"; f|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f|])
+            | (true,  [|"AT";     "PTP"; "FILE"; f|])
                                             ->  if   f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
                                                 then OpenPunchTxt f T900
                                                 elif f.EndsWith ".ACD"
