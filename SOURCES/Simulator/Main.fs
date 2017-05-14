@@ -7,6 +7,7 @@ module Sim900.Main
 open Sim900.Formatting
 open Sim900.Devices
 open Sim900.Gpio
+open Sim900.Commands
 open Sim900.Shell
 open System
 open System.Windows
@@ -22,7 +23,7 @@ do
     setupControlPorts ()
 
     // Run commands
-    let work = Commands.updateDisplay() |> Async.StartAsTask
+    let work = updateDisplay() |> Async.StartAsTask
 
     async { CommandLineInterpreter () } |> Async.Start
 

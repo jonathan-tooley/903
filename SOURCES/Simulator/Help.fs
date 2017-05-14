@@ -22,25 +22,25 @@ module Sim900.Help
 
         let Help word =
             let helptxt = [|
-                    "ATtach CRD FILE filename";
+                    "AT CRD FILE filename";
                     "    Take card reader input from file";
-                    "ATtach CRD INLINE";
+                    "AT CRD INLINE";
                     "    Take card reader input from command input as text";
-                    "ATtach MT n file [WP]";
+                    "AT MT n file [WP]";
                     "    Atatch file to magenetic tape drive number n [with write permit ring fitted";
-                    "ATtach PLT";
+                    "AT PLT";
                     "    Open new plotter window";
-                    "ATtach PTP FILE filename [telecode]";
+                    "AT PTP FILE filename [telecode]";
                     "   Send punch output to file";
-                    "ATtach PTR INLINE [telecode [mode]]";
+                    "AT PTR INLINE [telecode [mode]]";
                     "   Take paper tape reader input from command input as text";
-                    "ATtach PTR INLINE BIN [mode]";
+                    "AT PTR INLINE BIN [mode]";
                     "    Take paper tape reader input from command input as binary";
-                    "ATtach PTR FILE filename [telecode [mode]]";
+                    "AT PTR FILE filename [telecode [mode]]";
                     "   Take paper tape reader input from file";
-                    "ATtach TTY INLINE telecode [mode]";
+                    "AT TTY INLINE telecode [mode]";
                     "   Take teleprinter input from command input as text";
-                    "ATtach TTY INLINE BIN [mode]"
+                    "AT TTY INLINE BIN [mode]"
                     "    Take teleprinter input from command input as binary";
                     "Break OFF";
                     "   Disable all breakpoints";
@@ -108,19 +108,6 @@ module Sim900.Help
                     "    Don't exit command level on stop conditions";
                     "NonStop ON";
                     "    Exit command level on stop conditions";
-                    "OBEY";
-                    "   Execute word generator as an instruction";
-                    "OFF"; "Switch machine off";
-                    "ON";
-                    "   Switch machine on";
-                    "ON architecture";
-                    "   Switch machine on, with specified architecture"
-                    "ON architecture memory";
-                    "   Switch machine on with specified architecture and memory size";
-                    "ON architecture memory speed";
-                    "   Switch machine on with specified architecture, memory size and cycle time";
-                    "ON architecture memory speed rate";
-                    "   Switch machine on with specified architecture, memory cycle time and reader input rate";
                     "Origin x y";
                     "    Set plotter origin relative to (0, 0)";
                     "Pause";
@@ -129,8 +116,6 @@ module Sim900.Help
                     "   Output memory in AMEND format"
                     "Quit";
                     "Exit the simulator";
-                    "RESET";
-                    "   Reset machine (must be stopped)";
                     "Restart [addr]";
                     "   Continue after a stop [stopping next at addr]";
                     "REVerse file";
@@ -173,25 +158,6 @@ module Sim900.Help
                     "   Convert file to raw format based on extension";
                     "TOTELEcode file telecode";
                     "   Convert to specified telecode. e.g. ACD, 900, 903, 920"
-                    "TRace OFF";
-                    "   Turn off tracing"; 
-                    "TRace ON";
-                    "   Turn on tracing";
-                    "TraceINTerrupt level ON";
-                    "   Enable trace interrupts for level";
-                    "TraceBuffer";
-                    "   Print trace of most recently executed instrunctions";
-                    "TraceINTerrupt level OFF";
-                    "    Disable trace interrupts for level";
-                    "TraceRegion OFF";
-                    "    Apply tracing to entire store"; 
-                    "TraceRegion from to";
-                    "    Restrict tracing to specified address range";
-
-                    "Watch ON loc";
-                    "    Monitor store location";
-                    "Watch OFF";
-                    "    STop monitoring store";
                     "VerifyImage file";
                     "    Check image file against memory contents";|]
             if   word = ""
