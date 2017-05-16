@@ -17,7 +17,7 @@
         type Info       = {name: string ; memSize: string; memSpeed: int; ptrSpeed: int}
         let Generic900  = {name="900"; memSize="64K"; memSpeed=0; ptrSpeed=0}
  
-        let mutable on  = false // true after ON command
+
 
         // remember default console
         let consoleIn  = System.Console.In

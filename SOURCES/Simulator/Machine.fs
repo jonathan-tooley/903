@@ -17,12 +17,14 @@ module Sim900.Machine
     open Sim900.Memory
     open Sim900.Formatting
     open Sim900.Gpio
-                 
+
+
     exception LoopStop
     exception StopAddr
     exception StopLimit
     exception Break
-  
+
+    let mutable on  = false                                           // true after ON command
     let mutable stopped           = false                             // stop button pushed
     let mutable reset             = false                             // reset button pushed
 
@@ -197,11 +199,8 @@ module Sim900.Machine
             then YieldToDevices ()
                  let elapsed = Elapsed () / 10000L
                  let pause = (int (elapsed - realTimer.ElapsedMilliseconds)) 
-                 if pause > 1000
-                 then raise (Machine (sprintf "Problem in SLOW mode - 903 %d  PC %d"  
-                                elapsed realTimer.ElapsedMilliseconds))
-                 elif pause > 0
-                 then System.Threading.Thread.Sleep pause
+                 if  pause > 0
+                                  then System.Threading.Thread.Sleep pause
 
         // MONITORING
 
@@ -1597,7 +1596,6 @@ module Sim900.Machine
 
                          | (E920b, _) when 7184 <= Z -> // Machine stop
                                                 stopped <- true
-                                                raise (Machine (sprintf "Stopped by 15 %d" Z)) 
 
                          | (_, _) when 7168 <= Z -> // Program terminate
                                                 let t = int64 timing.[24]
@@ -1867,23 +1865,20 @@ module Sim900.Machine
                 YieldToDevices ()        
         
     // JUMP START EXECUTION             
-    let JumpToAddr monitorPut address =
+    let Jump () =
         // JUMP forces level 1 on 920A and 920B
-
         scrAddr         <- 0
         bRegisterAddr   <- 1
         interruptLevel  <- 1  
         levelActive.[1] <- true    
         relative        <- true 
         EnableInitialInstructions () 
-        sequenceControlRegister <- address
+        sequenceControlRegister <- (wordGenerator &&& mask13)
         if machineType <> E920c then memory.[scrAddr] <- sequenceControlRegister
-        Restart monitorPut -1 
+        stopped        <- false
+        reset          <- false
         
-    let Jump monitorPut = JumpToAddr monitorPut (wordGenerator &&& mask13)
-                  
-    let JumpII monitorPut = JumpToAddr monitorPut 8181
-            
+         
     // GENERATE A MANUAL INTERRUPT      
     let ManualInterrupt level = // Signal a manual interrupt
         LevelCheck level
@@ -2006,3 +2001,46 @@ module Sim900.Machine
         
     let CloseMT = TidyUpMT
 
+
+
+    let Processor () =
+        async {
+         try
+            realTimer.Start ()
+            while true do
+              while on && (not stopped) do
+               
+                // Handle interrupts if not protected
+                // (Protect is set to stop an interrupt intruding between 0 and following instruction) 
+                if   takeInterrupt
+                then if not protect
+                     then SaveSB () // switch to new level
+                          takeInterrupt <- false
+                          interruptLevel <- HighestActiveLevel ()
+                          RestoreSB ()
+                          // update timers
+                          let intTime = (int64 timing.[23])
+                          cpuTime <- cpuTime + intTime
+                          elapsedTime <- elapsedTime + intTime 
+                          // re-enable initial instructions if going to level 1
+                          if   interruptLevel = 1
+                          then EnableInitialInstructions ()  
+                // clear interrupt protection
+                protect <- false
+               
+                let oldLevel = interruptLevel // 15 7168 might change the interrupt level
+
+                // SCR is incremented after instruction fetch, before decode
+                oldSequenceControlRegister <- sequenceControlRegister
+                sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
+                try
+                    Execute (ReadMem oldSequenceControlRegister) 
+                with
+                | exn -> stopped <- true; stdout.Write("E1")
+            
+                // increment instruction count
+                iCount <- iCount+1L
+                SlowDown ()
+
+        finally realTimer.Stop ()  
+        }

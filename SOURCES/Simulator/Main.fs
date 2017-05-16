@@ -7,6 +7,7 @@ module Sim900.Main
 open Sim900.Formatting
 open Sim900.Devices
 open Sim900.Gpio
+open Sim900.Machine
 open Sim900.Commands
 open Sim900.Shell
 open System
@@ -18,12 +19,14 @@ open System.Windows.Forms
 do
     CloseReader () // force devices to initialize
 
-    MessagePut "Simulation Starting"
+    MessagePut "Elliott Run Console"
 
     setupControlPorts ()
 
     // Run commands
     let work = updateDisplay() |> Async.StartAsTask
+
+    let w = Processor() |> Async.StartAsTask
 
     async { CommandLineInterpreter () } |> Async.Start
 

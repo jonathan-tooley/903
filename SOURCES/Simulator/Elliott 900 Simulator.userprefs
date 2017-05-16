@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="Sim900.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Gpio.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Machine.fs">
     <Files>
-      <File FileName="Commands.fs" Line="339" Column="1" />
-      <File FileName="Gpio.fs" Line="111" Column="21" />
+      <File FileName="Commands.fs" Line="320" Column="77" />
+      <File FileName="Gpio.fs" Line="98" Column="73" />
+      <File FileName="Machine.fs" Line="1937" Column="27" />
+      <File FileName="Main.fs" Line="30" Column="5" />
+      <File FileName="Parameters.fs" Line="20" Column="1" />
+      <File FileName="Shell.fs" Line="319" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
