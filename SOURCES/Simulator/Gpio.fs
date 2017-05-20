@@ -100,6 +100,7 @@ module Sim900.Gpio
    let wiringPiI2CWriteReg8 fd reg data = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
    let wiringPiI2CReadReg8  fd reg      = I2C.wiringPiI2CReadReg8  (fd, reg)
    let wiringPiSPISetup channel speed   = SPI.wiringPiSPISetup     (channel, speed)
+   let wiringPiSPIRW channel d l        = SPI.wiringPiSPIDataRW    (channel, d, l)
    let mcp23s17Setup pin0 port devId    = MCP.mcp23s17Setup        (pin0, port, devId)
 
    let mutable controlPanelU1 = 0
@@ -112,13 +113,11 @@ module Sim900.Gpio
    let setupControlPorts () =
        wiringPiSetup ()
 
-       wiringPiSPISetup 0 1000000 |> ignore
+       let mutable aa = 0
+       aa <- wiringPiSPISetup 0 1000000
+       wiringPiSPIRW aa 0 0x00
 
-       let err = mcp23s17Setup 65 0x0 0
 
-       pinMode 65 GPIO.pinType.Output
-
-       digitalWrite 65 GPIO.pinValue.High
 
        pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A one on this pin instructs the tape punch to comit the data on the mcp to paper
        pinMode 2 GPIO.pinType.Input   // Setup pin 2 as in input.  This is for the punch to effect a handshake by reporting when it is busy

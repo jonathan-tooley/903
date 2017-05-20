@@ -294,14 +294,8 @@ open Sim900.Help
             | (true,  [|"INTERRUPT"; level|])
                                             -> ManualInterrupt (int (GetNatural level))
 
-            | (true,  [| "J";    "II"|])
-            | (true,  [| "JUMP"; "II"|])    -> JumpII MonitorPut
-
-            | (true,  [| "J";    k|])
-            | (true,  [| "JUMP"; k|])       -> JumpToAddr MonitorPut (GetConstant k)
-            
             | (true,  [|"J"|]) | (true, [|"JUMP"|])          
-                                            -> Jump MonitorPut
+                                            -> Jump ()
 
             | (_,     [|"LS"|])             -> ListDirectory ()
 

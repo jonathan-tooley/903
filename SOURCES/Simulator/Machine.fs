@@ -24,9 +24,10 @@ module Sim900.Machine
     exception StopLimit
     exception Break
 
-    let mutable on  = false                                           // true after ON command
+    let mutable on                = false                             // true after ON command
     let mutable stopped           = false                             // stop button pushed
     let mutable reset             = false                             // reset button pushed
+    let mutable cycle             = false                             // reset button pushed
 
     type mode =
         | Auto
@@ -53,7 +54,7 @@ module Sim900.Machine
 
     // Initial values are for 64K 920b
 
-    let mutable wordGenerator              = 0       // setting of keys on control panel
+    //
 
     module private MachineStateHelper =
 
@@ -160,6 +161,7 @@ module Sim900.Machine
         let mutable pRegister                  = 0       // peripheral i/o
         let mutable relative                   = true    // false for 920C style absolute addressing
         let mutable holdUp                     = true    // true if paper tape station i/o is blocking, false otherwise
+        let mutable wordGenerator              = 0       // setting of keys on control panel
         
      
 
@@ -1711,6 +1713,11 @@ module Sim900.Machine
     let SPut value  = sequenceControlRegister 
     let IGet ()     = iRegister
     let WGet ()     = wordGenerator
+    let WPut value  = wordGenerator <- value &&& mask18
+    let L1Get()     = levelActive.[1]
+    let L2Get()     = levelActive.[2]
+    let L3Get()     = levelActive.[3]
+    let LGet ()     = interruptLevel 
 
     // ACCESS MEMORY     
     
@@ -2036,11 +2043,12 @@ module Sim900.Machine
                 try
                     Execute (ReadMem oldSequenceControlRegister) 
                 with
-                | exn -> stopped <- true; stdout.Write("E1")
+                | exn -> stopped <- true; stdout.Write("Execution Error in Processor")
             
                 // increment instruction count
                 iCount <- iCount+1L
                 SlowDown ()
+                if cycle then stopped <- true
 
         finally realTimer.Stop ()  
         }
