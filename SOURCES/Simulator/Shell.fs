@@ -43,26 +43,6 @@ open Sim900.Help
             let BadExtension () = raise (Syntax "Inappropriate file extension")
             match (on, words) with 
 
-            | (true,  [|"AT";     "CRD"; "FILE"; f|])
-                                            -> if   f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
-                                               then OpenCardTxt f T900
-                                               elif f.EndsWith ".903"
-                                               then OpenCardTxt f T903
-                                               elif f.EndsWith ".ACD"
-                                               then OpenCardTxt f TACD
-                                               else BadExtension ()
-
-            | (true,  [|"AT";     "CRD"; "INLINE"|])
-                                            -> OpenCardTextString (DefaultTelecode ()) (ReadInlineText ())
-
-            | (true,  [|"AT";     "LPR"|])
-                                            -> OpenLinePrinter ()
-
-            | (true,  [| "AT";     "MT"; n; file; |])
-                                            -> MTMount (GetNatural n) file false
-
-            | (true,  [| "AT";     "MT"; n; file; "WP"|])
-                                            -> MTMount (GetNatural n) file true
 
             | (true,  [|"AT";     "PLT";|]) -> OpenPlotter ()
  
@@ -81,26 +61,9 @@ open Sim900.Help
                                                 then OpenPunchRaw f 
                                                 else BadExtension ()
 
-            | (true,  [|"AT";     "PTP"; "FILE"; f; "LEGIBLE"|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f; "LEGIBLE"|])
-                                            -> OpenPunchLegible f
-                                            
+            
 
-            | (true,  [|"AT";     "PTP"; "FILE"; f; "900"|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f; "900"|])
-                                            -> OpenPunchTxt f T900
-
-            | (true,  [|"AT";     "PTP"; "FILE"; f; "903"|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f; "903"|])
-                                            -> OpenPunchTxt f T900
-
-            | (true,  [|"AT";     "PTP"; "FILE"; f; "920"|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f; "920"|])
-                                            -> OpenPunchTxt f T920
-
-            | (true,  [|"AT";     "PTP"; "FILE"; f; "ACD"|]) 
-            | (true,  [|"ATTACH"; "PTP"; "FILE"; f; "ACD"|])
-                                            -> OpenPunchTxt f TACD   
+     
    
             | (true,  [|"AT";     "PTR"; "INLINE"|]) 
             | (true,  [|"ATTACH"; "PTR"; "INLINE"|]) 
@@ -237,16 +200,6 @@ open Sim900.Help
             | (true,  [|"CL"; n|]) | (true, [|"CLEAR"; n|])  
                                             -> ClearModule (GetAddress n)
 
-            | (true,  [|"DE";     "CRD"|]) 
-            | (true,  [|"DETACH"; "CRD"|])  -> CloseCardReader ()
-
-            | (true,  [|"DE";     "LPR"|]) 
-            | (true,  [|"DETACH"; "LPR"|])  -> CloseLinePrinter ()
-
-            | (true,  [|"DE";     "MT"; n |])
-            | (true,  [|"DETACH"; "MT"; n |])
-                                            -> MTUnmount (GetNatural n)
-
             | (true,  [|"DE";     "PLT"|]) 
             | (true,  [|"DETACH"; "PLT"|])  -> ClosePlotter ()
 
@@ -284,18 +237,6 @@ open Sim900.Help
             | (true,  [|"DUMPIMAGE"; n; f|]) 
                                             -> DumpImage f (GetNatural n)
 
-            | (_,     [|"H"|]) | (true, [|"HELP"|])
-                                            -> Help ""
-            | (_,     [|"H"; t|]) 
-            | (_,     [|"HELP"; t|])
-                                            -> Help t
-
-            | (true,  [|"INT"; level|]) 
-            | (true,  [|"INTERRUPT"; level|])
-                                            -> ManualInterrupt (int (GetNatural level))
-
-            | (true,  [|"J"|]) | (true, [|"JUMP"|])          
-                                            -> Jump ()
 
             | (_,     [|"LS"|])             -> ListDirectory ()
 
@@ -328,17 +269,6 @@ open Sim900.Help
             | (_,     [|"NONPRINTING";"ON"|])   
                                             -> nonPrinting <- true
 
-            | (_,     [|"ON"; a; mz; ms; ps|])
-                                            -> turnOn a mz (GetNatural ms) (GetNatural ps)
-            | (_,     [|"ON"; a; mz; ms|])
-                                            -> turnOn a mz (GetNatural ms) 0
-            | (_,     [|"ON"; a; mz|])              
-                                            -> turnOn a mz 0 0
-
-            | (_,     [|"ON"; a|])          -> turnOn a "8K" 0 0
-            | (_,     [|"ON"|])
-                                            -> turnOn Generic900.name Generic900.memSize Generic900.memSpeed Generic900.ptrSpeed
-            
             | (true,  [|"O";      x; y|])
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
@@ -357,12 +287,6 @@ open Sim900.Help
             | (true,  [|"REWIND"; "PTR"|])  -> RewindReader ()
 
 
-            | (true,  [|"R"|])
-            | (true,  [|"RESTART"|])        -> Restart MonitorPut -1
-
-            | (true,  [|"R"; n|])
-            | (true,  [|"RESTART"; n|])     -> let addr = GetAddress n
-                                               Restart MonitorPut addr
 
             | (_,     [|"RUNOUT"; "OFF"|])  -> addRunout <- false
 
@@ -418,21 +342,6 @@ open Sim900.Help
                                                MonitorsPut ()
                                                BreakpointsPut ()
 
-            | (true, [|"SKIP"|])            -> SkipReader ()
-
-            | (true,  [|"SL"|])
-            | (true,  [|"SLOW"|])           -> Slow ()
-
-            | (true,  [|"S"; n|]) 
-            | (true,  [|"STEP"; n|])        -> Steps (GetNatural n)
-
-            | (true,  [|"S"|]) 
-            | (true,  [|"STEP"|])           -> Steps 1; Restart MonitorPut -1
-
-            | (true,  [|"ST";      n|]) 
-            | (true,  [|"STOP";    n|])
-            | (true,  [|"STOPPED"; n|])     -> if   SGet () <> (GetAddress n)
-                                               then raise Finished
 
             | (true,  [|"SWAPXY"|])         -> SwapXY ()
 
@@ -449,38 +358,6 @@ open Sim900.Help
             | (_,     [|"TC";       "920"|])
             | (_,     [|"TELECODE"; "920"|])
                                             -> SetDefaultTelecode T920
-            | (_,     [|"T"|])
-            | (_,     [|"TIDY"|])
-            | (_,     [|"TIDYUP"|])         -> TidyUp ()
-            
-            | (_,     [|"TOBINARY"; f|])     
-            | (_,     [|"TOBIN";    f|])    -> ToBinary f
-
-            | (_,     [|"TORAW"; f|])       -> ToRaw f
-
-            | (_,     [|"TOTELE";     f; "920"|])
-            | (_,     [|"TOTELECODE"; f; "920"|])
-                                            -> ToTelecode f T920
-
-            | (_,     [|"TOTELE";     f; "903"|])
-            | (_,     [|"TOTELECODE"; f; "903"|])
-                                            -> ToTelecode f T903 
-
-            | (_,     [|"TOTELE";     f; "900"|])
-            | (_,     [|"TOTELECODE"; f; "900"|])
-            | (_,     [|"TOTELE";     f|])
-            | (_,     [|"TOTELECODE"; f|]) 
-                                            -> ToTelecode f T900 
-
-            | (_,     [|"TOTELE";     f; "ACD"|])
-            | (_,     [|"TOTELECODE"; f; "ACD"|])
-                                            -> ToTelecode f TACD 
-
-            | (_,     [|"TOTELE";     f; "ASCII"|])
-            | (_,     [|"TOTELECODE"; f; "ASCII"|])
-                                            -> ToTelecode f TTXT
-
-
 
             | (true,  [|"VERIFYIMAGE"; f|])  
             | (true,  [|"VI";          f|]) -> VerifyImage f             
