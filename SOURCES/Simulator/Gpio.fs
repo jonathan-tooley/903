@@ -10,13 +10,13 @@ module Sim900.Gpio
  
    //This module is used to initialise the library
    module public wiringPi =
-     [<DllImport( "libwiring.so"     , EntryPoint = "wiringPiSetup"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiSetup"      , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern void wiringPiSetup       ( ) ;
-     [<DllImport("libwiringPi.so"    , EntryPoint = "wiringPiSetupGpio"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupGpio"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int WiringPiSetupGpio    ( );
-     [<DllImport("libwiringPi.so"    , EntryPoint = "wiringPiSetupSys"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupSys"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int WiringPiSetupSys     ( );
-     [<DllImport("libwiringPi.so"    , EntryPoint = "wiringPiSetupPhys"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupPhys"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int WiringPiSetupPhys    ( );
  
    //Used to define a GPIO pin's direction and to read or write to the pins
@@ -47,19 +47,19 @@ module Sim900.Gpio
      extern pinValue  digitalRead         ( int pin );
 
    module public I2C =
-     [<DllImport( "libwiringPiI2C.so", EntryPoint="wiringPiI2CSetup"       , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport( "libwiring.so", EntryPoint="wiringPiI2CSetup"       , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CSetup     ( int devId );
-     [<DllImport( "libwiringPiI2C.so", EntryPoint="wiringPiI2CWriteReg8"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport( "libwiring.so", EntryPoint="wiringPiI2CWriteReg8"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CWriteReg8 ( int fd, int reg, int data ); 
-     [<DllImport( "libwiringPiI2C.so", EntryPoint="wiringPiI2CReadReg8"    , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport( "libwiring.so", EntryPoint="wiringPiI2CReadReg8"    , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CReadReg8  ( int fd, int reg);
-     [<DllImport( "libwiringPiI2C.so", EntryPoint = "wiringPiI2CRead"      , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport( "libwiring.so", EntryPoint = "wiringPiI2CRead"      , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CRead      (int fd);
-     [<DllImport("libwiringPiI2C.so" , EntryPoint = "wiringPiI2CWrite"     , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so" , EntryPoint = "wiringPiI2CWrite"     , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CWrite     (int fd, int data);
-     [<DllImport("libwiringPiI2C.so" , EntryPoint = "wiringPiI2CWriteReg16", CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so" , EntryPoint = "wiringPiI2CWriteReg16", CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CWriteReg16(int fd, int reg, int data);
-     [<DllImport("libwiringPiI2C.so" , EntryPoint = "wiringPiI2CReadReg16" , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so" , EntryPoint = "wiringPiI2CReadReg16" , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CReadReg16 (int fd, int reg);
 
    module public SPI =
@@ -113,12 +113,6 @@ module Sim900.Gpio
    let setupControlPorts () =
        wiringPiSetup ()
 
-       let mutable aa = 0
-       aa <- wiringPiSPISetup 0 1000000
-       wiringPiSPIRW aa 0 0x00
-
-
-
        pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A one on this pin instructs the tape punch to comit the data on the mcp to paper
        pinMode 2 GPIO.pinType.Input   // Setup pin 2 as in input.  This is for the punch to effect a handshake by reporting when it is busy
 
@@ -126,6 +120,12 @@ module Sim900.Gpio
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
        controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
        controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
+
+       punchPort      <- wiringPiI2CSetup 0x20 
+
+       //Colours on the cable: orange yellow white blue red mauve grey black 
+       //                      brown gold 
+       //                      green (0V Common)
 
        // U1 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //27 : Reset push button               |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -225,17 +225,17 @@ module Sim900.Gpio
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
 
 
-   let mutable handShake = GPIO.pinValue.Low
+   let mutable handShake = GPIO.pinValue.High
    
    let punchByte char =
        // We wait for the punch to signal that it is ready
-       while handShake = GPIO.pinValue.Low do handShake <- digitalRead 2
+       while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
        // Then we set up the data on the mcp pins
        wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
        // Then we send a commit instruction to the punch
        digitalWrite 0 GPIO.pinValue.High
        // Now we wait for the punch to confirm that it is busy doing our instruction
-       while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
+       while handShake = GPIO.pinValue.Low do handShake <- digitalRead 2
        // Then we can stop telling to write as it has started working on our command
        digitalWrite 0 GPIO.pinValue.Low
 
