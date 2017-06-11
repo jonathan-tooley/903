@@ -15,7 +15,7 @@
         exception Syntax of string
 
         type Info       = {name: string ; memSize: string; memSpeed: int; ptrSpeed: int}
-        let Generic900  = {name="900"; memSize="64K"; memSpeed=0; ptrSpeed=0}
+        let Generic900  = {name="903"; memSize="16K"; memSpeed=0; ptrSpeed=0}
  
 
 
