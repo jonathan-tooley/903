@@ -1,10 +1,11 @@
-
+.userprefs
 .exe
 .xml
 .mdb
 .pdb
 
-SOURCES/Simulator/bin/*
+bin/
+Debug/
 
 
 
