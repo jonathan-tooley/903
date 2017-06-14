@@ -3,8 +3,10 @@
 .xml
 .mdb
 .pdb
+.so
 
-bin/
+
+SOURCES/Simulator/bin
 Debug/
 
 
