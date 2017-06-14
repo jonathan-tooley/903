@@ -1,9 +1,10 @@
-*.exe
+
+.exe
 .xml
 .mdb
 .pdb
 
-.exe
-.so
+SOURCES/Simulator/bin/*
+
 
 
