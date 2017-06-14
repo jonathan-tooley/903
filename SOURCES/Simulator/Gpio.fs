@@ -113,8 +113,10 @@ module Sim900.Gpio
    let setupControlPorts () =
        wiringPiSetup ()
 
-       pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A one on this pin instructs the tape punch to comit the data on the mcp to paper
-       pinMode 2 GPIO.pinType.Input   // Setup pin 2 as in input.  This is for the punch to effect a handshake by reporting when it is busy
+       pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+                                      // The Brown lead from the punch connects here.
+       pinMode 2 GPIO.pinType.Input   // Setup pin 2 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
+                                      // The Gold lead from the punch connects here.
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
@@ -122,6 +124,8 @@ module Sim900.Gpio
        controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
 
        punchPort      <- wiringPiI2CSetup 0x20 
+
+       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
@@ -229,13 +233,14 @@ module Sim900.Gpio
    
    let punchByte char =
        // We wait for the punch to signal that it is ready
-       while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
+       while handShake = GPIO.pinValue.Low do handShake <- digitalRead 2
        // Then we set up the data on the mcp pins
        wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
+       stdout.Write char
        // Then we send a commit instruction to the punch
        digitalWrite 0 GPIO.pinValue.High
        // Now we wait for the punch to confirm that it is busy doing our instruction
-       while handShake = GPIO.pinValue.Low do handShake <- digitalRead 2
+       while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
        // Then we can stop telling to write as it has started working on our command
        digitalWrite 0 GPIO.pinValue.Low
 

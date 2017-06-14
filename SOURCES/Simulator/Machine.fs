@@ -398,7 +398,7 @@ module Sim900.Machine
 
         let Punch Z =
             match SelectOutput with
-            | PunchOut
+            | PunchOut        -> punchByte (accumulator &&& mask8)
             | AutoOut         -> PunchOutput Z
             | TeleprinterOut  -> TTYOutput Z
 

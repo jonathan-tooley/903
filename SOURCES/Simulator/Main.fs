@@ -19,9 +19,9 @@ open System.Windows.Forms
 do
     CloseReader () // force devices to initialize
 
-    MessagePut "Elliott Run Console"
-
     setupControlPorts ()
+
+    MessagePut "Elliott Run Console"
 
     // Run commands
     let work = updateDisplay() |> Async.StartAsTask
