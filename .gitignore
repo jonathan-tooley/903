@@ -1,9 +1,10 @@
-.userprefs
-.exe
-.xml
-.mdb
-.pdb
-.so
+*.userprefs
+*.fsproj
+*.exe
+*.xml
+*.mdb
+*.pdb
+*.so
 
 
 SOURCES/Simulator/bin
