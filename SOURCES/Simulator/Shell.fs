@@ -179,16 +179,6 @@ open Sim900.Commands
             | (true,  [|"ATTACH"; "TTY"; "INLINE"; "BIN"|])
                                             ->  OpenTTYInBinaryString Mode3 (ReadInlineText ()) 
 
-            | (true,  [|"B"; "OFF"; n|]) 
-            | (true,  [|"BREAK"; "OFF"; n|])
-                                            ->  BreakpointOff (GetAddress n)
-
-            | (true,  [|"B"; "OFF"|])
-            | (true,  [|"BREAK"; "OFF"|])   ->  BreakpointOffAll ()
-
-            | (true,  [|"B"; "ON"; n|]) 
-            | (true,  [|"BREAK"; "ON"; n|]) ->  BreakpointOn (GetAddress n)
-
             | (_,     [|"CD"; d|])
             | (_,     [|"CHANGEDIR"; d|])   -> ChangeDir d
 
@@ -245,39 +235,13 @@ open Sim900.Commands
             | (true,  [|"LO"; f|]) 
             | (true,  [|"LOADIMAGE"; f|])   -> LoadImage f
 
-            | (_,     [|"NL";      "OFF"|])
-            | (_,     [|"NEWLINE"; "OFF"|]) -> SetTTYNewline false                                                    
-                                            
-            | (_,     [|"NL";      "ON"|])
-            | (_,     [|"NEWLINE"; "ON"|])  -> SetTTYNewline true
-            
-            | (_,     [|"NS";          "OFF"|])
-            | (_,     [|"NONSTOP";     "OFF"|])  
-                                            -> nonStop <- false
-                                            
-            | (_,     [|"NS";         "ON"|])
-            | (_,     [|"NONSTOP";     "ON"|])  
-                                            -> nonStop <- true
-
-            | (_,     [|"NP";          "OFF"|])
-            | (_,     [|"NONPRINTING"; "OFF"|])  
-                                            -> nonPrinting <- false
-
-            | (_,     [|"NP";         "ON"|])
-            | (_,     [|"NONPRINTING";"ON"|])   
-                                            -> nonPrinting <- true
 
             | (true,  [|"O";      x; y|])
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
-            | (_,     [|"P"|])
-            | (_,     [|"PAUSE"|])          -> Pause ()
 
             | (_,     [|"REV"; f |])
             | (_,     [|"REVERSE"; f |])    -> Reverse f
-
-            | (true,  [|"RW";     "CRD"|])
-            | (true,  [|"REWIND"; "CRD"|])  -> RewindCard ()
 
             | (true,  [|"RW" |])
             | (true,  [|"REWIND" |])
@@ -316,18 +280,8 @@ open Sim900.Commands
             | (true,  [|"SELECT"; "OUT"; "TTY"|])
                                             -> OutputSelectTeleprinter ()
 
-            | (true,  [|"SH"; "B";|]) 
-            | (true,  [|"SHOW"; "BREAKPOINTS"|])   
-                                            -> BreakpointsPut ()
+ 
 
-            | (true,  [|"SH"; "C"|]) 
-            | (true,  [|"SHOW"; "CONF"|])
-            | (true,  [|"SHOW"; "CONFIGURATION"|])         
-                                            -> ConfigPut ()
-
-            | (true,  [|"SH"; "M";|]) 
-            | (true,  [|"SHOW"; "MONITORS"|])     
-                                            -> MonitorsPut ()
 
             | (true,  [|"SH"; "T";|]) 
             | (true,  [|"SHOW"; "TIME"|])
@@ -335,10 +289,8 @@ open Sim900.Commands
                                             -> TimesPut (Times ())
 
             | (true,  [| "SH" |])
-            | (true,  [| "SHOW" |])         -> ConfigPut ()
-                                               TimesPut (Times())
-                                               MonitorsPut ()
-                                               BreakpointsPut ()
+            | (true,  [| "SHOW" |])         -> TimesPut (Times())
+                                               
 
 
             | (true,  [|"SWAPXY"|])         -> SwapXY ()
@@ -366,16 +318,6 @@ open Sim900.Commands
             | (_,     [||])                 -> () // empty line
 
             | _                             ->  match (on, words.[0]) with
-                                                | (true,  "B")
-                                                | (true,  "BREAK")   -> BreakCmd words.[1..]
-                                                | (_,     "C")
-                                                | (_,     "COMMENT") -> ()
-                                                | (_,     "DO") when words.Length >= 2
-                                                                     -> ReadCommandsFromFile words.[1] words.[2..]
-                                                | (true,  "M")
-                                                | (true,  "MONITOR") -> MonitorCmd words.[1..]
-                                                | (true,  "QCHECK")
-                                                | (true,  "QC" )     -> QCheck words.[1..]
                                                 | _                  -> BadCommand ()               
                                
         // READ COMMANDS 
@@ -385,37 +327,19 @@ open Sim900.Commands
                 Decode ()
             YieldToDevices ()
             try Decode () with
-            | Code c       ->   MessagePut (sprintf "%s" c);                         if not nonStop then raise Finished
-            | Break        ->   MessagePut "Breakpoint reached";   MiniDump ();      if not nonStop then raise Finished
-            | Device  s    ->   MessagePut s;                                        if not nonStop then raise Finished
+            | Code c       ->   MessagePut (sprintf "%s" c);                         
+            | Break        ->   MessagePut "Breakpoint reached";   MiniDump ();      
+            | Device  s    ->   MessagePut s;                                        
             | Finished     ->   raise Finished // end of current command level
-            | LoopStop     ->   MessagePut (sprintf "Loop stop at location %s" (AddressStr(SGet ())))
-            | Machine s    ->   MessagePut s;                                        if not nonStop then raise Finished
-            | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      if not nonStop then raise Finished
-            | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      if not nonStop then raise Finished
-            | Syntax s     ->   MessagePut s;                                        if not nonStop then raise Finished
+            | LoopStop     ->   MessagePut (sprintf "Loop stop at location %s" (AddressStr(SGet ())))                                   
+            | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      
+            | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      
+            | Syntax s     ->   MessagePut s;                                        
             | Quit         ->   raise Quit 
-            | err          ->   MessagePut err.Message;                              if not nonStop then raise Finished
+            | err          ->   MessagePut err.Message;
             ReadCommands interactive
 
-        // read commands from file
-        and ReadCommandsFromFile file (args: string[]) =
-            // read commands from file
-            let stdin = System.Console.In // remember current console
-            try
-                let fe = file+".DAT"
-                let f = if File.Exists file then file elif File.Exists fe then fe else file
-                let mutable commands = File.ReadAllText f 
-                // substitute parameters
-                for i in 0..(args.Length-1) do
-                    let pi = "%"+(i+1).ToString ()
-                    commands <- commands.Replace (pi, args.[i]) 
-                let reader = new StringReader (commands)
-                System.Console.SetIn reader
-                try ReadCommands false with | Finished -> ()
-            finally
-                System.Console.SetIn stdin
-
+    
         and ReadCommandsFromConsole () = 
             FlushTTY ()
             try ReadCommands true with 
