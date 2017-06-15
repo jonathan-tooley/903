@@ -13,8 +13,7 @@ module Sim900.FileHandling
         open Sim900.Formatting
         open Sim900.Machine
         open Sim900.Parameters
-        open Sim900.Legible
-
+       
         // Elliott 903 simulator file handling commands
 
         // Delete

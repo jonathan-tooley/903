@@ -15,7 +15,6 @@ open Sim900.Machine
 open Sim900.Formatting
 open Sim900.Machine
 open Sim900.Parameters
-open Sim900.Legible
 open Sim900.FileHandling
 open Sim900.Commands
 open Sim900.Help
@@ -374,8 +373,6 @@ open Sim900.Help
                                                 | (_,     "COMMENT") -> ()
                                                 | (_,     "DO") when words.Length >= 2
                                                                      -> ReadCommandsFromFile words.[1] words.[2..]
-                                                | (_,     "LEG")  
-                                                | (_,     "LEGIBLE") -> Legible words.[1..]
                                                 | (true,  "M")
                                                 | (true,  "MONITOR") -> MonitorCmd words.[1..]
                                                 | (true,  "QCHECK")

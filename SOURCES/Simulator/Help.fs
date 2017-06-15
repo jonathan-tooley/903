@@ -16,7 +16,6 @@ module Sim900.Help
         open Sim900.Formatting
         open Sim900.Machine
         open Sim900.Parameters
-        open Sim900.Legible
         open Sim900.FileHandling
         open Sim900.Commands
 
