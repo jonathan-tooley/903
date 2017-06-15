@@ -135,8 +135,6 @@ module Sim900.Formatting
         MessagePut (sprintf "%s elapsed time = %s" machineName (ToString totTime))
         MessagePut (sprintf "%s elapsed time = %s" ("PC".PadRight (machineName.Length)) (ToString pcTime))  
 
-    let ConfigPut () =
-        MessagePut (sprintf "Elliott %s with %dK of %d microsec store and %d ch/s tape reader" 
-                        machineName (memorySize/1024) memorySpeed (10000000L / ptrCharTime))
+
 
                  

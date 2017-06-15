@@ -36,19 +36,6 @@ module Sim900.Machine
 
     let mutable operate           = mode.Auto                        // Keyswitch position defaults to auto
 
-    // MONITOR POINTS
-    // Monitor points are a debugging facility based on the Elliott MONITOR/QCHECK utility.
-    // If execution reaches a monitor point a dump is made of the machine registers and
-    // a specified series of memory regions.  The start and end of each region is defined
-    // by either address or a calculated address formed by chaining through a specified
-    // series of indirections        
-    type monitor = {
-        addr: int;
-        regions: list<region>}
-    and region = {
-        start:  list<int>;
-        finish: list<int>}
-
 
     // MACHINE INTERNAL STATE
 
@@ -99,14 +86,9 @@ module Sim900.Machine
         let EnableInitialInstructions () =
             initialInstructionsEnabled <- true
             initialInstructionStore <- initialInstructions ()
-            match machineType with
-            | E920a                         -> initialInstructionsBase    <- if memorySize = 4096 then 4084 else 8180  
-            | _                             -> initialInstructionsBase    <- 8180     
-                
-
+            initialInstructionsBase    <- 8180     
     
-
-       
+               
         let rec ReadMem address = 
 
             if   address < 0 || address >= memorySize
@@ -179,20 +161,8 @@ module Sim900.Machine
                                   then System.Threading.Thread.Sleep pause
 
         // MONITORING
-
-        let mutable stopAddr          = -1                               // stop after restart
-        let mutable stepCount         = -1                               // counter for STEP command
         let mutable iCount            = 0L                               // instructions executed since last reset
-        let mutable strobe            = false                            // true if any monitoring function is enabled
-
-        let monitors    = new Dictionary<int, list<region>> ()
-        let breakpoints = new List<int> ()
-
-
-        let CheckForStrobe () = 
-            strobe <- Seq.length monitors > 0 || breakpoints.Count > 0 ||  stepCount >= 0 || stopAddr >= 0
-            || lpTime > elapsedTime || crTime > elapsedTime 
-            || mtIntTime > elapsedTime 
+          
                       
         // INTERRUPTS 
         let mutable interruptLevel             = 1                   // current interrupt level 1..4 
@@ -885,10 +855,7 @@ module Sim900.Machine
     let TidyUpMachine () =
         slow <- false
         Reset ()
-        iCount <- 0L
-        stepCount <- -1   
-        BreakpointOffAll ()   
-        MonitorOffAll ()                            
+        iCount <- 0L                      
         ResetTimes ()
         SelectInput  <- AutoIn
         SelectOutput <- AutoOut

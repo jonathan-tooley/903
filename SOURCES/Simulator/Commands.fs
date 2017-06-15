@@ -21,27 +21,7 @@ module Sim900.Commands
 
         exception Quit
    
-        // breakpoints
-        let BreakCmd (words: string[]) =
-            if   words.Length < 1 
-            then BadCommand ()
-            elif words.Length < 2
-            then BadCommand ()
-            match words.[0] with
-            | "ON"  ->  for w in words.[1..] do BreakpointOn   (GetAddress w)
-            | "OFF" ->  for w in words.[1..] do BreakpointOff (GetAddress w)
-            | _     ->  BadCommand ()
-
-        // display breakpoints
-        let BreakpointsPut () =
-            let b = Breakpoints ()
-            if b.Count = 0
-            then stdout.WriteLine "No breakpoints set"
-            else stdout.WriteLine "Breakpoints"
-                 for addr in b do 
-                    AddressPut addr
-                    stdout.WriteLine ()
-
+ 
         // change directory
         let ChangeDir d =
             if   Directory.Exists d 
@@ -53,7 +33,7 @@ module Sim900.Commands
 
         // display register
         let DisplayRegisters () =
-            stdout.Write "A="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
+            stdout.Write "\x1B[0;33m\x1B[s\x1B[0;0HA="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
             stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); stdout.WriteLine ()
 
             stdout.Write "Q="; LongSignedPut (QGet ()); stdout.Write "  "; AddressPut     (QGet ()); 
@@ -68,7 +48,8 @@ module Sim900.Commands
             stdout.Write "W="; LongSignedPut (WGet ()); stdout.Write "  "; AddressPut     (WGet ()); 
             stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ()); stdout.WriteLine ()
          
-            stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()                   
+            stdout.Write "I="; LongSignedPut (IGet ()); stdout.Write "\x1B[K"                      ; stdout.WriteLine ()    
+            stdout.Write "\x1B[0;37m\x1B[u"               
 
         // display after a problem reported
         let MiniDump () =
@@ -78,142 +59,18 @@ module Sim900.Commands
             stdout.WriteLine ()
             DisplayRegisters ()
 
-        // display at a monitored location
-        let MonitorPut m =
-            // show location
-            stdout.WriteLine ()
-            stdout.Write "*"
-            AddressPut (m.addr)
-            stdout.WriteLine ()
-            stdout.WriteLine ()
-            DisplayRegisters ()
-            for r in m.regions do
-                stdout.WriteLine ()            
-                let rec indirect addr (l: list<int>) =
-                    if   l.IsEmpty
-                    then addr
-                    else indirect ((ReadStore addr) + l.Head) l.Tail
-                let start  = indirect r.start.Head  r.start.Tail
-                let finish = indirect r.finish.Head r.finish.Tail
-                DisplayRange2 start finish            
         
         // display location
         let DisplayLocation text =
             let addr = GetAddress text
             StoreWordPut (Some(addr)) (ReadStore addr)
 
-
-        // monitor
-        let MonitorOnCmd (words: string[]) = 
-            if   words.Length < 1
-            then BadCommand ()
-            let addr = GetAddress words.[0]
-            let GetNumber (s: string) =
-                if s.Length < 1 then BadParameter ()
-                match s.[0] with
-                | '+'   ->    GetNatural s.[1..]
-                | '-'   ->  -(GetNatural s.[1..])
-                | _     ->  failwith "Internal error1 in MonitorCmd" // shouldn't happen
-            let rec nextIndirect (s: string) =
-                let pos = s.[1..].IndexOfAny [|'+';'-'|] // split out number
-                if   pos < 0
-                then (GetNumber s):: [] 
-                else (GetNumber s.[..pos])::(nextIndirect s.[(pos+1)..])
-            let parseIndirect (s: string) =
-                let pos = s.IndexOfAny [|'+';'-'|]
-                if   pos < 0
-                then // no indirections
-                     (GetNatural s)::[] 
-                else // build list of indirections
-                     (GetNatural s.[..(pos-1)])::(nextIndirect s.[pos..])
-            let rec parseRegions i =
-                if   i >= words.Length
-                then // all regions parsed
-                     []
-                else // unpick next region
-                     let region = words.[i]
-                     // parse start/finish
-                     let ss = region.Split [|'/'|]
-                     if ss.Length > 2 then BadParameter ()
-                     let start  = parseIndirect ss.[0]
-                     let finish = (if ss.Length = 1 then start else parseIndirect ss.[1])
-                     {start=start; finish=finish}::(parseRegions (i+1))
-            let regions = parseRegions 1
-            MonitorOn {addr=addr; regions=regions}
-            
-        let MonitorCmd (words: string[]) =
-            if   words.Length < 1 
-            then BadCommand ()
-            else match words.[0] with
-                 | "ON"  ->  MonitorOnCmd words.[1..]
-                 | "OFF" ->  if   words.Length < 2
-                             then MonitorOffAll ()
-                             else for w in words.[1..] do MonitorOff (GetAddress w)
-                 | _     ->  BadCommand ()
-
-        // display monitor points
-        let MonitorsPut () =
-            let mm  = Monitors ()
-            if   Seq.length mm = 0
-            then stdout.WriteLine "No monitor points set"
-            else stdout.WriteLine "Monitors"
-                 for m in mm do
-                    let addr, regions = m
-                    AddressPut addr
-                    stdout.Write "   "
-                    for r in regions do
-                        stdout.Write " "
-                        let indirectPut (l: list<int>) =
-                            stdout.Write l.Head
-                            for i in l.Tail do
-                                printf "%+d" i
-                        indirectPut r.start
-                        stdout.Write '/'
-                        indirectPut r.finish
-                    stdout.WriteLine ()            
-
-        // wait for user input
-        let Pause () =
-            consoleOut.Write "SIM900: Paused - type RETURN to continue...."
-            while consoleIn.Read () <> (int '\r') do ()
-  
-        // QCHECK (based on 903 QCHECK utility)
-        let QCheck (words: string[]) =
-            let rec Helper prev (words: string[]) =
-                if  words.Length = 0
-                then () // done
-                elif words.Length < 3
-                then raise (Syntax "<from> <to> <format> expected")
-                else let first = GetAddress words.[0]
-                     let last  = GetAddress words.[1]
-                     if first <> (prev+1) then printfn "^%d" first
-                     for addr = first to last do
-                         if   addr%5=0
-                         then stdout.Write '('
-                              AddressPut addr
-                              stdout.Write ")    "
-                         else stdout.Write "             "
-                         let word = ReadStore addr
-                         match words.[2] with
-                         | "F"   ->                     FractionPut      word
-                         | "I"   ->  stdout.Write " ";  LongSignedPut    word
-                         | "B"   ->  stdout.Write "  "; OctalPut         word
-                         | "O"   ->  stdout.Write " ";  InstructionPut   word
-                         | _     -> raise (Syntax ("Format " + words.[2] + " invalid"))
-                         stdout.WriteLine ()
-                     Helper last words.[3..]
-            Helper -1 words
-            stdout.WriteLine "%" 
-                              
-             
-        let mutable nonStop = false; // set true to continue after stops
+          
 
         // tidy up
         let TidyUp () =
-            TidyUpTelecodes ()
             TidyUpDevices ()
             TidyUpMachine ()
-            nonStop  <- false
 
         // turn off machine - finalize any output
         let turnOff () =
@@ -227,9 +84,8 @@ module Sim900.Commands
             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000000 |> ignore
 
         // turn on machine in specified configuration                  
-        let turnOn arch memSize memSpeed ptrSpeed =
-            CheckConfiguration arch memSize memSpeed ptrSpeed // set up required configuration
-            ConfigPut ()
+        let turnOn () =
+            CheckConfiguration () // set up required configuration
             on <- true
             Reset ()
             TidyUp ()
@@ -322,7 +178,7 @@ module Sim900.Commands
                     
                     if PanelInput &&& 0b00010000 = 0b00010000 && not on
                         then MessagePut ("On button pressed.  Starting default system")
-                             turnOn Generic900.name Generic900.memSize Generic900.memSpeed Generic900.ptrSpeed
+                             turnOn ()
 
                     if PanelInput &&& 0b00000100 = 0b00000100 && on
                         then MessagePut ("Off button pressed.  Turning off")
@@ -434,10 +290,8 @@ module Sim900.Commands
                         then MessagePut ("Cycle Stop Selected")
                              cycle <- true
 
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on && (AGet () <> DisplayedA || SGet () <> DisplayedS )
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on 
                         then DisplayRegisters ()
-                             DisplayedA <- AGet ()
-                             DisplayedS <- SGet ()
 
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
@@ -465,6 +319,6 @@ module Sim900.Commands
                              reset     <- false
                              Obey ()
 
-                    Thread.Sleep(100)
+                    Thread.Sleep(150)
                   }
 
