@@ -525,25 +525,17 @@ module Sim900.Devices
             // set up new plotting window 
             if   not plotting
             then plotting <- true
-                 if   machineType = E900
-                 then maxx   <- 639 
-                      maxy   <- 479 // 640*480 VGA screen
-                      width  <- maxx+1+xMargin
-                      height <- maxy+1+yMargin
-                      if yInit = -1 then yInit <- 160
-                      x      <- xInit     
-                      y      <- yInit 
-                 else maxx   <- 1799 // 2675 = 13.375 inch
-                      maxy   <-  749   
-                      width  <- maxx+1+xMargin
-                      height <- maxy+1+yMargin 
-                      maxx   <- maxx*(int scale)
-                      maxy   <- maxy*(int scale)
-                      if xInit = -1 then xInit <- 0
-                      if yInit = -1 then yInit <- 0
-                      x      <- if swapxy then xInit      else yInit
-                      y      <- if swapxy then maxy-yInit else maxx-xInit
-                 down <- false
+                 maxx   <- 1799 // 2675 = 13.375 inch
+                 maxy   <-  749   
+                 width  <- maxx+1+xMargin
+                 height <- maxy+1+yMargin 
+                 maxx   <- maxx*(int scale)
+                 maxy   <- maxy*(int scale)
+                 if xInit = -1 then xInit <- 0
+                 if yInit = -1 then yInit <- 0
+                 x      <- if swapxy then xInit      else yInit
+                 y      <- if swapxy then maxy-yInit else maxx-xInit
+                 down   <- false
                  triggerEvent ensureGraphEvent ()
                     
         let Pixel (x, y) =
@@ -604,7 +596,6 @@ module Sim900.Devices
             RenewPlotter ()  
             xInit <- -1
             yInit <- -1
-            swapxy <- machineType = E900 
             scale <- 1
                                                           
     open GraphPlotter  
@@ -662,7 +653,7 @@ module Sim900.Devices
 
     let SwapXY () = 
         RenewPlotter ()
-        swapxy <- machineType <> E900;
+
            
     let ClosePlotter () = 
         // Close plotting the current graph, if any.  Ensures graph is displayed and reset 

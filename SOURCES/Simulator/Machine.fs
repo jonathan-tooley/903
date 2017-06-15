@@ -74,36 +74,17 @@ module Sim900.Machine
         // is obeyed from those locations.  The effect of reading these locations on a basic machine
         // or while the instructions are enabled should be regarded as undefined.
         //
-        // 905: These instructions are brought into use when a program is entered (JUMP) and remain 
-        // in use until a 15 7168 or 15 7177 is obeyed.  While the instructions are in use the
-        // contents of the locations are fixed and cannot be changed in any way.  The locations can 
-        // be used normally after one of the above instructions has been obeyed.
+
 
         let mutable initialInstructionsEnabled = true
 
         let mutable initialInstructionsBase    = 0
 
         let initialInstructions () = 
-            match machineType with
-                | E920a when memorySize = 4096 ->
-                    [|  InstructionToWord (1, 15, 8189);  // -3      
-                        InstructionToWord (0,  0, 8180-4096);
-                        InstructionToWord (0,  4, 8189-4096);
-                        InstructionToWord (0, 15, 4094); 
-                        InstructionToWord (0,  9, 8186-4096); 
-                        InstructionToWord (0,  8, 8183-4096); 
-                        InstructionToWord (0, 15, if machineType = E920a then 4094 else 2048); 
-                        InstructionToWord (1,  5, 8180-4096); 
-                        InstructionToWord (0 ,10,    1); 
-                        InstructionToWord (0,  4,    1); 
-                        InstructionToWord (0,  9, 8182-4096); 
-                        InstructionToWord (0,  8, 8177-4096)  |]
-                
-                | _ ->         
                     [|  InstructionToWord (1, 15, 8189);  // -3      
                         InstructionToWord (0,  0, 8180);
                         InstructionToWord (0,  4, 8189);
-                        InstructionToWord (0, 15, if machineType = E920a then 4094 else 2048); 
+                        InstructionToWord (0, 15, 2048); 
                         InstructionToWord (0,  9, 8186); 
                         InstructionToWord (0,  8, 8183); 
                         InstructionToWord (0, 15, 2048); 
@@ -159,7 +140,7 @@ module Sim900.Machine
         let mutable oldSequenceControlRegister = 0       // copy of SCR before incremented in instruction decode
         let mutable iRegister                  = 0       // function code
         let mutable pRegister                  = 0       // peripheral i/o
-        let mutable relative                   = true    // false for 920C style absolute addressing
+        //let mutable relative                   = true    // false for 920C style absolute addressing
         let mutable holdUp                     = true    // true if paper tape station i/o is blocking, false otherwise
         let mutable wordGenerator              = 0       // setting of keys on control panel
         
@@ -172,10 +153,7 @@ module Sim900.Machine
         let mutable ptpTime           = 0L    // time when punch next free    
         let mutable ttyTime           = 0L    // time when tty next free    
         let mutable pltTime           = 0L    // time when plotter next free 
-        let mutable lpTime            = 0L    // time when line printer next free
-        let mutable crTime            = 0L    // time when next card data ready 
-        let mutable mtTime            = 0L    // time when magnetic tape next ready
-        let mutable mtIntTime         = 0L    //  time when next magnetic tape interrupt due                                   
+                                   
         let         realTimer         = new System.Diagnostics.Stopwatch ()  
         
         let Elapsed () = max elapsedTime (max ptrTime (max ptpTime (max ttyTime pltTime)))
@@ -185,10 +163,6 @@ module Sim900.Machine
             ptpTime     <- 0L
             ttyTime     <- 0L
             pltTime     <- 0L
-            crTime      <- 0L
-            lpTime      <- 0L
-            mtTime      <- 0L
-            mtIntTime   <- 0L
             cpuTime     <- 0L
             elapsedTime <- 0L
             realTimer.Reset ()
@@ -246,14 +220,13 @@ module Sim900.Machine
         let SaveSB () = // save S and B register for current interrupt level
             scrAddr <- (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
-            memory.[scrAddr] <- sequenceControlRegister ||| if relative then 0 else bit18    
+            memory.[scrAddr] <- sequenceControlRegister    
               
         let RestoreSB () = // restore S and B register for current interrupt level
             scrAddr <-  (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
             let SCR = memory.[scrAddr] // includes H bit
             sequenceControlRegister <- SCR &&& mask17
-            relative <- SCR &&& bit18 = 0
 
         let DisableInitialInstructions () =
             initialInstructionsEnabled <- false 
@@ -450,40 +423,16 @@ module Sim900.Machine
                      cpuTime     <- cpuTime + modifyTime
                      elapsedTime <- elapsedTime + modifyTime
                      let m = N + memory.[bRegisterAddr]
-                     // deal with side effects and 13 vs 16 vs 17 bit addressing and 920C hardware SCR
-                     match machineType with
-                     | E900              -> // Generic 900 leaves Q unchanged, 920M effect not known
-                                            let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
-                                            (mm, mm)
-                     | E920a             -> qRegister <- word                                           
-                                            let mm = m &&& mask13 // max 8K store
-                                            (mm, mm)
-                     | E920b             -> // the precise behaviour of 920M is uncertain - some documents say same as 920B
-                                            // others just say "affected"
-                                            qRegister <- N                                           
-                                            let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
-                                            (mm, mm)
-                     | E920m              -> // 920M "affected" but not known how
-                                            qRegister <- N
-                                            let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
-                                            (mm, mm)  
-                     | E920c             -> // Q effect not known
-                                            let mm = (m+(oldSequenceControlRegister &&& cModuleMask)) &&& mask17
-                                            ((if relative then mm else m &&& mask13), mm)              
-                 elif machineType = E920c
-                 then // 920C unmodified - 17 bits, relative or absolute mode
-                      let mm = N+(oldSequenceControlRegister &&& cModuleMask)
-                      ((if relative then mm else N), mm)
-                 else // all others - 16 bits
+                     qRegister <- N                                           
+                     let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
+                     (mm, mm)       
+                else 
                       let mm = N+(oldSequenceControlRegister &&& aModuleMask)
                       (mm, mm)            
             
             // Helper functions for jump instructions
             let I () = if   modify <> 0 then word + memory.[bRegisterAddr] else word
-            let adjust modifyTime =
-                // on 920C conditionals are tested BEFORE B modification
-                if   machineType = E920c && modify = 0 
-                then cpuTime <- cpuTime - modifyTime; elapsedTime <- elapsedTime - modifyTime     
+                
                       
             // ORDER CODE
 
@@ -542,28 +491,20 @@ module Sim900.Machine
                          elapsedTime <- elapsedTime + t
                          let n = ReadMem M
                          accumulator <- accumulator &&& n
-                         if   machineType = E920a 
-                         then qRegister <- (accumulator+n) &&& mask18
+
                         
                 |  7  -> // jump if zero
                          // if A=0 then S:=M; Q:=affected (920A,B,M)
                          // M is always relative
-                         match machineType with
-                         | E900  
-                         | E920c -> ()
-                         | E920a -> qRegister <- I ()                     
-                         | E920b 
-                         | E920m -> qRegister <- N 
+                         qRegister <- N 
                          if   accumulator < 0
                          then let t = int64 timing.[8]
                               cpuTime     <- cpuTime + t
                               elapsedTime <- elapsedTime + t
-                              adjust modifyTime
                          elif accumulator > 0 
                          then let t = int64 timing.[9]
                               cpuTime     <- cpuTime + t
                               elapsedTime <- elapsedTime + t
-                              adjust modifyTime 
                          else let t = int64 timing.[10]
                               cpuTime     <- cpuTime + t
                               elapsedTime <- elapsedTime + t
@@ -576,24 +517,18 @@ module Sim900.Machine
                          let t = int64 timing.[11]
                          cpuTime     <- cpuTime + t
                          elapsedTime <- elapsedTime + t
-                         if   machineType = E920a 
-                         then qRegister <- I ()
                          sequenceControlRegister <- MJump
                         
                 |  9  -> // jump if negative
                          // if A<0 then S:=M; 
                          // 920A, 920B Q affected, 920M, 920C not affected
                          // M is always relative
-                         match machineType with 
-                         | E920a  -> qRegister <- I ()
-                         | E920b  
-                         | E920m  -> qRegister <- N
-                         | _      -> ()
+                         qRegister <- N
+            
                          if   accumulator < bit18 
                          then let t = int64 timing.[12]
                               cpuTime     <- cpuTime + t
                               elapsedTime <- elapsedTime + t     
-                              adjust modifyTime
                          else let t = int64 timing.[13]
                               cpuTime     <- cpuTime + t
                               elapsedTime <- elapsedTime + t
@@ -609,17 +544,10 @@ module Sim900.Machine
                 | 11  -> // store Sequence Control Register
                          // m[13..1]:=(S+1)[13..1]; Q[17..14]:=(S+1)[17..14]; Q[13..1]:=0
                          // S[16..14] for machines before 920C
-                         // 920A Q:=S
                          let t = int64 timing.[15]
                          cpuTime     <- cpuTime + t
                          elapsedTime <- elapsedTime + t
-                         qRegister <-
-                             match machineType with
-                             | E920a -> sequenceControlRegister
-                             | E900
-                             | E920b
-                             | E920m -> sequenceControlRegister &&& aModuleMask
-                             | E920c -> sequenceControlRegister &&& cModuleMask
+                         qRegister   <- sequenceControlRegister &&& aModuleMask
                          WriteMem M (sequenceControlRegister &&& operandMask)
 
                 | 12  -> // fixed point multiply 
@@ -681,23 +609,10 @@ module Sim900.Machine
                                        timing.[19] * (8192-(int Z)))
                              cpuTime     <- cpuTime + t
                              elapsedTime <- elapsedTime + t
-                         match (N, machineType) with
-                         | (_, E900)  when Z <= 2047 -> leftShift Z     
-                         | (_, E900)  when Z >= 6144 -> rightShift Z
-                         | (_, E920b) when Z <= 2047 -> leftShift Z     
-                         | (_, E920b) when Z >= 6144 -> rightShift Z
-                         | (_, E920c) when Z <=   36 -> leftShift Z     
-                         | (_, E920c) when Z >= 8156 -> rightShift Z 
-                         | (_, E920a) when Z <= 4095 -> leftShift (Z &&& mask12)  
-                         | (_, E920a) when Z >= 4096 -> rightShift Z                       
-                         | (_, E920m) when Z <= 2047 -> let z = Z &&& mask6
-                                                        leftShift (if z <= 48 then z else z-16) 
-                         | (_, E920m) when Z >= 6144 -> let z = (Z&&&mask6)
-                                                        let x = 64-z
-                                                        rightShift (if x <= 48 then 8192-x else 8192-48-z)
-
-                         | (4864, E920b) 
-                         | (4864, E900)              -> // output block to plotter
+                         match (N) with
+                         | (_) when Z <= 2047 -> leftShift Z     
+                         | (_) when Z >= 6144 -> rightShift Z
+                         | (4864)             -> // output block to plotter
                                                         pRegister <- Z
                                                         let cpu = 330L // this time comes from 903 Fact Book
                                                         cpuTime   <- cpuTime + cpu
@@ -712,62 +627,18 @@ module Sim900.Machine
                                                                   pltTime <- ioTime + (PlotTime word)
                                                                   elapsedTime <- ioTime
                                                                   PutPlotter word                                                        
-                         | (_, _)                    -> ignore ()                  
+                         | (_)                    -> ignore ()                  
                              
                 | 15  -> // input/output
                          let Z = M &&& operandMask
-                         match  (machineType, Z) with
-                         | (_,     2048) 
-                         | (E920a, _   ) when Z <= 4095
-                                             ->  // input from paper tape
-                                             Reader Z
-
-
-
-                         | (E920b,     2049)
-                         | (E920c,     2049) -> // read paper tape station status word
-                                                pRegister <- Z
-                                                let cpu = int64 timing.[22]
-                                                cpuTime     <- cpuTime + cpu
-                                                elapsedTime <- elapsedTime + cpu
-                                                accumulator <- 
-                                                    if   elapsedTime >= ptrTime
-                                                    then 1
-                                                    else 0 
-                                                accumulator <- accumulator +
-                                                    if   elapsedTime >= ptpTime
-                                                    then 2
-                                                    else 0
-                                                accumulator <- accumulator +
-                                                    if   elapsedTime >= ttyTime 
-                                                    then if   TTYInputReady () 
-                                                         then 12 
-                                                         else 8
-                                                    else 0
-                                               
-                         | (E920b,     2052)
-                         | (E920c,     2052) 
-                         | (E920m,     2052)
-                         | (E900,      2052) ->  TTYIn Z
-                        
-
-                         | (_,         6144) ->  // output to paper tape  
-                                                 Punch Z
-
-                         | (E920b,     6145)
-                         | (E920c,     6145) ->  // output paper tape control word
-                                                 let cpu = int64 timing.[22]
-                                                 cpuTime     <- cpuTime + cpu
-                                                 elapsedTime <- elapsedTime + cpu
-                                                 holdUp <- accumulator = 0
-
-                         | (E920b,     6148) 
-                         | (E920m,     6148)
-                         | (E920c,     6148)
-                         | (E900,      6148) -> // output to teletype
-                                                TTYOut Z
-                         
-                         | (E920c,     7169) -> // test standardized: 
+                         match Z with
+                         | 2048  -> Reader Z
+                         | 2049  -> ignore () // read paper tape station status word
+                         | 2052  -> TTYIn Z
+                         | 6144  -> Punch Z   // output to paper tape  
+                         | 6145  -> ignore () // output paper tape control word
+                         | 6148  -> TTYOut Z  // output to teletype
+                         | 7169  -> // test standardized: 
                                                 // skip next instruction if A > 0.5 or A < -0.5 or A = 0
                                                 if   accumulator = 0 || (accumulator &&& bit17) <> 0 
                                                 then let t = int64 timing.[26]
@@ -778,7 +649,7 @@ module Sim900.Machine
                                                      cpuTime <- cpuTime + t
                                                      elapsedTime <- elapsedTime + t
                                
-                         | (E920c,     7170) -> // increment and skip
+                         | 7170  -> // increment and skip
                                                 // B := B+1; skip next instruction if B[13..1] = 0
                                                 let inc = memory.[bRegisterAddr] + 1
                                                 memory.[int bRegisterAddr] <- inc
@@ -791,53 +662,40 @@ module Sim900.Machine
                                                      cpuTime <- cpuTime + t
                                                      elapsedTime <- elapsedTime + t
 
-                         | (E920c,     7171) -> // read word generator
+                         | 7171  -> // read word generator
                                                 let t = int64 timing.[29]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
                                                 accumulator <- wordGenerator
 
-                         | (E920c,     7172) -> // A to Q; Q[18..2] := A[17..1]
+                         | 7172  -> // A to Q; Q[18..2] := A[17..1]
                                                 let t = int64 timing.[30]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
                                                 qRegister <- (accumulator <<< 1) &&& mask18
                                
-                         | (E920c,     7173) -> // Q to A; A[17..1] := Q[18..2]
+                         | 7173  -> // Q to A; A[17..1] := Q[18..2]
                                                 let t = int64 timing.[31]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
                                                 accumulator <- (qRegister >>> 1) 
                                
-                         | (E920c,     7174) -> // A to B: B := A
+                         | 7174  -> // A to B: B := A
                                                 let t = int64 timing.[32]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
                                                 memory.[int bRegisterAddr] <- accumulator
                                
-                         | (E920c,     7175) -> // B to A; A := B
+                         | 7175 -> // B to A; A := B
                                                 let t = int64 timing.[33]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
                                                 accumulator <- memory.[int bRegisterAddr]
                                
-                         | (E920c,     7176) -> // Set relative addressing
-                                                let t = int64 timing.[34]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
-                                                relative <- true
-                               
-                         | (E920c,     7177) -> // Set absolute addressing
-                                                let t = int64 timing.[35]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
-                                                relative <- false
-                                                DisableInitialInstructions ()
-
-                         | (E920b, _) when 7184 <= Z -> // Machine stop
+                         | (_) when 7184 <= Z -> // Machine stop
                                                 stopped <- true
 
-                         | (_, _) when 7168 <= Z -> // Program terminate
+                         | (_) when 7168 <= Z -> // Program terminate
                                                 let t = int64 timing.[24]
                                                 cpuTime <- cpuTime + t
                                                 elapsedTime <- elapsedTime + t
@@ -858,8 +716,8 @@ module Sim900.Machine
                                                      // check to see if trace interrupts enabled
                                                      if interruptTrace.[oldLevel] then InterruptOn oldLevel
                                                                                        
-                         | (E900,      4864)
-                         | (E920b,     4864) -> // output code to plotter
+                         
+                         | (4864) -> // output code to plotter
                                                 pRegister <- Z
                                                 let cpu = 330L // this time comes from 903 Fact Book
                                                 cpuTime   <- cpuTime + cpu
@@ -872,72 +730,13 @@ module Sim900.Machine
                                                       pltTime <- ioTime + (PlotTime accumulator)
                                                       elapsedTime <- ioTime
                                                 PutPlotter accumulator
+                                 
 
-                         | (E900,      0123) -> // invented instruction due to Don Hunter, 
-                                                // prints date and time on console
-                                                let dt = System.DateTime.Now
-                                                let str = sprintf "\n%s %s\n" (dt.ToLongDateString ()) (dt.ToLongTimeString ())
-                                                for ch in str do PutTTYChar (TelecodeOf T900 ch)                           
-                                  
-                         | (E900,      4865) -> // initialize plotter X coord 
-                                                // (this is an invented instruction used by the plotter library for  
-                                                // the Ada version of the simulator written by Don Hunter)
-                                                PlotterSetX accumulator
-                         
-                         | (E900,      4866) -> // initialize plotter Y coord (also an invented instruction)
-                                                PlotterSetY accumulator 
-
-                         | (_, _)     -> ignore ()
+                         | _     -> ignore ()
 
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper 
-     
-    // DEBUGGING FACILITIES  
-
-    let MonitorOn (m: monitor) = // add a monitor, merging with any pre-existing monitor for same address
-        let found, regions = monitors.TryGetValue m.addr
-        if   found
-        then // merge regions
-             monitors.Remove m.addr |> ignore
-             monitors.[m.addr] <- List.append regions m.regions
-        else monitors.[m.addr] <- m.regions
-        strobe <- true  
-        
-    let MonitorOff addr = 
-        if   not (monitors.Remove addr)
-        then raise (Machine (sprintf "Monitor at %d not set" addr))
-        else CheckForStrobe ()
-
-    let MonitorOffAll () = 
-        monitors.Clear ()
-        CheckForStrobe ()
-
-    let Monitors () = 
-        let k = monitors.Keys 
-        let v = monitors.Values
-        let z = Seq.zip k v
-        z
-
-    let Breakpoints () = breakpoints
-
-    let BreakpointOn  addr =
-        breakpoints.Remove addr |> ignore // avoid duplicates 
-        breakpoints.Add addr
-        strobe <- true
-
-    let BreakpointOff addr = 
-        if   not (breakpoints.Remove addr)
-        then raise (Machine (sprintf "Breakpoint at %d not set" addr))
-        else CheckForStrobe ()
-
-    let BreakpointOffAll () =
-        breakpoints.Clear ()
-        CheckForStrobe ()
-
-    let Steps count  = 
-        stepCount <- count
-        strobe <- true
 
     // ACCESS REGISTERS
     let AGet ()     = accumulator 
@@ -1030,10 +829,8 @@ module Sim900.Machine
         bRegisterAddr   <- 1
         interruptLevel  <- 1  
         levelActive.[1] <- true    
-        relative        <- true 
         EnableInitialInstructions () 
         sequenceControlRegister <- (wordGenerator &&& mask13)
-        if machineType <> E920c then memory.[scrAddr] <- sequenceControlRegister
         stopped        <- false
         reset          <- false
         
@@ -1055,8 +852,7 @@ module Sim900.Machine
         bRegisterAddr   <- 1       
         scrAddr         <- 0      
         iRegister       <- 0       
-        pRegister       <- 0       
-        relative        <- true
+        pRegister       <- 0      
         interruptLevel  <- 1         
         takeInterrupt   <- false        
         protect         <- false 
