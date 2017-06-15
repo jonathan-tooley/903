@@ -17,7 +17,6 @@ open Sim900.Machine
 open Sim900.Parameters
 open Sim900.FileHandling
 open Sim900.Commands
-open Sim900.Help
 
     module ShellHelper =
 
