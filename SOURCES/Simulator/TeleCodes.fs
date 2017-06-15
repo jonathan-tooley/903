@@ -523,47 +523,7 @@ module Sim900.Telecodes
             | Mode3 -> code
         bytes |> Array.map select
 
-    let TidyUpTelecodes () =
-        nonPrinting <- true
-        addRunout   <- false
 
 
-    module Cards =
-        // PUNCHED CARDS
-        // Elliotts did not define a punched card code, instead the programmer was left to
-        // define their own mapping from card column images to SIR Internal code.
-        //
-        // In the simulator we allow "text" files to be attached to the card reader and the
-        // following function  maps telecode characters to IBM 029 "FORTRAN" card punch codes.
-        // Note that the Elliott reader inputs columns inverted (i.e., the ms bit of the code 
-        // corresponds to the bottom row of the card column).  The card code &7777 is used
-        // to denote telecode for which there is no equivalent card code.
-        let cardCodes = [|    
-                0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
-                0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
-                0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
-                0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777;0o7777; //
-                0o0000;0o2022;0o3000;0o2040;0o2042;0o2104;0o0001;0o2200; //  !""#$%&'
-                0o2201;0o2202;0o2102;0o2401;0o2044;0o0002;0o2041;0o0014; // ()*+,-./
-                0o0004;0o0010;0o0020;0o0040;0o0100;0o0200;0o0400;0o1000; // 01234567
-                0o2000;0o4000;0o2020;0o2402;0o2101;0o2400;0o2404;0o3004; // 89:;<=>?
-                0o2100;0o0011;0o0021;0o0041;0o0101;0o0201;0o0401;0o1001; // @ABCDEFG
-                0o2001;0o4001;0o0012;0o0022;0o0042;0o0102;0o0202;0o0402; // HIJKLMNO
-                0o1002;0o2002;0o4002;0o0024;0o0044;0o0104;0o0204;0o0404; // PQRSTUVW
-                0o1004;0o2004;0o4004;0o2021;0o3002;0o2024;0o3001;0o2204; // XYZ[\]^_
-                0o7777;0o0011;0o0021;0o0041;0o0101;0o0201;0o0401;0o1001; //  abcdefg
-                0o2001;0o4001;0o0012;0o0022;0o0042;0o0102;0o0202;0o0402; // hijklmno
-                0o1002;0o2002;0o4002;0o0024;0o0044;0o0104;0o0204;0o0404; // pqrstuvw
-                0o1004;0o2004;0o4004;0o7777;0o7777;0o7777;0o7777;0o7777|]// xyz       
 
-    open Cards
-    
-    let CardCode ch =
-        if   OddParity ch
-        then raise (Code (sprintf "parity error (%d) in card input" ch))
-        let cardCh = cardCodes.[ch &&& 127]
-        if   cardCh = 0o7777
-        then raise (Code (sprintf "invalid character '%c'(%d) in card input" (char ch) ch))
-        else cardCh
-
-    
+  
