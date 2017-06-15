@@ -14,11 +14,6 @@
 
         exception Syntax of string
 
-        type Info       = {name: string ; memSize: string; memSpeed: int; ptrSpeed: int}
-        let Generic900  = {name="903"; memSize="16K"; memSpeed=0; ptrSpeed=0}
- 
-
-
         // remember default console
         let consoleIn  = System.Console.In
         let consoleOut = System.Console.Out
