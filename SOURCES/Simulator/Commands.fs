@@ -138,9 +138,9 @@ module Sim900.Commands
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
                      
-                    if reset       then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on && Flash then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
-                    if not on      then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+                    if reset              then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on && Flash        then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if (not on) || holdUp then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
@@ -312,13 +312,13 @@ module Sim900.Commands
                         then MessagePut ("Obey (Single)") 
                              ObeyButton <- true
                              reset      <- false
-                             Obey ()
+                             if (not obey) then obey <- true
                     
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && stopped && operate = mode.Test
                         then MessagePut ("Obey (Run)")
                              reset     <- false
-                             Obey ()
-
+                             if (not obey) then obey <- true
+                            
                     Thread.Sleep(150)
                   }
 

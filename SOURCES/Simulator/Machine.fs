@@ -9,6 +9,7 @@ module Sim900.Machine
     open System.Diagnostics
     open System.IO
     open System.Collections.Generic
+    open System.Threading
 
     open Sim900.Bits
     open Sim900.Telecodes
@@ -24,10 +25,13 @@ module Sim900.Machine
     exception StopLimit
     exception Break
 
-    let mutable on                = false                             // true after ON command
-    let mutable stopped           = false                             // stop button pushed
-    let mutable reset             = false                             // reset button pushed
-    let mutable cycle             = false                             // reset button pushed
+    let mutable on                = false       // true after ON command
+    let mutable stopped           = false       // stop button pushed
+    let mutable reset             = false       // reset button pushed
+    let mutable cycle             = false       // Single Step    
+    let mutable holdUp            = false       // true when io blocked
+    let mutable obey              = false       // signal the processor to run the command on the word generator once
+       
 
     type mode =
         | Auto
@@ -122,11 +126,7 @@ module Sim900.Machine
         let mutable oldSequenceControlRegister = 0       // copy of SCR before incremented in instruction decode
         let mutable iRegister                  = 0       // function code
         let mutable pRegister                  = 0       // peripheral i/o
-        //let mutable relative                   = true    // false for 920C style absolute addressing
-        let mutable holdUp                     = true    // true if paper tape station i/o is blocking, false otherwise
         let mutable wordGenerator              = 0       // setting of keys on control panel
-        
-     
 
         // TIMING
         let mutable cpuTime           = 0L    // execution time in microseconds * 10
@@ -266,6 +266,27 @@ module Sim900.Machine
                  with
                  | e ->  sequenceControlRegister <- oldSequenceControlRegister 
                          raise e  
+
+        let mutable handShake = GPIO.pinValue.High
+   
+        let punchByte char =
+             // We wait for the punch to signal that it is ready
+             while handShake = GPIO.pinValue.Low && (not reset) do 
+                  holdUp <- true
+                  Thread.Sleep(50)
+                  handShake <- digitalRead 2
+             holdUp <- false
+             if (not reset) then 
+                // Then we set up the data on the mcp pins
+                wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
+                // Then we send a commit instruction to the punch
+                digitalWrite 0 GPIO.pinValue.High
+                // Now we wait for the punch to confirm that it is busy doing our instruction
+                while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
+                // Then we can stop telling to write as it has started working on our command
+                digitalWrite 0 GPIO.pinValue.Low
+
+
         let TTYInput Z =
             pRegister <- Z
             let cpu = int64 timing.[22]
@@ -811,9 +832,6 @@ module Sim900.Machine
         interruptTrace.[level] <- false // manual and trace interrupts are mutually exclusive
         InterruptOn level
 
-    // EXECUTE SINGLE INSTRUCTION
-    let Obey () = // Execute one instruction from word generator
-        try Execute wordGenerator finally stopped <- true
 
     // MACHINE RESET
     let Reset () =    
@@ -900,6 +918,11 @@ module Sim900.Machine
          try
             realTimer.Start ()
             while true do
+              while on && stopped && obey do
+                  stdout.Write ("obey")
+                  Execute (wordGenerator)
+                  obey <- false
+                  
               while on && (not stopped) do
                
                 // Handle interrupts if not protected

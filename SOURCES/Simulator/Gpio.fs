@@ -7,6 +7,7 @@ module Sim900.Gpio
    open System.Collections.Generic
    open System.Linq
    open System.Text
+
  
    //This module is used to initialise the library
    module public wiringPi =
@@ -229,18 +230,4 @@ module Sim900.Gpio
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
 
 
-   let mutable handShake = GPIO.pinValue.High
-   
-   let punchByte char =
-       // We wait for the punch to signal that it is ready
-       while handShake = GPIO.pinValue.Low do handShake <- digitalRead 2
-       // Then we set up the data on the mcp pins
-       wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
-       stdout.Write char
-       // Then we send a commit instruction to the punch
-       digitalWrite 0 GPIO.pinValue.High
-       // Now we wait for the punch to confirm that it is busy doing our instruction
-       while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
-       // Then we can stop telling to write as it has started working on our command
-       digitalWrite 0 GPIO.pinValue.Low
 

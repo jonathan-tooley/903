@@ -37,6 +37,7 @@ module Sim900.Devices
 
     let mutable r = 0
 
+
     let YieldToDevices () =     // Allow other threads to run
         r <- 0
         // System.Threading.Thread.Yield () |> ignore
