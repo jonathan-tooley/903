@@ -19,12 +19,6 @@ module Sim900.Machine
     open Sim900.Formatting
     open Sim900.Gpio
 
-
-    exception LoopStop
-    exception StopAddr
-    exception StopLimit
-    exception Break
-
     let mutable on                = false       // true after ON command
     let mutable stopped           = false       // stop button pushed
     let mutable reset             = false       // reset button pushed
@@ -154,8 +148,7 @@ module Sim900.Machine
         
         let SlowDown () =
             if   slow
-            then YieldToDevices ()
-                 let elapsed = Elapsed () / 10000L
+            then let elapsed = Elapsed () / 10000L
                  let pause = (int (elapsed - realTimer.ElapsedMilliseconds)) 
                  if  pause > 0
                                   then System.Threading.Thread.Sleep pause
@@ -298,7 +291,7 @@ module Sim900.Machine
                      if holdUp
                      then // have to wait for device and data
                           elapsedTime <- ttyTime 
-                          while not (TTYInputReady ()) do YieldToDevices () 
+                          while not (TTYInputReady ()) do ignore () 
                           true 
                      else false                                                                   
                 else // device is ready
@@ -753,66 +746,27 @@ module Sim900.Machine
     
     let WriteStore = WriteMem       
          
-    let ClearStore () = // clear entire store to zero
-        for i = 0 to memorySize-1 do memory.[i] <- 0
-
-    let ClearModule address =
-        let startAddress = ((int address) / 8192) * 8192  
-        if startAddress < memorySize
-        then for i = startAddress to startAddress+8191 do memory.[i] <- 0 
-
-    // Image files consist of raw bytes, 4 per word in little endian order, starting from location 8
+    // Image files consist of raw bytes, 3 per word in little endian order, starting from location 8
 
     // DUMP IMAGE
-    let DumpImage count  = 
-        let maxAddr = count-1
-        ReadMem (maxAddr) |> ignore
-        let bytes: byte[] = Array.zeroCreate ((count-8)*4)
-        for i = 8 to count-1 do // don't dump words 0-7
-            let iv = (i-8)*4
+    let DI count  = 
+        let bytes: byte[] = Array.zeroCreate ((count-7)*3)
+        for i = 8 to count do // don't dump words 0-7
+            let iv = (i-8)*3
             let word = memory.[i]
-            bytes.[iv]   <- byte   word
+            bytes.[iv]   <- byte ((word       ) &&& mask8)
             bytes.[iv+1] <- byte ((word >>>  8) &&& mask8)
-            bytes.[iv+2] <- byte  (word >>> 16)
-            // bytes.[iv+3] <- 0
+            bytes.[iv+2] <- byte ((word >>> 16) &&& mask8)
         bytes          
 
     // LOAD IMAGE
     let LoadImage (bytes: byte[]) =
-        let maxAddr = 8+bytes.Length/4-1
-        ReadMem maxAddr |> ignore // ensure with maxMemory
-        for i = 0 to maxAddr-8 do
-        let iv = i*4
-        memory.[i+8] <- (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
+        let maxAddr = 8 + bytes.Length / 3 - 1 
+        for i = 8 to maxAddr do
+        let iv = (i-8)*3
+        memory.[i] <- (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
 
-    let VerifyImage (bytes: byte[]) =
-        if (bytes.Length+8*4) % (8192*4) <> 0 then raise (Machine "Not an image file (byte count not a multiple of 32768)")
-        let maxAddr = bytes.Length / 4 - 1 + 8
-        ReadMem (maxAddr) |> ignore // ensure with maxMemory
-        let rec Scan i errs =
-            let addr = i+8
-            let iv   = i*4
-            if   iv < bytes.Length
-            then let word = (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
-                 if   word <> (ReadMem addr) && (8180 > addr || 8191 < addr) // ignore initial instructions
-                 then AddressPut addr; stdout.WriteLine ()
-                      stdout.Write "Memory"; WordPut memory.[addr]; stdout.WriteLine ()
-                      stdout.Write "File  "; WordPut word;          stdout.WriteLine ()
-                      if   errs < 50
-                      then Scan (i+1) (errs+1)
-                      else raise (Machine "Abandoned after 50 differences detected")
-                 else Scan (i+1) errs
-        Scan 0 0
 
-    // LOAD MODULE       
-    let LoadModule moduleNo (words: int[]) =
-        let index = moduleNo * 8192
-        let maxAddr = words.Length-1
-        ReadMem (moduleNo + maxAddr) |> ignore
-        for i = 0 to maxAddr do memory.[index+i] <- words.[i]        
-             
- 
-        
     // JUMP START EXECUTION             
     let Jump () =
         // JUMP forces level 1 on 920A and 920B
@@ -847,7 +801,7 @@ module Sim900.Machine
         reset           <- true
         stopped         <- true  
         holdUp          <- true
-
+        File.WriteAllBytes ("CORE.IMG", (DI memorySize))
 
         for i = 0 to 4 do
             levelActive.[i]      <- false

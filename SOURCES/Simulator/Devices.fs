@@ -2,25 +2,7 @@
 
 module Sim900.Devices
 
-// DEVICES
-// The Elliott 900 series were essentially paper tape machines.  The basic
-// system had a paper tape reader and punch.  There was an option for connecting
-// a teleprinter on machines after the 920A.  As a machine designed for the
-// embedded systems market there was provision to add interfaces to a wide variety
-// of other devices including line printers, magnetic tape drives and graph 
-// plotters.
-// 
-// The simulator supports seven i/o devices: magenetic tape unit, line printer, card reader, 
-// digital graph plotter, paper tape reader, paper tape punch and teletype.
-//
-// (The plotter is driven in one of 2 modes: if the machine type is "900" it assumes DGNH's
-// scheme for plotting to a VGA screen, used in the HUNTER ALGOL demonstrations.  For all 
-// other machine types plotting to a 34cm Benson-Lehner plotter is assumed with a 0.005 inch
-// step size.
-//  
-// Reader input can be directed to teletype and vice versa.
-// Punch output can be directed to teletype and vice versa.
-    
+  
     open System
     open System.IO
     open System.Drawing
@@ -32,15 +14,7 @@ module Sim900.Devices
     open Sim900.Models
     
     exception Device of string
-    exception CRManual          // attempt to use card reader when no file attached
-    exception LPManual          // attempt to use line printer when detached (i.e., offline)
-
-    let mutable r = 0
-
-
-    let YieldToDevices () =     // Allow other threads to run
-        r <- 0
-        // System.Threading.Thread.Yield () |> ignore
+      
 
     // provide a dummy context to represent console "form"
     let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
@@ -61,37 +35,33 @@ module Sim900.Devices
 
     open PaperTapeReader    
             
-    let OpenReaderBinaryString text rdrMode = 
+    let OpenReaderBinaryString text = 
         // take binary format input from command stream
-        tapeIn <- Some (TranslateFromBinary text rdrMode)                
+        tapeIn <- Some (TranslateFromBinary text)                
         tapeInPos <- 0    
             
-    let OpenReaderBin rdrMode fileName = 
+    let OpenReaderBin fileName = 
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderBinaryString rdrMode text
+        OpenReaderBinaryString text
 
-    let OpenReaderRaw rdrMode fileName = 
-        // take binary format file for paper tape input
-        let bytes = File.ReadAllBytes fileName
-        tapeIn <- Some (TranslateFromRaw rdrMode bytes)               
-        tapeInPos <- 0
 
-    let OpenReaderTextString teleCode rdrMode text = 
+
+    let OpenReaderTextString teleCode text = 
         // take text input from command stream
         tapeIn <- Some (
                         match teleCode with
-                             | T900 -> TranslateFromText    T900 rdrMode text
-                             | T903 -> TranslateFromText    T903 rdrMode text
-                             | T920 -> TranslateFromText    T920 rdrMode text                           
-                             | TACD -> TranslateFromText    TACD rdrMode text
-                             | TTXT -> TranslateFromText    TTXT rdrMode text) 
+                             | T900 -> TranslateFromText    T900 text
+
+                                                   
+
+                             | TTXT -> TranslateFromText    TTXT text) 
         tapeInPos <- 0 
         
-    let OpenReaderText teleCode rdrMode fileName =
+    let OpenReaderText teleCode fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderTextString teleCode rdrMode text
+        OpenReaderTextString teleCode text
                  
     let GetReaderChar () = // get a character from the paper tape reader
         let ti =
@@ -134,15 +104,14 @@ module Sim900.Devices
     type PunchModes =
         | PACD
         | P900
-        | P903
-        | P920
+       
         | PTXT
         | PBin
         | PRaw
         | PLegible
 
     type Encoding =
-        | Binary of ReaderModes
+       
         | Text   of Telecodes
 
     module private PaperTapePunch =
@@ -158,12 +127,12 @@ module Sim900.Devices
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, punchMode) with
         | (Some (sw), P900)  -> sw.Write (UTFOf T900 code)     // output as UTF character
-        | (Some (sw), P903)  -> sw.Write (UTFOf T903 code)     // output as UTF character
-        | (Some (sw), P920)  -> sw.Write (UTFOf T920 code)     // output as UTF character
+       
+
         | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                 punchOutPos <- (punchOutPos+1)%20
                                 if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), PACD)  -> sw.Write (UTFOf TACD code)     // output as UTF character
+        | (Some (sw), PACD)  -> sw.Write (code)     // output as UTF character
         | (Some (sw), PTXT)  -> sw.Write (UTFOf TTXT code)     // output as ASCII character
         | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
         | (Some (sw), PLegible)                                // output as legible image
@@ -190,7 +159,7 @@ module Sim900.Devices
         // open text file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 | TACD -> PACD | TTXT -> PTXT
+        punchMode <- match telecode with | T900 -> P900 | TTXT -> PTXT
 
     let OpenPunchBin (fileName: string) = 
         // open binary format file for paper tape punch output
@@ -338,7 +307,7 @@ module Sim900.Devices
             while ttyInChs.Length <= 0 do 
                  EnsureTTY ()
                  triggerEventSend ttyPushEvent ()
-                 YieldToDevices () 
+
             let ch = ttyInChs.[0] 
             // printfn "ReadFromTTY gets %3d" (int ch)
             ttyInChs <- ttyInChs.[1..]
@@ -356,7 +325,7 @@ module Sim900.Devices
                          triggerEvent ttyPushEvent ()
                        } |> Async.Start
                  ttyPushPending <- true
-            YieldToDevices ()
+            
     
         let TidyUpTTY () = 
             latestTTY <- None 
@@ -373,14 +342,9 @@ module Sim900.Devices
     let OpenTTYInBinaryString text rdrMode =
         // take binary input from command stream
         ttyInline    <- true
-        ttyIn        <- Some (TranslateFromBinary text rdrMode)
+        ttyIn        <- Some (TranslateFromBinary text)
         ttyInPos     <- 0
 
-    let OpenTTYConsole telecode =
-        ttyTelecode <- telecode
-        ttyInline   <- false
-        ttyLastChOut <- -1
-        ttyLastChCnt <- 0
 
     let OpenTTYInTextString text telecode mode = 
         ttyTelecode <- telecode
@@ -388,11 +352,10 @@ module Sim900.Devices
         ttyInPos    <- 0
         ttyIn       <- Some (
                             match telecode with
-                                    | T900 -> TranslateFromText    T900 mode text
-                                    | T903 -> TranslateFromText    T903 mode text
-                                    | T920 -> TranslateFromText    T920 mode text
-                                    | TACD -> TranslateFromText    TACD mode text
-                                    | TTXT -> TranslateFromText    TTXT mode text) 
+                                    | T900 -> TranslateFromText    T900  text
+                                   
+                                   
+                                    | TTXT -> TranslateFromText    TTXT  text) 
 
     let TTYInputReady () = true
         //if ttyInline
@@ -420,7 +383,7 @@ module Sim900.Devices
             if ttyInline then WriteToTTY (UTFOf telecode ch)
             ch
         match telecode with
-        | T920 ->   Echo ch
+
         | _    ->   match ch with
                     | 141uy ->  ttyReturnSeen <- true
                                 if   ttyNewline
@@ -438,7 +401,7 @@ module Sim900.Devices
         // printfn "PutTTYChar %3d" ch
         let telecode = (if ttyInline then ttyTelecode else defaultTelecode)
         match  telecode with
-        | T920  ->  WriteToTTY  (UTFOf telecode ch)
+
         | _     ->  if   ttyInline
                     then // taking input from a file
                          if   ttyReturnSeen
@@ -468,7 +431,7 @@ module Sim900.Devices
         match latestTTY with
         | Some(tty) -> if   tty.Open()
                        then triggerEventSend ttyPushEvent ()
-                            YieldToDevices ()
+                           
         | None      -> () 
                   
     let CloseTTY () =
@@ -479,12 +442,6 @@ module Sim900.Devices
      
     // GRAPH PLOTTER   
 
-    // There are two models of plotting.  For E900 we reproduce Don Hunter's simulator
-    // VGA screen with y vertically and x horizontally.  For all other aechitectures
-    // we simulate an Elliott plotter with y as the long horizontal axis and x as the 
-    // shorter vertical axis.  However, the window is not as long in the x-axis as a 
-    // real plotter, so the SCALE command is available.  SCALE 3 fits a 13.750 inch wide
-    // plot (i.e. a 903 Benson Lehner plotter) into the window.
 
     module private GraphPlotter =     
 
@@ -612,7 +569,7 @@ module Sim900.Devices
         then // set up a deferred task to push out pending plots
              async { do! Async.Sleep 25
                      PushGraph () } |> Async.Start
-             YieldToDevices ()
+            
         // decode plotter command
         let badCode () = raise (Device (sprintf "Bad Plotter Code &%o2" code))
         let oldDown = down
