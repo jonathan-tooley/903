@@ -127,17 +127,15 @@ module Sim900.Machine
         let mutable elapsedTime       = 0L    // i/o time in microseconds * 10 
         let mutable ptrTime           = 0L    // time when reader next free 
         let mutable ptpTime           = 0L    // time when punch next free    
-        let mutable ttyTime           = 0L    // time when tty next free    
         let mutable pltTime           = 0L    // time when plotter next free 
                                    
         let         realTimer         = new System.Diagnostics.Stopwatch ()  
         
-        let Elapsed () = max elapsedTime (max ptrTime (max ptpTime (max ttyTime pltTime)))
+        let Elapsed () = max elapsedTime (max ptrTime (max ptpTime pltTime))
 
         let ResetTimes () =
             ptrTime     <- 0L
             ptpTime     <- 0L
-            ttyTime     <- 0L
             pltTime     <- 0L
             cpuTime     <- 0L
             elapsedTime <- 0L
@@ -284,50 +282,18 @@ module Sim900.Machine
             pRegister <- Z
             let cpu = int64 timing.[22]
             cpuTime     <- cpuTime + cpu
-            elapsedTime <- elapsedTime + cpu
-            let read =
-                if   elapsedTime < ttyTime
-                then // device is busy 
-                     if holdUp
-                     then // have to wait for device and data
-                          elapsedTime <- ttyTime 
-                          while not (TTYInputReady ()) do ignore () 
-                          true 
-                     else false                                                                   
-                else // device is ready
-                     TTYInputReady ()
-            if   read
-            then ttyTime <- elapsedTime+ttyCharTime
-                 try // reset SCR if EOF signalled
-                    let ch = int (GetTTYChar ())
-                    accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
-                 with
-                 | e -> sequenceControlRegister <- oldSequenceControlRegister
-                        raise e
-            else  accumulator <- accumulator <<< 7
+            let ch = int (port.ReadByte())
+            accumulator <- (accumulator <<< 8 ||| (ch &&& mask8)) &&& mask18
+            port.Write (System.String.Concat( char (accumulator &&& mask8)))
 
         let TTYOutput Z =
             pRegister <- Z
             let cpu = int64 timing.[22]
             cpuTime     <- cpuTime + cpu
             elapsedTime <- elapsedTime + cpu
-            let write =
-                if   elapsedTime < ttyTime
-                then // device is busy 
-                     if   holdUp 
-                     then // wait
-                          elapsedTime <- ttyTime 
-                          true
-                     else false                                                                        
-                else // device is ready
-                     true
-            if   write
-            then ttyTime <- elapsedTime + ttyCharTime 
-                 try 
-                    PutTTYChar (byte (accumulator &&& mask8))  
-                 with
-                 | e ->  sequenceControlRegister <- oldSequenceControlRegister
-                         raise e                             
+
+            port.Write (System.String.Concat( char (accumulator &&& mask8)))
+                        
         type Input = 
             | ReaderIn
             | AutoIn

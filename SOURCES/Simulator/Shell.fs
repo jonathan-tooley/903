@@ -69,9 +69,6 @@ open Sim900.Commands
             | (true,  [|"DE";     "PTR"|]) 
             | (true,  [|"DETACH"; "PTR"|])  -> CloseReader ()
 
-            | (true,  [|"DE";     "TTY"|]) 
-            | (true,  [|"DETACH"; "TTY"|])  -> CloseTTY ()
-
             | (_,     [|"DEL";    file|])
             | (_,     [|"DELETE"; file|])   -> Delete file
 
@@ -148,7 +145,6 @@ open Sim900.Commands
 
     
         and ReadCommandsFromConsole () = 
-            FlushTTY ()
             try ReadCommands true with 
             | Finished -> ReadCommandsFromConsole ()
 
