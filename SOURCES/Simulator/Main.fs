@@ -21,7 +21,7 @@ do
 
     setupControlPorts ()
 
-    MessagePut "\x1B[2J\x1B[7;0HElliott 903 Run Console"
+    MessagePut "Elliott 903 Run Console"
 
     // Run commands
     let work = updateDisplay() |> Async.StartAsTask
