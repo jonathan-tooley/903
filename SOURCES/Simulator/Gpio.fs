@@ -3,6 +3,7 @@
 module Sim900.Gpio
  
    open System
+   open System.IO
    open System.Runtime.InteropServices
    open System.Collections.Generic
    open System.Linq
@@ -93,6 +94,7 @@ module Sim900.Gpio
        | OLAT   = 0x0A //Output Latch Bank A
 
 
+ 
    let wiringPiSetup                    = wiringPi.wiringPiSetup
    let pinMode pin mode                 = GPIO.pinMode             (pin, mode)
    let digitalWrite pin value           = GPIO.digitalWrite        (pin, value)
@@ -103,13 +105,13 @@ module Sim900.Gpio
    let wiringPiSPISetup channel speed   = SPI.wiringPiSPISetup     (channel, speed)
    let wiringPiSPIRW channel d l        = SPI.wiringPiSPIDataRW    (channel, d, l)
    let mcp23s17Setup pin0 port devId    = MCP.mcp23s17Setup        (pin0, port, devId)
-
+ 
    let mutable controlPanelU1 = 0
    let mutable controlPanelU2 = 0
    let mutable controlPanelU3 = 0
    let mutable controlPanelU4 = 0
    let mutable punchPort      = 0
-
+   let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.None, 8, Ports.StopBits.One)
 
    let setupControlPorts () =
        wiringPiSetup ()
@@ -118,6 +120,10 @@ module Sim900.Gpio
                                       // The Brown lead from the punch connects here.
        pinMode 2 GPIO.pinType.Input   // Setup pin 2 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                       // The Gold lead from the punch connects here.
+                                            
+       port.Open ()
+
+       port.Write "\r\u001B\u003A"
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
