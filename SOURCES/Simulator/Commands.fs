@@ -33,7 +33,7 @@ module Sim900.Commands
 
         // display register
         let DisplayRegisters () =
-            stdout.Write "\x1B[0;33m\x1B[s\x1B[0;0HA="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
+            stdout.Write "A="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
             stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); stdout.WriteLine ()
 
             stdout.Write "Q="; LongSignedPut (QGet ()); stdout.Write "  "; AddressPut     (QGet ()); 
@@ -48,8 +48,8 @@ module Sim900.Commands
             stdout.Write "W="; LongSignedPut (WGet ()); stdout.Write "  "; AddressPut     (WGet ()); 
             stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ()); stdout.WriteLine ()
          
-            stdout.Write "I="; LongSignedPut (IGet ()); stdout.Write "\x1B[K"                      ; stdout.WriteLine ()    
-            stdout.Write "\x1B[0;37m\x1B[u"               
+            stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()    
+                           
 
         
         // display location
@@ -286,8 +286,10 @@ module Sim900.Commands
                         then MessagePut ("Cycle Stop Selected")
                              cycle <- true
 
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on 
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on && (AGet () <> DisplayedA || SGet () <> DisplayedS) 
                         then DisplayRegisters ()
+                             DisplayedA <- AGet ()
+                             DisplayedS <- SGet ()
 
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
