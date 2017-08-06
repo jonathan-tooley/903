@@ -32,7 +32,7 @@ module Sim900.Formatting
             let code = (word>>>pos)&&&mask6
             if   code = 1
             then printf "^"
-            else printf "%s" (code.ToString())
+            else printf "%s" ((SIRSymbolOf code).ToString())
                      
     let EnsureNewLine () = // force a newline if text has been output on current line
         if System.Console.CursorLeft > 0 then printfn ""
@@ -73,7 +73,7 @@ module Sim900.Formatting
         printf "&%06o" word
                                          
     let Prompt () = 
-
+        YieldToDevices ()
         EnsureNewLine ()
         printf "SIM900> " 
 

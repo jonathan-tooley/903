@@ -51,6 +51,14 @@ module Sim900.Commands
             stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()    
                            
 
+        // display after a problem reported
+        let MiniDump () =
+            let s = OldSGet ()
+            stdout.WriteLine ()
+            try DisplayRange2 s s with | _ -> () // mask any addressing error
+            stdout.WriteLine ()
+            DisplayRegisters ()
+
         
         // display location
         let DisplayLocation text =
@@ -78,10 +86,6 @@ module Sim900.Commands
         // turn on machine in specified configuration                  
         let turnOn () =
             CheckConfiguration () // set up required configuration
-            // load image -- load a previously dumped image
-            let f = if File.Exists "CORE.IMG" then
-                        stdout.Write ("Restoring Core Image")
-                        LoadImage (File.ReadAllBytes "CORE.IMG")
             on <- true
             Reset ()
             TidyUp ()
