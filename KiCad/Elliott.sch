@@ -1,40 +1,11 @@
 EESchema Schematic File Version 2
 LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:switches
 LIBS:Elliott-cache
 EELAYER 25 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 2
+Sheet 1 1
 Title ""
 Date "2017-03-07"
 Rev ""
@@ -1182,10 +1153,4 @@ Wire Wire Line
 	6075 7325 6075 6175
 Wire Wire Line
 	5725 7025 5725 6175
-$Sheet
-S 13650 975  1825 800 
-U 58FC28C7
-F0 "Punch" 60
-F1 "Punch.sch" 60
-$EndSheet
 $EndSCHEMATC
