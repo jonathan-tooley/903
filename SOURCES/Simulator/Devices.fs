@@ -141,7 +141,6 @@ module Sim900.Devices
         | PTXT
         | PBin
         | PRaw
-        | PLegible
 
     type Encoding =
         | Binary of ReaderModes
@@ -168,8 +167,8 @@ module Sim900.Devices
         | (Some (sw), PACD)  -> sw.Write (UTFOf TACD code)     // output as UTF character
         | (Some (sw), PTXT)  -> sw.Write (UTFOf TTXT code)     // output as ASCII character
         | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
-        | (Some (sw), PLegible)                                // output as legible image
-                             -> sw.WriteLine (LegibleOf code) 
+//        | (Some (sw), PLegible)                                // output as legible image
+//                             -> sw.WriteLine (LegibleOf code) 
         | (None, _)          -> raise (Device (sprintf "No file attached to punch"))
         if      code = lastPunchCode
         then    if lastPunchCount = 10000
@@ -201,12 +200,7 @@ module Sim900.Devices
         punchMode   <- PBin
         for i=1 to 20 do PutPunchChar 0uy
         
-    let OpenPunchLegible (fileName: string) = 
-        // open legible format file for paper tape punch output
-        ClosePunch () // finalize last use, if any
-        punchStream <- Some (new StreamWriter (fileName))
-        punchMode   <- PLegible
-        
+
     let OpenPunchRaw (fileName: string) = 
         // open raw byte file for paper tape punch output
         ClosePunch () // finalize last use, if any
