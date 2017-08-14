@@ -116,9 +116,9 @@ module Sim900.Gpio
    let setupControlPorts () =
        wiringPiSetup ()
 
-       pinMode 0 GPIO.pinType.Output  // Setup pin 0 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+       pinMode 3 GPIO.pinType.Output  // Setup pin 3 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
                                       // The Brown lead from the punch connects here.
-       pinMode 2 GPIO.pinType.Input   // Setup pin 2 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
+       pinMode 4 GPIO.pinType.Input   // Setup pin 4 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                       // The Gold lead from the punch connects here.
                                             
        port.Open ()
