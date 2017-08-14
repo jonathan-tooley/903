@@ -33,22 +33,34 @@ module Sim900.Commands
 
         // display register
         let DisplayRegisters () =
-            stdout.Write "A="; LongSignedPut (AGet ()); stdout.Write "  "; AddressPut     (AGet ()); 
-            stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); stdout.WriteLine ()
+            stdout.WriteLine ();
+            stdout.Write "\x1B[2J\x1B[0;33m\x1B[s\x1B[0;0HA="; stdout.Write (LegibleOf(AGet()));
+            LongSignedPut (AGet ()); stdout.Write "  "; FractionPut     (AGet ()); 
+            stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); 
+            stdout.WriteLine ();
 
-            stdout.Write "Q="; LongSignedPut (QGet ()); stdout.Write "  "; AddressPut     (QGet ()); 
-            stdout.Write "  "; OctalPut      (QGet ()); stdout.Write "  "; InstructionPut (QGet ()); stdout.WriteLine ()
+            stdout.Write "Q="; stdout.Write (LegibleOf(AGet()));
+            LongSignedPut (QGet ()); stdout.Write "  "; FractionPut     (QGet ()); 
+            stdout.Write "  "; OctalPut      (QGet ()); stdout.Write "  "; InstructionPut (QGet ()); 
+            stdout.WriteLine ()
 
-            stdout.Write "B="; LongSignedPut (BGet ()); stdout.Write "  "; AddressPut     (BGet ()); 
-            stdout.Write "  "; OctalPut      (BGet ()); stdout.Write "  "; InstructionPut (BGet ()); stdout.WriteLine ()
+            stdout.Write "B="; stdout.Write (LegibleOf(BGet()));
+            LongSignedPut (BGet ()); stdout.Write "  "; FractionPut     (BGet ()); 
+            stdout.Write "  "; OctalPut      (BGet ()); stdout.Write "  "; InstructionPut (BGet ()); 
+            stdout.WriteLine ()
 
-            stdout.Write "S="; LongSignedPut (SGet ()); stdout.Write "  "; AddressPut     (SGet ()); 
-            stdout.Write "  "; OctalPut      (SGet ()); stdout.Write "  "; InstructionPut (SGet ()); stdout.WriteLine ()
+            stdout.Write "W="; stdout.Write (LegibleOf(WGet()));
+            LongSignedPut (WGet ()); stdout.Write "  "; FractionPut     (WGet ()); 
+            stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ()); 
+            stdout.WriteLine ()
 
-            stdout.Write "W="; LongSignedPut (WGet ()); stdout.Write "  "; AddressPut     (WGet ()); 
-            stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ()); stdout.WriteLine ()
-         
-            stdout.Write "I="; LongSignedPut (IGet ()); stdout.WriteLine ()    
+            stdout.Write "S="; stdout.Write (LegibleOf(SGet()));
+            LongSignedPut (SGet ()); stdout.Write "          "; 
+            stdout.Write "  "; OctalPut      (SGet ());  
+            stdout.WriteLine ()
+                     
+            stdout.Write "I="; stdout.Write (LegibleOf(IGet())); stdout.WriteLine ();
+            stdout.Write "\x1B[0;37m\x1B[u"; 
                            
 
         // display after a problem reported
