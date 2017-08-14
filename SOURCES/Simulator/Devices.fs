@@ -27,6 +27,7 @@ module Sim900.Devices
     open System.Windows.Forms
     open System.Collections
     open System.Text
+    open System.Threading
     open Sim900.Bits
     open Sim900.Telecodes
     open Sim900.Models
@@ -102,6 +103,7 @@ module Sim900.Devices
         then raise (Device "Run off end of paper tape input")
         else let code = ti.[tapeInPos]
              tapeInPos <- tapeInPos+1
+             Thread.Sleep (1)
              code
   
     let RewindReader () =
