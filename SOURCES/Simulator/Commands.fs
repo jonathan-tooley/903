@@ -107,8 +107,9 @@ module Sim900.Commands
         let mutable PanelOutput   = 0
         let mutable HeartBeat     = 0
         let mutable Flash         = false
-        let mutable DisplayedA    = 0
-        let mutable DisplayedS    = 0
+        let mutable DisplayedA    = -1
+        let mutable DisplayedS    = -1
+        let mutable DisplayedW    = -1
         let mutable InterruptDisp = 0
 
         // These are for key debounce
@@ -145,7 +146,7 @@ module Sim900.Commands
 
                     if WGet () <> PanelInput && on && not (operate = mode.Auto)
                       then WPut PanelInput
-                           MessagePut ("Word Generator has been updated to: "); InstructionPut PanelInput; stdout.WriteLine ()
+                           
 
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
@@ -164,7 +165,8 @@ module Sim900.Commands
                        stopped &&
                        (operate = mode.Operate || operate = mode.Test) &&
                        (not reset)  then PanelOutput <- (PanelOutput ||| 0b00100000)
-
+                    
+                    //Set the Stop light
                     if stopped      then PanelOutput <- (PanelOutput ||| 0b10000000)
 
                     // The Jump button on the original ELLIOT did not have an indicator
@@ -173,78 +175,76 @@ module Sim900.Commands
                        reset   &&
                        (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
 
+                    //Now set the lights by sending the combined value to the control panel
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATB) ( PanelOutput )  |> ignore
 
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
 
+                    //Control the reset button
                     if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton && not reset
-                        then MessagePut ("Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177")
-                             ResetButton <- true;     Reset ()
+                        then //Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177
+                             ResetButton <- true;     
+                             Reset ()
                              //Handle Jump
 
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && not (operate = mode.Auto) && not ResetButton && not reset
-                        then MessagePut ("Reset button pressed.  Resetting.")
-                             ResetButton <- true;     Reset ()
+                        then //Standard Reset
+                             ResetButton <- true;
+                             Reset ()
                     
+                    //Control the on and off buttons
                     if PanelInput &&& 0b00010000 = 0b00010000 && not on
-                        then MessagePut ("On button pressed.  Starting default system")
-                             turnOn ()
+                        then turnOn ()
 
                     if PanelInput &&& 0b00000100 = 0b00000100 && on
-                        then MessagePut ("Off button pressed.  Turning off")
-                             turnOff ()
+                        then turnOff ()
 
+                    //Set the keyswitch
                     if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
-                        then MessagePut ("Keyswitch turned to test")
-                             operate <- mode.Test
+                        then operate <- mode.Test       //Keyswitch turned to test
 
                     if PanelInput &&& 0b00000010 = 0b00000010 && not (operate = mode.Operate)
-                        then MessagePut ("Keyswitch turned to operate")
-                             operate <- mode.Operate
+                        then operate <- mode.Operate    //Keyswitch turned to operate
 
                     if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
-                        then MessagePut ("Keyswitch turned to auto")
-                             operate <- mode.Auto
+                        then operate <- mode.Auto       //Keyswitch turned to Auto
 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
            
                     if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
                     if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && on && reset && not (operate = mode.Auto)
-                        then MessagePut ("Jump Button Pressed")
-                             JumpButton <- true
+                        then JumpButton <- true
                              Jump ()
 
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on && not (operate = mode.Auto)
-                        then MessagePut ("Stop Button Pressed")
-                             stopped <- true
+                        then stopped <- true
                              StopButton <- true
-                             //
+
                     
                     if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
                     if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && on && not (operate = mode.Auto)
-                        then MessagePut ("Restart Button Pressed")
-                             stopped <- false
+                        then stopped <- false
                              RestartButton <- true
-                             //
+
 
                     // Handle MCP23017 U3 Inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOA); 
 
                     if PanelInput &&& 0b00000100 = 0b00000100 && on && operate = mode.Test && not I1M
-                        then MessagePut ("Interrupt 1: Manual"); I1M <- true
+                        then I1M <- true    //Interupt 1:Manual
                     if PanelInput &&& 0b00000100 = 0b00000000 && on && operate = mode.Test && I1M
-                        then MessagePut ("Interrupt 1: Online"); I1M <- false
+                        then I1M <- false   //Interrupt 1: Online
                     
                     if PanelInput &&& 0b00001000 = 0b00001000 && on && operate = mode.Test
                         then MessagePut ("Interrupt 1: Trace")
                     
                     if PanelInput &&& 0b00010000 = 0b00010000 && on && operate = mode.Test && not I2M
-                        then MessagePut ("Interrupt 2: Manual"); I2M <-true
+                        then I2M <-true     //Interrupt 2: Manual
                     if PanelInput &&& 0b00010000 = 0b00000000 && on && operate = mode.Test && I2M
-                        then MessagePut ("Interrupt 2: Online"); I2M <-false
+                        then I2M <-false;       //Interrupt 2: Online
                                         
                     if PanelInput &&& 0b00100000 = 0b00100000 && on && operate = mode.Test
                         then MessagePut ("Interrupt 2: Trace")
@@ -292,47 +292,47 @@ module Sim900.Commands
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
 
                     if PanelInput &&& 0b00000001 = 0b00000001 && on
-                        then MessagePut ("Order Stop")
+                        then ignore() //Order Stop logic would go in here
                     
                     if PanelInput &&& 0b00000010 = 0b00000000 && on && cycle
-                        then MessagePut ("Cycle Stop deselected")
-                             cycle <- false 
+                        then cycle <- false //Exit single step mode
 
                     if PanelInput &&& 0b00000010 = 0b00000010 && on && not cycle 
-                        then MessagePut ("Cycle Stop Selected")
-                             cycle <- true
+                        then cycle <- true //Enter single step mode
 
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on && (AGet () <> DisplayedA || SGet () <> DisplayedS) 
+                    if PanelInput &&& 0b00001000 = 0b00000000 && on && DisplayedW >= 0
+                        then DisplayedA <- -1
+                             DisplayedS <- -1
+                             DisplayedW <- -1
+                             stdout.Write "\x1B[2J"
+                             Prompt ()
+                    
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on && (AGet () <> DisplayedA || OldSGet () <> DisplayedS || WGet () <> DisplayedW) 
                         then DisplayRegisters ()
                              DisplayedA <- AGet ()
-                             DisplayedS <- SGet ()
+                             DisplayedS <- OldSGet ()
+                             DisplayedW <- WGet ()
 
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
-                        then stdout.Write ("Enter (Single) selected: Accumulator set to "); OctalPut (WGet()) 
-                             stdout.Write (" ")                                           ; InstructionPut (WGet()); stdout.WriteLine ()
-                             EnterButton <- true
+                        then EnterButton <- true
                              reset <- false
                              APut (WGet())
                     
                     if PanelInput &&& 0b00010000 = 0b00010000 && on && stopped && operate = mode.Test
-                        then stdout.Write ("Enter (Run) selected: Accumulator set to "  ); OctalPut (WGet())
-                             stdout.Write (" ")                                          ; InstructionPut (WGet()); stdout.WriteLine ()
-                             reset <- false
+                        then reset <- false
                              APut (WGet())
                     
                     if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButton <- false 
                     if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && on && stopped && operate = mode.Test
-                        then MessagePut ("Obey (Single)") 
-                             ObeyButton <- true
+                        then ObeyButton <- true
                              reset      <- false
                              if (not obey) then obey <- true
                     
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && stopped && operate = mode.Test
-                        then MessagePut ("Obey (Run)")
-                             reset     <- false
+                        then reset     <- false
                              if (not obey) then obey <- true
                             
-                    Thread.Sleep(150)
+                    Thread.Sleep(90)
                   }
 
