@@ -297,11 +297,12 @@ module Sim900.Telecodes
                                 | '¬'  -> BadSymbol ()
                                 | ch   -> ch.ToString ()
 
-    let LegibleOf (code: byte) =
+    let LegibleOf (code: int) =
         let s = new StringBuilder ()
-        for bit in [|128; 64; 32; 16; 8; 4; 2; 1|] do 
-            s.Append (if (int(code)&&&bit) = 0   then '.' else 'O') |> ignore
-            if bit = 8 then s.Append 'o' |> ignore
+        s.Append ('|') |> ignore
+        for bit in [|131072; 65536; 32768; 16384; 8192; 4096; 2048; 1024; 512; 256; 128; 64; 32; 16; 8; 4; 2; 1|] do 
+            s.Append (if (int(code)&&&bit) = 0   then '\u26AA' else '\u26AB') |> ignore
+            s.Append ('|') |> ignore
         s.ToString ()
     
     module private SIRHelper =
