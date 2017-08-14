@@ -73,7 +73,6 @@ module Sim900.Formatting
         printf "&%06o" word
                                          
     let Prompt () = 
-        YieldToDevices ()
         EnsureNewLine ()
         printf "SIM900> " 
 
@@ -116,10 +115,9 @@ module Sim900.Formatting
         | 141uy -> ()                     // CR
         | _    -> printf "%s" (UTFOf telecode code) 
                         
-    let TimesPut (cpuTime: int64, elTime: int64, pcTime: int64, machineName: string, iCount: int64) =
+    let TimesPut (cpuTime: int64, elTime: int64, machineName: string, iCount: int64) =
         let exeTime = System.TimeSpan.FromMilliseconds ((double cpuTime) / 10000.0)
         let totTime = System.TimeSpan.FromMilliseconds ((double elTime)  / 10000.0)
-        let pcTime  = System.TimeSpan.FromMilliseconds (double pcTime)
         let ToString (t: TimeSpan) = 
             let hrs    = t.Hours
             let hs     = if hrs = 1 then "hour " else "hours"
@@ -133,7 +131,7 @@ module Sim900.Formatting
         MessagePut (sprintf "Instructions     = %29d" iCount)
         MessagePut (sprintf "%s cpu time     = %s" machineName (ToString exeTime))
         MessagePut (sprintf "%s elapsed time = %s" machineName (ToString totTime))
-        MessagePut (sprintf "%s elapsed time = %s" ("PC".PadRight (machineName.Length)) (ToString pcTime))  
+
 
 
 

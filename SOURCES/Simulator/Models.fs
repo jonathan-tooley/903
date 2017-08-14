@@ -8,7 +8,7 @@ module Sim900.Models
     let mutable machineName   = ""
     let mutable memorySpeed   = 0     // in micrososeconds
     let mutable memorySize    = 0
-    let mutable timing: int[] = [||]  // instruction timing 
+//    let mutable timing: int[] = [||]  // instruction timing 
     
          
     // IO TIMES in microseconds * 10
@@ -30,10 +30,10 @@ module Sim900.Models
         machineName <- "903"
 
   
-        timing <-  [|065;285;240;270;235;240;235;235;200;215;
-                     265;240;200;260;240;316;765;795;220;030;
-                     235;095;205;000;205;000;000;000;000;000;
-                     000;000;000;000;000;000|]
+//        timing <-  [|065;285;240;270;235;240;235;235;200;215;
+  //                   265;240;200;260;240;316;765;795;220;030;
+    //                 235;095;205;000;205;000;000;000;000;000;
+      //               000;000;000;000;000;000|]
 
         // Paper tape reader speed
         ptrCharTime <- 10000L           // 1000 c/s
