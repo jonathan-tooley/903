@@ -27,6 +27,7 @@ module Sim900.Devices
     open System.Windows.Forms
     open System.Collections
     open System.Text
+    open System.Threading
     open Sim900.Bits
     open Sim900.Telecodes
     open Sim900.Models
@@ -102,6 +103,7 @@ module Sim900.Devices
         then raise (Device "Run off end of paper tape input")
         else let code = ti.[tapeInPos]
              tapeInPos <- tapeInPos+1
+             Thread.Sleep (1)
              code
   
     let RewindReader () =
@@ -139,7 +141,6 @@ module Sim900.Devices
         | PTXT
         | PBin
         | PRaw
-        | PLegible
 
     type Encoding =
         | Binary of ReaderModes
@@ -166,8 +167,8 @@ module Sim900.Devices
         | (Some (sw), PACD)  -> sw.Write (UTFOf TACD code)     // output as UTF character
         | (Some (sw), PTXT)  -> sw.Write (UTFOf TTXT code)     // output as ASCII character
         | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
-        | (Some (sw), PLegible)                                // output as legible image
-                             -> sw.WriteLine (LegibleOf code) 
+//        | (Some (sw), PLegible)                                // output as legible image
+//                             -> sw.WriteLine (LegibleOf code) 
         | (None, _)          -> raise (Device (sprintf "No file attached to punch"))
         if      code = lastPunchCode
         then    if lastPunchCount = 10000
@@ -199,12 +200,7 @@ module Sim900.Devices
         punchMode   <- PBin
         for i=1 to 20 do PutPunchChar 0uy
         
-    let OpenPunchLegible (fileName: string) = 
-        // open legible format file for paper tape punch output
-        ClosePunch () // finalize last use, if any
-        punchStream <- Some (new StreamWriter (fileName))
-        punchMode   <- PLegible
-        
+
     let OpenPunchRaw (fileName: string) = 
         // open raw byte file for paper tape punch output
         ClosePunch () // finalize last use, if any
@@ -213,271 +209,7 @@ module Sim900.Devices
         for i=1 to 20 do PutPunchChar 0uy       
 
 
-
-    // TELEPRINTER 
-    module private Teleprinter =
-                                                      
-        // Telecode
-        let mutable defaultTelecode = T900
-        let mutable ttyInChs        = ""                // tty characters waiting to be read
-        let mutable ttyOutChs       = false             // true if characters are waiting to be rendered
-        let mutable ttyPushPending  = false             // true if timer running to push tty
-        let mutable ttyIn: byte[] option = None         // buffer for use when teletype input is INLINE
-        let mutable ttyInPos        = 0 
-        let mutable ttyTelecode     = defaultTelecode   // telecode for use when input is INLINE 
-        let mutable ttyInline       = false
-        let mutable ttyNewline      = true              // true if newlines passed through to simulation
-        let mutable ttyReturnSeen   = false             // set true when GetTTYChar sees start of \r\n from tty input
-        let mutable ttyLastChOut    = -1
-        let mutable ttyLastChCnt    = 0         
-
-        // Direct TTY output to a separate window
-        type TTYWindow() as tty = 
-            inherit Form() 
-            let mutable ttyWindowOpen = true // set false if closed
-            let textBox = new RichTextBox(Dock=DockStyle.Fill, 
-                                      ContextMenu   = new ContextMenu(),
-                                      Font          = new Font("Lucida Console",10.0f,FontStyle.Regular), 
-                                      ForeColor     = Color.Black,
-                                      AcceptsTab    = true,
-                                      Multiline     = true,
-                                      DetectUrls    = false,
-                                      ShortcutsEnabled = false,
-                                      ReadOnly      = false, // toggle this false to disable input
-                                      ScrollBars    = RichTextBoxScrollBars.Vertical ) 
-            let mi = new MenuItem ("Copy")                           
-            
-            // Text is buffered line by line to give better display performance output. 
-            // The buffer is flushed when TTY input is required, or at each '\n' character.                            
-            let mutable nextPos = 0 
-            let buffer = new StringBuilder()
-            let renderBuffer() = 
-                // printfn "Render"
-                if ttyWindowOpen
-                then let s = buffer.ToString()
-                     if   s.Length<>0 
-                     then buffer.Clear() |> ignore
-                          textBox.SuspendLayout()
-                          textBox.AppendText s  // add text to text box
-                          nextPos <- textBox.Text.Length
-                          textBox.Select (nextPos, 0) // move cursor to end
-                          textBox.Show ()
-                          textBox.ResumeLayout()
-
-            do mi.Click.Add (fun arg -> Clipboard.SetData(DataFormats.Rtf, textBox.SelectedRtf))
-            do textBox.ContextMenu.MenuItems.Add(mi) |> ignore
-            do tty.Closing.Add (fun arg -> ttyWindowOpen <- false; ())
-            do tty.SetStyle (ControlStyles.AllPaintingInWmPaint ||| ControlStyles.Opaque, true)
-            do tty.Controls.Add textBox // put textbox on form
-            do textBox.TextChanged.Add (fun arg ->  // handle input to textbox 
-                                            if   textBox.ReadOnly
-                                            then // writing happened
-                                                 if ttyInChs.Length = 0 then textBox.ReadOnly <- false
-                                            else // must have had some input
-                                                 if   nextPos < textBox.Text.Length 
-                                                 then ttyInChs <- ttyInChs + textBox.Text.[nextPos..] 
-                                                      textBox.ReadOnly <- true                                           
-                                            nextPos  <- textBox.Text.Length
-                                            textBox.Select (nextPos, 0))
-
-            member tty.Push () =
-                // printfn "tty.Push"
-                while ttyOutChs do
-                    ttyOutChs <- false
-                    renderBuffer ()
-                if ttyInChs.Length = 0 then textBox.ReadOnly <- false
-            
-            member tty.Write (s :string) =
-                // printfn "tty.Write %s" s
-                textBox.ReadOnly <- true // lock out input
-                buffer.Append s |> ignore
-                if   s.EndsWith "\n" 
-                then ttyOutChs <- false
-                     renderBuffer()
-                else ttyOutChs <- true
-
-            member tty.Open () = ttyWindowOpen
-
-        let ensureTTYEvent     = new Event<_>() // new tty window needed
-        let ttyWriteEvent      = new Event<_>() // tty output ready
-        let ttyPushEvent       = new Event<_>() // simulator needs tty input
-
-        let EnsureTTYEvent     = ensureTTYEvent.Publish        
-        let TTYWriteEvent      = ttyWriteEvent.Publish
-        let TTYPushEvent       = ttyPushEvent.Publish
-        
-        let mutable latestTTY: TTYWindow option = None
-        
-        TTYWriteEvent.Add (fun s ->
-            match latestTTY with 
-            | Some tty ->   tty.Write s 
-            | None     ->   ())
-               
-        EnsureTTYEvent.Add (fun () ->
-            let ttyScreen = System.Drawing.Size (700, 800)
-            let tty = new TTYWindow (Text =  "Elliott Teletype", Visible = true, 
-                                     MinimumSize = ttyScreen, MaximumSize = ttyScreen)
-            latestTTY <- Some tty 
-            tty.Show ())
-
-        TTYPushEvent.Add (fun () -> 
-            match latestTTY with
-            | Some tty -> tty.Push ()
-            | None     -> ())
-
-        let EnsureTTY () =
-            // Ensure a tty window is open 
-            match latestTTY with
-            | None      ->  triggerEventSend ensureTTYEvent ()
-            | Some(tty) ->  if   not (tty.Open())
-                            then triggerEventSend ensureTTYEvent ()  
-
-        let TTYCharsAvailable () = ttyInChs.Length > 0
-
-        let ReadFromTTY () =
-            // printfn "ReadFromTTY"
-            while ttyInChs.Length <= 0 do 
-                 EnsureTTY ()
-                 triggerEventSend ttyPushEvent ()
-                 YieldToDevices () 
-            let ch = ttyInChs.[0] 
-            // printfn "ReadFromTTY gets %3d" (int ch)
-            ttyInChs <- ttyInChs.[1..]
-            triggerEventSend ttyPushEvent ()
-            (int ch)
-
-        let WriteToTTY (s: string) =
-            // printfn "WriteToTTY %s" s
-            EnsureTTY ()
-            triggerEventSend ttyWriteEvent s
-            if  not ttyPushPending
-            then async { do! Async.Sleep 10
-                         // printfn "Endsleep"
-                         ttyPushPending <- false
-                         triggerEvent ttyPushEvent ()
-                       } |> Async.Start
-                 ttyPushPending <- true
-            YieldToDevices ()
     
-        let TidyUpTTY () = 
-            latestTTY <- None 
-            ttyInline <- false  
-
-    open Teleprinter
-   
-    let DefaultTelecode () = defaultTelecode 
-    
-    let SetDefaultTelecode telecode = defaultTelecode <- telecode
-
-    let SetTTYNewline status = ttyNewline <- status
-
-    let OpenTTYInBinaryString text rdrMode =
-        // take binary input from command stream
-        ttyInline    <- true
-        ttyIn        <- Some (TranslateFromBinary text rdrMode)
-        ttyInPos     <- 0
-
-    let OpenTTYConsole telecode =
-        ttyTelecode <- telecode
-        ttyInline   <- false
-        ttyLastChOut <- -1
-        ttyLastChCnt <- 0
-
-    let OpenTTYInTextString text telecode mode = 
-        ttyTelecode <- telecode
-        ttyInline   <- true
-        ttyInPos    <- 0
-        ttyIn       <- Some (
-                            match telecode with
-                                    | T900 -> TranslateFromText    T900 mode text
-                                    | T903 -> TranslateFromText    T903 mode text
-                                    | T920 -> TranslateFromText    T920 mode text
-                                    | TACD -> TranslateFromText    TACD mode text
-                                    | TTXT -> TranslateFromText    TTXT mode text) 
-
-    let TTYInputReady () = true
-        //if ttyInline
-        //then true
-        //else TTYCharsAvailable ()
-
-    let rec GetTTYChar () =  
-        let telecode = if ttyInline then ttyTelecode else defaultTelecode
-        // get character
-        let ch =        
-            if   ttyInline
-            then let ti =
-                    match ttyIn with
-                    | Some ti   ->  ti
-                    | _         ->  raise (Device "No input attached to teleprinter")
-                 if  ttyInPos >= ti.Length
-                 then raise (Device "Run off end of teleprinter input")
-                 else let ch = ti.[ttyInPos]
-                      ttyInPos <- ttyInPos+1
-                      ch
-            else TelecodeOf telecode (char (ReadFromTTY ()))
-        // printfn "GetTTYChar %3d" ch
-        // decide how to handle returns and newlines
-        let Echo ch = 
-            if ttyInline then WriteToTTY (UTFOf telecode ch)
-            ch
-        match telecode with
-        | T920 ->   Echo ch
-        | _    ->   match ch with
-                    | 141uy ->  ttyReturnSeen <- true
-                                if   ttyNewline
-                                then // \r can be ignored
-                                     GetTTYChar ()
-                                else // \r is significant
-                                     ch
-                    | 010uy ->  if   ttyNewline 
-                                then Echo ch       // newlines to be passed through
-                                else GetTTYChar () // newlines to be ignored
-                    | _     ->  ttyReturnSeen <- false
-                                Echo ch           
-                                 
-    let PutTTYChar ch =  
-        // printfn "PutTTYChar %3d" ch
-        let telecode = (if ttyInline then ttyTelecode else defaultTelecode)
-        match  telecode with
-        | T920  ->  WriteToTTY  (UTFOf telecode ch)
-        | _     ->  if   ttyInline
-                    then // taking input from a file
-                         if   ttyReturnSeen
-                         then if   ch = cr900
-                              then () // following 010uy will output \r\n
-                              elif ch = lf900
-                              then ttyReturnSeen <- false
-                                   WriteToTTY (UTFOf telecode ch)
-                              else ttyReturnSeen <- false
-                                   WriteToTTY (UTFOf telecode ch)
-                         else WriteToTTY (UTFOf telecode ch)
-                    elif ttyReturnSeen && (ch = 010uy || ch = 141uy)
-                    then ttyReturnSeen <- false // interactive console will already have echoed \r \n
-                    else ttyReturnSeen <- false
-                         WriteToTTY (UTFOf telecode ch) // no pending return, or other than newline sequence
-        let chi = int ch
-        if  chi = ttyLastChOut
-        then if ttyLastChCnt = 1000
-             then ttyLastChCnt <- 0 
-                  raise (Device (sprintf "Continuously typing &%03o" chi))
-             else ttyLastChCnt <- ttyLastChCnt+1
-        else ttyLastChOut  <- chi
-             ttyLastChCnt <- 1     
-
-    let FlushTTY () =
-        // Force out any buffered tty output
-        match latestTTY with
-        | Some(tty) -> if   tty.Open()
-                       then triggerEventSend ttyPushEvent ()
-                            YieldToDevices ()
-        | None      -> () 
-                  
-    let CloseTTY () =
-        // close TTY window if open, reset to direct input
-        FlushTTY ()
-        TidyUpTTY ()
-
-     
     // GRAPH PLOTTER   
 
     // There are two models of plotting.  For E900 we reproduce Don Hunter's simulator

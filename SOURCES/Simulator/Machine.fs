@@ -128,35 +128,7 @@ module Sim900.Machine
         let mutable pRegister                  = 0       // peripheral i/o
         let mutable wordGenerator              = 0       // setting of keys on control panel
 
-        // TIMING
-        let mutable cpuTime           = 0L    // execution time in microseconds * 10
-        let mutable elapsedTime       = 0L    // i/o time in microseconds * 10 
-        let mutable ptrTime           = 0L    // time when reader next free 
-        let mutable ptpTime           = 0L    // time when punch next free    
-        let mutable pltTime           = 0L    // time when plotter next free 
-                                   
-        let         realTimer         = new System.Diagnostics.Stopwatch ()  
-        
-        let Elapsed () = max elapsedTime (max ptrTime (max ptpTime pltTime))
-
-        let ResetTimes () =
-            ptrTime     <- 0L
-            ptpTime     <- 0L
-            pltTime     <- 0L
-            cpuTime     <- 0L
-            elapsedTime <- 0L
-            realTimer.Reset ()
-
-        // Speed of simulation
-        let mutable slow = true   
-        
-        let SlowDown () =
-            if   slow
-            then YieldToDevices ()
-                 let elapsed = Elapsed () / 10000L
-                 let pause = (int (elapsed - realTimer.ElapsedMilliseconds)) 
-                 if  pause > 0
-                                  then System.Threading.Thread.Sleep pause
+  
 
         // MONITORING
         let mutable iCount            = 0L                               // instructions executed since last reset
@@ -219,22 +191,8 @@ module Sim900.Machine
 
         let ReaderInput Z =
             pRegister <- Z
-            let cpu = int64 timing.[22]
-            cpuTime     <- cpuTime + cpu
-            elapsedTime <- elapsedTime + cpu
-            let read =
-                if   elapsedTime < ptrTime
-                then // device is busy 
-                     if   holdUp 
-                     then // wait
-                          elapsedTime <- ptrTime
-                          true
-                     else false                                                                        
-                 else // device is ready
-                      true
-            if   read
-            then ptrTime <- ptrTime + ptrCharTime 
-                 try // reset SCR if error signalled
+            if   true
+            then try // reset SCR if error signalled
                     let ch = int (GetReaderChar ())
                     accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
                  with
@@ -244,21 +202,8 @@ module Sim900.Machine
 
         let PunchOutput Z =
             pRegister <- Z
-            let cpu = int64 timing.[22]
-            cpuTime     <- cpuTime + cpu
-            elapsedTime <- elapsedTime + cpu
-            let write =
-                if   elapsedTime < ptpTime
-                then // device is busy 
-                        if   holdUp 
-                        then // wait
-                             elapsedTime <- ptpTime 
-                             true
-                        else false                                                                        
-                else // device is ready
-                        true
-            if   write
-            then ptpTime <- elapsedTime + ptpCharTime                         
+            if   true
+            then 
                  try 
                         PutPunchChar (byte (accumulator &&& mask8))  
                  with
@@ -272,36 +217,38 @@ module Sim900.Machine
              while handShake = GPIO.pinValue.Low && (not reset) do 
                   holdUp <- true
                   Thread.Sleep(50)
-                  handShake <- digitalRead 2
+                  handShake <- digitalRead 4
              holdUp <- false
              if (not reset) then 
                 // Then we set up the data on the mcp pins
                 wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
                 // Then we send a commit instruction to the punch
-                digitalWrite 0 GPIO.pinValue.High
+                digitalWrite 3 GPIO.pinValue.High
                 // Now we wait for the punch to confirm that it is busy doing our instruction
-                while handShake = GPIO.pinValue.High do handShake <- digitalRead 2
+                while handShake = GPIO.pinValue.High do handShake <- digitalRead 4
                 // Then we can stop telling to write as it has started working on our command
-                digitalWrite 0 GPIO.pinValue.Low
+                digitalWrite 3 GPIO.pinValue.Low
 
+        let BitCount code =
+           let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
+           let rec Shift residual =
+               if   residual = 0
+               then 0
+               else count.[residual &&& 0xf] + Shift (residual >>> 4)
+           Shift code
+
+        let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
         let TTYInput Z =
-            pRegister <- Z
-            let cpu = int64 timing.[22]
-            cpuTime     <- cpuTime + cpu
-
-            let ch = int (port.ReadByte())
-            accumulator <- (accumulator <<< 8 ||| (ch &&& mask8)) &&& mask18
-            port.Write (System.String.Concat( char (accumulator &&& mask8)))
+            let mutable ch = int (port.ReadByte())
+            ch <- (if OddParity ch then bit8 ||| ch else ch)
+            accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
+            port.Write (System.String.Concat( char (accumulator &&& mask7)))
 
 
         let TTYOutput Z =
             pRegister <- Z
-            let cpu = int64 timing.[22]
-            cpuTime     <- cpuTime + cpu
-            elapsedTime <- elapsedTime + cpu
-
-            port.Write (System.String.Concat( char (accumulator &&& mask8)))
+            port.Write (System.String.Concat( char (accumulator &&& mask7)))
                         
         type Input = 
             | ReaderIn
@@ -378,9 +325,6 @@ module Sim900.Machine
             let  M, MJump = // MJump is modified operand field for 7, 8, 9, M is for other functions
                 if   modify <> 0
                 then // apply B modification - Q is affected
-                     modifyTime  <- int64 timing.[0]
-                     cpuTime     <- cpuTime + modifyTime
-                     elapsedTime <- elapsedTime + modifyTime
                      let m = N + memory.[bRegisterAddr]
                      qRegister <- N                                           
                      let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
@@ -392,15 +336,12 @@ module Sim900.Machine
             // Helper functions for jump instructions
             let I () = if   modify <> 0 then word + memory.[bRegisterAddr] else word
                 
-                      
+            if iCount % 10L = 0L then Thread.Sleep (1)          
             // ORDER CODE
 
             match iRegister with
                 |  0  -> // set B register 
                          // B:=Q[18..1]:=m
-                         let t = int64 timing.[1]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          let newb = ReadMem M
                          memory.[bRegisterAddr] <- newb
                          qRegister <- newb
@@ -408,46 +349,28 @@ module Sim900.Machine
                          
                 |  1  -> // Add
                          //A:=A+m
-                         let t = int64 timing.[2]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          accumulator <- ((ReadMem M) + accumulator) &&& mask18
                        
                 |  2  -> // Negate & add
                          // A:=m-A; Q[18..1]:=m
-                         let t = int64 timing.[3]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          qRegister <- ReadMem M
                          accumulator <- (qRegister - accumulator) &&& mask18
                         
                 |  3  -> // store Q register
                          // m[18]:=0; m[17..1]:=Q[18..2]
-                         let t = int64 timing.[4]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          WriteMem M (qRegister >>> 1)
                  
                 |  4  -> // read memory
                          // A:=m
-                         let t = int64 timing.[5]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          accumulator <- ReadMem M
               
                 |  5  -> // write memory
                          // m:=A
-                         let t = int64 timing.[6]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          // WriteMem M accumulator
                          WriteMem M accumulator
               
                 |  6  -> // collate
                          // A:=A and m; Q affected (920A)
-                         let t = int64 timing.[7]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          let n = ReadMem M
                          accumulator <- accumulator &&& n
 
@@ -457,25 +380,15 @@ module Sim900.Machine
                          // M is always relative
                          qRegister <- N 
                          if   accumulator < 0
-                         then let t = int64 timing.[8]
-                              cpuTime     <- cpuTime + t
-                              elapsedTime <- elapsedTime + t
+                         then ignore ()
                          elif accumulator > 0 
-                         then let t = int64 timing.[9]
-                              cpuTime     <- cpuTime + t
-                              elapsedTime <- elapsedTime + t
-                         else let t = int64 timing.[10]
-                              cpuTime     <- cpuTime + t
-                              elapsedTime <- elapsedTime + t
-                              sequenceControlRegister <- MJump                           
+                         then ignore ()
+                         else sequenceControlRegister <- MJump                           
 
                 |  8  -> // jump unconditional
                          // S:=M
                          // Q affected (920A only)
                          // M is always relative
-                         let t = int64 timing.[11]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          sequenceControlRegister <- MJump
                         
                 |  9  -> // jump if negative
@@ -485,36 +398,22 @@ module Sim900.Machine
                          qRegister <- N
             
                          if   accumulator < bit18 
-                         then let t = int64 timing.[12]
-                              cpuTime     <- cpuTime + t
-                              elapsedTime <- elapsedTime + t     
-                         else let t = int64 timing.[13]
-                              cpuTime     <- cpuTime + t
-                              elapsedTime <- elapsedTime + t
-                              sequenceControlRegister <- MJump
+                         then ignore ()
+                         else sequenceControlRegister <- MJump
 
                 | 10  -> // count in store
                          // m:=m+1
-                         let t = int64 timing.[14]
-                         cpuTime     <- cpuTime +  t                        
-                         elapsedTime <- elapsedTime + t
                          memory.[M] <- ((ReadMem M) + 1) &&& mask18
 
                 | 11  -> // store Sequence Control Register
                          // m[13..1]:=(S+1)[13..1]; Q[17..14]:=(S+1)[17..14]; Q[13..1]:=0
                          // S[16..14] for machines before 920C
-                         let t = int64 timing.[15]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          qRegister   <- sequenceControlRegister &&& aModuleMask
                          WriteMem M (sequenceControlRegister &&& operandMask)
 
                 | 12  -> // fixed point multiply 
                          // (A,Q[18..2]):=A*m; Q1:=1 if A<0 otherwise 0
                          // this code fully emulates 900 series microcode implementation
-                         let t = int64 timing.[16]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          let m = ReadMem M
                          for processCounter = 1 to 18 do
                             let xBits =
@@ -537,9 +436,6 @@ module Sim900.Machine
                 | 13  -> // divide
                          // A:=(A,Q[18..2])/m  +/- 2^-17; Q[18..2]:=A +/- 2^-17; A[1]:=1; Q[1]:=0
                          // this code fully emulates 900 series microcode implementation
-                         let t = int64 timing.[17]
-                         cpuTime     <- cpuTime + t
-                         elapsedTime <- elapsedTime + t
                          let m = ReadMem M
                          qRegister <- (qRegister &&& not1) // clear out bottom bit of Q
                          let mutable xBits = accumulator
@@ -558,34 +454,18 @@ module Sim900.Machine
                          let Z = M &&& operandMask
                          let leftShift Z =
                              for step = 1 to (int Z) do aqShiftLeft ()                              
-                             let t = int64 (timing.[18] + 
-                                       timing.[19] * (int Z))
-                             cpuTime     <- cpuTime + t
-                             elapsedTime <- elapsedTime + t
+
                          let rightShift Z =
                              for step = (int Z) to 8191 do aqShiftRight ()                              
-                             let t = int64 (timing.[18] + 
-                                       timing.[19] * (8192-(int Z)))
-                             cpuTime     <- cpuTime + t
-                             elapsedTime <- elapsedTime + t
                          match (N) with
                          | (_) when Z <= 2047 -> leftShift Z     
                          | (_) when Z >= 6144 -> rightShift Z
                          | (4864)             -> // output block to plotter
                                                         pRegister <- Z
-                                                        let cpu = 330L // this time comes from 903 Fact Book
-                                                        cpuTime   <- cpuTime + cpu
-                                                        let ioTime = elapsedTime + cpu
+
                                                         for addr = accumulator to accumulator+(qRegister&&&mask12)-1 do
                                                             let data = ReadMem addr
-                                                            if   ioTime < pltTime
-                                                            then // need to wait for device
-                                                                  elapsedTime <- pltTime
-                                                                  pltTime <- pltTime + (PlotTime word)                                                                      
-                                                            else // device is ready
-                                                                  pltTime <- ioTime + (PlotTime word)
-                                                                  elapsedTime <- ioTime
-                                                                  PutPlotter word                                                        
+                                                            PutPlotter word                                                        
                          | (_)                    -> ignore ()                  
                              
                 | 15  -> // input/output
@@ -600,64 +480,35 @@ module Sim900.Machine
                          | 7169  -> // test standardized: 
                                                 // skip next instruction if A > 0.5 or A < -0.5 or A = 0
                                                 if   accumulator = 0 || (accumulator &&& bit17) <> 0 
-                                                then let t = int64 timing.[26]
-                                                     cpuTime <- cpuTime + t
-                                                     elapsedTime <- elapsedTime + t
-                                                     sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
-                                                else let t = int64 timing.[25]
-                                                     cpuTime <- cpuTime + t
-                                                     elapsedTime <- elapsedTime + t
-                               
+                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+
                          | 7170  -> // increment and skip
                                                 // B := B+1; skip next instruction if B[13..1] = 0
                                                 let inc = memory.[bRegisterAddr] + 1
                                                 memory.[int bRegisterAddr] <- inc
                                                 if   inc &&& mask13 = 0 
-                                                then let t = int64 timing.[28]
-                                                     cpuTime <- cpuTime + t
-                                                     elapsedTime <- elapsedTime + t
-                                                     sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
-                                                else let t = int64 timing.[27]
-                                                     cpuTime <- cpuTime + t
-                                                     elapsedTime <- elapsedTime + t
+                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+
 
                          | 7171  -> // read word generator
-                                                let t = int64 timing.[29]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 accumulator <- wordGenerator
 
                          | 7172  -> // A to Q; Q[18..2] := A[17..1]
-                                                let t = int64 timing.[30]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 qRegister <- (accumulator <<< 1) &&& mask18
                                
                          | 7173  -> // Q to A; A[17..1] := Q[18..2]
-                                                let t = int64 timing.[31]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 accumulator <- (qRegister >>> 1) 
                                
                          | 7174  -> // A to B: B := A
-                                                let t = int64 timing.[32]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 memory.[int bRegisterAddr] <- accumulator
                                
                          | 7175 -> // B to A; A := B
-                                                let t = int64 timing.[33]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 accumulator <- memory.[int bRegisterAddr]
                                
                          | (_) when 7184 <= Z -> // Machine stop
                                                 stopped <- true
 
                          | (_) when 7168 <= Z -> // Program terminate
-                                                let t = int64 timing.[24]
-                                                cpuTime <- cpuTime + t
-                                                elapsedTime <- elapsedTime + t
                                                 if   interruptLevel <> 4
                                                 then protect <- true // interrupts are deferred after a 15 7168
                                                      DisableInitialInstructions ()  // in case leaving level 1
@@ -678,16 +529,6 @@ module Sim900.Machine
                          
                          | (4864) -> // output code to plotter
                                                 pRegister <- Z
-                                                let cpu = 330L // this time comes from 903 Fact Book
-                                                cpuTime   <- cpuTime + cpu
-                                                let ioTime = elapsedTime + cpu
-                                                if   ioTime < pltTime
-                                                then // need to wait for device
-                                                      elapsedTime <- pltTime
-                                                      pltTime <- pltTime + (PlotTime accumulator)                                                                      
-                                                else // device is ready
-                                                      pltTime <- ioTime + (PlotTime accumulator)
-                                                      elapsedTime <- ioTime
                                                 PutPlotter accumulator
                                  
 
@@ -815,6 +656,7 @@ module Sim900.Machine
         reset           <- true
         stopped         <- true  
         holdUp          <- true
+        port.Write "\r\u001B\u003A"
 
 
         for i = 0 to 4 do
@@ -824,37 +666,15 @@ module Sim900.Machine
         levelActive.[1] <- true
         EnableInitialInstructions ()
    
-    // STOP execution
-    let Stop () =
-        stopped <- true
-
-    // SPEED
-    let Slow () = 
-        slow <- true
-        ResetTimes ()
-
-    let Fast () = 
-        slow <- false
-        ResetTimes ()
-        
+    
+            
     // TIDYUP
     let TidyUpMachine () =
-        slow <- false
         Reset ()
         iCount <- 0L                      
-        ResetTimes ()
         SelectInput  <- AutoIn
         SelectOutput <- AutoOut
          
-    // TIMING INFO
-    let Times () = 
-        let pcTime = realTimer.ElapsedMilliseconds
-        let ct = cpuTime
-        let et = Elapsed ()
-        let ic = iCount
-        ResetTimes ()
-        (ct, et, pcTime, machineName, ic)     
-        
                         
     // TRACE INTERRUPTS
     let TraceInterruptOn level =
@@ -884,10 +704,9 @@ module Sim900.Machine
     let Processor () =
         async {
          try
-            realTimer.Start ()
             while true do
               while on && stopped && obey do
-                  stdout.Write ("obey")
+                  //The control panel is requesting an obey
                   Execute (wordGenerator)
                   obey <- false
                   
@@ -901,10 +720,6 @@ module Sim900.Machine
                           takeInterrupt <- false
                           interruptLevel <- HighestActiveLevel ()
                           RestoreSB ()
-                          // update timers
-                          let intTime = (int64 timing.[23])
-                          cpuTime <- cpuTime + intTime
-                          elapsedTime <- elapsedTime + intTime 
                           // re-enable initial instructions if going to level 1
                           if   interruptLevel = 1
                           then EnableInitialInstructions ()  
@@ -923,8 +738,7 @@ module Sim900.Machine
             
                 // increment instruction count
                 iCount <- iCount+1L
-                SlowDown ()
                 if cycle then stopped <- true
 
-        finally realTimer.Stop ()  
+        finally ignore()//realTimer.Stop ()  
         }
