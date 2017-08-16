@@ -1,4 +1,4 @@
-update=8/8/2017 5:23:16 PM
+update=8/9/2017 3:09:10 PM
 version=1
 last_client=eeschema
 [general]
@@ -30,3 +30,5 @@ NetIExt=net
 [eeschema]
 version=1
 LibDir=
+[eeschema/libraries]
+LibName1=CPU-cache

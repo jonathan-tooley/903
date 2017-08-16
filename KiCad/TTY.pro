@@ -1,6 +1,6 @@
-update=8/8/2017 6:34:12 PM
+update=8/9/2017 2:41:43 PM
 version=1
-last_client=kicad
+last_client=eeschema
 [general]
 version=1
 RootSch=
@@ -30,13 +30,5 @@ NetIExt=net
 [eeschema]
 version=1
 LibDir=
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=40
+[eeschema/libraries]
+LibName1=Elliott-cache

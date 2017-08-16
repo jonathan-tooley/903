@@ -1,14 +1,14 @@
 EESchema Schematic File Version 2
-LIBS:tca9548a
+LIBS:power
 LIBS:CPU-cache
 EELAYER 25 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "Elliott 903 CPU Board"
+Date "2017-08-08"
+Rev "v2"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -42,7 +42,7 @@ L R R1
 U 1 1 592B9F03
 P 7175 1100
 F 0 "R1" V 7255 1100 50  0000 C CNN
-F 1 "10k" V 7175 1100 50  0000 C CNN
+F 1 "4k7" V 7175 1100 50  0000 C CNN
 F 2 "Discret:R5" V 7105 1100 50  0001 C CNN
 F 3 "" H 7175 1100 50  0000 C CNN
 	1    7175 1100
@@ -53,7 +53,7 @@ L R R2
 U 1 1 592BA064
 P 7400 1100
 F 0 "R2" V 7480 1100 50  0000 C CNN
-F 1 "10k" V 7400 1100 50  0000 C CNN
+F 1 "4k7" V 7400 1100 50  0000 C CNN
 F 2 "Discret:R5" V 7330 1100 50  0001 C CNN
 F 3 "" H 7400 1100 50  0000 C CNN
 	1    7400 1100
@@ -146,17 +146,6 @@ Text GLabel 7550 3025 0    40   Input ~ 0
 Text GLabel 1200 1275 0    40   Input ~ 0
 +5v
 $Comp
-L PCA9516 U1.2
-U 1 1 592C022B
-P 4325 1475
-F 0 "U1.2" H 3875 2175 50  0000 L CNN
-F 1 "PCA9516" H 4475 2175 50  0000 L CNN
-F 2 "Housings_DIP:DIP-16_W7.62mm" H 4325 1575 50  0001 C CNN
-F 3 "" H 4325 1575 50  0000 C CNN
-	1    4325 1475
-	1    0    0    1   
-$EndComp
-$Comp
 L CONN_01X04 P1.1
 U 1 1 592C07D7
 P 2975 675
@@ -167,10 +156,6 @@ F 3 "" H 2975 675 50  0000 C CNN
 	1    2975 675 
 	0    -1   -1   0   
 $EndComp
-Text GLabel 2525 1400 2    40   Input ~ 0
-+3.3V
-Text GLabel 4525 2475 2    40   Input ~ 0
-+3.3V
 $Comp
 L CONN_01X04 P1.2
 U 1 1 592C293D
@@ -208,8 +193,6 @@ F 3 "" H 2050 675 50  0000 C CNN
 	1    2050 675 
 	0    1    -1   0   
 $EndComp
-Text GLabel 5775 1375 0    40   Input ~ 0
-0v
 Text GLabel 7900 1075 0    40   Input ~ 0
 +5v
 $Comp
@@ -217,7 +200,7 @@ L R R3
 U 1 1 592C59D9
 P 6225 1075
 F 0 "R3" V 6305 1075 50  0000 C CNN
-F 1 "10k" V 6225 1075 50  0000 C CNN
+F 1 "4k7" V 6225 1075 50  0000 C CNN
 F 2 "Discret:R5" V 6155 1075 50  0001 C CNN
 F 3 "" H 6225 1075 50  0000 C CNN
 	1    6225 1075
@@ -228,7 +211,7 @@ L R R4
 U 1 1 592C5AC5
 P 6225 1175
 F 0 "R4" V 6305 1175 50  0000 C CNN
-F 1 "10k" V 6225 1175 50  0000 C CNN
+F 1 "4k7" V 6225 1175 50  0000 C CNN
 F 2 "Discret:R5" V 6155 1175 50  0001 C CNN
 F 3 "" H 6225 1175 50  0000 C CNN
 	1    6225 1175
@@ -252,63 +235,25 @@ Text GLabel 1200 675  0    40   Input ~ 0
 $Comp
 L R R5
 U 1 1 592C6BCE
-P 2375 1075
-F 0 "R5" V 2455 1075 50  0000 C CNN
-F 1 "10k" V 2375 1075 50  0000 C CNN
-F 2 "Discret:R5" V 2305 1075 50  0001 C CNN
-F 3 "" H 2375 1075 50  0000 C CNN
-	1    2375 1075
+P 2475 1175
+F 0 "R5" V 2375 1175 50  0000 C CNN
+F 1 "4k7" V 2475 1175 50  0000 C CNN
+F 2 "Discret:R5" V 2405 1175 50  0001 C CNN
+F 3 "" H 2475 1175 50  0000 C CNN
+	1    2475 1175
 	0    1    -1   0   
 $EndComp
 $Comp
 L R R6
 U 1 1 592C6C41
-P 2375 1175
-F 0 "R6" V 2455 1175 50  0000 C CNN
-F 1 "10k" V 2375 1175 50  0000 C CNN
-F 2 "Discret:R5" V 2305 1175 50  0001 C CNN
-F 3 "" H 2375 1175 50  0000 C CNN
-	1    2375 1175
+P 2475 1000
+F 0 "R6" V 2555 1000 50  0000 C CNN
+F 1 "4k7" V 2475 1000 50  0000 C CNN
+F 2 "Discret:R5" V 2405 1000 50  0001 C CNN
+F 3 "" H 2475 1000 50  0000 C CNN
+	1    2475 1000
 	0    1    1    0   
 $EndComp
-$Comp
-L R R1.8
-U 1 1 592C8315
-P 5250 1975
-F 0 "R1.8" V 5330 1975 50  0000 C CNN
-F 1 "10k" V 5250 1975 50  0000 C CNN
-F 2 "Discret:R5" V 5180 1975 50  0001 C CNN
-F 3 "" H 5250 1975 50  0000 C CNN
-	1    5250 1975
-	0    1    1    0   
-$EndComp
-$Comp
-L R R1.7
-U 1 1 592C838C
-P 5250 1875
-F 0 "R1.7" V 5330 1875 50  0000 C CNN
-F 1 "10k" V 5250 1875 50  0000 C CNN
-F 2 "Discret:R5" V 5180 1875 50  0001 C CNN
-F 3 "" H 5250 1875 50  0000 C CNN
-	1    5250 1875
-	0    1    -1   0   
-$EndComp
-Text GLabel 5775 1875 2    40   Input ~ 0
-+5v
-Text GLabel 3575 1175 0    40   Input ~ 0
-0v
-Text GLabel 950  2175 0    40   Input ~ 0
-PanelEnable
-Text GLabel 3575 1275 0    40   Input ~ 0
-PanelEnable
-Text GLabel 950  2275 0    40   Input ~ 0
-DisplayEnable
-Text GLabel 3575 975  0    40   Input ~ 0
-DisplayEnable
-Text GLabel 950  3175 0    40   Input ~ 0
-IOEnable
-Text GLabel 3575 1075 0    40   Input ~ 0
-IOEnable
 NoConn ~ 8075 2275
 NoConn ~ 8075 2175
 NoConn ~ 2925 2575
@@ -333,7 +278,6 @@ NoConn ~ 1125 3475
 NoConn ~ 1125 3575
 NoConn ~ 2225 1475
 NoConn ~ 1125 2075
-NoConn ~ 1125 2375
 NoConn ~ 1125 3075
 $Comp
 L CONN_01X12 P1.3
@@ -381,6 +325,150 @@ NoConn ~ 10500 5100
 NoConn ~ 10500 5200
 NoConn ~ 10500 4700
 NoConn ~ 10500 4500
+Text GLabel 950  2675 0    40   Input ~ 0
+PunchA
+Text GLabel 950  2775 0    40   Input ~ 0
+PunchB
+Text GLabel 950  2875 0    40   Input ~ 0
+ReaderA
+Text GLabel 950  2975 0    40   Input ~ 0
+ReaderB
+Text GLabel 10650 1125 3    40   Input ~ 0
+PunchA
+Text GLabel 10750 1125 3    40   Input ~ 0
+PunchB
+Text GLabel 10300 2775 0    40   Input ~ 0
+ReaderA
+Text GLabel 10300 2875 0    40   Input ~ 0
+ReaderB
+$Comp
+L CONN_01X12 P1.4
+U 1 1 592DA90C
+P 10750 2525
+F 0 "P1.4" H 10750 3175 50  0000 C CNN
+F 1 "Tape Reader" V 10850 2525 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_12pol" H 10750 2525 50  0001 C CNN
+F 3 "" H 10750 2525 50  0000 C CNN
+	1    10750 2525
+	1    0    0    -1  
+$EndComp
+Text GLabel 10300 2975 0    40   Input ~ 0
++5v
+Text GLabel 10950 1125 3    40   Input ~ 0
+0v
+$Comp
+L CONN_01X02 P1.5
+U 1 1 592C5963
+P 1100 975
+F 0 "P1.5" H 1100 1125 50  0000 C CNN
+F 1 "CONN_01X02" V 1200 975 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_2pol" H 1100 975 50  0001 C CNN
+F 3 "" H 1100 975 50  0000 C CNN
+	1    1100 975 
+	-1   0    0    1   
+$EndComp
+$Comp
+L PWR_FLAG #FLG01
+U 1 1 592C611B
+P 1450 675
+F 0 "#FLG01" H 1450 770 50  0001 C CNN
+F 1 "PWR_FLAG" H 1150 775 50  0000 C CNN
+F 2 "" H 1450 675 50  0000 C CNN
+F 3 "" H 1450 675 50  0000 C CNN
+	1    1450 675 
+	1    0    0    -1  
+$EndComp
+$Comp
+L PWR_FLAG #FLG02
+U 1 1 592C622B
+P 1450 1275
+F 0 "#FLG02" H 1450 1370 50  0001 C CNN
+F 1 "PWR_FLAG" H 1750 1400 50  0000 C CNN
+F 2 "" H 1450 1275 50  0000 C CNN
+F 3 "" H 1450 1275 50  0000 C CNN
+	1    1450 1275
+	-1   0    0    1   
+$EndComp
+$Comp
+L MCP23017-RESCUE-CPU U1.5
+U 1 1 59413573
+P 12700 1875
+F 0 "U1.5" H 12600 2900 50  0000 R CNN
+F 1 "MCP23017" H 12600 2825 50  0000 R CNN
+F 2 "Housings_DIP:DIP-28_W7.62mm" H 12750 925 50  0001 L CNN
+F 3 "" H 12950 2875 50  0001 C CNN
+	1    12700 1875
+	-1   0    0    1   
+$EndComp
+NoConn ~ 12200 2175
+NoConn ~ 12200 2275
+Text GLabel 12000 1075 0    40   Input ~ 0
++5v
+Text GLabel 12000 1175 0    40   Input ~ 0
++5v
+Text GLabel 12700 725  1    40   Input ~ 0
+0v
+Text GLabel 11950 1275 0    40   Input ~ 0
+0v
+Text GLabel 12000 2675 0    40   Input ~ 0
++5v
+NoConn ~ 13200 2075
+NoConn ~ 13200 2175
+NoConn ~ 13200 2275
+NoConn ~ 13200 2375
+NoConn ~ 13200 2475
+NoConn ~ 13200 2575
+NoConn ~ 13200 2675
+$Comp
+L CONN_01X12 P1.6
+U 1 1 59416CAB
+P 14075 1625
+F 0 "P1.6" H 14075 2275 50  0000 C CNN
+F 1 "Plotter" V 14175 1625 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_12pol" H 14075 1625 50  0001 C CNN
+F 3 "" H 14075 1625 50  0000 C CNN
+	1    14075 1625
+	1    0    0    -1  
+$EndComp
+Text GLabel 7175 1800 3    40   Input ~ 0
+SDA
+Text GLabel 7400 1800 3    40   Input ~ 0
+SCL
+Text GLabel 12000 1475 0    40   Input ~ 0
+SDA
+Text GLabel 12000 1575 0    40   Input ~ 0
+SCL
+Text GLabel 13775 2175 0    40   Input ~ 0
+0v
+Text GLabel 13775 2075 0    40   Input ~ 0
++5v
+Text GLabel 950  2475 0    40   Input ~ 0
+PlotterA
+Text GLabel 950  2575 0    40   Input ~ 0
+PlotterB
+Text GLabel 13775 1875 0    40   Input ~ 0
+PlotterA
+Text GLabel 13775 1975 0    40   Input ~ 0
+PlotterB
+NoConn ~ 13200 1975
+NoConn ~ 1625 4075
+NoConn ~ 1725 4075
+NoConn ~ 1825 4075
+NoConn ~ 2025 4075
+NoConn ~ 2125 4075
+NoConn ~ 2225 4075
+NoConn ~ 2325 4075
+$Comp
+L TCA9548A U1.2
+U 1 1 5989E74B
+P 4325 1875
+F 0 "U1.2" H 4125 2675 50  0000 L CNN
+F 1 "TCA9548A" H 4375 2675 50  0000 L CNN
+F 2 "Ada" H 5325 975 50  0001 C CNN
+F 3 "" H 4375 2125 50  0000 C CNN
+	1    4325 1875
+	1    0    0    1   
+$EndComp
 Wire Wire Line
 	9600 4900 10500 4900
 Wire Wire Line
@@ -446,44 +534,10 @@ Wire Wire Line
 	6700 3475 6700 4400
 Wire Wire Line
 	2925 3475 6700 3475
-Wire Wire Line
-	3575 1075 3725 1075
-Wire Wire Line
-	950  3175 1125 3175
-Wire Wire Line
-	3575 975  3725 975 
-Wire Wire Line
-	950  2275 1125 2275
-Wire Wire Line
-	3575 1275 3725 1275
-Wire Wire Line
-	3575 1175 3725 1175
-Connection ~ 5600 1875
-Wire Wire Line
-	5400 1875 5775 1875
-Wire Wire Line
-	5600 1975 5600 1875
-Wire Wire Line
-	5400 1975 5600 1975
-Wire Wire Line
-	4925 1975 5100 1975
-Wire Wire Line
-	4925 1875 5100 1875
-Wire Wire Line
-	2125 1400 2525 1400
-Wire Wire Line
-	2125 1475 2125 1400
 Connection ~ 2225 875 
-Connection ~ 2925 1175
-Wire Wire Line
-	2525 1175 2925 1175
-Connection ~ 3025 1075
-Wire Wire Line
-	2525 1075 3025 1075
 Connection ~ 1925 1275
 Wire Wire Line
-	2225 1175 1925 1175
-Connection ~ 2225 1075
+	1925 1175 2325 1175
 Wire Wire Line
 	2225 675  2225 1175
 Wire Wire Line
@@ -520,31 +574,15 @@ Wire Wire Line
 Wire Wire Line
 	3450 675  5200 675 
 Wire Wire Line
-	4325 600  4325 675 
+	4325 600  4325 875 
 Wire Wire Line
 	5750 1175 5750 875 
 Wire Wire Line
-	4925 1175 6075 1175
+	4725 1175 6075 1175
 Wire Wire Line
 	5650 1075 5650 875 
 Wire Wire Line
-	4925 1075 6075 1075
-Wire Wire Line
-	4325 2475 4525 2475
-Wire Wire Line
-	4325 2275 4325 2475
-Wire Wire Line
-	3025 1475 3725 1475
-Wire Wire Line
-	3025 875  3025 1475
-Wire Wire Line
-	2925 1575 2925 875 
-Wire Wire Line
-	3725 1575 2925 1575
-Wire Wire Line
-	3725 1975 2925 1975
-Wire Wire Line
-	2925 1875 3725 1875
+	4725 1075 6075 1075
 Connection ~ 1825 1275
 Wire Wire Line
 	1825 1150 1825 1475
@@ -591,9 +629,9 @@ Connection ~ 7175 1475
 Wire Wire Line
 	7175 1250 7175 1800
 Wire Wire Line
-	4925 1575 8075 1575
+	4725 1575 8075 1575
 Wire Wire Line
-	4925 1475 8075 1475
+	4725 1475 8075 1475
 Wire Wire Line
 	9675 3900 9675 4600
 Wire Wire Line
@@ -604,14 +642,6 @@ Wire Wire Line
 Wire Wire Line
 	10250 4400 10500 4400
 Connection ~ 10250 4200
-Text GLabel 950  2675 0    40   Input ~ 0
-PunchA
-Text GLabel 950  2775 0    40   Input ~ 0
-PunchB
-Text GLabel 950  2875 0    40   Input ~ 0
-ReaderA
-Text GLabel 950  2975 0    40   Input ~ 0
-ReaderB
 Wire Wire Line
 	950  2675 1125 2675
 Wire Wire Line
@@ -620,29 +650,10 @@ Wire Wire Line
 	1125 2875 950  2875
 Wire Wire Line
 	950  2975 1125 2975
-Text GLabel 10650 1125 3    40   Input ~ 0
-PunchA
-Text GLabel 10750 1125 3    40   Input ~ 0
-PunchB
-Text GLabel 10300 2775 0    40   Input ~ 0
-ReaderA
-Text GLabel 10300 2875 0    40   Input ~ 0
-ReaderB
 Wire Wire Line
 	10650 1125 10650 875 
 Wire Wire Line
 	10750 1125 10750 875 
-$Comp
-L CONN_01X12 P1.4
-U 1 1 592DA90C
-P 10750 2525
-F 0 "P1.4" H 10750 3175 50  0000 C CNN
-F 1 "Tape Reader" V 10850 2525 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_12pol" H 10750 2525 50  0001 C CNN
-F 3 "" H 10750 2525 50  0000 C CNN
-	1    10750 2525
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9075 1975 10550 1975
 Wire Wire Line
@@ -663,30 +674,15 @@ Wire Wire Line
 	10300 2775 10550 2775
 Wire Wire Line
 	10300 2875 10550 2875
-Text GLabel 10300 2975 0    40   Input ~ 0
-+5v
 Wire Wire Line
 	10300 2975 10550 2975
 Wire Wire Line
 	10300 3075 10550 3075
-Text GLabel 10950 1125 3    40   Input ~ 0
-0v
 Wire Wire Line
 	8000 2675 8000 2925
 Wire Wire Line
 	8000 2925 8575 2925
 Connection ~ 8000 2675
-$Comp
-L CONN_01X02 P1.5
-U 1 1 592C5963
-P 1100 975
-F 0 "P1.5" H 1100 1125 50  0000 C CNN
-F 1 "CONN_01X02" V 1200 975 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_2pol" H 1100 975 50  0001 C CNN
-F 3 "" H 1100 975 50  0000 C CNN
-	1    1100 975 
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	1300 925  1450 925 
 Wire Wire Line
@@ -697,55 +693,10 @@ Wire Wire Line
 Wire Wire Line
 	1450 1025 1450 1275
 Connection ~ 1450 1275
-$Comp
-L PWR_FLAG #FLG01
-U 1 1 592C611B
-P 1450 675
-F 0 "#FLG01" H 1450 770 50  0001 C CNN
-F 1 "PWR_FLAG" H 1150 775 50  0000 C CNN
-F 2 "" H 1450 675 50  0000 C CNN
-F 3 "" H 1450 675 50  0000 C CNN
-	1    1450 675 
-	1    0    0    -1  
-$EndComp
-$Comp
-L PWR_FLAG #FLG02
-U 1 1 592C622B
-P 1450 1275
-F 0 "#FLG02" H 1450 1370 50  0001 C CNN
-F 1 "PWR_FLAG" H 1750 1400 50  0000 C CNN
-F 2 "" H 1450 1275 50  0000 C CNN
-F 3 "" H 1450 1275 50  0000 C CNN
-	1    1450 1275
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	8575 2875 8575 3100
-$Comp
-L MCP23017-RESCUE-CPU U1.5
-U 1 1 59413573
-P 12700 1875
-F 0 "U1.5" H 12600 2900 50  0000 R CNN
-F 1 "MCP23017" H 12600 2825 50  0000 R CNN
-F 2 "Housings_DIP:DIP-28_W7.62mm" H 12750 925 50  0001 L CNN
-F 3 "" H 12950 2875 50  0001 C CNN
-	1    12700 1875
-	-1   0    0    1   
-$EndComp
 Connection ~ 8575 3025
 Connection ~ 8575 2925
-NoConn ~ 12200 2175
-NoConn ~ 12200 2275
-Text GLabel 12000 1075 0    40   Input ~ 0
-+5v
-Text GLabel 12000 1175 0    40   Input ~ 0
-+5v
-Text GLabel 12700 725  1    40   Input ~ 0
-0v
-Text GLabel 11950 1275 0    40   Input ~ 0
-0v
-Text GLabel 12000 2675 0    40   Input ~ 0
-+5v
 Wire Wire Line
 	12700 875  12700 725 
 Wire Wire Line
@@ -761,24 +712,6 @@ Wire Wire Line
 Wire Wire Line
 	12125 2875 12700 2875
 Connection ~ 12125 2675
-NoConn ~ 13200 2075
-NoConn ~ 13200 2175
-NoConn ~ 13200 2275
-NoConn ~ 13200 2375
-NoConn ~ 13200 2475
-NoConn ~ 13200 2575
-NoConn ~ 13200 2675
-$Comp
-L CONN_01X12 P1.6
-U 1 1 59416CAB
-P 14075 1625
-F 0 "P1.6" H 14075 2275 50  0000 C CNN
-F 1 "Plotter" V 14175 1625 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_12pol" H 14075 1625 50  0001 C CNN
-F 3 "" H 14075 1625 50  0000 C CNN
-	1    14075 1625
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	13200 1075 13875 1075
 Wire Wire Line
@@ -795,63 +728,128 @@ Wire Wire Line
 	13200 1675 13875 1675
 Wire Wire Line
 	13200 1775 13875 1775
-Text GLabel 7175 1800 3    40   Input ~ 0
-SDA
-Text GLabel 7400 1800 3    40   Input ~ 0
-SCL
-Text GLabel 12000 1475 0    40   Input ~ 0
-SDA
-Text GLabel 12000 1575 0    40   Input ~ 0
-SCL
 Wire Wire Line
 	12000 1575 12200 1575
 Wire Wire Line
 	12200 1475 12000 1475
-Text GLabel 13775 2175 0    40   Input ~ 0
-0v
-Text GLabel 13775 2075 0    40   Input ~ 0
-+5v
 Wire Wire Line
 	13775 2075 13875 2075
 Wire Wire Line
 	13875 2175 13775 2175
-Text GLabel 950  2475 0    40   Input ~ 0
-PlotterA
-Text GLabel 950  2575 0    40   Input ~ 0
-PlotterB
-Wire Wire Line
-	950  2175 1125 2175
 Wire Wire Line
 	950  2475 1125 2475
 Wire Wire Line
 	1125 2575 950  2575
-Text GLabel 13775 1875 0    40   Input ~ 0
-PlotterA
-Text GLabel 13775 1975 0    40   Input ~ 0
-PlotterB
 Wire Wire Line
 	13775 1975 13875 1975
 Wire Wire Line
 	13875 1875 13775 1875
-NoConn ~ 13200 1975
 Wire Wire Line
 	1925 4350 1925 4075
-NoConn ~ 1625 4075
-NoConn ~ 1725 4075
-NoConn ~ 1825 4075
-NoConn ~ 2025 4075
-NoConn ~ 2125 4075
-NoConn ~ 2225 4075
-NoConn ~ 2325 4075
+Wire Wire Line
+	2925 1975 3275 1975
+Wire Wire Line
+	3275 1975 3275 2575
+Wire Wire Line
+	3275 2575 3925 2575
+Wire Wire Line
+	3925 2475 3400 2475
+Wire Wire Line
+	3400 2475 3400 1875
+Wire Wire Line
+	3400 1875 2925 1875
+Text GLabel 4325 2875 3    40   Input ~ 0
++5V
+Wire Wire Line
+	4325 2775 4325 2875
+Text GLabel 3800 1375 0    40   Input ~ 0
++5V
+Wire Wire Line
+	3800 1375 3925 1375
+Wire Wire Line
+	3850 1375 3850 2075
+Wire Wire Line
+	3850 1575 3925 1575
+Connection ~ 3850 1375
+Wire Wire Line
+	3925 1475 3850 1475
+Connection ~ 3850 1475
+Wire Wire Line
+	3850 2075 3925 2075
+Connection ~ 3850 1575
+Connection ~ 2225 1175
+Wire Wire Line
+	2325 1000 2225 1000
+Connection ~ 2225 1000
+Wire Wire Line
+	2925 875  2925 1075
+Wire Wire Line
+	2625 1000 2925 1000
+Connection ~ 2925 1000
+Wire Wire Line
+	2625 1175 3025 1175
+Connection ~ 3025 1175
+Wire Wire Line
+	3025 875  3025 1250
+Text GLabel 2850 1075 0    40   Input ~ 0
+SC6
+Text GLabel 2850 1250 0    40   Input ~ 0
+SD6
+Wire Wire Line
+	2925 1075 2850 1075
+Wire Wire Line
+	3025 1250 2850 1250
+Text GLabel 4950 1375 2    40   Input ~ 0
+SC6
+Text GLabel 4950 1275 2    40   Input ~ 0
+SD6
+Wire Wire Line
+	4725 1275 4950 1275
+Wire Wire Line
+	4950 1375 4725 1375
+NoConn ~ 4725 1675
+NoConn ~ 4725 1775
+NoConn ~ 4725 1875
+NoConn ~ 4725 1975
+NoConn ~ 4725 2075
+NoConn ~ 4725 2175
+NoConn ~ 4725 2275
+NoConn ~ 4725 2375
+NoConn ~ 4725 2475
+NoConn ~ 4725 2575
+NoConn ~ 2125 1475
 $Comp
-L TCA9548A U?
-U 1 1 5989E74B
-P 4400 5800
-F 0 "U?" H 4200 6600 50  0000 L CNN
-F 1 "TCA9548A" H 4450 6600 50  0000 L CNN
-F 2 "" H 5400 4900 50  0001 C CNN
-F 3 "" H 4450 6050 50  0000 C CNN
-	1    4400 5800
-	1    0    0    -1  
+L CONN_01X04 P1.7
+U 1 1 598A8332
+P 700 1750
+F 0 "P1.7" H 700 2000 50  0000 C CNN
+F 1 "Misc GPIO" V 800 1750 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_4pol" H 700 1750 50  0001 C CNN
+F 3 "" H 700 1750 50  0000 C CNN
+	1    700  1750
+	-1   0    0    1   
 $EndComp
+NoConn ~ 1125 3175
+Wire Wire Line
+	1125 2175 1075 2175
+Wire Wire Line
+	1075 2175 1075 1700
+Wire Wire Line
+	1075 1700 900  1700
+Wire Wire Line
+	900  1800 1025 1800
+Wire Wire Line
+	1025 1800 1025 2275
+Wire Wire Line
+	1025 2275 1125 2275
+Wire Wire Line
+	900  1900 975  1900
+Wire Wire Line
+	975  1900 975  2375
+Wire Wire Line
+	975  2375 1125 2375
+Text GLabel 1025 1600 2    40   Input ~ 0
+0v
+Wire Wire Line
+	1025 1600 900  1600
 $EndSCHEMATC
