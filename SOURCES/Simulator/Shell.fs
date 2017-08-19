@@ -61,12 +61,7 @@ open Sim900.Commands
 
      
 
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "920"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"|])
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE1"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE1"|]) 
-                                            ->  OpenReaderText T920 Mode1 f 
-
+ 
             | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE3"|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE3"|]) 
                                             ->  OpenReaderText T920 Mode3 f 
@@ -84,14 +79,6 @@ open Sim900.Commands
             | (true,  [|"AT";     "PTR"; "FILE"; f|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f|])  
                                             ->  FileOpen f Mode3
-
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "MODE1"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "MODE1"|])
-                                             ->  FileOpen f Mode1
-
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "MODE2"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "MODE2"|])
-                                            ->  FileOpen f Mode2  
 
 
             | (_,     [|"CD"; d|])

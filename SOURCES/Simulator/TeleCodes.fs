@@ -47,8 +47,6 @@ module Sim900.Telecodes
         | TTXT  // any telecode converted to ASCII
 
     type ReaderModes =
-        | Mode1
-        | Mode2
         | Mode3  
                     
     // printable representation of newline, return and tab
@@ -364,8 +362,6 @@ module Sim900.Telecodes
                         + text.[(max 0 (inp-5))..(min (inp+15) (text.Length-1))])))
         let Mode m code =
             match m with 
-            | Mode1 -> FromMode1 code 
-            | Mode2 -> FromMode2 code
             | Mode3 -> code
         if telecode <> T920
         then // 900 or 903 telecodes
@@ -500,8 +496,6 @@ module Sim900.Telecodes
             let code = byte text.[first..(next-1)]
             chars.[outp] <- 
                 match mode with
-                | Mode1 -> FromMode1 code
-                | Mode2 -> FromMode2 code
                 | Mode3 -> code
             (next, outp+1)
 
@@ -519,8 +513,6 @@ module Sim900.Telecodes
     let TranslateFromRaw mode (bytes: byte[]) =  // no padding for raw tapes
         let select code =
             match mode with
-            | Mode1 -> FromMode1 code
-            | Mode2 -> FromMode2 code
             | Mode3 -> code
         bytes |> Array.map select
 
