@@ -6,7 +6,7 @@ module Sim900.Main
 
 open Sim900.Formatting
 open Sim900.Devices
-open Sim900.Gpio
+open Sim900.Bits
 open Sim900.Machine
 open Sim900.Commands
 open Sim900.Shell
