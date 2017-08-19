@@ -125,13 +125,6 @@ open Sim900.Commands
             | (true,  [|"D"|]) 
             | (true,  [|"DISPLAY"|])        -> DisplayRegisters ()
 
-            | (true,  [|"DAS";       file|])
-            | (true,  [|"DUMPASSIR"; file|]) 
-                                            -> DumpAsSir file memorySize // no literals
-                                            
-            | (true,  [|"DAS";       file; literals|])
-            | (true,  [|"DUMPASSIR"; file; literals|]) 
-                                            -> DumpAsSir file (GetAddress literals)
 
             | (true,  [|"DU"; n; f|]) 
             | (true,  [|"DUMPIMAGE"; n; f|]) 
