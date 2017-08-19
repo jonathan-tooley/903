@@ -13,18 +13,11 @@ module Sim900.Machine
 
     open Sim900.Bits
     open Sim900.Telecodes
-    open Sim900.Models
     open Sim900.Devices
-    open Sim900.Memory
     open Sim900.Formatting
-    open Sim900.Gpio
 
 
-    exception LoopStop
-    exception StopAddr
-    exception StopLimit
-    exception Break
-
+  
     let mutable on                = false       // true after ON command
     let mutable stopped           = false       // stop button pushed
     let mutable reset             = false       // reset button pushed
@@ -32,6 +25,10 @@ module Sim900.Machine
     let mutable holdUp            = false       // true when io blocked
     let mutable obey              = false       // signal the processor to run the command on the word generator once
        
+
+    exception Machine of string
+
+    let memorySize    = 4 * 4096
 
     type mode =
         | Auto

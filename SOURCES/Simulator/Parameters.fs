@@ -6,9 +6,7 @@
 
         open Sim900.Bits
         open Sim900.Telecodes
-        open Sim900.Models
         open Sim900.Devices
-        open Sim900.Memory
         open Sim900.Formatting
         open Sim900.Machine
 
