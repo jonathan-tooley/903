@@ -36,7 +36,7 @@ module Sim900.Commands
             stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); 
             stdout.WriteLine ();
 
-            stdout.Write "Q="; stdout.Write (LegibleOf(AGet()));
+            stdout.Write "Q="; stdout.Write (LegibleOf(QGet()));
             LongSignedPut (QGet ()); stdout.Write "  "; FractionPut     (QGet ()); 
             stdout.Write "  "; OctalPut      (QGet ()); stdout.Write "  "; InstructionPut (QGet ()); 
             stdout.WriteLine ()
