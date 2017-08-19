@@ -207,12 +207,8 @@ open Sim900.Commands
                 Decode ()
             try Decode () with
             | Code c       ->   MessagePut (sprintf "%s" c);                         
-            | Break        ->   MessagePut "Breakpoint reached";   MiniDump ();      
             | Device  s    ->   MessagePut s;                                        
             | Finished     ->   raise Finished // end of current command level
-            | LoopStop     ->   MessagePut (sprintf "Loop stop at location %s" (AddressStr(SGet ())))                                   
-            | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      
-            | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      
             | Syntax s     ->   MessagePut s;                                        
             | Quit         ->   raise Quit 
             | err          ->   MessagePut err.Message;
