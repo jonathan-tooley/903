@@ -94,7 +94,6 @@ module Sim900.Commands
 
         // turn on machine in specified configuration                  
         let turnOn () =
-            CheckConfiguration () // set up required configuration
             on <- true
             Reset ()
             TidyUp ()
@@ -148,9 +147,9 @@ module Sim900.Commands
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
                      
-                    if reset              then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on && Flash        then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
-                    if (not on) || holdUp then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+                    if reset          then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on && Flash    then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if (not on)       then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
@@ -330,6 +329,6 @@ module Sim900.Commands
                         then reset     <- false
                              if (not obey) then obey <- true
                             
-                    Thread.Sleep(90)
+                    Thread.Sleep(100)
                   }
 
