@@ -7,9 +7,7 @@ module Sim900.FileHandling
 
         open Sim900.Bits
         open Sim900.Telecodes
-        open Sim900.Models
         open Sim900.Devices
-        open Sim900.Memory
         open Sim900.Formatting
         open Sim900.Machine
         open Sim900.Parameters
@@ -79,141 +77,7 @@ module Sim900.FileHandling
                 words.[addr] <- (values.[index] <<< 13) ||| values.[index+1]
             LoadModule moduleNo words
 
-        // dump as SIR 
-        let DumpAsSir fileName literals =
-            let tw = File.CreateText fileName
-        
-            // build list of possible labels
-            let labels: bool[] = Array.create memorySize false
 
-            let rec SetLabels prevF prevAddr loc lastLiteral =
-                if   loc < literals
-                then let contents = ReadStore loc
-                     let f = FunctionField contents
-                     let addr = AddressField contents
-                     if   addr > literals && addr < lastLiteral && (f = 3 || f = 5 || f = 11)
-                     then labels.[addr] <- true
-                          SetLabels prevF prevAddr loc addr
-                     elif  addr >= 8              // exclude registers
-                          && abs (addr-loc) >  5 // exclude relative addresses
-                          && 0 < f && f < 14     // exclude 14, 15 instructions
-                     then if prevF = 11 && (addr=prevAddr+1 || addr=prevAddr+2)
-                          then SetLabels f addr  (loc+1) lastLiteral // exclude subroutine calls
-                          elif addr < literals
-                          then labels.[addr] <- true
-                               SetLabels f addr (loc+1) lastLiteral
-                          else SetLabels f addr (loc+1) lastLiteral
-                     else SetLabels f addr (loc+1) lastLiteral
-                else lastLiteral
-
-            let lastLiteral = SetLabels -1 -1 8 8192
-
-            if   literals <> memorySize
-            then MessagePut (sprintf "Literals from %d to %d" literals lastLiteral)
-
-            let Comment contents = 
-                let number = Normalize contents
-                // print as octal
-                tw.Write (sprintf "\t(&%06o" contents)
-                // print as integer
-                tw.Write (sprintf " %+8d " number)
-                // print as instruction
-                tw.Write "\\" //"
-                for i in [12;6;0] do
-                        let ch = (contents>>>i)&&&mask6
-                        tw.Write (match ch with
-                                 |  1 -> '^'
-                                 |  5    // % -- to avoid terminating program
-                                 |  9    // ) -- to avoid closing comment
-                                     -> '?'
-                                 | _  -> SIRSymbolOf ch)
-                let modify = ModifyField contents
-                let f = FunctionField contents
-                if modify = 0 then tw.Write ' '
-                if f < 10 then tw.Write ' '
-                tw.Write ' '
-                if modify <> 0 then tw.Write '/'
-                tw.Write (sprintf "%d %d" f (AddressField contents))
-                tw.WriteLine ')'
-
-            let rec Words prevF prevAddr loc limit =
-                if loc <= limit
-                then let contents = ReadStore loc
-                     let number = Normalize contents
-                     let modify = ModifyField contents
-                     let m = if modify = 0 then "" else "/"
-                     let f = FunctionField contents
-                     let addr = AddressField contents
-                     // if location is referenced, output label
-                     if   labels.[loc] 
-                     then tw.Write (sprintf "L%d\t" loc)
-                     else tw.Write "\t"
-                     let addr = AddressField contents
-                     if   -8192 < number && number < 0
-                     then // /15 n
-                          tw.Write (sprintf"%+d" number)
-                     elif 0 <= number && number < 8192 && number < literals && (not labels.[number])
-                     then // 0 n
-                          tw.Write (sprintf "%+d" number)
-                     elif f >= 14
-                     then // special case 14 and 15 instructions
-                          tw.Write (sprintf "%s%d %d" m f addr)
-                     elif limit <= 8192 && literals <= addr && addr <= lastLiteral 
-                          && (f <= 2 || f = 4 || f = 6 || f = 12 || f = 13)
-                     then // special case literals
-                          tw.Write (sprintf "%s%d " m f)
-                          let value = ReadStore addr
-                          let f = FunctionField value
-                          let m = if (ModifyField value) = 0 then "" else "/"
-                          let number = Normalize value
-                          if    number = 0
-                          then tw.Write "+0"
-                          elif   (AddressField value) = 0 
-                          then // e.g. =11 0 
-                               tw.Write (sprintf "=%s%d 0" m f)
-                          elif -8192 < number && number < 8192
-                          then // e.g., +1 -16
-                               tw.Write (sprintf "%+d"   number)
-                          else // all others as octal
-                               tw.Write (sprintf "&%06o" value)
-                     elif prevF = 11 && labels.[prevAddr] && (addr = prevAddr+1 || addr = prevAddr+2)
-                     then // special case subroutine entry
-                          tw.Write (sprintf "%s%d L%d+%d" m f prevAddr (addr-prevAddr))
-                     elif abs(addr-loc) <= 5
-                     then tw.Write (sprintf "%s%d ;%+d" m f (addr-loc))
-                     elif labels.[addr] 
-                     then // addressing labelled location
-                          tw.Write (sprintf "%s%d L%d" m f addr)
-                     elif addr < literals
-                     then tw.Write (sprintf "%s%d %d" m f addr)
-                     else tw.Write (sprintf "&%06o" contents)
-                     Comment contents
-                     Words f addr (loc+1) limit
-
-            tw.WriteLine (sprintf "\n\n(output from DUMPASSIR %s %s)\n"
-                                    (System.DateTime.Now.ToShortDateString ())
-                                    (System.DateTime.Now.ToShortTimeString ()))
-            let limit = min 8166 literals // 8166 is maximum location allowed in module 0 by 2-pass SIR
-            // comment output labels for addresses above literals
-            for loc=lastLiteral to 8191 do
-                if labels.[loc]
-                then tw.WriteLine (sprintf "L%d=%d" loc loc)
-            if   memorySize = 4096
-            then tw.WriteLine "*16 (start at 8)"
-                 Words -1 -1 8 memorySize
-            elif memorySize = 8192
-            then tw.WriteLine "*8192"
-                 tw.WriteLine "*16 (clear 8K, start at 8)"
-                 Words -1 -1 8 limit
-            else tw.WriteLine "*16384"
-                 tw.WriteLine "*16 (clear 16K, start at 8)"
-                 Words -1 -1 8 limit // stop at limit for 2-pass SIR
-                 if   memorySize > 8192
-                 then tw.WriteLine "^8192"
-                      Words -1 -1 8192 16383
-            tw.WriteLine "%"
-            tw.WriteLine "<! Halt !>"
-            tw.Close ()             
                  
         // list directory
         let ListDirectory () =

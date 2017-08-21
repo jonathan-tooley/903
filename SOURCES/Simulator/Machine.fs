@@ -13,18 +13,11 @@ module Sim900.Machine
 
     open Sim900.Bits
     open Sim900.Telecodes
-    open Sim900.Models
     open Sim900.Devices
-    open Sim900.Memory
     open Sim900.Formatting
-    open Sim900.Gpio
 
 
-    exception LoopStop
-    exception StopAddr
-    exception StopLimit
-    exception Break
-
+  
     let mutable on                = false       // true after ON command
     let mutable stopped           = false       // stop button pushed
     let mutable reset             = false       // reset button pushed
@@ -32,6 +25,10 @@ module Sim900.Machine
     let mutable holdUp            = false       // true when io blocked
     let mutable obey              = false       // signal the processor to run the command on the word generator once
        
+
+    exception Machine of string
+
+    let memorySize    = 4 * 4096
 
     type mode =
         | Auto
@@ -214,6 +211,7 @@ module Sim900.Machine
    
         let punchByte char =
              // We wait for the punch to signal that it is ready
+             handShake <- digitalRead 4
              while handShake = GPIO.pinValue.Low && (not reset) do 
                   holdUp <- true
                   Thread.Sleep(50)
@@ -228,6 +226,17 @@ module Sim900.Machine
                 while handShake = GPIO.pinValue.High do handShake <- digitalRead 4
                 // Then we can stop telling to write as it has started working on our command
                 digitalWrite 3 GPIO.pinValue.Low
+
+        let readByte char =
+            digitalWrite 5 GPIO.pinValue.Low
+            handShake <- digitalRead 6
+            while handShake = GPIO.pinValue.Low && (not reset) do
+                handShake <- digitalRead 6
+            accumulator <- wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB)
+            while handShake = GPIO.pinValue.High && (not reset) do
+                handShake <- digitalRead 6
+            digitalWrite 5 GPIO.pinValue.High
+
 
         let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
@@ -265,7 +274,7 @@ module Sim900.Machine
 
         let Reader Z = 
             match SelectInput with
-            | ReaderIn
+            | ReaderIn       -> readByte Z
             | AutoIn         -> ReaderInput Z
             | TeleprinterIn  -> TTYInput Z
 

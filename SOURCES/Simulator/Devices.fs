@@ -30,7 +30,6 @@ module Sim900.Devices
     open System.Threading
     open Sim900.Bits
     open Sim900.Telecodes
-    open Sim900.Models
     
     exception Device of string
     exception CRManual          // attempt to use card reader when no file attached

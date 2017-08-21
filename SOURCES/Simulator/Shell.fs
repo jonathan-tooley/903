@@ -8,9 +8,7 @@ open System.Windows.Forms
 
 open Sim900.Bits
 open Sim900.Telecodes
-open Sim900.Models
 open Sim900.Devices
-open Sim900.Memory
 open Sim900.Machine
 open Sim900.Formatting
 open Sim900.Machine
@@ -63,12 +61,7 @@ open Sim900.Commands
 
      
 
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "920"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"|])
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE1"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE1"|]) 
-                                            ->  OpenReaderText T920 Mode1 f 
-
+ 
             | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE3"|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE3"|]) 
                                             ->  OpenReaderText T920 Mode3 f 
@@ -86,14 +79,6 @@ open Sim900.Commands
             | (true,  [|"AT";     "PTR"; "FILE"; f|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f|])  
                                             ->  FileOpen f Mode3
-
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "MODE1"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "MODE1"|])
-                                             ->  FileOpen f Mode1
-
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "MODE2"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "MODE2"|])
-                                            ->  FileOpen f Mode2  
 
 
             | (_,     [|"CD"; d|])
@@ -127,13 +112,6 @@ open Sim900.Commands
             | (true,  [|"D"|]) 
             | (true,  [|"DISPLAY"|])        -> DisplayRegisters ()
 
-            | (true,  [|"DAS";       file|])
-            | (true,  [|"DUMPASSIR"; file|]) 
-                                            -> DumpAsSir file memorySize // no literals
-                                            
-            | (true,  [|"DAS";       file; literals|])
-            | (true,  [|"DUMPASSIR"; file; literals|]) 
-                                            -> DumpAsSir file (GetAddress literals)
 
             | (true,  [|"DU"; n; f|]) 
             | (true,  [|"DUMPIMAGE"; n; f|]) 
@@ -216,12 +194,8 @@ open Sim900.Commands
                 Decode ()
             try Decode () with
             | Code c       ->   MessagePut (sprintf "%s" c);                         
-            | Break        ->   MessagePut "Breakpoint reached";   MiniDump ();      
             | Device  s    ->   MessagePut s;                                        
             | Finished     ->   raise Finished // end of current command level
-            | LoopStop     ->   MessagePut (sprintf "Loop stop at location %s" (AddressStr(SGet ())))                                   
-            | StopAddr     ->   MessagePut "Stop address reached"; MiniDump ();      
-            | StopLimit    ->   MessagePut "Step limit reached";   MiniDump ();      
             | Syntax s     ->   MessagePut s;                                        
             | Quit         ->   raise Quit 
             | err          ->   MessagePut err.Message;
