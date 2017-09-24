@@ -127,8 +127,10 @@ module Sim900.Commands
 
         let updateDisplay() =
             async {
-                while true do
+                YieldToDevices ()
 
+                while true do
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     HeartBeat <- HeartBeat + 1
                     if HeartBeat > 4 then Flash <- true
                     if HeartBeat > 8 then Flash <- false; HeartBeat <- 0
