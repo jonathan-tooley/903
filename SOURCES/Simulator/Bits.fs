@@ -174,16 +174,19 @@ module Sim900.Bits
 
        port.Write "\r\u001B\u003A"
 
+       I2cMultiplexer <- wiringPiI2CSetup 0x77
+
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
+      
+
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
        controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
        controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
 
-       //Setup the paper tape MCP23017 
-       punchPort      <- wiringPiI2CSetup 0x20 
 
-       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
-       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+
+
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
