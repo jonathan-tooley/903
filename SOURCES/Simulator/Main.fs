@@ -24,9 +24,11 @@ do
     MessagePut "Elliott 903 Run Console"
 
     // Run commands
-    let work = updateDisplay() |> Async.StartAsTask
 
-    let w = Processor() |> Async.StartAsTask
+
+    Processor() |> Async.Start
+
+    updateDisplay() |> Async.Start
 
     async { CommandLineInterpreter () } |> Async.Start
 
