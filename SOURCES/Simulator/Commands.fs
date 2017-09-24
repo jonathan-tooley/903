@@ -58,7 +58,10 @@ module Sim900.Commands
                      
             stdout.Write "I="; stdout.Write (LegibleOf(IGet())); stdout.WriteLine ();
             stdout.Write "\x1B[0;37m\x1B[u"; 
-                           
+
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())) |> ignore
+
 
         // display after a problem reported
         let MiniDump () =
