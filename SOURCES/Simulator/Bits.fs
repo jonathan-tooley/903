@@ -146,7 +146,13 @@ module Sim900.Bits
    let mutable controlPanelU2 = 0
    let mutable controlPanelU3 = 0
    let mutable controlPanelU4 = 0
+   let mutable I2cMultiplexer = 0
    let mutable punchPort      = 0
+   let mutable DisplayU1 = 0
+   let mutable DisplayU2 = 0
+   let mutable DisplayU3 = 0
+   let mutable DisplayU4 = 0
+   let mutable DisplayU5 = 0
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.None, 8, Ports.StopBits.One)
 
    let setupControlPorts () =
