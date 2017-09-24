@@ -16,7 +16,6 @@ module Sim900.Machine
     open Sim900.Devices
     open Sim900.Formatting
 
-
   
     let mutable on                = false       // true after ON command
     let mutable stopped           = false       // stop button pushed
@@ -44,7 +43,7 @@ module Sim900.Machine
 
     //
 
-    module private MachineStateHelper =
+    module public MachineStateHelper =
 
         // STORE
 
@@ -236,6 +235,7 @@ module Sim900.Machine
             while handShake = GPIO.pinValue.High && (not reset) do
                 handShake <- digitalRead 6
             digitalWrite 5 GPIO.pinValue.High
+               
 
 
         let BitCount code =
@@ -714,6 +714,7 @@ module Sim900.Machine
         async {
          try
             while true do
+              //while on && stopped do updateDisplay () //***
               while on && stopped && obey do
                   //The control panel is requesting an obey
                   Execute (wordGenerator)

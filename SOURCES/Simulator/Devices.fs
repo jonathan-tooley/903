@@ -35,12 +35,9 @@ module Sim900.Devices
     exception CRManual          // attempt to use card reader when no file attached
     exception LPManual          // attempt to use line printer when detached (i.e., offline)
 
-    let mutable r = 0
-
-
+   
     let YieldToDevices () =     // Allow other threads to run
-        r <- 0
-        // System.Threading.Thread.Yield () |> ignore
+         System.Threading.Thread.Yield () |> ignore
 
     // provide a dummy context to represent console "form"
     let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
@@ -61,37 +58,31 @@ module Sim900.Devices
 
     open PaperTapeReader    
             
-    let OpenReaderBinaryString text rdrMode = 
+    let OpenReaderBinaryString text  = 
         // take binary format input from command stream
-        tapeIn <- Some (TranslateFromBinary text rdrMode)                
+        tapeIn <- Some (TranslateFromBinary text)                
         tapeInPos <- 0    
             
-    let OpenReaderBin rdrMode fileName = 
+    let OpenReaderBin fileName = 
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderBinaryString rdrMode text
+        OpenReaderBinaryString text
 
-    let OpenReaderRaw rdrMode fileName = 
-        // take binary format file for paper tape input
-        let bytes = File.ReadAllBytes fileName
-        tapeIn <- Some (TranslateFromRaw rdrMode bytes)               
-        tapeInPos <- 0
 
-    let OpenReaderTextString teleCode rdrMode text = 
+    let OpenReaderTextString teleCode text = 
         // take text input from command stream
         tapeIn <- Some (
                         match teleCode with
-                             | T900 -> TranslateFromText    T900 rdrMode text
-                             | T903 -> TranslateFromText    T903 rdrMode text
-                             | T920 -> TranslateFromText    T920 rdrMode text                           
-                             | TACD -> TranslateFromText    TACD rdrMode text
-                             | TTXT -> TranslateFromText    TTXT rdrMode text) 
+                             | T900 -> TranslateFromText    T900 text
+                             | T903 -> TranslateFromText    T903 text
+                             | T920 -> TranslateFromText    T920 text                           
+                             | TTXT -> TranslateFromText    TTXT text) 
         tapeInPos <- 0 
         
-    let OpenReaderText teleCode rdrMode fileName =
+    let OpenReaderText teleCode fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderTextString teleCode rdrMode text
+        OpenReaderTextString teleCode text
                  
     let GetReaderChar () = // get a character from the paper tape reader
         let ti =
@@ -133,7 +124,7 @@ module Sim900.Devices
 
     // Punch output modes       
     type PunchModes =
-        | PACD
+
         | P900
         | P903
         | P920
@@ -142,7 +133,6 @@ module Sim900.Devices
         | PRaw
 
     type Encoding =
-        | Binary of ReaderModes
         | Text   of Telecodes
 
     module private PaperTapePunch =
@@ -163,7 +153,6 @@ module Sim900.Devices
         | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                 punchOutPos <- (punchOutPos+1)%20
                                 if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), PACD)  -> sw.Write (UTFOf TACD code)     // output as UTF character
         | (Some (sw), PTXT)  -> sw.Write (UTFOf TTXT code)     // output as ASCII character
         | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
 //        | (Some (sw), PLegible)                                // output as legible image
@@ -190,7 +179,7 @@ module Sim900.Devices
         // open text file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 | TACD -> PACD | TTXT -> PTXT
+        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 | TTXT -> PTXT
 
     let OpenPunchBin (fileName: string) = 
         // open binary format file for paper tape punch output

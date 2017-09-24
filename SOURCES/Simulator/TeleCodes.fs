@@ -17,19 +17,6 @@
 // The simulator also allows for input as raw bytes or as a series of integers in the range
 // 0..255, one per character, called "binary" format.
 //
-// When reading raw or binary format, the simulator can set the paper tape readers 
-// into one of three modes:
-//
-// Mode 1: read tracks 8,7,6,4,3,2,1 as a seven bit code (i.e., track 5 is ignored)
-// Mode 2: read tracks 7,6,5,4,3,2,1 as a seven bit code (i.e., track 8 is ignored)
-// Mode 3: read all 8 tracks as an eight bit code.
-//
-// Mode 1 is intended for use with 920 telecode and was the only mode for the 920A. 
-// The paper tape stations required to connect a teleprinter (MC*66F, e.g. MCM66F) 
-// only supported Mode 3, unless an in-line mode switch in the cable connecting
-// the reader.  Computers with  MC*60 tape stations (e.g., MCB60 on 920A)
-// had a mode switch to select between modes, but could not connect a teleprinter. 
-// (This information is taken from "903/905/920 Useful Notes" by TJ Froggatt.)
 
 module Sim900.Telecodes
         
@@ -43,11 +30,8 @@ module Sim900.Telecodes
         | T920  // 920 telecode encoded in UTF-8
         | T903  // 903 telecode encoded in UTF-8
         | T900  // 900 telecode encoded in UTF-8
-        | TACD  // ACD internal code encoded in UTF-8
         | TTXT  // any telecode converted to ASCII
 
-    type ReaderModes =
-        | Mode3  
                     
     // printable representation of newline, return and tab
     let VisibleWhiteSpace (str: string) =
@@ -74,7 +58,6 @@ module Sim900.Telecodes
             | T920 -> "Elliott 920 Telecode"
             | T903 -> "Elliott 903 Telecode"
             | T900 -> "Elliott 900 Telecode"
-            | TACD -> "Elliott ACD Telecode"
             | TTXT -> "ASCII"
 
         
@@ -240,7 +223,6 @@ module Sim900.Telecodes
              | T920 -> teleCode920Dict
              | T903 -> teleCode903Dict
              | T900 -> teleCode900Dict
-             | TACD -> teleCodeACDDict
              | TTXT -> telecodeTXTDict
 
         let TelecodeChars code =
@@ -248,7 +230,6 @@ module Sim900.Telecodes
              | T920 -> teleCode920
              | T903 -> teleCode903
              | T900 -> teleCode900
-             | TACD -> teleCodeACDo
              | TTXT -> teleCodeTXT
 
     open TelecodeHelper  
@@ -283,7 +264,6 @@ module Sim900.Telecodes
                                | ch   -> ch.ToString () 
         | T900
         | T903
-        | TACD
         | TTXT  ->  match FromMode2 code with
                     | 000uy           // blank
                     | 013uy           // return
@@ -345,7 +325,7 @@ module Sim900.Telecodes
     // Escape sequences <! Bell !> and <! Halt !> allowed
 
     // 900 and 903 telecode mapping
-    let TranslateFromText telecode mode (text: string)  =
+    let TranslateFromText telecode (text: string)  =
         let legibleBegin = "<! Legible Header "
         let legibleEnd   = " !>\n"
         let escBegin     = "<! "
@@ -360,9 +340,6 @@ module Sim900.Telecodes
         let EscapeError  inp = 
                 raise (Code (VisibleWhiteSpace ("Invalid escape sequence in ... "
                         + text.[(max 0 (inp-5))..(min (inp+15) (text.Length-1))])))
-        let Mode m code =
-            match m with 
-            | Mode3 -> code
         if telecode <> T920
         then // 900 or 903 telecodes
              let chars: byte[] = Array.zeroCreate (text.Length+60)
@@ -372,7 +349,7 @@ module Sim900.Telecodes
                  elif text.[inp] = '<'
                  then copy (escape (inp, outp))
                  else chars.[outp] <- 
-                          try Mode mode (TelecodeOf telecode text.[inp]) with
+                          try (TelecodeOf telecode text.[inp]) with
                           | e ->    CharError inp (int text.[inp])
                       copy (inp+1, outp+1)
              and escape (inp, outp) =
@@ -382,16 +359,16 @@ module Sim900.Telecodes
                  then chars.[outp] <- 0uy
                       (inp+runoutIn.Length, outp+1)
                  elif  tu.StartsWith bellIn
-                 then chars.[outp] <- Mode mode (135uy)  // ASCII bell
+                 then chars.[outp] <- (135uy)  // ASCII bell
                       (inp+bellIn.Length, outp+1)  
                  elif tu.StartsWith haltIn1 
-                 then chars.[outp] <- Mode mode (020uy)  // ASCII halt 
+                 then chars.[outp] <- (020uy)  // ASCII halt 
                       (inp+haltIn1.Length, outp+1)
                  elif tu.StartsWith haltIn2 
-                 then chars.[outp] <- Mode mode (020uy)  // ASCII halt
+                 then chars.[outp] <- (020uy)  // ASCII halt
                       (inp+haltIn2.Length, outp+1) 
                  elif tu.StartsWith haltIn3 
-                 then chars.[outp] <- Mode mode (020uy)  // ASCII halt
+                 then chars.[outp] <- (020uy)  // ASCII halt
                       (inp+haltIn3.Length, outp+1) 
                  elif t.StartsWith legibleBegin          // n.b. t not tu
                  then let last = t.IndexOf legibleEnd    // Legible header
@@ -433,7 +410,7 @@ module Sim900.Telecodes
                       | '}'  -> copy (vertbar (inp, outp) '9')
                       | '\r' -> copy (inp+1, outp)  // return is ignored
                       | _    -> chars.[outp] <- 
-                                    try Mode mode (TelecodeOf T920 text.[inp]) with
+                                    try (TelecodeOf T920 text.[inp]) with
                                     | e -> CharError inp
                                 copy (inp+1, outp+1)
              and escape (inp, outp) =
@@ -443,7 +420,7 @@ module Sim900.Telecodes
                  then chars.[outp] <- 0uy
                       (inp+runoutIn.Length, outp+1)
                  elif tu.StartsWith haltIn1 || tu.StartsWith haltIn2 || tu.StartsWith haltIn3
-                 then chars.[outp] <- Mode mode (156uy); (inp+haltIn2.Length, outp+1) // 920 stop code
+                 then chars.[outp] <- 156uy; (inp+haltIn2.Length, outp+1) // 920 stop code
                  elif t.StartsWith legibleBegin          // n.b. t not tu
                  then let last = t.IndexOf legibleEnd    // Legible header
                       if    last = -1
@@ -458,17 +435,17 @@ module Sim900.Telecodes
                       chars.[outp] <- code
                       (inp+last+escEnd.Length, outp+1)
                  else // not an escape
-                      chars.[outp] <- Mode mode (TelecodeOf telecode '<')
+                      chars.[outp] <- (TelecodeOf telecode '<')
                       (inp+1, outp+1)
 
              and vertbar (inp, outp) ch =
-                 chars.[outp]   <- Mode mode (TelecodeOf T920 '|')
-                 chars.[outp+1] <- Mode mode (TelecodeOf T920 ch)
+                 chars.[outp]   <- (TelecodeOf T920 '|')
+                 chars.[outp+1] <- (TelecodeOf T920 ch)
                  (inp+1, outp+2)
 
              copy (0, if addRunout then 30 else 0)
 
-    let TranslateFromBinary mode (text: string) = // no padding for binary
+    let TranslateFromBinary (text: string) = // no padding for binary
         let chars: byte[] = Array.zeroCreate (text.Length/2) 
         let rec copy (inp, outp) =
             if   inp >= text.Length
@@ -494,9 +471,7 @@ module Sim900.Telecodes
                      else inp
             let next = skip (inp+1) // skip over digits
             let code = byte text.[first..(next-1)]
-            chars.[outp] <- 
-                match mode with
-                | Mode3 -> code
+            chars.[outp] <- code
             (next, outp+1)
 
         and comment (inp, outp) = // skip over comment ( .... ) 
@@ -510,10 +485,8 @@ module Sim900.Telecodes
 
         copy (0, 0)
 
-    let TranslateFromRaw mode (bytes: byte[]) =  // no padding for raw tapes
-        let select code =
-            match mode with
-            | Mode3 -> code
+    let TranslateFromRaw (bytes: byte[]) =  // no padding for raw tapes
+        let select code = code
         bytes |> Array.map select
 
 

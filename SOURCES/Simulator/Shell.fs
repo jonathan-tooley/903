@@ -45,8 +45,6 @@ open Sim900.Commands
             | (true,  [|"AT";     "PTP"; "FILE"; f|])
                                             ->  if   f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
                                                 then OpenPunchTxt f T900
-                                                elif f.EndsWith ".ACD"
-                                                then OpenPunchTxt f TACD
                                                 elif f.EndsWith ".903"
                                                 then OpenPunchTxt f T903
                                                 elif f.EndsWith ".920"
@@ -64,21 +62,18 @@ open Sim900.Commands
  
             | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE3"|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE3"|]) 
-                                            ->  OpenReaderText T920 Mode3 f 
+                                            ->  OpenReaderText T920  f 
 
             | (true,  [|"AT";     "PTR"; "FILE"; f; "903"|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "903"|]) 
-                                            ->  OpenReaderText T903 Mode3 f
+                                            ->  OpenReaderText T903  f
             | (true,  [|"AT";     "PTR"; "FILE"; f; "900"|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "900"|])
-                                            -> OpenReaderText T900 Mode3 f
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "ACD"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "ACD"|])
-                                            -> OpenReaderText TACD Mode3 f
-
+                                            -> OpenReaderText T900  f
+      
             | (true,  [|"AT";     "PTR"; "FILE"; f|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f|])  
-                                            ->  FileOpen f Mode3
+                                            ->  FileOpen f 
 
 
             | (_,     [|"CD"; d|])

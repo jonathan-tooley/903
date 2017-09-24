@@ -20,18 +20,14 @@ module Sim900.FileHandling
             | e -> MessagePut e.Message
 
         // Open file to 900 paper tape stream
-        let FileOpen (f: string) mode =
-            if  f.Length < 5
-            then OpenReaderRaw mode f
-            else let extn = f.Substring ((f.Length-4), 4)
-                 match extn with
-                 | ".900" | ".DAT" | ".TXT" -> OpenReaderText T900 mode f
-                 | ".ACD"                   -> OpenReaderText TACD mode f
-                 | ".903"                   -> OpenReaderText T903 mode f
-                 | ".920"                   -> OpenReaderText T920 mode f
-                 | ".BIN" | ".RLB"          -> OpenReaderBin mode f
-                 |".RAW"                    
-                 | _                        -> OpenReaderRaw mode f
+        let FileOpen (f: string)  =
+            let extn = f.Substring ((f.Length-4), 4)
+            match extn with
+                 | ".900" | ".DAT" | ".TXT" -> OpenReaderText T900  f
+                 | ".903"                   -> OpenReaderText T903  f
+                 | ".920"                   -> OpenReaderText T920  f
+                 | ".BIN" | ".RLB" | _      -> OpenReaderBin f
+                                    
 
         // change directory
         let ChangeDir d =
@@ -108,8 +104,8 @@ module Sim900.FileHandling
             if f.Length > 4
             then let extn = f.[f.Length-4..]
                  match extn with 
-                 | ".BIN" -> TranslateFromBinary Mode3 (File.ReadAllText  f) |> Array.rev |> WriteBinary (new StreamWriter (f))
-                 | ".RLB" -> TranslateFromBinary Mode3 (File.ReadAllText  f) |> Array.rev |> WriteBinary (new StreamWriter (f)) 
+                 | ".BIN" -> TranslateFromBinary (File.ReadAllText  f) |> Array.rev |> WriteBinary (new StreamWriter (f))
+                 | ".RLB" -> TranslateFromBinary (File.ReadAllText  f) |> Array.rev |> WriteBinary (new StreamWriter (f)) 
                  | ".RAW" -> File.WriteAllBytes (f, (File.ReadAllBytes f |> Array.rev))
                  | _      -> raise (Syntax "Not a BIN, RLB or RAW file")
              else raise (Syntax "File name does not include an extension, e.g., .BIN")         
@@ -118,15 +114,13 @@ module Sim900.FileHandling
         let ToBinary (f: string)  =
             let bytes =
                 if f.EndsWith ".RAW"
-                then File.ReadAllBytes f |> TranslateFromRaw Mode3
-                elif f.EndsWith ".acd" 
-                then File.ReadAllText  f |> TranslateFromText TACD Mode3
+                then File.ReadAllBytes f |> TranslateFromRaw 
                 elif f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
-                then File.ReadAllText f  |> TranslateFromText T900 Mode3
+                then File.ReadAllText f  |> TranslateFromText T900 
                 elif f.EndsWith ".903"
-                then File.ReadAllText  f |> TranslateFromText T903 Mode3
+                then File.ReadAllText  f |> TranslateFromText T903 
                 elif f.EndsWith ".920"
-                then File.ReadAllText f |> TranslateFromText T920 Mode3
+                then File.ReadAllText f |> TranslateFromText T920 
                 else raise (Syntax "File extension must be .RAW, .900, .903 or .920")
             let prefix = f.[..(f.Length-5)]
             use out = new StreamWriter (prefix+".BIN")
@@ -155,15 +149,13 @@ module Sim900.FileHandling
         let ToRaw (f: string)  =
             let bytes =
                 if f.EndsWith ".BIN" || f.EndsWith ".RLB"
-                then File.ReadAllText f |> TranslateFromBinary Mode3
-                elif f.EndsWith ".acd" 
-                then File.ReadAllText f |> TranslateFromText TACD Mode3
+                then File.ReadAllText f |> TranslateFromBinary
                 elif f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
-                then File.ReadAllText f |> TranslateFromText T900 Mode3
+                then File.ReadAllText f |> TranslateFromText T900 
                 elif f.EndsWith ".903"
-                then File.ReadAllText f |> TranslateFromText T903 Mode3
+                then File.ReadAllText f |> TranslateFromText T903 
                 elif f.EndsWith ".920"
-                then File.ReadAllText f |> TranslateFromText T920 Mode3
+                then File.ReadAllText f |> TranslateFromText T920 
                 else raise (Syntax "File extension must be .BIN, .RLB, .900, .903 or .920")
             let start, finish = Trim bytes
             let output: byte[] = Array.zeroCreate (finish-start+1+360)
@@ -179,17 +171,16 @@ module Sim900.FileHandling
             else let extn = f.Substring(f.Length-4, 4)
                  let bytes =
                     match extn with
-                    | ".BIN"                    -> File.ReadAllText f  |> TranslateFromBinary    Mode3
-                    | ".RAW"                    -> File.ReadAllBytes f |> TranslateFromRaw       Mode3
-                    | ".ACD"                    -> File.ReadAllText f  |> TranslateFromText TACD Mode3
-                    | ".900" | ".DAT" | ".TXT"  -> File.ReadAllText f  |> TranslateFromText T900 Mode3
-                    | ".903"                    -> File.ReadAllText f  |> TranslateFromText T903 Mode3
-                    | ".920"                    -> File.ReadAllText f  |> TranslateFromText T920 Mode3
+                    | ".BIN"                    -> File.ReadAllText f  |> TranslateFromBinary
+                    | ".RAW"                    -> File.ReadAllBytes f |> TranslateFromRaw
+                    | ".900" | ".DAT" | ".TXT"  -> File.ReadAllText f  |> TranslateFromText T900 
+                    | ".903"                    -> File.ReadAllText f  |> TranslateFromText T903 
+                    | ".920"                    -> File.ReadAllText f  |> TranslateFromText T920 
                     | _                         -> BadFile () 
                  let prefix = f.[..(f.Length-5)]
                  let extn = 
                     match telecode with
-                    TACD -> ".ACD" | T900 -> ".900" | T903 -> ".903" | T920 -> ".920" | TTXT -> ".TXT"
+                    T900 -> ".900" | T903 -> ".903" | T920 -> ".920" | TTXT -> ".TXT"
                  use out = new StreamWriter (prefix+extn)
                  for b in bytes do out.Write (UTFOf telecode b)
                  out.Close ()
