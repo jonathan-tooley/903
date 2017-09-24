@@ -289,5 +289,21 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.GPPU ) 0b11111011 |> ignore //Bank A pull up resistors
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
 
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Select Reader, punch and plotter
+
+       //Setup the paper tape MCP23017 
+       punchPort      <- wiringPiI2CSetup 0x20 
+
+       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select Display Unit
 
 
+
+       DisplayU1 <- wiringPiI2CSetup 0x23
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
+
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATA ) 0b00000000 |> ignore
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
