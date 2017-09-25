@@ -302,8 +302,27 @@ module Sim900.Bits
 
 
        DisplayU1 <- wiringPiI2CSetup 0x23
+       DisplayU2 <- wiringPiI2CSetup 0x24
+       DisplayU3 <- wiringPiI2CSetup 0x25
+       DisplayU4 <- wiringPiI2CSetup 0x26
+       DisplayU5 <- wiringPiI2CSetup 0x27
+
        wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
        wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
 
-       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATA ) 0b00000000 |> ignore
-       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
+       wiringPiI2CWriteReg8 DisplayU2 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 DisplayU2 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
+
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
+
+       wiringPiI2CWriteReg8 DisplayU4 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 DisplayU4 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
+
+       wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs
+
+
+
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATA ) 0b00000000 |> ignore
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATB ) 0b00001000 |> ignore

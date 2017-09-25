@@ -60,8 +60,9 @@ module Sim900.Commands
             stdout.Write "\x1B[0;37m\x1B[u"; 
 
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())) |> ignore
-
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>>16) ||| (int (QGet() &&& 0b110000000000000000) >>> 14 )) |> ignore
 
         // display after a problem reported
         let MiniDump () =
@@ -93,7 +94,9 @@ module Sim900.Commands
             on      <- false
             stopped <- false
             // Turn off the interrupt indicators
-            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000000 |> ignore
+            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000000  |> ignore
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select the display panel on
+
 
         // turn on machine in specified configuration                  
         let turnOn () =
@@ -333,7 +336,7 @@ module Sim900.Commands
                     if PanelInput &&& 0b01000000 = 0b01000000 && on && stopped && operate = mode.Test
                         then reset     <- false
                              if (not obey) then obey <- true
-                            
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
                     Thread.Sleep(100)
                   }
 
