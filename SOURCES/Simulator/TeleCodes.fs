@@ -1,22 +1,5 @@
 ﻿#light
 
-// Telecodes: Elliott 900 Series Telecodes, Punched Card Code and SIR Internal Code
-//
-// This module provides functions to translate between F# character symbols (UTF-16) and the symbols
-// used by  Elliott teleprinters and flexowriters (essentailly early variants of ASCII).
-// The Elliott 900 series had three 8 bit telecodes:  
-//     Elliott 920 telecode was derived from Elliott 503 telecode
-//     Elliott 903 telecode which  aligns to early versions of ANSI ASCII. 
-//     Elliott 900 telecode which aligns with later versions of ANSI ASCII.  
-// In addition there was a variant of 900 Telecode used by the Airbourne COmputing Division (ACD)
-//
-// In the simulator we take text input and map UTF symbols to the corresponding 
-// Elliott telecode values for each telecode.  To facilitate use of standard PC keyboards 
-// we provide some alternative representations for the more exotic symbols.  
-//
-// The simulator also allows for input as raw bytes or as a series of integers in the range
-// 0..255, one per character, called "binary" format.
-//
 
 module Sim900.Telecodes
         
@@ -30,7 +13,6 @@ module Sim900.Telecodes
         | T920  // 920 telecode encoded in UTF-8
         | T903  // 903 telecode encoded in UTF-8
         | T900  // 900 telecode encoded in UTF-8
-        | TTXT  // any telecode converted to ASCII
 
                     
     // printable representation of newline, return and tab
@@ -58,7 +40,6 @@ module Sim900.Telecodes
             | T920 -> "Elliott 920 Telecode"
             | T903 -> "Elliott 903 Telecode"
             | T900 -> "Elliott 900 Telecode"
-            | TTXT -> "ASCII"
 
         
         // ASCII version of 903/900 telecode                                                                               
@@ -126,27 +107,6 @@ module Sim900.Telecodes
                             "PQRSTUVWXY"        + "Z[\\]^_`abc"  +  "defghijklm"   + "nopqrstuvw"  + 
                             "xyz{|}‾¬"  // note ‾ renders as ? on console
         
-        // ACD TELECODE
-        //         00   10   20   30    40    50    60    70   100    110   120   130   140   150   160 
-        // 
-        // 0      blank            sp    (     0     8     @     H     P     X   ’ `     h     p     x                                                                        ‘                                           
-        // 1            tab        !     )     1     9     A     I     Q     Y     a     i     q     y
-        // 2            lf        ""     *     2     :     B     J     R     Z     b     j     r     z   
-        // 3                       £     +     3     ;     C     K     S     [     c     k     s                              
-        // 4            halt       $     ,     4     <     D     L     T   # £     d     l     t      
-        // 5                       %     -     5     =     E     M     U     ]     e     m     u      
-        // 6                       &     .     6     >     F     N     V   ↑ ^     f     n     v      
-        // 7       bell          ‘ '     /     7   º ?     G     O     W   ← _     g     o     w    erase    
-        //                                                                                  
-        let teleCodeACDi  = "¬¬¬¬¬¬¬¬¬\t"       + "\n¬¬\r¬¬¬¬¬¬" + "¬¬¬¬¬¬¬¬¬¬"    + "¬¬ !\"£$%&'" + // input
-                            "()*+,-./01"        + "23456789:;"   +  "<=>?`ABCDE"   + "FGHIJKLMNO"  + 
-                            "PQRSTUVWXY"        + "Z[¬]^_¬abc"   + "defghijklm"    + "nopqrstuvw"  + 
-                            "xyz¬¬¬¬¬"
-                            
-        let teleCodeACDo  = "¬¬¬¬¬¬¬¬¬\t"       + "\n¬¬\r¬¬¬¬¬¬" + "¬¬¬¬¬¬¬¬¬¬"    + "¬¬ !\"£$%&'" + // output 
-                            "()*+,-./01"        + "23456789:;"   +  "<=>?`ABCDE"   + "FGHIJKLMNO"  + 
-                            "PQRSTUVWXY"        + "Z[£]↑←`abc"   + "defghijklm"    + "nopqrstuvw"  + 
-                            "xyz¬¬¬¬¬"   
         
         // All Elliott telecodes use even parity.  For 920 telecode the parity is in track 5, for 900 and
         // 903, track 8.  
@@ -164,7 +124,6 @@ module Sim900.Telecodes
         let teleCode920Dict = new Dictionary<char, int> ()
         let teleCode903Dict = new Dictionary<char, int> ()
         let teleCode900Dict = new Dictionary<char, int> ()
-        let teleCodeACDDict = new Dictionary<char, int> ()
         let telecodeTXTDict = new Dictionary<char, int> ()
 
         // Initialize telecode dictionaries
@@ -182,9 +141,6 @@ module Sim900.Telecodes
             let ch900 = teleCode900.[i]
             if   ch900 <> '¬' 
             then teleCode900Dict.[ch900] <- (if OddParity i then bit8 ||| i else i)
-            let chACD = teleCodeACDi.[i]
-            if   chACD <> '¬' 
-            then teleCodeACDDict.[chACD] <- (if OddParity i then bit8 ||| i else i)
         
         // add alternatives to dictionaries
         
@@ -209,28 +165,18 @@ module Sim900.Telecodes
         teleCode900Dict.['←']    <- teleCode900Dict.['_']   // 900: ← for _
         teleCode900Dict.['~']    <- teleCode900Dict.['‾']   // 900: ~ for ‾
         
-        teleCodeACDDict.['‘']    <- teleCodeACDDict.['\'']  // ACD: ‘ for '
-        teleCodeACDDict.['’']    <- teleCodeACDDict.['`']   // ACD: ’ for `
-        teleCodeACDDict.['#']    <- teleCodeACDDict.['£']   // ACD: £ for # for £
-        teleCodeACDDict.['½']    <- teleCodeACDDict.['£']   // ACD: ½ for £
-        teleCodeACDDict.['º']    <- teleCodeACDDict.['?']   // ACD: º for ?
-        teleCodeACDDict.['❿']    <- teleCodeACDDict.['?']   // ACD: ❿ for ?  
-        teleCodeACDDict.['↑']    <- teleCodeACDDict.['^']   // ACD: ^ for ↑
-        teleCodeACDDict.['←']    <- teleCodeACDDict.['_']   // ACD: _ for ←
-        
+
         let TelecodeDict code =
             match code with
              | T920 -> teleCode920Dict
              | T903 -> teleCode903Dict
              | T900 -> teleCode900Dict
-             | TTXT -> telecodeTXTDict
 
         let TelecodeChars code =
             match code with
              | T920 -> teleCode920
              | T903 -> teleCode903
              | T900 -> teleCode900
-             | TTXT -> teleCodeTXT
 
     open TelecodeHelper  
     
@@ -263,8 +209,7 @@ module Sim900.Telecodes
                                | '¬'  -> BadSymbol ()
                                | ch   -> ch.ToString () 
         | T900
-        | T903
-        | TTXT  ->  match FromMode2 code with
+        | T903  ->  match FromMode2 code with
                     | 000uy           // blank
                     | 013uy           // return
                     | 127uy  -> ""    // erase 

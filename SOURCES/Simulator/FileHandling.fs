@@ -180,7 +180,7 @@ module Sim900.FileHandling
                  let prefix = f.[..(f.Length-5)]
                  let extn = 
                     match telecode with
-                    T900 -> ".900" | T903 -> ".903" | T920 -> ".920" | TTXT -> ".TXT"
+                    T900 -> ".900" | T903 -> ".903" | T920 -> ".920" 
                  use out = new StreamWriter (prefix+extn)
                  for b in bytes do out.Write (UTFOf telecode b)
                  out.Close ()

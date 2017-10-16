@@ -32,8 +32,6 @@ module Sim900.Devices
     open Sim900.Telecodes
     
     exception Device of string
-    exception CRManual          // attempt to use card reader when no file attached
-    exception LPManual          // attempt to use line printer when detached (i.e., offline)
 
    
     let YieldToDevices () =     // Allow other threads to run
@@ -75,8 +73,8 @@ module Sim900.Devices
                         match teleCode with
                              | T900 -> TranslateFromText    T900 text
                              | T903 -> TranslateFromText    T903 text
-                             | T920 -> TranslateFromText    T920 text                           
-                             | TTXT -> TranslateFromText    TTXT text) 
+                             | T920 -> TranslateFromText    T920 text)                           
+//                             | TTXT -> TranslateFromText    TTXT text) 
         tapeInPos <- 0 
         
     let OpenReaderText teleCode fileName =
@@ -128,7 +126,6 @@ module Sim900.Devices
         | P900
         | P903
         | P920
-        | PTXT
         | PBin
         | PRaw
 
@@ -153,10 +150,7 @@ module Sim900.Devices
         | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                 punchOutPos <- (punchOutPos+1)%20
                                 if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), PTXT)  -> sw.Write (UTFOf TTXT code)     // output as ASCII character
         | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
-//        | (Some (sw), PLegible)                                // output as legible image
-//                             -> sw.WriteLine (LegibleOf code) 
         | (None, _)          -> raise (Device (sprintf "No file attached to punch"))
         if      code = lastPunchCode
         then    if lastPunchCount = 10000
@@ -179,7 +173,7 @@ module Sim900.Devices
         // open text file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 | TTXT -> PTXT
+        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 
 
     let OpenPunchBin (fileName: string) = 
         // open binary format file for paper tape punch output

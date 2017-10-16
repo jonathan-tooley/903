@@ -135,23 +135,6 @@ module Sim900.Formatting
         | 141uy -> ()                     // CR
         | _    -> printf "%s" (UTFOf telecode code) 
                         
-    let TimesPut (cpuTime: int64, elTime: int64, machineName: string, iCount: int64) =
-        let exeTime = System.TimeSpan.FromMilliseconds ((double cpuTime) / 10000.0)
-        let totTime = System.TimeSpan.FromMilliseconds ((double elTime)  / 10000.0)
-        let ToString (t: TimeSpan) = 
-            let hrs    = t.Hours
-            let hs     = if hrs = 1 then "hour " else "hours"
-            let mins   = t.Minutes % 60
-            let ms     = if mins = 1 then "min " else "mins"
-            let secs   = t.TotalSeconds % 60.0
-            let ss     = if secs = 1.0  then "sec" else "secs"
-            (if hrs > 0 then sprintf "%3d %s" hrs hs else "         ") +
-                (if mins > 0 then sprintf " %2d %s" mins ms else "        ") +
-                    (sprintf " %6.3f %s" secs ss)
-        MessagePut (sprintf "Instructions     = %29d" iCount)
-        MessagePut (sprintf "%s cpu time     = %s" machineName (ToString exeTime))
-        MessagePut (sprintf "%s elapsed time = %s" machineName (ToString totTime))
-
 
 
 
