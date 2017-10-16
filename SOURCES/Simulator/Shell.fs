@@ -126,10 +126,6 @@ open Sim900.Commands
             | (true,  [|"O";      x; y|])
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
-
-            | (_,     [|"REV"; f |])
-            | (_,     [|"REVERSE"; f |])    -> Reverse f
-
             | (true,  [|"RW" |])
             | (true,  [|"REWIND" |])
             | (true,  [|"RW";     "PTR"|])
