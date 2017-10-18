@@ -185,9 +185,6 @@ module Sim900.Bits
        controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
 
 
-
-
-
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
        //                      green (0V Common)
@@ -299,8 +296,6 @@ module Sim900.Bits
 
        wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select Display Unit
 
-
-
        DisplayU1 <- wiringPiI2CSetup 0x23
        DisplayU2 <- wiringPiI2CSetup 0x24
        DisplayU3 <- wiringPiI2CSetup 0x25
@@ -324,5 +319,17 @@ module Sim900.Bits
 
 
 
-       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATA ) 0b00000000 |> ignore
-       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATB ) 0b00001000 |> ignore
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATA ) 0b11111111 |> ignore
+       wiringPiI2CWriteReg8 DisplayU1 (int MCP.MCP23017.OLATB ) 0b11111111 |> ignore
+
+       wiringPiI2CWriteReg8 DisplayU2 (int MCP.MCP23017.OLATA ) 0b11111111 |> ignore
+       wiringPiI2CWriteReg8 DisplayU2 (int MCP.MCP23017.OLATB ) 0b11111111 |> ignore
+
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATA ) 0b11111111 |> ignore
+       wiringPiI2CWriteReg8 DisplayU3 (int MCP.MCP23017.OLATB ) 0b11111111 |> ignore
+
+       wiringPiI2CWriteReg8 DisplayU4 (int MCP.MCP23017.OLATA ) 0b11111111 |> ignore
+       wiringPiI2CWriteReg8 DisplayU4 (int MCP.MCP23017.OLATB ) 0b11111111 |> ignore
+
+       wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.OLATA ) 0b11111111 |> ignore
+       wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.OLATB ) 0b11111111 |> ignore
