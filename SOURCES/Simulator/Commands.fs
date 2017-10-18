@@ -60,9 +60,23 @@ module Sim900.Commands
             stdout.Write "\x1B[0;37m\x1B[u"; 
 
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
+
             wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>>16) ||| (int (QGet() &&& 0b110000000000000000) >>> 14 )) |> ignore
+      
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) (int (BGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) (int (QGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (SGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (SGet()) >>> 8 &&& mask8) |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
+                                                                           (int (QGet() &&& 0b110000000000000000) >>> 14) |||
+                                                                           (int (BGet() &&& 0b110000000000000000) >>> 12) |||
+                                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
 
         // display after a problem reported
         let MiniDump () =
