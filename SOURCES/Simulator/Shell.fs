@@ -79,12 +79,6 @@ open Sim900.Commands
             | (_,     [|"CD"; d|])
             | (_,     [|"CHANGEDIR"; d|])   -> ChangeDir d
 
-            | (true,  [|"CL"|]) | (true, [|"CLEAR"|])
-                                            -> ClearStore ()
-
-            | (true,  [|"CL"; n|]) | (true, [|"CLEAR"; n|])  
-                                            -> ClearModule (GetAddress n)
-
             | (true,  [|"DE";     "PLT"|]) 
             | (true,  [|"DETACH"; "PLT"|])  -> ClosePlotter ()
 
@@ -96,16 +90,6 @@ open Sim900.Commands
 
             | (_,     [|"DEL";    file|])
             | (_,     [|"DELETE"; file|])   -> Delete file
-
-            | (true,  [|"D";       first; last|]) 
-            | (true,  [|"DISPLAY"; first; last|])    
-                                            -> DisplayRange first last
-
-            | (true,  [|"D";       addr|]) 
-            | (true,  [|"DISPLAY"; addr|])  -> DisplayLocation addr 
-
-            | (true,  [|"D"|]) 
-            | (true,  [|"DISPLAY"|])        -> DisplayRegisters ()
 
 
             | (true,  [|"DU"; n; f|]) 
@@ -166,9 +150,6 @@ open Sim900.Commands
  
 
             | (true,  [|"SWAPXY"|])         -> SwapXY ()
-
-            | (true,  [|"VERIFYIMAGE"; f|])  
-            | (true,  [|"VI";          f|]) -> VerifyImage f             
 
             | (_,     [| "Q" |])
             | (_,     [| "QUIT" |])         -> raise Quit
