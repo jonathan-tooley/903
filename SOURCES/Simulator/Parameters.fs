@@ -77,10 +77,3 @@
             then value &&& mask18
             else value
 
-        // display range        
-        let rec DisplayRange2 f l =
-            if   l < f
-            then DisplayRange2 l f
-            else StoreWordPut (Some(f)) (ReadStore f)
-                 for addr = f+1 to l do StoreWordPut (if (addr%5)=0 then Some(addr) else None) (ReadStore addr)
-

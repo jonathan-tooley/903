@@ -28,7 +28,6 @@ module Sim900.FileHandling
                  | ".920"                   -> OpenReaderText T920  f
                  | ".BIN" | ".RLB" | _      -> OpenReaderBin f
                                     
-
         // change directory
         let ChangeDir d =
             if   Directory.Exists d 
@@ -185,12 +184,4 @@ module Sim900.FileHandling
                  for b in bytes do out.Write (UTFOf telecode b)
                  out.Close ()
                      
-        // verify image
-        let VerifyImage fileName =
-            let fi = fileName+".IMG"
-            let f = if File.Exists fileName then fileName elif File.Exists fi then fi else fileName
-            let bytes = File.ReadAllBytes f
-            if bytes.Length % 4 <> 0 then raise (Syntax "Wrong number of bytes in file")
-            VerifyImage bytes        
-
 

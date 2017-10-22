@@ -46,28 +46,11 @@ module Sim900.Formatting
     let AddressPut (word: int) =
         stdout.Write (AddressStr word)
              
-    let AlphanumPut word = // use 900 telecode representation 
-        printf "\\" //"
-        for pos in [12;6;0] do
-            let code = (word>>>pos)&&&mask6
-            if   code = 1
-            then printf "^"
-            else printf "%s" ((SIRSymbolOf code).ToString())
-                     
     let EnsureNewLine () = // force a newline if text has been output on current line
         if System.Console.CursorLeft > 0 then printfn ""
                     
-    let FractionPut word =
-        let fraction = (float(Normalize(int word)))/131072.0
-        let text = sprintf "%+8.6f" fraction
-        let sign = if fraction >= 0.0 then '+' else '-'
-        printf "%c%s" sign (text.Substring (2))
 
-    let LongSignedF word =
-        sprintf "%+7d" (Normalize word)
 
-    let LongSignedPut word = 
-        stdout.Write (LongSignedF word)
                                                        
     let ShortNaturalPut word = // output 18 bit unsigned value in decimal
         printf "%d"   (Normalize word)
@@ -82,51 +65,17 @@ module Sim900.Formatting
             else sprintf (if fn < 10 then "  " else " ")) +
                (sprintf "%d%5d" fn addr)
 
-    let InstructionPut word = 
-        printf "%s" (InstructionF word)
                             
     let MessagePut item = // output a simulator message
         EnsureNewLine ()
         printfn "SIM900: %s" item
- 
-    let OctalPut word =
-        printf "&%06o" word
-                                         
+                                          
     let Prompt () = 
         EnsureNewLine ()
         printf "SIM900> " 
 
-    let WordPut word =
-        // output word in signed integer format
-        printf "  "
-        LongSignedPut word
-        // output word in signed fraction format
-        printf "  "
-        FractionPut word
-        // output word in octal
-        printf "  "
-        OctalPut word
-        // output word in instruction format
-        printf "  "
-        InstructionPut word                  
-        // output word in alphanumeric 6 bit code
-        printf "  "
-        AlphanumPut word 
-        // end line
-        printfn ""
 
-    let RegisterPut name value f =
-        printf "%c=" name
-        f value       
-                 
-    let StoreWordPut (address: int option) value = 
-        match address with
-        | Some (address) -> AddressPut address 
-        | None           -> printf "       "       
-        // output word in modifier function code address format
-        printf "   "
-        WordPut value   
-                                
+
     let TeleCodePut code telecode = // Output as UTF equivalent of 900 or 903 telecode character
         match code with
         | 0uy   -> ()                     // BLANK

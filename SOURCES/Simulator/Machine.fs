@@ -603,24 +603,7 @@ module Sim900.Machine
         let iv = i*4
         memory.[i+8] <- (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
 
-    let VerifyImage (bytes: byte[]) =
-        if (bytes.Length+8*4) % (8192*4) <> 0 then raise (Machine "Not an image file (byte count not a multiple of 32768)")
-        let maxAddr = bytes.Length / 4 - 1 + 8
-        ReadMem (maxAddr) |> ignore // ensure with maxMemory
-        let rec Scan i errs =
-            let addr = i+8
-            let iv   = i*4
-            if   iv < bytes.Length
-            then let word = (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
-                 if   word <> (ReadMem addr) && (8180 > addr || 8191 < addr) // ignore initial instructions
-                 then AddressPut addr; stdout.WriteLine ()
-                      stdout.Write "Memory"; WordPut memory.[addr]; stdout.WriteLine ()
-                      stdout.Write "File  "; WordPut word;          stdout.WriteLine ()
-                      if   errs < 50
-                      then Scan (i+1) (errs+1)
-                      else raise (Machine "Abandoned after 50 differences detected")
-                 else Scan (i+1) errs
-        Scan 0 0
+
 
     // LOAD MODULE       
     let LoadModule moduleNo (words: int[]) =
