@@ -220,50 +220,7 @@ module Sim900.Telecodes
                                 | '¬'  -> BadSymbol ()
                                 | ch   -> ch.ToString ()
 
-    let LegibleOf (code: int) =
-        let s = new StringBuilder ()
-        s.Append ('|') |> ignore
-        for bit in [|131072; 65536; 32768; 16384; 8192; 4096; 2048; 1024; 512; 256; 128; 64; 32; 16; 8; 4; 2; 1|] do 
-            s.Append (if (int(code)&&&bit) = 0   then '\u26AA' else '\u26AB') |> ignore
-            s.Append ('|') |> ignore
-        s.ToString ()
     
-    module private SIRHelper =
-    
-        // ELLIOTT SIR INTERNAL CODE
-        // This is the 6 bit internal code used by Elliott Algol rendered using 
-        // Elliott 900 telecode symbols. 
-        
-        //      00     10     20     30     40     50     60     70
-        // 
-        // 0   space    (      0      8      @      H      P      X               
-        // 1    nl      )      1      9      A      I      Q      Y      
-        // 2    ""      *      2      :      B      J      R      Z
-        // 3    £#      +      3      ;      C      K      S      [
-        // 4     $      ,      4      <      D      L      T      \ 
-        // 5     %      -      5      =      E      M      U      ]
-        // 6     &      .      6      >      F      N      V      ^ 
-        // 7     '      /      7      ?      G      O      W      _                
-            
-        let sirCodes = // SIR internal code to equivalent UTF symbols (900 telecode)
-            " \n\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"                        
-
-        let sirCodeDict = new Dictionary<char, int> ()
-
-        // Initialize SIR code dictionaries
-        for i = 0 to sirCodes.Length - 1 do
-            sirCodeDict.[sirCodes.[i]] <- i
-
-    open SIRHelper
-
-    let SIRSymbolOf (code) = // Elliott internal 6 bit character code to char       
-        sirCodes.[code] 
-            
-    let SIRCodeOf ch =
-        let found, code = sirCodeDict.TryGetValue (ch)
-        if   found
-        then (byte code)
-        else failwith ("Character not in SIR internal code '" + ch.ToString () + "'")
 
     // TRANSLATE TEXT STRINGS TO TELECODE SYMBOLS
     // Assumes text string only uses characters available in the selected telecode
