@@ -25,40 +25,10 @@ module Sim900.Commands
             then System.Environment.CurrentDirectory <- d
             else raise (Syntax (sprintf "Cannot open directory %s" d))
             
-        let DisplayRange first last =
-            DisplayRange2 (GetAddress first) (GetAddress last)
 
         // display register
         let DisplayRegisters () =
-            stdout.WriteLine ();
-            stdout.Write "\x1B[2J\x1B[0;33m\x1B[s\x1B[0;0HA="; stdout.Write (LegibleOf(AGet()));
-            LongSignedPut (AGet ()); stdout.Write "  "; FractionPut     (AGet ()); 
-            stdout.Write "  "; OctalPut      (AGet ()); stdout.Write "  "; InstructionPut (AGet ()); 
-            stdout.WriteLine ();
-
-            stdout.Write "Q="; stdout.Write (LegibleOf(QGet()));
-            LongSignedPut (QGet ()); stdout.Write "  "; FractionPut     (QGet ()); 
-            stdout.Write "  "; OctalPut      (QGet ()); stdout.Write "  "; InstructionPut (QGet ()); 
-            stdout.WriteLine ()
-
-            stdout.Write "B="; stdout.Write (LegibleOf(BGet()));
-            LongSignedPut (BGet ()); stdout.Write "  "; FractionPut     (BGet ()); 
-            stdout.Write "  "; OctalPut      (BGet ()); stdout.Write "  "; InstructionPut (BGet ()); 
-            stdout.WriteLine ()
-
-            stdout.Write "W="; stdout.Write (LegibleOf(WGet()));
-            LongSignedPut (WGet ()); stdout.Write "  "; FractionPut     (WGet ()); 
-            stdout.Write "  "; OctalPut      (WGet ()); stdout.Write "  "; InstructionPut (WGet ()); 
-            stdout.WriteLine ()
-
-            stdout.Write "S="; stdout.Write (LegibleOf(SGet()));
-            LongSignedPut (SGet ()); stdout.Write "          "; 
-            stdout.Write "  "; OctalPut      (SGet ());  
-            stdout.WriteLine ()
-                     
-            stdout.Write "I="; stdout.Write (LegibleOf(IGet())); stdout.WriteLine ();
-            stdout.Write "\x1B[0;37m\x1B[u"; 
-
+          
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
 
             wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
@@ -78,27 +48,8 @@ module Sim900.Commands
                                                                            (int (BGet() &&& 0b110000000000000000) >>> 12) |||
                                                                            (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
 
-        // display after a problem reported
-        let MiniDump () =
-            let s = OldSGet ()
-            stdout.WriteLine ()
-            try DisplayRange2 s s with | _ -> () // mask any addressing error
-            stdout.WriteLine ()
-            DisplayRegisters ()
 
-        
-        // display location
-        let DisplayLocation text =
-            let addr = GetAddress text
-            StoreWordPut (Some(addr)) (ReadStore addr)
-
-          
-
-        // tidy up
-        let TidyUp () =
-            TidyUpDevices ()
-            TidyUpMachine ()
-
+   
         // turn off machine - finalize any output
         let turnOff () =
             TidyUpDevices ()
@@ -108,24 +59,40 @@ module Sim900.Commands
             on      <- false
             stopped <- false
             // Turn off the interrupt indicators
-            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) 0b00000000  |> ignore
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
+            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
+            //Turn off the display leds
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select the display panel on
+
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) 0 |> ignore
+      
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) 0 |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) 0 |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) 0 |> ignore
+
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) 0 |> ignore
 
 
         // turn on machine in specified configuration                  
         let turnOn () =
             on <- true
             Reset ()
-            TidyUp ()
+            TidyUpMachine ()
+            TidyUpDevices ()
+
 
         //For our control panel we will need some variables to read inputs, write outputs and debounce keys
         let mutable PanelInput    = 0
         let mutable PanelOutput   = 0
         let mutable HeartBeat     = 0
         let mutable Flash         = false
-        let mutable DisplayedA    = -1
-        let mutable DisplayedS    = -1
-        let mutable DisplayedW    = -1
         let mutable InterruptDisp = 0
 
         // These are for key debounce
@@ -144,8 +111,6 @@ module Sim900.Commands
 
         let updateDisplay() =
             async {
-                YieldToDevices ()
-
                 while true do
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     HeartBeat <- HeartBeat + 1
@@ -318,18 +283,8 @@ module Sim900.Commands
                     if PanelInput &&& 0b00000010 = 0b00000010 && on && not cycle 
                         then cycle <- true //Enter single step mode
 
-                    if PanelInput &&& 0b00001000 = 0b00000000 && on && DisplayedW >= 0
-                        then DisplayedA <- -1
-                             DisplayedS <- -1
-                             DisplayedW <- -1
-                             stdout.Write "\x1B[2J"
-                             Prompt ()
                     
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on && (AGet () <> DisplayedA || OldSGet () <> DisplayedS || WGet () <> DisplayedW) 
-                        then DisplayRegisters ()
-                             DisplayedA <- AGet ()
-                             DisplayedS <- OldSGet ()
-                             DisplayedW <- WGet ()
+                    if on then DisplayRegisters ()
 
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
