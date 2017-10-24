@@ -40,8 +40,8 @@ module Sim900.Commands
             wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) (int (QGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
 
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (SGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (SGet()) >>> 8 &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
 
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
                                                                            (int (QGet() &&& 0b110000000000000000) >>> 14) |||
