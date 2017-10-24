@@ -345,7 +345,7 @@ module Sim900.Machine
             // Helper functions for jump instructions
             let I () = if   modify <> 0 then word + memory.[bRegisterAddr] else word
                 
-            if iCount % 10L = 0L then Thread.Sleep (1)          
+//            if iCount % 10L = 0L then Thread.Sleep (1)          
             // ORDER CODE
 
             match iRegister with

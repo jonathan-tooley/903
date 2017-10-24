@@ -43,52 +43,26 @@ open Sim900.Commands
             | (true,  [|"AT";     "PLT";|]) -> OpenPlotter ()
  
             | (true,  [|"AT";     "PTP"; "FILE"; f|])
-                                            ->  if   f.EndsWith ".900" || f.EndsWith ".DAT" || f.EndsWith ".TXT"
+                                            ->  if   f.EndsWith ".900" 
                                                 then OpenPunchTxt f T900
-                                                elif f.EndsWith ".903"
-                                                then OpenPunchTxt f T903
-                                                elif f.EndsWith ".920"
-                                                then OpenPunchTxt f T920
                                                 elif f.EndsWith ".BIN" || f.EndsWith ".RLB"
                                                 then OpenPunchBin f 
-                                                elif f.EndsWith ".RAW"
-                                                then OpenPunchRaw f 
                                                 else BadExtension ()
-
-            
-
-     
-
  
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "920"; "MODE3"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "920"; "MODE3"|]) 
-                                            ->  OpenReaderText T920  f 
-
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "903"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "903"|]) 
-                                            ->  OpenReaderText T903  f
-            | (true,  [|"AT";     "PTR"; "FILE"; f; "900"|]) 
-            | (true,  [|"ATTACH"; "PTR"; "FILE"; f; "900"|])
-                                            -> OpenReaderText T900  f
       
             | (true,  [|"AT";     "PTR"; "FILE"; f|]) 
             | (true,  [|"ATTACH"; "PTR"; "FILE"; f|])  
                                             ->  FileOpen f 
 
 
-            | (_,     [|"CD"; d|])
-            | (_,     [|"CHANGEDIR"; d|])   -> ChangeDir d
+            | (_,     [|"CD"; d|])          -> ChangeDir d
 
-            | (true,  [|"DE";     "PLT"|]) 
             | (true,  [|"DETACH"; "PLT"|])  -> ClosePlotter ()
 
-            | (true,  [|"DE";     "PTP"|]) 
             | (true,  [|"DETACH"; "PTP"|])  -> ClosePunch ()
 
-            | (true,  [|"DE";     "PTR"|]) 
             | (true,  [|"DETACH"; "PTR"|])  -> CloseReader ()
 
-            | (_,     [|"DEL";    file|])
             | (_,     [|"DELETE"; file|])   -> Delete file
 
 
@@ -106,15 +80,9 @@ open Sim900.Commands
             | (true,  [|"LO"; f|]) 
             | (true,  [|"LOADIMAGE"; f|])   -> LoadImage f
 
-
-            | (true,  [|"O";      x; y|])
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
-            | (true,  [|"RW" |])
-            | (true,  [|"REWIND" |])
-            | (true,  [|"RW";     "PTR"|])
-            | (true,  [|"REWIND"; "PTR"|])  -> RewindReader ()
-
+            | (true,  [|"REWIND" |])        -> RewindReader ()
 
 
             | (_,     [|"RUNOUT"; "OFF"|])  -> addRunout <- false
@@ -123,27 +91,21 @@ open Sim900.Commands
 
             | (true,  [|"SCALE"; n|])       -> SetScale (GetNatural n)
 
-            | (true,  [|"SEL";    "IN"; "PTR"|])
             | (true,  [|"SELECT"; "IN"; "PTR"|])
                                             -> InputSelectReader ()
 
-            | (true,  [|"SEL";    "IN"; "AUTO"|])
             | (true,  [|"SELECT"; "IN"; "AUTO"|])
                                             -> InputSelectAuto ()
 
-            | (true,  [|"SEL";    "IN"; "TTY"|])
             | (true,  [|"SELECT"; "IN"; "TTY"|])
                                             -> InputSelectTeleprinter ()
 
-            | (true,  [|"SEL";    "OUT"; "PTP"|])
             | (true,  [|"SELECT"; "OUT"; "PTP"|])
                                             -> OutputSelectPunch ()
 
-            | (true,  [|"SEL";    "OUT"; "AUTO"|])
             | (true,  [|"SELECT"; "OUT"; "AUTO"|])
                                             -> OutputSelectAuto ()
 
-            | (true,  [|"SEL";    "OUT"; "TTY"|])
             | (true,  [|"SELECT"; "OUT"; "TTY"|])
                                             -> OutputSelectTeleprinter ()
 

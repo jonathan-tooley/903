@@ -3,24 +3,7 @@
 module Sim900.Devices
 
 // DEVICES
-// The Elliott 900 series were essentially paper tape machines.  The basic
-// system had a paper tape reader and punch.  There was an option for connecting
-// a teleprinter on machines after the 920A.  As a machine designed for the
-// embedded systems market there was provision to add interfaces to a wide variety
-// of other devices including line printers, magnetic tape drives and graph 
-// plotters.
-// 
-// The simulator supports seven i/o devices: magenetic tape unit, line printer, card reader, 
-// digital graph plotter, paper tape reader, paper tape punch and teletype.
-//
-// (The plotter is driven in one of 2 modes: if the machine type is "900" it assumes DGNH's
-// scheme for plotting to a VGA screen, used in the HUNTER ALGOL demonstrations.  For all 
-// other machine types plotting to a 34cm Benson-Lehner plotter is assumed with a 0.005 inch
-// step size.
-//  
-// Reader input can be directed to teletype and vice versa.
-// Punch output can be directed to teletype and vice versa.
-    
+   
     open System
     open System.IO
     open System.Drawing
@@ -71,10 +54,7 @@ module Sim900.Devices
         // take text input from command stream
         tapeIn <- Some (
                         match teleCode with
-                             | T900 -> TranslateFromText    T900 text
-                             | T903 -> TranslateFromText    T903 text
-                             | T920 -> TranslateFromText    T920 text)                           
-//                             | TTXT -> TranslateFromText    TTXT text) 
+                             | T900 -> TranslateFromText    T900 text)                           
         tapeInPos <- 0 
         
     let OpenReaderText teleCode fileName =
@@ -124,10 +104,7 @@ module Sim900.Devices
     type PunchModes =
 
         | P900
-        | P903
-        | P920
         | PBin
-        | PRaw
 
     type Encoding =
         | Text   of Telecodes
@@ -145,12 +122,9 @@ module Sim900.Devices
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, punchMode) with
         | (Some (sw), P900)  -> sw.Write (UTFOf T900 code)     // output as UTF character
-        | (Some (sw), P903)  -> sw.Write (UTFOf T903 code)     // output as UTF character
-        | (Some (sw), P920)  -> sw.Write (UTFOf T920 code)     // output as UTF character
         | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                 punchOutPos <- (punchOutPos+1)%20
                                 if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), PRaw)  -> sw.BaseStream.WriteByte code   // output as raw byte
         | (None, _)          -> raise (Device (sprintf "No file attached to punch"))
         if      code = lastPunchCode
         then    if lastPunchCount = 10000
@@ -173,7 +147,7 @@ module Sim900.Devices
         // open text file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode <- match telecode with | T900 -> P900 | T903 -> P903 | T920 -> P920 
+        punchMode <- match telecode with | T900 -> P900  
 
     let OpenPunchBin (fileName: string) = 
         // open binary format file for paper tape punch output
@@ -182,14 +156,6 @@ module Sim900.Devices
         punchMode   <- PBin
         for i=1 to 20 do PutPunchChar 0uy
         
-
-    let OpenPunchRaw (fileName: string) = 
-        // open raw byte file for paper tape punch output
-        ClosePunch () // finalize last use, if any
-        punchStream <- Some (new StreamWriter (fileName))
-        punchMode   <- PRaw
-        for i=1 to 20 do PutPunchChar 0uy       
-
 
     
     // GRAPH PLOTTER   
