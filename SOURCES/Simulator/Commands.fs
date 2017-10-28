@@ -58,6 +58,8 @@ module Sim900.Commands
             reset   <- false
             on      <- false
             stopped <- false
+            //Shutdown the switched power and fan
+            digitalWrite  1 GPIO.pinValue.Low
             // Turn off the interrupt indicators
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
@@ -84,6 +86,8 @@ module Sim900.Commands
         let turnOn () =
             on <- true
             Reset ()
+            //Power to the fan and mains connected accessories 
+            digitalWrite  1 GPIO.pinValue.High
             TidyUpMachine ()
             TidyUpDevices ()
 

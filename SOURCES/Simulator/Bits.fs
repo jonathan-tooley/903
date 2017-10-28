@@ -169,7 +169,10 @@ module Sim900.Bits
        digitalWrite 5 GPIO.pinValue.High
 
        pinMode 6 GPIO.pinType.Input   //
-       
+
+       //Pin 1 controls the mains out and the cooling fan
+       pinMode  1 GPIO.pinType.Output; digitalWrite  1 GPIO.pinValue.Low
+
        port.Open ()
 
        port.Write "\r\u001B\u003A"

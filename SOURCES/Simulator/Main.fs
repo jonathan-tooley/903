@@ -13,6 +13,7 @@ open Sim900.Shell
 open System
 open System.Windows
 open System.Windows.Forms
+open Sim900.FileHandling
 
 // MAIN PROGRAM
 [<STAThread>]
@@ -24,7 +25,6 @@ do
     MessagePut "Elliott 903 Run Console"
 
     // Run commands
-
 
     Processor() |> Async.Start
 
