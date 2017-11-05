@@ -210,21 +210,21 @@ module Sim900.Machine
    
         let punchByte char =
              // We wait for the punch to signal that it is ready
-             handShake <- digitalRead 4
+             handShake <- digitalRead 3
              while handShake = GPIO.pinValue.Low && (not reset) do 
                   holdUp <- true
                   Thread.Sleep(50)
-                  handShake <- digitalRead 4
+                  handShake <- digitalRead 3
              holdUp <- false
              if (not reset) then 
                 // Then we set up the data on the mcp pins
-                wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
+//                wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
                 // Then we send a commit instruction to the punch
-                digitalWrite 3 GPIO.pinValue.High
+                digitalWrite 4 GPIO.pinValue.High
                 // Now we wait for the punch to confirm that it is busy doing our instruction
-                while handShake = GPIO.pinValue.High do handShake <- digitalRead 4
+                while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
                 // Then we can stop telling to write as it has started working on our command
-                digitalWrite 3 GPIO.pinValue.Low
+                digitalWrite 4 GPIO.pinValue.Low
 
         let readByte char =
             digitalWrite 5 GPIO.pinValue.Low
@@ -345,7 +345,7 @@ module Sim900.Machine
             // Helper functions for jump instructions
             let I () = if   modify <> 0 then word + memory.[bRegisterAddr] else word
                 
-//            if iCount % 10L = 0L then Thread.Sleep (1)          
+            if iCount % 10L = 0L then Thread.Sleep (1)          
             // ORDER CODE
 
             match iRegister with
@@ -639,7 +639,9 @@ module Sim900.Machine
         accumulator     <- 0       
         qRegister       <- 0       
         bRegisterAddr   <- 1       
+        WriteMem 1 0
         scrAddr         <- 0      
+        WriteMem 0 0
         iRegister       <- 0       
         pRegister       <- 0      
         interruptLevel  <- 1         
@@ -697,7 +699,7 @@ module Sim900.Machine
         async {
          try
             while true do
-              //while on && stopped do updateDisplay () //***
+             
               while on && stopped && obey do
                   //The control panel is requesting an obey
                   Execute (wordGenerator)

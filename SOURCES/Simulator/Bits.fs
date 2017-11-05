@@ -158,20 +158,17 @@ module Sim900.Bits
    let setupControlPorts () =
        wiringPiSetup ()
 
-       pinMode 3 GPIO.pinType.Output  // Setup pin 3 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
-                                      // The Brown lead from the punch connects here.
-       pinMode 4 GPIO.pinType.Input   // Setup pin 4 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
+       pinMode 3 GPIO.pinType.Input   // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                       // The Gold lead from the punch connects here.
+       pinMode 4 GPIO.pinType.Output   // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+                                      // The Brown lead from the punch connects here.
 
        pinMode 5 GPIO.pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
                                       // The Brown lead from the reader connects here. 
        
-       digitalWrite 5 GPIO.pinValue.High
 
-       pinMode 6 GPIO.pinType.Input   //
-
-       //Pin 1 controls the mains out and the cooling fan
-       pinMode  1 GPIO.pinType.Output; digitalWrite  1 GPIO.pinValue.Low
+       //Pin 24 controls the mains out and the cooling fan
+       pinMode 24 GPIO.pinType.Output; digitalWrite 24 GPIO.pinValue.Low
 
        port.Open ()
 

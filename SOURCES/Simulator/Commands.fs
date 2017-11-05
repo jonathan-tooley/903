@@ -25,6 +25,7 @@ module Sim900.Commands
             then System.Environment.CurrentDirectory <- d
             else raise (Syntax (sprintf "Cannot open directory %s" d))
             
+        let mutable sr = 0
 
         // display register
         let DisplayRegisters () =
@@ -43,6 +44,11 @@ module Sim900.Commands
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
 
+            if reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
+            if stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
+
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
+
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
                                                                            (int (QGet() &&& 0b110000000000000000) >>> 14) |||
                                                                            (int (BGet() &&& 0b110000000000000000) >>> 12) |||
@@ -59,7 +65,7 @@ module Sim900.Commands
             on      <- false
             stopped <- false
             //Shutdown the switched power and fan
-            digitalWrite  1 GPIO.pinValue.Low
+            digitalWrite 24 GPIO.pinValue.Low
             // Turn off the interrupt indicators
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
@@ -87,7 +93,7 @@ module Sim900.Commands
             on <- true
             Reset ()
             //Power to the fan and mains connected accessories 
-            digitalWrite  1 GPIO.pinValue.High
+            digitalWrite 24 GPIO.pinValue.High
             TidyUpMachine ()
             TidyUpDevices ()
 
