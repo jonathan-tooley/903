@@ -289,7 +289,7 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Select Reader, punch and plotter
 
        //Setup the paper tape MCP23017 
-       punchPort      <- wiringPiI2CSetup 0x20 
+       punchPort      <- wiringPiI2CSetup 0x27
 
        wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
        wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs

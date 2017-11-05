@@ -25,7 +25,7 @@ do
     MessagePut "Elliott 903 Run Console"
 
     // Run commands
-
+ 
     Processor() |> Async.Start
 
     updateDisplay() |> Async.Start

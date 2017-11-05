@@ -218,7 +218,8 @@ module Sim900.Machine
              holdUp <- false
              if (not reset) then 
                 // Then we set up the data on the mcp pins
-//                wiringPiI2CWriteReg8 punchPort 0x14 ( char )  |> ignore
+                wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
+                wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) ( char )  |> ignore
                 // Then we send a commit instruction to the punch
                 digitalWrite 4 GPIO.pinValue.High
                 // Now we wait for the punch to confirm that it is busy doing our instruction
