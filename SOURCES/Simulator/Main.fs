@@ -8,12 +8,12 @@ open Sim900.Formatting
 open Sim900.Devices
 open Sim900.Bits
 open Sim900.Machine
-open Sim900.Commands
 open Sim900.Shell
 open System
 open System.Windows
 open System.Windows.Forms
 open Sim900.FileHandling
+
 
 // MAIN PROGRAM
 [<STAThread>]
@@ -24,13 +24,7 @@ do
 
     MessagePut "Elliott 903 Run Console"
 
-    // Run commands
- 
-    Processor() |> Async.Start
+    Processor()
 
-    updateDisplay() |> Async.Start
-
-    async { CommandLineInterpreter () } |> Async.Start
-
-    Application.Run()
+//    Application.Run()
 
