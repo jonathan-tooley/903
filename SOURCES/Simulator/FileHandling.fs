@@ -62,38 +62,17 @@ module Sim900.FileHandling
         // (this format is due to Terry Froggatt)
 
         // dump image -- size is the total memory size, from 0
-        let DumpImage fileName size =
-            File.WriteAllBytes (fileName, (DumpImage size))
+//        let DumpImage fileName size =
+//            File.WriteAllBytes (fileName, (DumpImage size))
 
         // load image -- load a previously dumped image
-        let LoadImage fileName =
-            let fi = fileName+".IMG"
-            let f = if File.Exists fileName then fileName elif File.Exists fi then fi else fileName
-            let bytes = File.ReadAllBytes f
-            if bytes.Length % 4 <> 0 then raise (Syntax "Wrong number of bytes in file")
-            LoadImage bytes
+//        let LoadImage fileName =
+//            let fi = fileName+".IMG"
+//            let f = if File.Exists fileName then fileName elif File.Exists fi then fi else fileName
+//            let bytes = File.ReadAllBytes f
+//            if bytes.Length % 4 <> 0 then raise (Syntax "Wrong number of bytes in file")
+//            LoadImage bytes
 
-        // MODULES are dumps of a store module encoded as pairs of integers representing consecutive half words
-        // (this format is due to Don Hunter)
-
-        // load module
-        let LoadModule moduleNo fileName =
-            let fd = fileName+".DAT"
-            let f = if File.Exists fileName then fileName elif File.Exists fd then fd else fileName
-            let file = File.ReadAllText (f) 
-            let words = file.Split ([|' '; '\t'; '\n'; '\r'|], System.StringSplitOptions.RemoveEmptyEntries) 
-            let values = 
-                try 
-                    Seq.map (fun word -> int word) words |> Seq.toArray 
-                with | err -> raise (Syntax (sprintf "Error decoding file - %s" err.Message))
-            if  values.Length = 0 || values.Length > 16384 || values.Length % 2 <> 0 
-            then raise (Syntax "Wrong number of words in file")
-            let maxAddr = (values.Length)/2-1
-            let words: int[] = Array.zeroCreate (maxAddr+1)                
-            for addr = 0 to maxAddr do 
-                let index = addr * 2
-                words.[addr] <- (values.[index] <<< 13) ||| values.[index+1]
-            LoadModule moduleNo words
                  
         // list directory
         let ListDirectory () =
