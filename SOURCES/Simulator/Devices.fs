@@ -10,16 +10,12 @@ module Sim900.Devices
     open System.Windows.Forms
     open System.Collections
     open System.Text
-    open System.Threading
     open Sim900.Bits
     open Sim900.Telecodes
     
     exception Device of string
 
    
-    let YieldToDevices () =     // Allow other threads to run
-         System.Threading.Thread.Yield () |> ignore
-
     // provide a dummy context to represent console "form"
     let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
     // Capture the synchronization context of the hosting user interface thread
@@ -71,7 +67,6 @@ module Sim900.Devices
         then raise (Device "Run off end of paper tape input")
         else let code = ti.[tapeInPos]
              tapeInPos <- tapeInPos+1
-             Thread.Sleep (1)
              code
   
     let RewindReader () =
@@ -294,7 +289,7 @@ module Sim900.Devices
         then // set up a deferred task to push out pending plots
              async { do! Async.Sleep 25
                      PushGraph () } |> Async.Start
-             YieldToDevices ()
+             
         // decode plotter command
         let badCode () = raise (Device (sprintf "Bad Plotter Code &%o2" code))
         let oldDown = down
