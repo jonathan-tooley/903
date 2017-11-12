@@ -16,6 +16,22 @@ module Sim900.Formatting
     open Sim900.Telecodes
     open Sim900.Devices
 
+    exception Syntax of string
+
+    // remember default console
+    let consoleIn  = System.Console.In
+    let consoleOut = System.Console.Out
+
+    // ERRORS
+    let BadCommand     () = raise (Syntax "Eh?")        
+    let BadParameter   () = raise (Syntax "Parameter error")        
+
+    // PARAMETER DECODING
+
+    let GetNatural (text: string) = // Natural number (unsigned)
+        try (int text) with _ -> BadParameter ()  
+
+
         // Address layout
     let moduleShift = 13                         // module number
     let aModuleMask = bit16 ||| bit15 ||| bit14  // 900, 920A,B,M have 16 bit address bus

@@ -12,36 +12,10 @@ open Sim900.Devices
 open Sim900.Machine
 open Sim900.Formatting
 open Sim900.Machine
-open Sim900.Parameters
 open Sim900.FileHandling
-open Sim900.Commands
 
-    module ShellHelper =
-
-        // COMMAND INPUT & DECODING
-        exception Finished // signals end of command input
-
-        //lexical scanner
-        let Lexer interactive =
-            YieldToDevices ()
-            Prompt ()
-            let line = System.Console.In.ReadLine ()
-            if line = null then raise Finished
-            if not interactive then printfn "%s" line
-            let words = line.Split([|' '; '\t'|], 
-                           System.StringSplitOptions.RemoveEmptyEntries) 
-                                |> Array.map (fun word -> word.ToUpper ()) 
-            words        
-
-        // Decoder
-        let rec Decoder interactive =
-            let words = Lexer interactive
-            let BadExtension () = raise (Syntax "Inappropriate file extension")
-            match (on, words) with 
-
-
-            | (true,  [|"AT";     "PLT";|]) -> OpenPlotter ()
- 
+(*
+     
             | (true,  [|"AT";     "PTP"; "FILE"; f|])
                                             ->  if   f.EndsWith ".900" 
                                                 then OpenPunchTxt f T900
@@ -65,29 +39,14 @@ open Sim900.Commands
 
             | (_,     [|"DELETE"; file|])   -> Delete file
 
-
-            | (true,  [|"DU"; n; f|]) 
-            | (true,  [|"DUMPIMAGE"; n; f|]) 
-                                            -> DumpImage f (GetNatural n)
-
-
             | (_,     [|"LS"|])             -> ListDirectory ()
 
-            | (true,  [|"LM"; m; f|])
-            | (true,  [|"LOADMODULE"; m; f|])
-                                            -> LoadModule (GetNatural m) f
-
-            | (true,  [|"LO"; f|]) 
-            | (true,  [|"LOADIMAGE"; f|])   -> LoadImage f
 
             | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
 
             | (true,  [|"REWIND" |])        -> RewindReader ()
 
 
-            | (_,     [|"RUNOUT"; "OFF"|])  -> addRunout <- false
-
-            | (_,     [|"RUNOUT"; "ON"|])   -> addRunout <- true
 
             | (true,  [|"SCALE"; n|])       -> SetScale (GetNatural n)
 
@@ -110,41 +69,8 @@ open Sim900.Commands
                                             -> OutputSelectTeleprinter ()
 
  
-
-            | (true,  [|"SWAPXY"|])         -> SwapXY ()
-
-            | (_,     [| "Q" |])
-            | (_,     [| "QUIT" |])         -> raise Quit
-
-            | (_,     [||])                 -> () // empty line
-
-            | _                             ->  match (on, words.[0]) with
-                                                | _                  -> BadCommand ()               
+           
                                
-        // READ COMMANDS 
-        and ReadCommands interactive =
-            let rec Decode () = 
-                Decoder interactive 
-                Decode ()
-            try Decode () with
-            | Code c       ->   MessagePut (sprintf "%s" c);                         
-            | Device  s    ->   MessagePut s;                                        
-            | Finished     ->   raise Finished // end of current command level
-            | Syntax s     ->   MessagePut s;                                        
-            | Quit         ->   raise Quit 
-            | err          ->   MessagePut err.Message;
-            ReadCommands interactive
+     
 
-    
-        and ReadCommandsFromConsole () = 
-            try ReadCommands true with 
-            | Finished -> ReadCommandsFromConsole ()
-
-    open ShellHelper
-
-    let CommandLineInterpreter () = 
-        try 
-            try ReadCommandsFromConsole () with | Quit -> ()
-        finally     
-            Application.Exit ()
-
+            *)
