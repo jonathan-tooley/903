@@ -15,16 +15,26 @@ module Sim900.Machine
     open Sim900.Devices
     open Sim900.Formatting
 
-    let mutable alive             = true        // Emulator ends when this if false
-    let mutable on                = false       // true after ON command
-    let mutable stopped           = false       // stop button pushed
-    let mutable reset             = false       // reset button pushed
-    let mutable cycle             = false       // Single Step    
-    let mutable readerholdUp      = false       // true when io blocked
+
+    let mutable readerholdUp      = true       // true when io blocked
     let mutable ttyDemand         = false
     let mutable punchHoldUp       = false
-    let mutable obey              = false       // signal the processor to run the command on the word generator once
        
+    type machineMode =
+       | Dead                    // Emulator ends when status is set to dead
+       | Off
+       | Reset
+       | Stopped
+       | Obey                    // signal the processor to run the command on the word generator once
+       | Cycle
+       | Running
+
+    let mutable status = machineMode.Off
+
+    let on() = match status with
+               | Dead -> false
+               | Off  -> false
+               | _    -> true
 
     exception Machine of string
 
@@ -536,7 +546,7 @@ module Sim900.Machine
                                                 accumulator <- memory.[int bRegisterAddr]
                                
                          | (_) when 7184 <= Z -> // Machine stop
-                                                stopped <- true
+                                                status <- machineMode.Stopped 
 
                          | (_) when 7168 <= Z -> // Program terminate
                                                 if   interruptLevel <> 4
@@ -620,9 +630,7 @@ module Sim900.Machine
         levelActive.[1] <- true    
         EnableInitialInstructions () 
         sequenceControlRegister <- (wordGenerator &&& mask13)
-        stopped        <- false
-        reset          <- false
-        
+        status         <- machineMode.Running 
          
     // GENERATE A MANUAL INTERRUPT      
     let ManualInterrupt level = // Signal a manual interrupt
@@ -644,8 +652,7 @@ module Sim900.Machine
         interruptLevel  <- 1         
         takeInterrupt   <- false        
         protect         <- false 
-        reset           <- true
-        stopped         <- true  
+        status          <- machineMode.Reset
 
         //port.Write "\r\u001B\u003A"
 
@@ -718,9 +725,9 @@ module Sim900.Machine
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
 
-            if reset     then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
-            if stopped   then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
-            if ttyDemand then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
+            if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
+            if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
+            if ttyDemand                    then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
 
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
 
@@ -736,9 +743,8 @@ module Sim900.Machine
             TidyUpDevices ()
             TidyUpMachine ()
             // Make sure front panel indicators are off
-            reset   <- false
-            on      <- false
-            stopped <- false
+            status <- machineMode.Off
+
             //Shutdown the switched power and fan
             digitalWrite 24 GPIO.pinValue.Low
             // Turn off the interrupt indicators
@@ -765,7 +771,6 @@ module Sim900.Machine
 
         // turn on machine in specified configuration                  
     let turnOn () =
-            on <- true
             Reset ()
             //Power to the fan and mains connected accessories 
             digitalWrite 24 GPIO.pinValue.High
@@ -808,9 +813,9 @@ module Sim900.Machine
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
                      
-                    if reset             then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on && Flash       then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
-                    if (not on) && alive then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+                    if status = machineMode.Reset  then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on() && Flash               then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if status = machineMode.Off    then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
@@ -818,31 +823,28 @@ module Sim900.Machine
 
                     // The restart button on the original ELLIOT did not have an indicator
                     // We have defined an indicator logic here to indicate when restart can be used
-                    if on      && 
-                       stopped &&
-                       (operate = mode.Operate || operate = mode.Test) &&
-                       (not reset)  then PanelOutput <- (PanelOutput ||| 0b00100000)
+                    if status = machineMode.Stopped && (operate = mode.Operate || operate = mode.Test)
+                       then PanelOutput <- (PanelOutput ||| 0b00100000)
                     
                     //Set the Stop light
-                    if stopped      then PanelOutput <- (PanelOutput ||| 0b10000000)
+                    if status = machineMode.Stopped then PanelOutput <- (PanelOutput ||| 0b10000000)
 
                     // The Jump button on the original ELLIOT did not have an indicator
                     // We have defined an indicator logic here to indicate when jump can be used
-                    if on      &&
-                       reset   &&
+                    if status = machineMode.Reset &&
                        (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
 
                     //Now set the lights by sending the combined value to the control panel
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATB) ( PanelOutput )  |> ignore
 
                     // Display the current Interrupt level
-                    if on && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
+                    if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
                                                           else InterruptDisp <- InterruptDisp &&& 0b11111101
 
-                    if on && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
+                    if on() && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
                                                           else InterruptDisp <- InterruptDisp &&& 0b11101111
 
-                    if on && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
+                    if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
@@ -860,7 +862,7 @@ module Sim900.Machine
 
                     // Update the word generator
 
-                    if WGet () <> PanelInput && on && not (operate = mode.Auto)
+                    if WGet () <> PanelInput && on() && not (operate = mode.Auto)
                       then WPut PanelInput
 
 
@@ -869,34 +871,33 @@ module Sim900.Machine
 
                     //Control the reset button
                     if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Auto && not ResetButton && not reset
-                        then //Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Auto && not ResetButton && status <> machineMode.Reset
+                        then MessagePut "Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177."
                              ResetButton <- true;     
                              Reset ()
                              //Handle Jump
 
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && not (operate = mode.Auto) && not ResetButton && not reset
-                        then //Standard Reset
-                             MessagePut "Reset button pressed."
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && not (operate = mode.Auto) && not ResetButton && status <> machineMode.Reset
+                        then MessagePut "Reset button pressed."
                              ResetButton <- true;
                              Reset ()
                     
                     //Control the on and off buttons
-                    if PanelInput &&& 0b00010000 = 0b00010000 && not on
+                    if PanelInput &&& 0b00010000 = 0b00010000 && status = machineMode.Off
                         then MessagePut "Turn system on."
                              turnOn ()
 
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on
+                    if PanelInput &&& 0b00000100 = 0b00000100 && on()
                         then MessagePut "System turned off."
                              turnOff()
 
-                    if PanelInput &&& 0b00000100 = 0b00000100 && not on
+                    if PanelInput &&& 0b00000100 = 0b00000100 && status = machineMode.Off
                         then HeartBeat <- 0
                              while (PanelInput &&& 0b00000100) = 0b00000100 && HeartBeat < 6000 do
                                 HeartBeat <- HeartBeat + 1
                                 PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
                              if HeartBeat =  6000 then MessagePut "Shuting down"
-                                                       alive <- false
+                                                       status <- machineMode.Dead
                                                       
 
                     //Set the keyswitch
@@ -912,115 +913,115 @@ module Sim900.Machine
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
            
                     if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
-                    if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && on && reset && not (operate = mode.Auto)
+                    if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && status = machineMode.Reset && not (operate = mode.Auto)
                         then JumpButton <- true
                              Jump ()
 
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on && not (operate = mode.Auto)
-                        then stopped <- true
+                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on() && not (operate = mode.Auto)
+                        then status <- machineMode.Stopped
                              StopButton <- true
 
                     
                     if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
-                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && on && not (operate = mode.Auto)
-                        then stopped <- false
+                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && on() && not (operate = mode.Auto)
+                        then status <- machineMode.Running
                              RestartButton <- true
 
 
                     // Handle MCP23017 U3 Inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOA); 
 
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on && operate = mode.Test && not I1M
+                    if PanelInput &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not I1M
                         then I1M <- true    //Interupt 1:Manual
-                    if PanelInput &&& 0b00000100 = 0b00000000 && on && operate = mode.Test && I1M
+                    if PanelInput &&& 0b00000100 = 0b00000000 && on() && operate = mode.Test && I1M
                         then I1M <- false   //Interrupt 1: Online
                     
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on && operate = mode.Test
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test
                         then MessagePut ("Interrupt 1: Trace")
                     
-                    if PanelInput &&& 0b00010000 = 0b00010000 && on && operate = mode.Test && not I2M
+                    if PanelInput &&& 0b00010000 = 0b00010000 && on() && operate = mode.Test && not I2M
                         then I2M <-true     //Interrupt 2: Manual
-                    if PanelInput &&& 0b00010000 = 0b00000000 && on && operate = mode.Test && I2M
+                    if PanelInput &&& 0b00010000 = 0b00000000 && on() && operate = mode.Test && I2M
                         then I2M <-false;       //Interrupt 2: Online
                                         
-                    if PanelInput &&& 0b00100000 = 0b00100000 && on && operate = mode.Test
+                    if PanelInput &&& 0b00100000 = 0b00100000 && on() && operate = mode.Test
                         then MessagePut ("Interrupt 2: Trace")
                     
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Test && not I3M
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I3M
                         then MessagePut ("Interrupt 3: Manual"); I3M <- true
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on && operate = mode.Test && I3M
+                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I3M
                         then MessagePut ("Interrupt 3: Online"); I3M <-false
                     
-                    if PanelInput &&& 0b10000000 = 0b10000000 && on && operate = mode.Test
+                    if PanelInput &&& 0b10000000 = 0b10000000 && on() && operate = mode.Test
                         then MessagePut ("Interrupt 3: Trace")
                     
  
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOB); 
 
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && operate = mode.Test && not I1 && I1M
-                        then MessagePut ("Interrupt 1: Request"); I1 <- true; ManualInterrupt 1; reset <- false
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on && operate = mode.Test && I1 
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I1 && I1M
+                        then MessagePut ("Interrupt 1: Request"); I1 <- true; ManualInterrupt 1
+                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I1 
                         then I1 <- false
                        
                                            
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on && operate = mode.Test && not I2 && I2M
-                        then MessagePut ("Interrupt 2: Request"); I2 <- true; ManualInterrupt 2; reset <- false
-                    if PanelInput &&& 0b00001000 = 0b00000000 && on && operate = mode.Test && I2 
+                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not I2 && I2M
+                        then MessagePut ("Interrupt 2: Request"); I2 <- true; ManualInterrupt 2
+                    if PanelInput &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test && I2 
                         then I2 <- false
 
                        
-                    if PanelInput &&& 0b00000001 = 0b00000001 && on && operate = mode.Test && not I3 && I3M
-                        then MessagePut ("Interrupt 3: Request"); I3 <- true; ManualInterrupt 3; reset <- false
-                    if PanelInput &&& 0b00000001 = 0b00000000 && on && operate = mode.Test && I3 
+                    if PanelInput &&& 0b00000001 = 0b00000001 && on() && operate = mode.Test && not I3 && I3M
+                        then MessagePut ("Interrupt 3: Request"); I3 <- true; ManualInterrupt 3
+                    if PanelInput &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test && I3 
                         then I3 <- false                       
 
                     // Handle MCP23008 U4 Inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
 
-                    if PanelInput &&& 0b00000001 = 0b00000001 && on
-                        then ignore() //Order Stop logic would go in here
+                    if PanelInput &&& 0b00000001 = 0b00000001 && on() && status <> machineMode.Cycle 
+                        then status <- machineMode.Cycle 
+                             MessagePut "Entering Single Step Mode" //Order Stop is the same as cycle stop
                     
-                    if PanelInput &&& 0b00000010 = 0b00000000 && on && cycle
-                        then cycle <- false //Exit single step mode
+                    if PanelInput &&& 0b00000010 = 0b00000000 && status =  machineMode.Cycle 
+                        then status <- machineMode.Stopped //Exit single step mode
 
-                    if PanelInput &&& 0b00000010 = 0b00000010 && on && not cycle 
-                        then cycle <- true //Enter single step mode
-
-                    
-                    if on then DisplayRegisters ()
+                    if PanelInput &&& 0b00000010 = 0b00000010 && on() && status <> machineMode.Cycle 
+                        then status <- machineMode.Cycle  
+                             MessagePut "Entering Single Step Mode"  //Enter single step mode
+                       
 
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
-                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && on && stopped && operate = mode.Test
+                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && status = machineMode.Stopped && operate = mode.Test
                         then EnterButton <- true
-                             reset <- false
+                             MessagePut "Enter command"
                              APut (WGet())
                     
-                    if PanelInput &&& 0b00010000 = 0b00010000 && on && stopped && operate = mode.Test
-                        then reset <- false
+                    if PanelInput &&& 0b00010000 = 0b00010000 && status = machineMode.Stopped && operate = mode.Test
+                        then MessagePut "Enter Command"
                              APut (WGet())
                     
                     if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButton <- false 
-                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && on && stopped && operate = mode.Test
+                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && status = machineMode.Stopped && operate = mode.Test
                         then ObeyButton <- true
-                             reset      <- false
-                             if (not obey) then obey <- true
+                             MessagePut "Obey request"
+                             status     <- machineMode.Obey 
                     
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on && stopped && operate = mode.Test
-                        then reset     <- false
-                             if (not obey) then obey <- true
-                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
+                    if PanelInput &&& 0b01000000 = 0b01000000 && status = machineMode.Stopped && operate = mode.Test
+                        then status    <- machineMode.Obey
+                             MessagePut "Obey request"
+       
                  
 
     let Processor () =
-            while alive do
+            while status <> machineMode.Dead do
               panelLights ()
               panelButtons ()
-              while on && stopped && obey do
+              while status = machineMode.Obey do
                   //The control panel is requesting an obey
                   panelLights()
                   Execute (wordGenerator)
-                  obey <- false
+                  status <- machineMode.Stopped  //After an obey we return to stopped
                   
               while on && (not stopped) do
                 panelButtons()
@@ -1050,7 +1051,7 @@ module Sim900.Machine
             
                 // increment instruction count
                 iCount <- iCount+1L
-                if cycle then stopped <- true
+                if status = machineMode.Cycle then status <- machineMode.Stopped
 
 
             panelLights()
