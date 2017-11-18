@@ -247,11 +247,24 @@ module Sim900.Machine
 
         let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
-        let TTYInput Z =
-            let mutable ch = int (port.ReadByte())
-            ch <- (if OddParity ch then bit8 ||| ch else ch)
-            accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
-            port.Write (System.String.Concat( char (accumulator &&& mask7)))
+
+
+        let rec TTYInput Z =
+            let mutable ch = 0
+            ttyDemand <- true
+            MessagePut "Teleprinter Demand on"
+            try
+                ch <- int (port.ReadByte())
+                ttyDemand <- false
+                MessagePut "Teleprinter Demand off"
+                ch <- (if OddParity ch then bit8 ||| ch else ch)
+                accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
+                port.Write (System.String.Concat( char (accumulator &&& mask7)))
+            with
+            _ ->  if PriorityButtons() then ch <- 0 
+                                            ttyDemand <- false
+                                            MessagePut "Teleprinter Demand off"
+                                       else TTYInput Z
 
 
         let TTYOutput Z =

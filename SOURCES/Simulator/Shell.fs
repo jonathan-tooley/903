@@ -68,9 +68,7 @@ open Sim900.FileHandling
             | (true,  [|"SELECT"; "OUT"; "TTY"|])
                                             -> OutputSelectTeleprinter ()
 
- 
-           
-                               
+  
      
 
             *)
