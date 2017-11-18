@@ -20,7 +20,9 @@ module Sim900.Machine
     let mutable stopped           = false       // stop button pushed
     let mutable reset             = false       // reset button pushed
     let mutable cycle             = false       // Single Step    
-    let mutable holdUp            = false       // true when io blocked
+    let mutable readerholdUp      = false       // true when io blocked
+    let mutable ttyDemand         = false
+    let mutable punchHoldUp       = false
     let mutable obey              = false       // signal the processor to run the command on the word generator once
        
 
@@ -205,16 +207,22 @@ module Sim900.Machine
                  | e ->  sequenceControlRegister <- oldSequenceControlRegister 
                          raise e  
 
+        let PriorityButtons() =
+            let mutable PanelInput = 0
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
+            PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+            if (PanelInput &&& 0b01000000 = 0b01000000) || (PanelInput &&& 0b00000100 = 0b00000100) then true else false
+
         let mutable handShake = GPIO.pinValue.High
    
         let punchByte char =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 3
-             while handShake = GPIO.pinValue.Low && (not reset) do 
-                  holdUp    <- true
+             while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do 
+                  punchHoldUp    <- true
                   handShake <- digitalRead 3
-             holdUp <- false
-             if (not reset) then 
+             punchHoldUp <- false
+             if not (PriorityButtons()) then 
                 // Then we set up the data on the mcp pins
                 wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
                 wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) ( char )  |> ignore
