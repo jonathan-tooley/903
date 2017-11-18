@@ -287,24 +287,24 @@ module Sim900.Machine
         let Reader Z = 
             match SelectInput with
             | ReaderIn       -> readByte Z
-            | AutoIn         -> ReaderInput Z
+            | AutoIn         -> readByte Z
             | TeleprinterIn  -> TTYInput Z
 
         let TTYIn Z =
             match SelectInput with
-            | ReaderIn      -> ReaderInput Z
+            | ReaderIn      -> readByte Z
             | AutoIn
             | TeleprinterIn -> TTYInput Z
 
         let Punch Z =
             match SelectOutput with
             | PunchOut        -> punchByte (accumulator &&& mask8)
-            | AutoOut         -> PunchOutput Z
+            | AutoOut         -> punchByte (accumulator &&& mask8)
             | TeleprinterOut  -> TTYOutput Z
 
         let TTYOut Z =
             match SelectOutput with
-            | PunchOut        -> PunchOutput Z
+            | PunchOut        -> punchByte (accumulator &&& mask8)
             | AutoOut
             | TeleprinterOut  -> TTYOutput Z
 
@@ -637,8 +637,8 @@ module Sim900.Machine
         protect         <- false 
         reset           <- true
         stopped         <- true  
-        holdUp          <- true
-        port.Write "\r\u001B\u003A"
+
+        //port.Write "\r\u001B\u003A"
 
 
         for i = 0 to 4 do
