@@ -784,7 +784,10 @@ module Sim900.Machine
     let mutable I3            = false
     let mutable I3M = false
 
-    let updateDisplay() =
+
+
+
+    let panelLights() =
             
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     HeartBeat <- HeartBeat + 1
@@ -834,6 +837,10 @@ module Sim900.Machine
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
+
+
+    let panelButtons() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOB) <<< 10
