@@ -148,6 +148,8 @@ module Sim900.Bits
    let mutable controlPanelU4 = 0
    let mutable I2cMultiplexer = 0
    let mutable punchPort      = 0
+   let mutable readerPort     = 0
+   let mutable plotterPort    = 0
    let mutable DisplayU1 = 0
    let mutable DisplayU2 = 0
    let mutable DisplayU3 = 0
@@ -156,17 +158,23 @@ module Sim900.Bits
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.None, 8, Ports.StopBits.One)
 
    port.ReadTimeout <- 250
+
    let setupControlPorts () =
        wiringPiSetup ()
 
        pinMode 3 GPIO.pinType.Input   // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                       // The Gold lead from the punch connects here.
-       pinMode 4 GPIO.pinType.Output   // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+       pinMode 4 GPIO.pinType.Output  // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
                                       // The Brown lead from the punch connects here.
 
-       pinMode 5 GPIO.pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
+       pinMode 5 GPIO.pinType.Input   // Setup pin 5 as an input.  This is to see the spocket hole on the tape reader 
+
+       pinMode 6 GPIO.pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
                                       // The Brown lead from the reader connects here. 
-       
+
+       digitalWrite 6 GPIO.pinValue.High //Make sure the reader motor is off
+
+
 
        //Pin 24 controls the mains out and the cooling fan
        pinMode 24 GPIO.pinType.Output; digitalWrite 24 GPIO.pinValue.Low
@@ -291,9 +299,12 @@ module Sim900.Bits
 
        //Setup the paper tape MCP23017 
        punchPort      <- wiringPiI2CSetup 0x27
+       readerPort     <- punchPort
+//       plotterPort    <- wiringPiI2CSetup 0x25
 
-       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
-       wiringPiI2CWriteReg8 punchPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+       wiringPiI2CWriteReg8 punchPort  (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.GPPUB ) 0b11111011 |> ignore //Bank B pull up resistors
 
        wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select Display Unit
 
