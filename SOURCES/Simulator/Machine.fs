@@ -835,6 +835,17 @@ module Sim900.Machine
                     //Now set the lights by sending the combined value to the control panel
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATB) ( PanelOutput )  |> ignore
 
+                    // Display the current Interrupt level
+                    if on && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
+                                                          else InterruptDisp <- InterruptDisp &&& 0b11111101
+
+                    if on && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
+                                                          else InterruptDisp <- InterruptDisp &&& 0b11101111
+
+                    if on && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
+                                                          else InterruptDisp <- InterruptDisp &&& 0b01111111
+
+                    wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
 
@@ -925,17 +936,6 @@ module Sim900.Machine
                     if PanelInput &&& 0b10000000 = 0b10000000 && on && operate = mode.Test
                         then MessagePut ("Interrupt 3: Trace")
                     
-                    // Display the current Interrupt level
-                    if on && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
-                                                          else InterruptDisp <- InterruptDisp &&& 0b11111101
-
-                    if on && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
-                                                          else InterruptDisp <- InterruptDisp &&& 0b11101111
-
-                    if on && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
-                                                          else InterruptDisp <- InterruptDisp &&& 0b01111111
-
-                    wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
  
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOB); 
 
