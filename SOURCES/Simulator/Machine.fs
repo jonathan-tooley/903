@@ -1003,14 +1003,16 @@ module Sim900.Machine
 
     let Processor () =
             while alive do
-              updateDisplay ()
+              panelLights ()
+              panelButtons ()
               while on && stopped && obey do
                   //The control panel is requesting an obey
+                  panelLights()
                   Execute (wordGenerator)
                   obey <- false
                   
               while on && (not stopped) do
-               
+                panelButtons()
                 // Handle interrupts if not protected
                 // (Protect is set to stop an interrupt intruding between 0 and following instruction) 
                 if   takeInterrupt
@@ -1038,4 +1040,7 @@ module Sim900.Machine
                 // increment instruction count
                 iCount <- iCount+1L
                 if cycle then stopped <- true
+
+
+            panelLights()
 
