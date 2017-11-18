@@ -709,8 +709,9 @@ module Sim900.Machine
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
 
-            if reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
-            if stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
+            if reset     then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
+            if stopped   then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
+            if ttyDemand then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
 
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
 
