@@ -878,15 +878,16 @@ module Sim900.Machine
 
                     if PanelInput &&& 0b00000100 = 0b00000100 && on
                         then MessagePut "System turned off."
-                             HeartBeat <- 0
+                             turnOff()
+
+                    if PanelInput &&& 0b00000100 = 0b00000100 && not on
+                        then HeartBeat <- 0
                              while (PanelInput &&& 0b00000100) = 0b00000100 && HeartBeat < 6000 do
                                 HeartBeat <- HeartBeat + 1
                                 PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-                             
-                             if HeartBeat < 6000 then turnOff ()
-                                                 else MessagePut "Shuting down"
-                                                      alive <- false
-                                                      turnOff ()
+                             if HeartBeat =  6000 then MessagePut "Shuting down"
+                                                       alive <- false
+                                                      
 
                     //Set the keyswitch
                     if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
