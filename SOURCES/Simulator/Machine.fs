@@ -794,14 +794,13 @@ module Sim900.Machine
                     if HeartBeat > 40 then Flash <- true
                     if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
 
-                           
 
                     //Update MCP23017 U1 Outputs
                     PanelOutput <- 0
                      
-                    if reset          then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on && Flash    then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
-                    if (not on)       then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
+                    if reset             then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
+                    if on && Flash       then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if (not on) && alive then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
 
@@ -853,6 +852,7 @@ module Sim900.Machine
 
                     if WGet () <> PanelInput && on && not (operate = mode.Auto)
                       then WPut PanelInput
+
 
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
