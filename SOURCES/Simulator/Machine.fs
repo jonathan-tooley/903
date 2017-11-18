@@ -791,18 +791,6 @@ module Sim900.Machine
                     if HeartBeat > 40 then Flash <- true
                     if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
 
-                    // Update the word generator using MCP23017 U1 & U2 Inputs  
-                    // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOB) <<< 10
-                    // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
-                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOA) <<< 2)
-                    // Read from U1 bank B the final two bits, 2 and 1
-                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
-
-                    // Update the word generator
-
-                    if WGet () <> PanelInput && on && not (operate = mode.Auto)
-                      then WPut PanelInput
                            
 
                     //Update MCP23017 U1 Outputs
@@ -846,6 +834,19 @@ module Sim900.Machine
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
+                    // Update the word generator using MCP23017 U1 & U2 Inputs  
+                    // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOB) <<< 10
+                    // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOA) <<< 2)
+                    // Read from U1 bank B the final two bits, 2 and 1
+                    PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
+
+                    // Update the word generator
+
+                    if WGet () <> PanelInput && on && not (operate = mode.Auto)
+                      then WPut PanelInput
+
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
 
