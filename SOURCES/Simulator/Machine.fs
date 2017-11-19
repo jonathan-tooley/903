@@ -870,6 +870,15 @@ module Sim900.Machine
                                                        status <- machineMode.Dead
                                                        panelLights()
 
+    let OnSwitch() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+                    if PanelInput &&& 0b00010000 = 0b00010000
+                        then MessagePut "Turn system on."
+                             turnOn ()
+                             panelLights()
+
+
     let KeySwitch() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
@@ -950,14 +959,6 @@ module Sim900.Machine
                         then MessagePut "Reset button pressed."
                              ResetButton <- true;
                              Reset ()
-                    
-                    //Control the on and off buttons
-                    if PanelInput &&& 0b00010000 = 0b00010000 && status = machineMode.Off
-                        then MessagePut "Turn system on."
-                             turnOn ()
-
-                                                      
-
 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
            
