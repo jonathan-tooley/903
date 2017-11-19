@@ -262,6 +262,16 @@ module Sim900.Machine
                 // Then we can stop telling to write as it has started working on our command
                 digitalWrite 4 GPIO.pinValue.Low
 
+        let DisplayA () =
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            //let shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
+                                                                           (int (QGet() &&& 0b110000000000000000) >>> 14) |||  //Could be better? Read current illumination first?
+                                                                           (int (BGet() &&& 0b110000000000000000) >>> 12) |||
+                                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
+
         let readByte char =
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
             digitalWrite 6 GPIO.pinValue.Low
@@ -273,9 +283,9 @@ module Sim900.Machine
                  while handShake = GPIO.pinValue.High do
                        handShake <- digitalRead 5
                  digitalWrite 6 GPIO.pinValue.High
+                 DisplayA ()
+             else status <- machineMode.Stopped
              
-               
-
 
         let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
@@ -300,6 +310,7 @@ module Sim900.Machine
                 ch <- (if OddParity ch then bit8 ||| ch else ch)
                 accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
                 port.Write (System.String.Concat( char (accumulator &&& mask7)))
+                DisplayA ()
             with
             _ ->  if PriorityButtons() then ch <- 0 
                                             ttyDemand <- false
@@ -599,23 +610,7 @@ module Sim900.Machine
     
     open MachineStateHelper
 
-    // ACCESS REGISTERS
-    let AGet ()     = accumulator 
-    let APut value  = accumulator <- value &&& mask18
-    let QGet ()     = qRegister 
-    let QPut value  = qRegister   <- value &&& mask18
-    let BGet ()     = memory.[int bRegisterAddr] 
-    let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
-    let SGet ()     = sequenceControlRegister
-    let OldSGet ()  = oldSequenceControlRegister
-    let SPut value  = sequenceControlRegister 
-    let IGet ()     = iRegister
-    let WGet ()     = wordGenerator
-    let WPut value  = wordGenerator <- value &&& mask18
-    let L1Get()     = levelActive.[1]
-    let L2Get()     = levelActive.[2]
-    let L3Get()     = levelActive.[3]
-    let LGet ()     = interruptLevel 
+
 
     // ACCESS MEMORY     
     
@@ -723,15 +718,7 @@ module Sim900.Machine
             
     let mutable sr = 0
 
-    let DisplayA () =
-            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
-            //let shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
-                                                                           (int (QGet() &&& 0b110000000000000000) >>> 14) |||  //Could be better? Read current illumination first?
-                                                                           (int (BGet() &&& 0b110000000000000000) >>> 12) |||
-                                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
+
 
     let DisplayRegisters () =
             DisplayA ()         
