@@ -943,19 +943,31 @@ module Sim900.Machine
 
                     //Control the reset button
                     if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Auto && not ResetButton && status <> machineMode.Reset
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Auto && not ResetButton 
                         then MessagePut "Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177."
                              ResetButton <- true;     
                              Reset ()
                              DisplayRegisters ()
                              //Handle Jump
 
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && not (operate = mode.Auto) && not ResetButton && status <> machineMode.Reset
+                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && not (operate = mode.Auto) && not ResetButton 
                         then MessagePut "Reset button pressed."
                              ResetButton <- true;
                              Reset ()
                              DisplayRegisters ()
 
+
+    let CycleSwitch() =                    
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
+                    let mutable res = false
+                    if PanelInput &&& 0b00000001 = 0b00000001   
+                        then res <- true  //Order Stop is the same as cycle stop
+                    if PanelInput &&& 0b00000010 = 0b00000000 && PanelInput &&& 0b00000001 = 0b00000000
+                        then res <- false 
+                    if PanelInput &&& 0b00000010 = 0b00000010  
+                        then res <- true  
+                    res
     let Jump () =
         // JUMP forces level 1 on 920A and 920B
         scrAddr         <- 0
@@ -977,21 +989,24 @@ module Sim900.Machine
                              WordSwitch ()
                              Jump ()
 
+    let StopSwitch() = 
     let panelButtons() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
-           
-
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on() && not (operate = mode.Auto)
-                        then status <- machineMode.Stopped
+                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && not (operate = mode.Auto)
+                        then MessagePut "Machine stopped"
+                             status <- machineMode.Stopped
                              StopButton <- true
 
-                    
+    let RestartSwitch() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore                    
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
                     if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
-                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && on() && not (operate = mode.Auto)
-                        then status <- machineMode.Running
-                             RestartButton <- true
+                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && not (operate = mode.Auto)
+                        then RestartButton <- true
+                             if CycleSwitch () then status <- machineMode.Cycle  ; MessagePut "Restart in single step"
+                                               else status <- machineMode.Running; MessagePut "Restart run"
 
 
                     // Handle MCP23017 U3 Inputs
@@ -1041,19 +1056,6 @@ module Sim900.Machine
                     if PanelInput &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test && I3 
                         then I3 <- false                       
 
-                    // Handle MCP23008 U4 Inputs
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
-
-                    if PanelInput &&& 0b00000001 = 0b00000001 && on() && status <> machineMode.Cycle 
-                        then status <- machineMode.Cycle 
-                             MessagePut "Entering Single Step Mode" //Order Stop is the same as cycle stop
-                    
-                    if PanelInput &&& 0b00000010 = 0b00000000 && status =  machineMode.Cycle 
-                        then status <- machineMode.Stopped //Exit single step mode
-
-                    if PanelInput &&& 0b00000010 = 0b00000010 && on() && status <> machineMode.Cycle 
-                        then status <- machineMode.Cycle  
-                             MessagePut "Entering Single Step Mode"  //Enter single step mode
                  
 
     let NextInstruction() = 
