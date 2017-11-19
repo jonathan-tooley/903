@@ -576,7 +576,7 @@ module Sim900.Machine
 
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
-    open MachineStateHelper 
+    open MachineStateHelper
 
     // ACCESS REGISTERS
     let AGet ()     = accumulator 
@@ -665,14 +665,8 @@ module Sim900.Machine
         EnableInitialInstructions ()
    
     
-            
-    // TIDYUP
-    let TidyUpMachine () =
-        Reset ()
-        iCount <- 0L                      
-        SelectInput  <- AutoIn
-        SelectOutput <- AutoOut
-         
+              
+                 
                         
     // TRACE INTERRUPTS
     let TraceInterruptOn level =
@@ -741,7 +735,7 @@ module Sim900.Machine
         // turn off machine - finalize any output
     let turnOff () =
             TidyUpDevices ()
-            TidyUpMachine ()
+            Reset ()
             // Make sure front panel indicators are off
             status <- machineMode.Off
 
@@ -774,7 +768,7 @@ module Sim900.Machine
             Reset ()
             //Power to the fan and mains connected accessories 
             digitalWrite 24 GPIO.pinValue.High
-            TidyUpMachine ()
+            iCount <- 0L
             TidyUpDevices ()
 
 
@@ -816,7 +810,7 @@ module Sim900.Machine
                     PanelOutput <- 0
                      
                     if status = machineMode.Reset  then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on() && Flash               then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
+                    if on()                        then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
                     if status = machineMode.Off    then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
 
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
