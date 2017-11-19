@@ -917,6 +917,21 @@ module Sim900.Machine
                     if WGet () <> PanelInput && on() && not (operate = mode.Auto)
                       then WPut PanelInput
 
+    let ObeySwitch() = 
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButtonS <- false 
+                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButtonS && operate = mode.Test
+                        then ObeyButtonS <- true
+                             MessagePut "Obey command"
+                             WordSwitch ()
+                             status     <- machineMode.Obey 
+                    
+                    if PanelInput &&& 0b01000000 = 0b00000000 then ObeyButtonR <- false
+                    if PanelInput &&& 0b01000000 = 0b01000000 && operate = mode.Test
+                        then if not ObeyButtonR then MessagePut "Repeating Obey Commands"; ObeyButtonR <- true 
+                             WordSwitch()
+                             status    <- machineMode.Obey
 
                     // Handle MCP23017 U1 inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
@@ -1021,17 +1036,6 @@ module Sim900.Machine
                     if PanelInput &&& 0b00000010 = 0b00000010 && on() && status <> machineMode.Cycle 
                         then status <- machineMode.Cycle  
                              MessagePut "Entering Single Step Mode"  //Enter single step mode
-                    
-                    if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButton <- false 
-                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && status = machineMode.Stopped && operate = mode.Test
-                        then ObeyButton <- true
-                             MessagePut "Obey request"
-                             status     <- machineMode.Obey 
-                    
-                    if PanelInput &&& 0b01000000 = 0b01000000 && status = machineMode.Stopped && operate = mode.Test
-                        then status    <- machineMode.Obey
-                             MessagePut "Obey request"
-       
                  
 
     let NextInstruction() = 
