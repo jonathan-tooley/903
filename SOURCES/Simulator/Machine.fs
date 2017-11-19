@@ -851,6 +851,23 @@ module Sim900.Machine
 
 
     let panelButtons() =
+    let OffSwitch() = 
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+                    if PanelInput &&& 0b00000100 = 0b00000100 && on()
+                        then MessagePut "System turned off."
+                             turnOff()
+                             panelLights()
+
+                    if PanelInput &&& 0b00000100 = 0b00000100 && status = machineMode.Off
+                        then HeartBeat <- 0
+                             while (PanelInput &&& 0b00000100) = 0b00000100 && HeartBeat < 6000 do
+                                HeartBeat <- HeartBeat + 1
+                                PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+                             if HeartBeat =  6000 then MessagePut "Shuting down"
+                                                       status <- machineMode.Dead
+                                                       panelLights()
+
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
@@ -887,17 +904,6 @@ module Sim900.Machine
                         then MessagePut "Turn system on."
                              turnOn ()
 
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on()
-                        then MessagePut "System turned off."
-                             turnOff()
-
-                    if PanelInput &&& 0b00000100 = 0b00000100 && status = machineMode.Off
-                        then HeartBeat <- 0
-                             while (PanelInput &&& 0b00000100) = 0b00000100 && HeartBeat < 6000 do
-                                HeartBeat <- HeartBeat + 1
-                                PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-                             if HeartBeat =  6000 then MessagePut "Shuting down"
-                                                       status <- machineMode.Dead
                                                       
 
                     //Set the keyswitch
