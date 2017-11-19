@@ -247,12 +247,14 @@ module Sim900.Machine
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
             digitalWrite 6 GPIO.pinValue.Low
             handShake <- digitalRead 5
-            while handShake = GPIO.pinValue.Low do
+            while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do
                 handShake <- digitalRead 5
-            accumulator <- wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB)
-            while handShake = GPIO.pinValue.High do
-                handShake <- digitalRead 5
-            digitalWrite 6 GPIO.pinValue.High
+            if not (PriorityButtons ()) 
+            then accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
+                 while handShake = GPIO.pinValue.High do
+                       handShake <- digitalRead 5
+                 digitalWrite 6 GPIO.pinValue.High
+             
                
 
 
