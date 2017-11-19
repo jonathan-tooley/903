@@ -846,7 +846,7 @@ module Sim900.Machine
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
 
 
-    let panelButtons() =
+
     let OffSwitch() = 
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
@@ -889,6 +889,8 @@ module Sim900.Machine
                     if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
                         then operate <- mode.Auto       
                              
+
+    let WordSwitch() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
@@ -897,6 +899,8 @@ module Sim900.Machine
                     PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOA) <<< 2)
                     // Read from U1 bank B the final two bits, 2 and 1
                     PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
+                    if WGet () <> PanelInput && not (operate = mode.Auto)
+                       then WPut PanelInput
 
     let EnterSwitch() = 
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
@@ -917,10 +921,6 @@ module Sim900.Machine
                              APut (WGet())
                              DisplayA ()
                              status <- machineMode.Stopped
-                    // Update the word generator
-
-                    if WGet () <> PanelInput && on() && not (operate = mode.Auto)
-                      then WPut PanelInput
 
     let ObeySwitch() = 
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
@@ -938,7 +938,8 @@ module Sim900.Machine
                              WordSwitch()
                              status    <- machineMode.Obey
 
-                    // Handle MCP23017 U1 inputs
+    let ResetSwitch() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
 
                     //Control the reset button
@@ -947,19 +948,29 @@ module Sim900.Machine
                         then MessagePut "Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177."
                              ResetButton <- true;     
                              Reset ()
+                             DisplayRegisters ()
                              //Handle Jump
 
                     if PanelInput &&& 0b01000000 = 0b01000000 && on() && not (operate = mode.Auto) && not ResetButton && status <> machineMode.Reset
                         then MessagePut "Reset button pressed."
                              ResetButton <- true;
                              Reset ()
+                             DisplayRegisters ()
 
+    let JumpSwitch() = 
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
            
                     if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
                     if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && status = machineMode.Reset && not (operate = mode.Auto)
                         then JumpButton <- true
+                             WordSwitch ()
                              Jump ()
+
+    let panelButtons() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
+           
 
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && on() && not (operate = mode.Auto)
