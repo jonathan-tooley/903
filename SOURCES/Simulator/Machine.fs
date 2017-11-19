@@ -702,13 +702,19 @@ module Sim900.Machine
             
     let mutable sr = 0
 
-    // display register
-    let DisplayRegisters () =
-          
+    let DisplayA () =
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
-
             wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            //let shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
+                                                                           (int (QGet() &&& 0b110000000000000000) >>> 14) |||  //Could be better? Read current illumination first?
+                                                                           (int (BGet() &&& 0b110000000000000000) >>> 12) |||
+                                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
+
+    let DisplayRegisters () =
+            DisplayA ()         
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
       
             wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) (int (BGet())       &&& mask8) |> ignore
             wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
@@ -794,8 +800,6 @@ module Sim900.Machine
     let mutable I2M = false
     let mutable I3            = false
     let mutable I3M = false
-
-
 
 
     let panelLights() =
