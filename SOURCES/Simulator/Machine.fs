@@ -297,8 +297,6 @@ module Sim900.Machine
 
         let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
-
-
         let rec TTYInput Z =
             let mutable ch = 0
             ttyDemand <- true
@@ -313,10 +311,10 @@ module Sim900.Machine
                 DisplayA ()
             with
             _ ->  if PriorityButtons() then ch <- 0 
+                                            status <- machineMode.Stopped
                                             ttyDemand <- false
                                             MessagePut "Teleprinter Demand off"
                                        else TTYInput Z
-
 
         let TTYOutput Z =
             pRegister <- Z
