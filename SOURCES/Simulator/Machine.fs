@@ -893,6 +893,25 @@ module Sim900.Machine
                     // Read from U1 bank B the final two bits, 2 and 1
                     PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
 
+    let EnterSwitch() = 
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    if PanelInput &&& 0b00100000 = 0b00000000 then EnterButtonS <- false
+                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButtonS && operate = mode.Test
+                        then EnterButtonS <- true
+                             MessagePut "Enter command"
+                             WordSwitch()
+                             APut (WGet())
+                             DisplayA ()
+                             status <- machineMode.Stopped
+
+                    if PanelInput &&& 0b00010000 = 0b00000000 then EnterButtonR <- false
+                    if PanelInput &&& 0b00010000 = 0b00010000 && operate = mode.Test
+                        then if not EnterButtonR then MessagePut "Repeating Enter Commands"; EnterButtonR <- true
+                             WordSwitch()
+                             APut (WGet())
+                             DisplayA ()
+                             status <- machineMode.Stopped
                     // Update the word generator
 
                     if WGet () <> PanelInput && on() && not (operate = mode.Auto)
@@ -1002,17 +1021,6 @@ module Sim900.Machine
                     if PanelInput &&& 0b00000010 = 0b00000010 && on() && status <> machineMode.Cycle 
                         then status <- machineMode.Cycle  
                              MessagePut "Entering Single Step Mode"  //Enter single step mode
-                       
-
-                    if PanelInput &&& 0b00100000 = 0b00000000 then EnterButton <- false
-                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButton && status = machineMode.Stopped && operate = mode.Test
-                        then EnterButton <- true
-                             MessagePut "Enter command"
-                             APut (WGet())
-                    
-                    if PanelInput &&& 0b00010000 = 0b00010000 && status = machineMode.Stopped && operate = mode.Test
-                        then MessagePut "Enter Command"
-                             APut (WGet())
                     
                     if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButton <- false 
                     if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButton && status = machineMode.Stopped && operate = mode.Test
