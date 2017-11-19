@@ -968,6 +968,11 @@ module Sim900.Machine
                     if PanelInput &&& 0b00000010 = 0b00000010  
                         then res <- true  
                     res
+
+    let Command() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    if PanelInput &&& 0b00001000 = 0b00001000 then ListDirectory ()   
     let Jump () =
         // JUMP forces level 1 on 920A and 920B
         scrAddr         <- 0
@@ -990,7 +995,6 @@ module Sim900.Machine
                              Jump ()
 
     let StopSwitch() = 
-    let panelButtons() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
@@ -1008,6 +1012,9 @@ module Sim900.Machine
                              if CycleSwitch () then status <- machineMode.Cycle  ; MessagePut "Restart in single step"
                                                else status <- machineMode.Running; MessagePut "Restart run"
 
+    let panelButtons() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
 
                     // Handle MCP23017 U3 Inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOA); 
@@ -1055,8 +1062,6 @@ module Sim900.Machine
                         then MessagePut ("Interrupt 3: Request"); I3 <- true; ManualInterrupt 3
                     if PanelInput &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test && I3 
                         then I3 <- false                       
-
-                 
 
     let NextInstruction() = 
                 
