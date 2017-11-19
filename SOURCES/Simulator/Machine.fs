@@ -635,16 +635,7 @@ module Sim900.Machine
              
  
         
-    // JUMP START EXECUTION             
-    let Jump () =
-        // JUMP forces level 1 on 920A and 920B
-        scrAddr         <- 0
-        bRegisterAddr   <- 1
-        interruptLevel  <- 1  
-        levelActive.[1] <- true    
-        EnableInitialInstructions () 
-        sequenceControlRegister <- (wordGenerator &&& mask13)
-        status         <- machineMode.Running 
+ 
          
     // GENERATE A MANUAL INTERRUPT      
     let ManualInterrupt level = // Signal a manual interrupt
@@ -965,6 +956,17 @@ module Sim900.Machine
                              Reset ()
                              DisplayRegisters ()
 
+    let Jump () =
+        // JUMP forces level 1 on 920A and 920B
+        scrAddr         <- 0
+        bRegisterAddr   <- 1
+        interruptLevel  <- 1  
+        levelActive.[1] <- true    
+        EnableInitialInstructions () 
+        sequenceControlRegister <- (wordGenerator &&& mask13)
+        if CycleSwitch () then status <- machineMode.Cycle  ; MessagePut "Jumping to address in single step mode"
+                          else status <- machineMode.Running; MessagePut "Jumping to address"
+        
     let JumpSwitch() = 
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
