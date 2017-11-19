@@ -1026,6 +1026,27 @@ module Sim900.Machine
        
                  
 
+    let NextInstruction() = 
+                
+              // Handle interrupts if not protected
+              // (Protect is set to stop an interrupt intruding between 0 and following instruction) 
+            if takeInterrupt
+            then if not protect
+                 then SaveSB () // switch to new level
+                      takeInterrupt <- false
+                      interruptLevel <- HighestActiveLevel ()
+                      RestoreSB ()
+                      // re-enable initial instructions if going to level 1
+                      if   interruptLevel = 1
+                      then EnableInitialInstructions ()  
+            // clear interrupt protection
+            protect <- false
+            let oldLevel = interruptLevel // 15 7168 might change the interrupt level
+
+            // SCR is incremented after instruction fetch, before decode
+            oldSequenceControlRegister <- sequenceControlRegister
+            sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
+            try
     let Processor () =
             while status <> machineMode.Dead do
               panelLights ()
@@ -1059,13 +1080,12 @@ module Sim900.Machine
                 sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
                 try
                     Execute (ReadMem oldSequenceControlRegister) 
-                with
-                | exn -> stopped <- true; stdout.Write("Execution Error in Processor")
+            with
+            | exn -> status <- machineMode.Stopped; stdout.Write("Execution Error in Processor")
             
-                // increment instruction count
-                iCount <- iCount+1L
-                if status = machineMode.Cycle then status <- machineMode.Stopped
-
+            // increment instruction count
+            iCount <- iCount+1L
+     
 
             panelLights()
 
