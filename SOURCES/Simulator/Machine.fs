@@ -868,6 +868,22 @@ module Sim900.Machine
                                                        status <- machineMode.Dead
                                                        panelLights()
 
+    let KeySwitch() =
+                    wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+                    if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
+                        then operate <- mode.Test
+                             MessagePut "Keyswitch turned to test"
+
+                    if PanelInput &&& 0b00000010 = 0b00000010 && not (operate = mode.Operate)
+                        then operate <- mode.Operate
+                             MessagePut "Keyswitch turned to operate"
+                             if EnterButtonR then MessagePut "Halting Repeat Enter"; EnterButtonR <- false
+
+
+                    if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
+                        then operate <- mode.Auto       
+                             
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
@@ -906,15 +922,6 @@ module Sim900.Machine
 
                                                       
 
-                    //Set the keyswitch
-                    if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
-                        then operate <- mode.Test       //Keyswitch turned to test
-
-                    if PanelInput &&& 0b00000010 = 0b00000010 && not (operate = mode.Operate)
-                        then operate <- mode.Operate    //Keyswitch turned to operate
-
-                    if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
-                        then operate <- mode.Auto       //Keyswitch turned to Auto
 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
            
