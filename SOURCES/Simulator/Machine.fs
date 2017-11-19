@@ -1047,38 +1047,6 @@ module Sim900.Machine
             oldSequenceControlRegister <- sequenceControlRegister
             sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
             try
-    let Processor () =
-            while status <> machineMode.Dead do
-              panelLights ()
-              panelButtons ()
-              while status = machineMode.Obey do
-                  //The control panel is requesting an obey
-                  panelLights()
-                  Execute (wordGenerator)
-                  status <- machineMode.Stopped  //After an obey we return to stopped
-                  
-              while on && (not stopped) do
-                panelButtons()
-                // Handle interrupts if not protected
-                // (Protect is set to stop an interrupt intruding between 0 and following instruction) 
-                if   takeInterrupt
-                then if not protect
-                     then SaveSB () // switch to new level
-                          takeInterrupt <- false
-                          interruptLevel <- HighestActiveLevel ()
-                          RestoreSB ()
-                          // re-enable initial instructions if going to level 1
-                          if   interruptLevel = 1
-                          then EnableInitialInstructions ()  
-                // clear interrupt protection
-                protect <- false
-               
-                let oldLevel = interruptLevel // 15 7168 might change the interrupt level
-
-                // SCR is incremented after instruction fetch, before decode
-                oldSequenceControlRegister <- sequenceControlRegister
-                sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
-                try
                     Execute (ReadMem oldSequenceControlRegister) 
             with
             | exn -> status <- machineMode.Stopped; stdout.Write("Execution Error in Processor")
@@ -1087,5 +1055,38 @@ module Sim900.Machine
             iCount <- iCount+1L
      
 
+    let Processor () =
             panelLights()
+            while status <> machineMode.Dead do
+                match status with
+                | Dead       -> ignore      ()
+                | Off        -> OffSwitch   ()
+                                OnSwitch    ()
+                                KeySwitch   ()
+                                panelLights ()
+                | Reset      -> OffSwitch   ()
+                                KeySwitch   ()
+                                EnterSwitch ()
+                                ObeySwitch  ()
+                                JumpSwitch  ()
+                                panelLights ()
+                | Stopped   ->  OffSwitch   ()
+                                KeySwitch   ()
+                                EnterSwitch ()
+                                ObeySwitch  ()
+                                ResetSwitch ()
+                                panelLights ()
+                | Obey      ->  Execute (wordGenerator)
+                                status <- machineMode.Stopped  //After an obey we return to stopped
+                                DisplayRegisters ()
+                | Cycle     ->  NextInstruction ()
+                                status <- machineMode.Stopped
+                | Running   ->  NextInstruction ()
+                                if iCount % 20L = 0L then DisplayRegisters ()
+                                                          ResetSwitch ()
+                                                          OffSwitch   ()
+     
+                  
 
+
+     
