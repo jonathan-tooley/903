@@ -790,8 +790,10 @@ module Sim900.Machine
     let mutable StopButton    = false
     let mutable RestartButton = false
     let mutable JumpButton    = false
-    let mutable EnterButton   = false
-    let mutable ObeyButton    = false
+    let mutable EnterButtonS  = false
+    let mutable EnterButtonR  = false
+    let mutable ObeyButtonS   = false
+    let mutable ObeyButtonR   = false
     let mutable I1            = false
     let mutable I1M = false
     let mutable I2            = false
