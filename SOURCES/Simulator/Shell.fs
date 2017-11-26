@@ -29,46 +29,15 @@ open Sim900.FileHandling
                                             ->  FileOpen f 
 
 
-            | (_,     [|"CD"; d|])          -> ChangeDir d
-
-            | (true,  [|"DETACH"; "PLT"|])  -> ClosePlotter ()
-
-            | (true,  [|"DETACH"; "PTP"|])  -> ClosePunch ()
-
-            | (true,  [|"DETACH"; "PTR"|])  -> CloseReader ()
 
             | (_,     [|"DELETE"; file|])   -> Delete file
-
-            | (_,     [|"LS"|])             -> ListDirectory ()
-
-
-            | (true,  [|"ORIGIN"; x; y|])   -> SetOrigin (GetNatural x) (GetNatural y)
-
-            | (true,  [|"REWIND" |])        -> RewindReader ()
-
 
 
             | (true,  [|"SCALE"; n|])       -> SetScale (GetNatural n)
 
-            | (true,  [|"SELECT"; "IN"; "PTR"|])
-                                            -> InputSelectReader ()
 
-            | (true,  [|"SELECT"; "IN"; "AUTO"|])
-                                            -> InputSelectAuto ()
 
-            | (true,  [|"SELECT"; "IN"; "TTY"|])
-                                            -> InputSelectTeleprinter ()
 
-            | (true,  [|"SELECT"; "OUT"; "PTP"|])
-                                            -> OutputSelectPunch ()
-
-            | (true,  [|"SELECT"; "OUT"; "AUTO"|])
-                                            -> OutputSelectAuto ()
-
-            | (true,  [|"SELECT"; "OUT"; "TTY"|])
-                                            -> OutputSelectTeleprinter ()
-
-  
-     
+      
 
             *)
