@@ -237,9 +237,11 @@ module Sim900.Machine
                          raise e  
 
         let PriorityButtons() =
+            // This will allow us to see if a reset or off is pressed during TTY and Reader operations
             let mutable PanelInput = 0
-            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore   //Select the control panel on
             PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Go back to i/o 
             if (PanelInput &&& 0b01000000 = 0b01000000) || (PanelInput &&& 0b00000100 = 0b00000100) then true else false
 
         let mutable handShake = GPIO.pinValue.High
