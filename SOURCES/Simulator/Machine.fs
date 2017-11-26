@@ -651,9 +651,7 @@ module Sim900.Machine
         accumulator     <- 0       
         qRegister       <- 0       
         bRegisterAddr   <- 1       
-        WriteMem 1 0
         scrAddr         <- 0      
-        WriteMem 0 0
         iRegister       <- 0       
         pRegister       <- 0      
         interruptLevel  <- 1         
@@ -663,15 +661,15 @@ module Sim900.Machine
 
         //port.Write "\r\u001B\u003A"
 
-
         for i = 0 to 4 do
             levelActive.[i]      <- false
             interruptPending.[i] <- false
             interruptTrace.[i]   <- false
         levelActive.[1] <- true
         EnableInitialInstructions ()
+        WriteMem 1 0
+        WriteMem 0 0
    
-    
               
                  
                         
