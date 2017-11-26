@@ -51,32 +51,14 @@ module Sim900.FileHandling
                  | ".900"                   -> OpenReaderText T900  f
                  | ".BIN" | ".RLB" | _      -> OpenReaderBin f
                                     
-        // change directory
-        let ChangeDir d =
-            if   Directory.Exists d 
-            then System.Environment.CurrentDirectory <- d
-            else raise (Syntax (sprintf "Cannot open directory %s" d))
 
-        // IMAGES are dumps of memory write out as four bytes per word.
-        // words 0-7 are not included in the file
-        // (this format is due to Terry Froggatt)
-
-        // dump image -- size is the total memory size, from 0
-//        let DumpImage fileName size =
-//            File.WriteAllBytes (fileName, (DumpImage size))
-
-        // load image -- load a previously dumped image
-//        let LoadImage fileName =
-//            let fi = fileName+".IMG"
-//            let f = if File.Exists fileName then fileName elif File.Exists fi then fi else fileName
-//            let bytes = File.ReadAllBytes f
-//            if bytes.Length % 4 <> 0 then raise (Syntax "Wrong number of bytes in file")
-//            LoadImage bytes
-
-                 
         // list directory
         let ListDirectory () =
-            Directory.EnumerateFileSystemEntries "." 
+            Directory.EnumerateFileSystemEntries (".", "*.BIN") 
+                |> Seq.iter (fun s -> printfn "%s" s.[2..])
+            Directory.EnumerateFileSystemEntries (".", "*.900") 
+                |> Seq.iter (fun s -> printfn "%s" s.[2..])
+            Directory.EnumerateFileSystemEntries (".", "*.RLB") 
                 |> Seq.iter (fun s -> printfn "%s" s.[2..])
 
         // read inline text
