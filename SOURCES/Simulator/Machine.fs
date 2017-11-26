@@ -48,22 +48,12 @@ module Sim900.Machine
 
     let mutable operate           = mode.Auto                        // Keyswitch position defaults to auto
 
+    let memory: int[]     = Array.zeroCreate (8*16*1024)
 
-    // MACHINE INTERNAL STATE
-
-    // Initial values are for 64K 920b
-
-    //
 
     module public MachineStateHelper =
 
-        // STORE
-
-        // For machines before 920C memory is max 8 * 8K modules
-        // For 920C max is either 8 * 8K modules or 8 * 16K modules
-        // For simplicity work in units of 8K
-        let memory: int[]     = Array.zeroCreate (8*16*1024)
-  
+      
         // Initial instructions
         //
         // 903: On 903 processors fitted with more that 8192 words of core store [these locations]
@@ -278,15 +268,16 @@ module Sim900.Machine
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
             digitalWrite 6 GPIO.pinValue.Low
             handShake <- digitalRead 5
-            while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do
-                handShake <- digitalRead 5
-            if not (PriorityButtons ()) 
-            then accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
-                 while handShake = GPIO.pinValue.High do
-                       handShake <- digitalRead 5
-                 digitalWrite 6 GPIO.pinValue.High
-                 DisplayA ()
-             else status <- machineMode.Stopped
+            while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do handShake <- digitalRead 5
+            if not (PriorityButtons ())  
+                then
+                         accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
+                         while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
+                         digitalWrite 6 GPIO.pinValue.High
+                         DisplayA ()
+                else 
+                         status <- machineMode.Stopped
+                         digitalWrite 6 GPIO.pinValue.High
              
 
         let BitCount code =
@@ -302,11 +293,9 @@ module Sim900.Machine
         let rec TTYInput Z =
             let mutable ch = 0
             ttyDemand <- true
-            MessagePut "Teleprinter Demand on"
             try
                 ch <- int (port.ReadByte())
                 ttyDemand <- false
-                MessagePut "Teleprinter Demand off"
                 ch <- (if OddParity ch then bit8 ||| ch else ch)
                 accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
                 port.Write (System.String.Concat( char (accumulator &&& mask7)))
@@ -338,7 +327,7 @@ module Sim900.Machine
         let Reader Z = 
             match SelectInput with
             | ReaderIn       -> readByte Z
-            | AutoIn         -> readByte Z
+            | AutoIn         -> ReaderInput Z
             | TeleprinterIn  -> TTYInput Z
 
         let TTYIn Z =
@@ -724,7 +713,7 @@ module Sim900.Machine
 
             if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
             if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
-            if ttyDemand                    then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
+//            if ttyDemand                    then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
 
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
 
@@ -790,6 +779,7 @@ module Sim900.Machine
     let mutable EnterButtonR  = false
     let mutable ObeyButtonS   = false
     let mutable ObeyButtonR   = false
+    let mutable CmdButton     = false
     let mutable I1            = false
     let mutable I1M = false
     let mutable I2            = false
@@ -870,6 +860,7 @@ module Sim900.Machine
                     if PanelInput &&& 0b00010000 = 0b00010000
                         then MessagePut "Turn system on."
                              turnOn ()
+
 
 
     let KeySwitch() =
@@ -1135,26 +1126,27 @@ module Sim900.Machine
             panelLights()
             while status <> machineMode.Dead do
                 match status with
-                | Dead       -> ignore        ()
-                | Off        -> OffSwitch     ()
-                                OnSwitch      ()
-                                KeySwitch     ()
-                                panelLights   ()
-                | Reset      -> OffSwitch     ()
-                                KeySwitch     ()
-                                EnterSwitch   ()
-                                ObeySwitch    ()
-                                JumpSwitch    ()
-                                panelLights   ()
+                | Dead       -> ignore           ()
+                | Off        -> OffSwitch        ()
+                                OnSwitch         ()
+                                KeySwitch        ()
+                                panelLights      ()
+                | Reset      -> OffSwitch        ()
+                                KeySwitch        ()
+                                EnterSwitch      ()
+                                ObeySwitch       ()
+                                JumpSwitch       ()
+                                Command          ()
+                                panelLights      ()
                                 DisplayRegisters ()
-                | Stopped   ->  OffSwitch     ()
-                                KeySwitch     ()
-                                EnterSwitch   ()
-                                ObeySwitch    ()
-                                RestartSwitch ()
-                                ResetSwitch   ()
-                                Command       ()
-                                panelLights   ()
+                | Stopped   ->  OffSwitch        ()
+                                KeySwitch        ()
+                                EnterSwitch      ()
+                                ObeySwitch       ()
+                                RestartSwitch    ()
+                                ResetSwitch      ()
+                                Command          ()
+                                panelLights      ()
                                 DisplayRegisters ()
                 | Obey      ->  Execute (wordGenerator)
                                 status <- machineMode.Stopped  //After an obey we return to stopped
@@ -1165,7 +1157,7 @@ module Sim900.Machine
                                                             ResetSwitch ()
                                                             StopSwitch  ()
                                                             OffSwitch   ()
-                                if iCount % 1000L = 0L then MessagePut "1k"
+                               
      
                   
 
