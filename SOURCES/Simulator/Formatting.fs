@@ -1,13 +1,5 @@
 ﻿#light
 
-// Formatting functions for Elliott 903 Data Types
-//
-// Format objects provide Elliot 903 formatted output to a StreamWriter
-// (generally a file or system console).
-//
-// By default a mapping of F# (UTF) characters to Elliott 900 series telecode is used:
-// if the t900Out flag is set the Elliott 903 telecode mapping is applied.
-
 module Sim900.Formatting
     open System
     open System.IO

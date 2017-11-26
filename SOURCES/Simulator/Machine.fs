@@ -338,8 +338,8 @@ module Sim900.Machine
 
         let Punch Z =
             match SelectOutput with
-            | PunchOut        -> punchByte (accumulator &&& mask8)
-            | AutoOut         -> punchByte (accumulator &&& mask8)
+            | PunchOut        -> punchByte   (accumulator &&& mask8)
+            | AutoOut         -> PunchOutput (accumulator &&& mask8)
             | TeleprinterOut  -> TTYOutput Z
 
         let TTYOut Z =
@@ -968,43 +968,67 @@ module Sim900.Machine
                         WordSwitch ()
                         CmdButton <- true
                         match wordGenerator with
-                        | 0 ->  MessagePut ("Command Mode.  Select your choice on the Word Generator:")
-                                MessagePut (" 1:  List Directory.")
-                                MessagePut (" 2:  Detach file from paper tape punch.")
-                                MessagePut (" 3:  Detach file from paper tape reader.")
-                                MessagePut (" 4:  Attach SIR to paper tape reader.")
-                                MessagePut (" 5:  Select Input  : Teleprinter")
-                                MessagePut (" 6:  Select Input  : Auto")
-                                MessagePut (" 7:  Select Input  : Reader")
-                                MessagePut (" 8:  Select Output : Teleprinter")
-                                MessagePut (" 9:  Select Output : Auto")
-                                MessagePut ("10:  Select Output : Punch")
-                        | 1 ->  MessagePut ("Listing Directory")
-                                ListDirectory ()
-                        | 2 ->  MessagePut ("Detaching file from paper tape punch.")
-                                ClosePunch ()
-                        | 3 ->  MessagePut ("Detaching file from paper tape reader.")
-                                CloseReader ()
-                        | 4 ->  MessagePut ("Attaching SIR to the tape reader.")
-                                FileOpen "SIR.BIN"
-                        | 5 ->  MessagePut ("Selecting input teleprinter")
-                                InputSelectTeleprinter ()
-                        | 6 ->  MessagePut ("Selecting input Auto")
-                                InputSelectAuto ()
-                        | 7 ->  MessagePut ("Selecting Input paper tape reader")
-                                InputSelectReader ()
-                        | 8 ->  MessagePut ("Selecting output Teleprinter")
-                                OutputSelectTeleprinter ()
-                        | 9 ->  MessagePut ("Selecting output auto")
-                                OutputSelectAuto ()
-                        |10 ->  MessagePut ("Selecting output punch")
-                                OutputSelectPunch ()
-                        | _ -> ignore ()
+                        |   0 ->  MessagePut ("Command Mode.  Select your choice on the Word Generator:")
+                                  MessagePut ("   1:  List Directory.")
+                                  MessagePut ("   2:  Detach file from paper tape punch.")
+                                  MessagePut ("   3:  Detach file from paper tape reader.")
+                                  MessagePut ("   4:  Attach SIR to paper tape reader.")
+                                  MessagePut ("   5:  Attach alg1(iss6) to the tape reader.")
+                                  MessagePut ("   6:  Attach alg16klp(iss6) to the tape reader.")
+                                  MessagePut ("   7:  Attach alg3(tjf) to the tape reader.")
+                                  MessagePut ("4096:  Select Input  : Teleprinter")
+                                  MessagePut ("2048:  Select Input  : Auto")
+                                  MessagePut ("1024:  Select Input  : Reader")
+                                  MessagePut (" 512:  Select Output : Teleprinter")
+                                  MessagePut (" 128:  Select Output : Auto")
+                                  MessagePut ("  64:  Select Output : Punch")
+                        |   1 ->  MessagePut ("Listing Directory")
+                                  ListDirectory ()
+                        |   2 ->  MessagePut ("Detaching file from paper tape punch.")
+                                  ClosePunch ()
+                        |   3 ->  MessagePut ("Detaching file from paper tape reader.")
+                                  CloseReader ()
+                        |   4 ->  MessagePut ("Attaching SIR to the tape reader.")
+                                  FileOpen "SIR.BIN"
+                        |   5 ->  MessagePut ("Attaching alg1(iss6).bin")
+                                  FileOpen "ALG1.BIN"
+                        |   6 ->  MessagePut ("alg16klp(iss6).bin")
+                                  FileOpen "ALGLP.BIN"
+                        |   7 ->  MessagePut ("alg3(tjf).rlb")
+                                  FileOpen "ALG3(TJF).RLB"
+                        |   8 ->  let mutable fn = ""
+                                  fn <- System.Console.In.ReadLine ()
+                                  try FileOpen (fn) with
+                                  | e -> MessagePut "File not read error. "
+                        |   9 ->  let mutable fn = ""
+                                  fn <- System.Console.In.ReadLine ()
+                                  if   fn.EndsWith ".900" 
+                                          then OpenPunchTxt fn T900
+                                          elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
+                                          then OpenPunchBin fn 
+                                          else MessagePut ("Error")
+                        |  10 ->  let mutable fn = ""
+                                  fn <- System.Console.In.ReadLine ()
+                                  Delete fn                           
+                        |4096 ->  MessagePut ("Selecting input teleprinter")
+                                  InputSelectTeleprinter ()
+                        |2048 ->  MessagePut ("Selecting input Auto")
+                                  InputSelectAuto ()
+                        |1024 ->  MessagePut ("Selecting Input paper tape reader")
+                                  InputSelectReader ()
+                        | 512 ->  MessagePut ("Selecting output Teleprinter")
+                                  OutputSelectTeleprinter ()
+                        | 128 ->  MessagePut ("Selecting output auto")
+                                  OutputSelectAuto ()
+                        |  64 ->  MessagePut ("Selecting output punch")
+                                  OutputSelectPunch ()
+                        | _   -> ignore ()
 
+
+      
 
 
     let Jump () =
-        // JUMP forces level 1 on 920A and 920B
         scrAddr         <- 0
         bRegisterAddr   <- 1
         interruptLevel  <- 1  

@@ -4,7 +4,6 @@ module Sim900.FileHandling
 
         open System.IO
         open System.Text
-
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Devices

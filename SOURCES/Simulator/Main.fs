@@ -8,7 +8,6 @@ open Sim900.Formatting
 open Sim900.Devices
 open Sim900.Bits
 open Sim900.Machine
-open Sim900.Shell
 open System
 open System.Windows
 open System.Windows.Forms
@@ -21,10 +20,10 @@ do
     CloseReader () // force devices to initialize
 
     setupControlPorts ()
+    SetScale (3)
 
     MessagePut "Elliott 903 Run Console"
 
     Processor()
 
-//    Application.Run()
 
