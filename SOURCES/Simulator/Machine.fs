@@ -972,7 +972,46 @@ module Sim900.Machine
     let Command() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
-                    if PanelInput &&& 0b00001000 = 0b00001000 then ListDirectory ()   
+                    if PanelInput &&& 0b00001000 = 0b00000000 &&     CmdButton  then CmdButton <- false
+                    if PanelInput &&& 0b00001000 = 0b00001000 && not CmdButton  then
+                        WordSwitch ()
+                        CmdButton <- true
+                        match wordGenerator with
+                        | 0 ->  MessagePut ("Command Mode.  Select your choice on the Word Generator:")
+                                MessagePut (" 1:  List Directory.")
+                                MessagePut (" 2:  Detach file from paper tape punch.")
+                                MessagePut (" 3:  Detach file from paper tape reader.")
+                                MessagePut (" 4:  Attach SIR to paper tape reader.")
+                                MessagePut (" 5:  Select Input  : Teleprinter")
+                                MessagePut (" 6:  Select Input  : Auto")
+                                MessagePut (" 7:  Select Input  : Reader")
+                                MessagePut (" 8:  Select Output : Teleprinter")
+                                MessagePut (" 9:  Select Output : Auto")
+                                MessagePut ("10:  Select Output : Punch")
+                        | 1 ->  MessagePut ("Listing Directory")
+                                ListDirectory ()
+                        | 2 ->  MessagePut ("Detaching file from paper tape punch.")
+                                ClosePunch ()
+                        | 3 ->  MessagePut ("Detaching file from paper tape reader.")
+                                CloseReader ()
+                        | 4 ->  MessagePut ("Attaching SIR to the tape reader.")
+                                FileOpen "SIR.BIN"
+                        | 5 ->  MessagePut ("Selecting input teleprinter")
+                                InputSelectTeleprinter ()
+                        | 6 ->  MessagePut ("Selecting input Auto")
+                                InputSelectAuto ()
+                        | 7 ->  MessagePut ("Selecting Input paper tape reader")
+                                InputSelectReader ()
+                        | 8 ->  MessagePut ("Selecting output Teleprinter")
+                                OutputSelectTeleprinter ()
+                        | 9 ->  MessagePut ("Selecting output auto")
+                                OutputSelectAuto ()
+                        |10 ->  MessagePut ("Selecting output punch")
+                                OutputSelectPunch ()
+                        | _ -> ignore ()
+
+
+
     let Jump () =
         // JUMP forces level 1 on 920A and 920B
         scrAddr         <- 0
