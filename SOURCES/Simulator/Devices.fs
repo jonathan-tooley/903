@@ -15,6 +15,8 @@ module Sim900.Devices
     
     exception Device of string
 
+
+    let YieldToDevices () = System.Threading.Thread.Yield () |> ignore
    
     // provide a dummy context to represent console "form"
     let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
@@ -63,16 +65,15 @@ module Sim900.Devices
             match tapeIn with
             | Some ti   -> ti
             | _         -> raise (Device "No input attached to tape reader")
-        if   tapeInPos >= ti.Length
-        then raise (Device "Run off end of paper tape input")
+        if   tapeInPos >= ti.Length then raise (Device "Run off end of paper tape input")
         else let code = ti.[tapeInPos]
              tapeInPos <- tapeInPos+1
              code
   
-    let RewindReader () =
-        match tapeIn with
-        | Some ti   ->  tapeInPos <- 0
-        | _         ->  raise (Device "No paper tape input to rewind")
+//    let RewindReader () =
+//        match tapeIn with
+//        | Some ti   ->  tapeInPos <- 0
+//        | _         ->  raise (Device "No paper tape input to rewind")
 
     let SkipReader () = 
         // skip over e.g., legible header by scanning to next non-blank then looking for 20 blanks
@@ -104,6 +105,16 @@ module Sim900.Devices
     type Encoding =
         | Text   of Telecodes
 
+
+    let PriorityButtons() =
+            // This will allow us to see if a reset or off is pressed during TTY and Reader operations
+            let mutable PanelInput = 0
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore   //Select the control panel on
+            PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Go back to i/o 
+            if (PanelInput &&& 0b01000000 = 0b01000000) || (PanelInput &&& 0b00000100 = 0b00000100) then true else false
+
+
     module private PaperTapePunch =
 
         let mutable punchStream: StreamWriter option = None
@@ -111,8 +122,29 @@ module Sim900.Devices
         let mutable punchOutPos    = 0
         let mutable lastPunchCode  = 0uy  // last code punched
         let mutable lastPunchCount = 0    // count of how many times last code punched
+        let mutable punchHoldUp       = false
 
-     open PaperTapePunch
+    open PaperTapePunch
+
+    let mutable handShake = GPIO.pinValue.High
+   
+    let punchByte (char : byte) =
+             // We wait for the punch to signal that it is ready
+             handShake <- digitalRead 3
+             while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do 
+                  punchHoldUp    <- true
+                  handShake <- digitalRead 3
+             punchHoldUp <- false
+             if not (PriorityButtons()) then 
+                // Then we set up the data on the mcp pins
+                wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
+                wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) (int char) |> ignore
+                // Then we send a commit instruction to the punch
+                digitalWrite 4 GPIO.pinValue.High
+                // Now we wait for the punch to confirm that it is busy doing our instruction
+                while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
+                // Then we can stop telling to write as it has started working on our command
+                digitalWrite 4 GPIO.pinValue.Low
         
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, punchMode) with
@@ -120,14 +152,8 @@ module Sim900.Devices
         | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                 punchOutPos <- (punchOutPos+1)%20
                                 if punchOutPos = 0 then sw.WriteLine ()
-        | (None, _)          -> raise (Device (sprintf "No file attached to punch"))
-        if      code = lastPunchCode
-        then    if lastPunchCount = 10000
-                then lastPunchCount <- 0 
-                     raise (Device (sprintf "Continuously punching &%03o" code))
-                else lastPunchCount <- lastPunchCount+1
-        else lastPunchCode  <- code
-             lastPunchCount <- 1   
+        | (None, _)          -> punchByte code
+    
                          
     let ClosePunch () = 
         // close punch output file if open, otherwise does nothing.
@@ -274,7 +300,7 @@ module Sim900.Devices
             RenewPlotter ()  
             xInit <- -1
             yInit <- -1
-            scale <- 1
+            scale <- 3
                                                           
     open GraphPlotter  
 
@@ -289,7 +315,7 @@ module Sim900.Devices
         then // set up a deferred task to push out pending plots
              async { do! Async.Sleep 25
                      PushGraph () } |> Async.Start
-             
+             YieldToDevices ()
         // decode plotter command
         let badCode () = raise (Device (sprintf "Bad Plotter Code &%o2" code))
         let oldDown = down
