@@ -85,6 +85,7 @@ module Sim900.Telecodes
         teleCode900Dict.['↑']    <- teleCode900Dict.['^']   // 900: ↑ for ^
         teleCode900Dict.['←']    <- teleCode900Dict.['_']   // 900: ← for _
         teleCode900Dict.['~']    <- teleCode900Dict.['‾']   // 900: ~ for ‾
+        teleCode900Dict.['❿']    <- teleCode900Dict.['?']  
         
 
         let TelecodeDict code =
