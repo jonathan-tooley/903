@@ -19,7 +19,7 @@ module Sim900.Machine
 
     let mutable readerholdUp      = true       // true when io blocked
     let mutable ttyDemand         = false
-    let mutable punchHoldUp       = false
+   
        
     type machineMode =
        | Dead                    // Emulator ends when status is set to dead
@@ -30,6 +30,14 @@ module Sim900.Machine
        | Cycle
        | Running
 
+    type playStyle = 
+       | None
+       | Algol
+       | Sir
+       | Fortran_903
+       | Fortran_905
+
+    let mutable play = playStyle.None
     let mutable status = machineMode.Off
 
     let on() = match status with
@@ -226,33 +234,9 @@ module Sim900.Machine
                  | e ->  sequenceControlRegister <- oldSequenceControlRegister 
                          raise e  
 
-        let PriorityButtons() =
-            // This will allow us to see if a reset or off is pressed during TTY and Reader operations
-            let mutable PanelInput = 0
-            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore   //Select the control panel on
-            PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-            wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Go back to i/o 
-            if (PanelInput &&& 0b01000000 = 0b01000000) || (PanelInput &&& 0b00000100 = 0b00000100) then true else false
 
-        let mutable handShake = GPIO.pinValue.High
-   
-        let punchByte char =
-             // We wait for the punch to signal that it is ready
-             handShake <- digitalRead 3
-             while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do 
-                  punchHoldUp    <- true
-                  handShake <- digitalRead 3
-             punchHoldUp <- false
-             if not (PriorityButtons()) then 
-                // Then we set up the data on the mcp pins
-                wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
-                wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) ( char )  |> ignore
-                // Then we send a commit instruction to the punch
-                digitalWrite 4 GPIO.pinValue.High
-                // Now we wait for the punch to confirm that it is busy doing our instruction
-                while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
-                // Then we can stop telling to write as it has started working on our command
-                digitalWrite 4 GPIO.pinValue.Low
+
+
 
         let DisplayA () =
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
@@ -268,16 +252,14 @@ module Sim900.Machine
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
             digitalWrite 6 GPIO.pinValue.Low
             handShake <- digitalRead 5
-            while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do handShake <- digitalRead 5
-            if not (PriorityButtons ())  
-                then
-                         accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
-                         while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
-                         digitalWrite 6 GPIO.pinValue.High
-                         DisplayA ()
-                else 
-                         status <- machineMode.Stopped
-                         digitalWrite 6 GPIO.pinValue.High
+            while handShake = GPIO.pinValue.Low do handShake <- digitalRead 5
+            accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
+            while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
+            digitalWrite 6 GPIO.pinValue.High
+            DisplayA ()
+            //if PriorityButtons() then
+              //           status <- machineMode.Stopped
+                //         digitalWrite 6 GPIO.pinValue.High
              
 
         let BitCount code =
@@ -309,6 +291,7 @@ module Sim900.Machine
 
         let TTYOutput Z =
             pRegister <- Z
+            if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
             port.Write (System.String.Concat( char (accumulator &&& mask7)))
                         
         type Input = 
@@ -338,13 +321,13 @@ module Sim900.Machine
 
         let Punch Z =
             match SelectOutput with
-            | PunchOut        -> punchByte   (accumulator &&& mask8)
+            | PunchOut        
             | AutoOut         -> PunchOutput (accumulator &&& mask8)
             | TeleprinterOut  -> TTYOutput Z
 
         let TTYOut Z =
             match SelectOutput with
-            | PunchOut        -> punchByte (accumulator &&& mask8)
+            | PunchOut        -> PunchOutput (accumulator &&& mask8)
             | AutoOut
             | TeleprinterOut  -> TTYOutput Z
 
@@ -647,6 +630,7 @@ module Sim900.Machine
         takeInterrupt   <- false        
         protect         <- false 
         status          <- machineMode.Reset
+        StartDevices ()
 
         //port.Write "\r\u001B\u003A"
 
@@ -781,12 +765,11 @@ module Sim900.Machine
     let mutable ObeyButtonR   = false
     let mutable CmdButton     = false
     let mutable I1            = false
-    let mutable I1M = false
+    let mutable I1M           = false
     let mutable I2            = false
-    let mutable I2M = false
+    let mutable I2M           = false
     let mutable I3            = false
-    let mutable I3M = false
-
+    let mutable I3M           = false
 
     let panelLights() =
             
@@ -960,72 +943,117 @@ module Sim900.Machine
                         then res <- true  
                     res
 
+    let handleBackspaces textToProcess : string =
+        textToProcess
+        |> Seq.fold (fun acc c -> if c = '\b' then acc |> List.tail else c::acc) []
+        |> List.rev
+        |> List.toArray
+        |> String
+
+    let cmdLine() =
+                     let mutable fn = ""
+                     System.Console.Out.Write ">"
+                     while fn = "" do fn <- System.Console.In.ReadLine ()
+                     fn <- fn.ToUpper ()
+                     handleBackspaces fn
+
     let Command() =
                     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
                     if PanelInput &&& 0b00001000 = 0b00000000 &&     CmdButton  then CmdButton <- false
                     if PanelInput &&& 0b00001000 = 0b00001000 && not CmdButton  then
                         WordSwitch ()
+                        let f = FunctionField wordGenerator 
+                        let m = ModifyField   wordGenerator
+                        let n = AddressField  wordGenerator 
                         CmdButton <- true
-                        match wordGenerator with
-                        |   0 ->  MessagePut ("Command Mode.  Select your choice on the Word Generator:")
-                                  MessagePut ("   1:  List Directory.")
-                                  MessagePut ("   2:  Detach file from paper tape punch.")
-                                  MessagePut ("   3:  Detach file from paper tape reader.")
-                                  MessagePut ("   4:  Attach SIR to paper tape reader.")
-                                  MessagePut ("   5:  Attach alg1(iss6) to the tape reader.")
-                                  MessagePut ("   6:  Attach alg16klp(iss6) to the tape reader.")
-                                  MessagePut ("   7:  Attach alg3(tjf) to the tape reader.")
-                                  MessagePut ("4096:  Select Input  : Teleprinter")
-                                  MessagePut ("2048:  Select Input  : Auto")
-                                  MessagePut ("1024:  Select Input  : Reader")
-                                  MessagePut (" 512:  Select Output : Teleprinter")
-                                  MessagePut (" 128:  Select Output : Auto")
-                                  MessagePut ("  64:  Select Output : Punch")
-                        |   1 ->  MessagePut ("Listing Directory")
-                                  ListDirectory ()
-                        |   2 ->  MessagePut ("Detaching file from paper tape punch.")
-                                  ClosePunch ()
-                        |   3 ->  MessagePut ("Detaching file from paper tape reader.")
-                                  CloseReader ()
-                        |   4 ->  MessagePut ("Attaching SIR to the tape reader.")
-                                  FileOpen "SIR.BIN"
-                        |   5 ->  MessagePut ("Attaching alg1(iss6).bin")
-                                  FileOpen "ALG1.BIN"
-                        |   6 ->  MessagePut ("alg16klp(iss6).bin")
-                                  FileOpen "ALGLP.BIN"
-                        |   7 ->  MessagePut ("alg3(tjf).rlb")
-                                  FileOpen "ALG3(TJF).RLB"
-                        |   8 ->  let mutable fn = ""
-                                  fn <- System.Console.In.ReadLine ()
-                                  try FileOpen (fn) with
-                                  | e -> MessagePut "File not read error. "
-                        |   9 ->  let mutable fn = ""
-                                  fn <- System.Console.In.ReadLine ()
-                                  if   fn.EndsWith ".900" 
-                                          then OpenPunchTxt fn T900
-                                          elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
-                                          then OpenPunchBin fn 
-                                          else MessagePut ("Error")
-                        |  10 ->  let mutable fn = ""
-                                  fn <- System.Console.In.ReadLine ()
-                                  Delete fn                           
-                        |4096 ->  MessagePut ("Selecting input teleprinter")
-                                  InputSelectTeleprinter ()
-                        |2048 ->  MessagePut ("Selecting input Auto")
-                                  InputSelectAuto ()
-                        |1024 ->  MessagePut ("Selecting Input paper tape reader")
-                                  InputSelectReader ()
-                        | 512 ->  MessagePut ("Selecting output Teleprinter")
-                                  OutputSelectTeleprinter ()
-                        | 128 ->  MessagePut ("Selecting output auto")
-                                  OutputSelectAuto ()
-                        |  64 ->  MessagePut ("Selecting output punch")
-                                  OutputSelectPunch ()
-                        | _   -> ignore ()
+                        match play, m, f, n with
+                        | _          , 0, 0, _    ->  MessagePut ("  1    1:  Select SIR Mode.")
+                                                      MessagePut ("  1    2:  Select Algol Mode.")
+                                                      MessagePut ("  1    3:  Select Fortran (903) Mode.")
+                                                      MessagePut ("  1    4:  Select Fortran (905) Mode.")
+                                                      MessagePut ("  2    _:  List   Directory")
+                                                      MessagePut ("  3    _:  List   Software")
+                                                      MessagePut ("  4    N:  Attach Software to PTR")
+                                                      MessagePut ("/ 4    _:  Detach PTR")
+                                                      MessagePut ("  5    _:  Attach File to PTR")
+                                                      MessagePut ("/ 5    _:  Detach PTR")
+                                                      MessagePut ("  6    _:  Attach File to PTP")
+                                                      MessagePut ("/ 6    _:  Detach PTP")
+                                                      MessagePut (" 15    0:  Select Input Automatic")
+                                                      MessagePut (" 15 2048:  Select Input PTR")
+                                                      MessagePut (" 15 2052:  Select Input TTY")
+                                                      MessagePut ("/15    0:  Select Output Automatic")
+                                                      MessagePut (" 15 6144:  Select Output PTP")
+                                                      MessagePut (" 15 6148:  Select Output TTY")
+
+                        | _          , 0, 1, 0    ->  System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/"
+                                                      play <- playStyle.None
+
+                        | _          , 0, 1, 1    ->  MessagePut ("Moving to SIR directory")
+                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903SIR/"
+                                                      play <- playStyle.Sir
+
+                        | _          , 0, 1, 2    ->  MessagePut ("Moving to Algol directory")
+                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903ALGOL/"
+                                                      play <- playStyle.Algol
+
+                        | _          , 0, 1, 3    ->  MessagePut ("Moving to Fortran (903) directory")
+                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903FORTRAN/"
+                                                      play <- playStyle.Fortran_903
+
+                        | _          , 0, 1, 4     -> MessagePut ("Moving to Fortran (905) directory")
+                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/905FORTRAN/"
+                                                      play <- playStyle.Fortran_905
+ 
+                        | None       , 0,  2,    _ -> MessagePut ("Not in a directory.")
+
+                        | _          , 0,  2,    _ -> ListDirectory ()
+                        | Sir        , 0,  3,    _ -> MessagePut  ("  1:   SIR(ISS6)(5500).BIN")
+                        | Sir        , 0,  4,    1 -> MessagePut  ("Attaching SIR(ISS6)(5500).BIN to PTR")
+                                                      FileOpen    ("SIR(ISS6)(5500).BIN")
+                        | Sir        , 0,  4,    _ -> MessagePut  ("File not recognised.")
+                        | _          , 1,  4,    _ -> MessagePut  ("Detaching file from paper tape reader.")
+                                                      CloseReader ()
+                        | _          , 0,  5,    _ -> let mutable fn = ""
+                                                      fn <- cmdLine ()
+                                                      stdout.Write (fn)
+                                                      try FileOpen (fn) with
+                                                      | e -> MessagePut "File not read error. "
+                        | _          , 1,  5,    _ -> MessagePut  ("Detaching file from paper tape reader.")
+                                                      CloseReader ()
+                        | _          , 0,  6,    _ -> let mutable fn = ""
+                                                      fn <- cmdLine ()
+                                                      if   fn.EndsWith ".900" 
+                                                          then OpenPunchTxt fn T900
+                                                          elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
+                                                          then OpenPunchBin fn 
+                                                          else MessagePut ("File type must be .900 or .BIN or .RLB")
+                        | _          , 1,  6,    _ -> ClosePunch ()
+                        | _          , 0, 15,    0 -> MessagePut  ("Selecting input Auto")
+                                                      InputSelectAuto () 
+                        | _          , 1, 15,    0 -> MessagePut  ("Selecting output auto")
+                                                      OutputSelectAuto ()
+                        | _          , 0, 15, 2048 -> MessagePut  ("Selecting Input PTR")
+                                                      InputSelectReader ()
+                        | _          , 0, 15, 2052 -> MessagePut  ("Selecting Input TTY")
+                                                      InputSelectTeleprinter ()        
+                        | _          , 0, 15, 6144 -> MessagePut  ("Selecting Output PTP")
+                                                      OutputSelectPunch () 
+                        | _          , 0, 15, 6148 -> MessagePut  ("Selecting Output TTY")
+                                                      OutputSelectTeleprinter ()
+                        
+                        | _, _, _, _       ->  ignore ()
 
 
-      
+                                  
+
+
+
+//                        |  10 ->  let mutable fn = ""
+  //                                fn <- System.Console.In.ReadLine ()
+    //                              Delete fn                           
+                   
 
 
     let Jump () =
@@ -1173,11 +1201,14 @@ module Sim900.Machine
                                 panelLights      ()
                                 DisplayRegisters ()
                 | Obey      ->  Execute (wordGenerator)
+                                YieldToDevices ()
                                 status <- machineMode.Stopped  //After an obey we return to stopped
                 | Cycle     ->  NextInstruction ()
+                                YieldToDevices ()
                                 status <- machineMode.Stopped
                 | Running   ->  NextInstruction ()
                                 if iCount %   50L = 0L then DisplayRegisters ()
+                                                            YieldToDevices ()
                                                             ResetSwitch ()
                                                             StopSwitch  ()
                                                             OffSwitch   ()
