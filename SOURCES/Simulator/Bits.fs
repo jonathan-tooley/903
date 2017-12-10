@@ -157,7 +157,8 @@ module Sim900.Bits
    let mutable DisplayU5 = 0
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.None, 8, Ports.StopBits.One)
 
-   port.ReadTimeout <- 250
+   port.WriteBufferSize <- 1
+   port.ReadTimeout     <- 250
 
    let setupControlPorts () =
        wiringPiSetup ()
