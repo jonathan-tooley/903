@@ -155,7 +155,7 @@ module Sim900.Bits
    let mutable DisplayU3 = 0
    let mutable DisplayU4 = 0
    let mutable DisplayU5 = 0
-   let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.None, 8, Ports.StopBits.One)
+   let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
 
    port.WriteBufferSize <- 1
    port.ReadTimeout     <- 250
