@@ -45,6 +45,8 @@ module Sim900.Bits
     
    // Convert from 18 to 32 bit arithmetic
    let Normalize word = if word >= 131072 then (word%131072)-131072 else word
+
+   type ISRCallback = delegate of unit -> unit
      
   //This module is used to initialise the library
    module public wiringPi =
@@ -56,6 +58,8 @@ module Sim900.Bits
      extern int WiringPiSetupSys     ( );
      [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupPhys"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int WiringPiSetupPhys    ( );
+     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiISR"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern int wiringPiISR          ( int pin, int mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
  
    //Used to define a GPIO pin's direction and to read or write to the pins
    module public GPIO =
@@ -155,6 +159,17 @@ module Sim900.Bits
    let mutable DisplayU3 = 0
    let mutable DisplayU4 = 0
    let mutable DisplayU5 = 0
+   let mutable hs = GPIO.pinValue.High
+
+   let SprocketOn  : ISRCallback = ISRCallback(fun() -> stdout.Write (wiringPiI2CReadReg8 I2cMultiplexer (int 0))
+                                                        wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
+                                                        stdout.Write (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB))
+                                                        while hs = GPIO.pinValue.High do hs <- digitalRead 5
+                                                        digitalWrite 6 GPIO.pinValue.High
+                                                        hs <- GPIO.pinValue.High
+                                                        printfn "ping"; ())
+
+
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
 
    port.WriteBufferSize <- 1
@@ -168,7 +183,8 @@ module Sim900.Bits
        pinMode 4 GPIO.pinType.Output  // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
                                       // The Brown lead from the punch connects here.
 
-       pinMode 5 GPIO.pinType.Input   // Setup pin 5 as an input.  This is to see the spocket hole on the tape reader 
+       let r = wiringPi.wiringPiISR(5, 1, SprocketOn) 
+                                      // Setup pin 5 as an interrupt input.  This is to detect when the spocket hole on the tape reader come into view.  
 
        pinMode 6 GPIO.pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
                                       // The Brown lead from the reader connects here. 

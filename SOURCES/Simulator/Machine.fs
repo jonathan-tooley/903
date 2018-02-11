@@ -241,16 +241,12 @@ module Sim900.Machine
         let readByte char =
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
             digitalWrite 6 GPIO.pinValue.Low
-            handShake <- digitalRead 5
-            while handShake = GPIO.pinValue.Low do handShake <- digitalRead 5
-            accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
-            while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
-            digitalWrite 6 GPIO.pinValue.High
+            //handShake <- digitalRead 5
+            //while handShake = GPIO.pinValue.Low do handShake <- digitalRead 5
+            //accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18 
+            //while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
+            //digitalWrite 6 GPIO.pinValue.High
             DisplayA ()
-            //if PriorityButtons() then
-              //           status <- machineMode.Stopped
-                //         digitalWrite 6 GPIO.pinValue.High
-             
 
         let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
