@@ -226,17 +226,7 @@ module Sim900.Machine
 
         let PunchOutput Z =
             pRegister <- Z
-            if   true
-            then 
-                 try 
-                        PutPunchChar (byte (accumulator &&& mask8))  
-                 with
-                 | e ->  sequenceControlRegister <- oldSequenceControlRegister 
-                         raise e  
-
-
-
-
+            PutPunchChar (byte (accumulator &&& mask8))  
 
         let DisplayA () =
             wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000     |> ignore  //Select the display panel on
@@ -290,7 +280,6 @@ module Sim900.Machine
                                        else TTYInput Z
 
         let TTYOutput Z =
-            pRegister <- Z
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
             port.Write (System.String.Concat( char (accumulator &&& mask7)))
                         
@@ -308,16 +297,19 @@ module Sim900.Machine
         let mutable SelectOutput = AutoOut
 
         let Reader Z = 
-            match SelectInput with
-            | ReaderIn       -> readByte Z
-            | AutoIn         -> ReaderInput Z
-            | TeleprinterIn  -> TTYInput Z
+            match SelectInput, ActiveReader with
+            | ReaderIn, MechanicalR      -> readByte Z
+            | ReaderIn, Attached         -> ReaderInput Z
+            | AutoIn,   MechanicalR      -> readByte Z
+            | AutoIn,   Attached         -> ReaderInput Z
+            | TeleprinterIn, _           -> TTYInput Z
 
         let TTYIn Z =
-            match SelectInput with
-            | ReaderIn      -> readByte Z
-            | AutoIn
-            | TeleprinterIn -> TTYInput Z
+            match SelectInput, ActiveReader with
+            | ReaderIn, MechanicalR     -> readByte Z
+            | ReaderIn, Attached        -> ReaderInput Z
+            | AutoIn, _
+            | TeleprinterIn, _          -> TTYInput Z
 
         let Punch Z =
             match SelectOutput with
@@ -504,12 +496,11 @@ module Sim900.Machine
                          match (N) with
                          | (_) when Z <= 2047 -> leftShift Z     
                          | (_) when Z >= 6144 -> rightShift Z
-                         | (4864)             -> // output block to plotter
-                                                        pRegister <- Z
-
-                                                        for addr = accumulator to accumulator+(qRegister&&&mask12)-1 do
-                                                            let data = ReadMem addr
-                                                            PutPlotter word                                                        
+//                         | (4864)             -> // output block to plotter
+//                                                        pRegister <- Z
+//                                                        for addr = accumulator to accumulator+(qRegister&&&mask12)-1 do
+//                                                            let data = ReadMem addr
+//                                                            PutPlotter word                                                        
                          | (_)                    -> ignore ()                  
                              
                 | 15  -> // input/output
@@ -569,20 +560,16 @@ module Sim900.Machine
                                                      RestoreSB ()
                                                      // check to see if trace interrupts enabled
                                                      if interruptTrace.[oldLevel] then InterruptOn oldLevel
-                                                                                       
                          
-                         | (4864) -> // output code to plotter
-                                                pRegister <- Z
-                                                PutPlotter accumulator
-                                 
+//                         | (4864) -> // output code to plotter
+//                                                pRegister <- Z
+//                                                PutPlotter accumulator
 
                          | _     -> ignore ()
 
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper
-
-
 
     // ACCESS MEMORY     
     
@@ -697,7 +684,7 @@ module Sim900.Machine
 
             if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
             if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
-//            if ttyDemand                    then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
+            if ActiveReader = Attached      then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
 
             wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
 
@@ -1025,7 +1012,7 @@ module Sim900.Machine
                         | _          , 0,  6,    _ -> let mutable fn = ""
                                                       fn <- cmdLine ()
                                                       if   fn.EndsWith ".900" 
-                                                          then OpenPunchTxt fn T900
+                                                          then OpenPunchTxt fn 
                                                           elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
                                                           then OpenPunchBin fn 
                                                           else MessagePut ("File type must be .900 or .BIN or .RLB")

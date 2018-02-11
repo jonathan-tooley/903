@@ -7,7 +7,6 @@ module Sim900.Devices
     open System
     open System.IO
     open System.Drawing
-    open System.Windows.Forms
     open System.Collections
     open System.Text
     open Sim900.Bits
@@ -15,23 +14,16 @@ module Sim900.Devices
     
     exception Device of string
 
-
     let YieldToDevices () = System.Threading.Thread.Yield () |> ignore
    
-    // provide a dummy context to represent console "form"
-    let  dummyForm  = new System.Windows.Forms.Form(Visible=false)
-    // Capture the synchronization context of the hosting user interface thread
-    // in order to automatically re-route events onto that thread.
-    let context = System.Threading.SynchronizationContext.Current
-    do assert (context <> null)
-
-    // Event signalling
-    let triggerEvent     (e: Event<_>) args = context.Post((fun _ -> e.Trigger args), null)  // send event asynchronously
-    let triggerEventSend (e: Event<_>) args = context.Send((fun _ -> e.Trigger args), null)  // send event synchronously
-     
     // PAPER TAPE READER                               
-    module private PaperTapeReader =
+    type ReaderDevice =
+        |Attached
+        |MechanicalR
 
+    let mutable ActiveReader = MechanicalR
+
+    module private PaperTapeReader =
         let mutable tapeIn: byte[] option = None 
         let mutable tapeInPos = 0  
 
@@ -46,65 +38,46 @@ module Sim900.Devices
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
         OpenReaderBinaryString text
+        ActiveReader <- Attached
 
-
-    let OpenReaderTextString teleCode text = 
+    let OpenReaderTextString text = 
         // take text input from command stream
-        tapeIn <- Some (
-                        match teleCode with
-                             | T900 -> TranslateFromText    T900 text)                           
+        tapeIn <- Some (TranslateFromText T900 text)                           
         tapeInPos <- 0 
         
     let OpenReaderText teleCode fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderTextString teleCode text
+        OpenReaderTextString text
+        ActiveReader <- Attached
                  
     let GetReaderChar () = // get a character from the paper tape reader
         let ti =
             match tapeIn with
             | Some ti   -> ti
             | _         -> raise (Device "No input attached to tape reader")
-        if   tapeInPos >= ti.Length then raise (Device "Run off end of paper tape input")
+        if   tapeInPos >= ti.Length then ActiveReader <- MechanicalR
+                                         let code = byte 0
+                                         code
         else let code = ti.[tapeInPos]
              tapeInPos <- tapeInPos+1
              code
   
-//    let RewindReader () =
-//        match tapeIn with
-//        | Some ti   ->  tapeInPos <- 0
-//        | _         ->  raise (Device "No paper tape input to rewind")
-
-    let SkipReader () = 
-        // skip over e.g., legible header by scanning to next non-blank then looking for 20 blanks
-        let blanks = 20
-        let rec SkipBlanks ()    = if GetReaderChar () <> 0uy then SkipBlanks ()
-        let rec SkipNonBlanks () = if GetReaderChar () <> 0uy then SkipNonBlanks ()
-        let rec FindBlanks n     = 
-            if GetReaderChar () =  0uy
-            then if n > 0 
-                 then FindBlanks (n-1) 
-            else SkipNonBlanks (); FindBlanks blanks
-        SkipBlanks ()
-        SkipNonBlanks ()
-        FindBlanks blanks
-
     let CloseReader () = 
         // Close tape reader - clear buffer and reset character position
-        tapeIn <- None; tapeInPos <- 0     
-
+        tapeIn <- None 
+        tapeInPos <- 0
+        ActiveReader <- MechanicalR
 
     // PAPER TAPE PUNCH
 
     // Punch output modes       
-    type PunchModes =
+    type PunchDevice =
+        | Attached900
+        | AttachedBin
+        | MechanicalP
 
-        | P900
-        | PBin
-
-    type Encoding =
-        | Text   of Telecodes
-
+    let mutable ActivePunch = MechanicalP
 
     let PriorityButtons() =
             // This will allow us to see if a reset or off is pressed during TTY and Reader operations
@@ -118,11 +91,8 @@ module Sim900.Devices
     module private PaperTapePunch =
 
         let mutable punchStream: StreamWriter option = None
-        let mutable punchMode      = P900
         let mutable punchOutPos    = 0
-        let mutable lastPunchCode  = 0uy  // last code punched
-        let mutable lastPunchCount = 0    // count of how many times last code punched
-        let mutable punchHoldUp       = false
+        let mutable punchHoldUp    = false
 
     open PaperTapePunch
 
@@ -147,38 +117,40 @@ module Sim900.Devices
                 digitalWrite 4 GPIO.pinValue.Low
         
     let PutPunchChar (code: byte) = // output a character to the punch
-        match (punchStream, punchMode) with
-        | (Some (sw), P900)  -> sw.Write (UTFOf T900 code)     // output as UTF character
-        | (Some (sw), PBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
-                                punchOutPos <- (punchOutPos+1)%20
-                                if punchOutPos = 0 then sw.WriteLine ()
+        match (punchStream, ActivePunch) with
+        | (Some (sw), Attached900)  -> sw.Write (UTFOf T900 code)     // output as UTF character
+        | (Some (sw), AttachedBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
+                                       punchOutPos <- (punchOutPos+1)%20
+                                       if punchOutPos = 0 then sw.WriteLine ()
+        | (Some (sw), MechanicalP)  -> failwith("TRIED TO WRITE TO STEAM WHEN WE HAVE A MECHANICAL PUNCH")
         | (None, _)          -> punchByte code
     
                          
     let ClosePunch () = 
         // close punch output file if open, otherwise does nothing.
         match punchStream with
-        | Some (sw) -> if punchMode = PBin then for i=1 to 30 do PutPunchChar 0uy        
+        | Some (sw) -> if ActivePunch = AttachedBin then for i=1 to 30 do PutPunchChar 0uy        
                        sw.Close ()
         | _         -> () 
         punchOutPos <- 0
         punchStream <- None
+        ActivePunch <- MechanicalP
 
-    let OpenPunchTxt (fileName: string) telecode =
+    let OpenPunchTxt (fileName: string) =
         // open text file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode <- match telecode with | T900 -> P900  
+        ActivePunch <- Attached900  
 
     let OpenPunchBin (fileName: string) = 
         // open binary format file for paper tape punch output
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
-        punchMode   <- PBin
+        ActivePunch <- AttachedBin
         for i=1 to 20 do PutPunchChar 0uy
         
 
-    
+    (*
     // GRAPH PLOTTER   
 
     // There are two models of plotting.  For E900 we reproduce Don Hunter's simulator
@@ -364,13 +336,13 @@ module Sim900.Devices
         // plotting system ready for another graph to be drawn.
         PushGraph ()   
         TidyUpPlotter ()
-
+        *)
     
     // GENERAL FUNCTIONS
     let TidyUpDevices () =
             CloseReader ()
             ClosePunch ()
-            ClosePlotter ()
-            TidyUpPlotter ()
+
+
     let StartDevices () = () // to force initialization of this module
  
