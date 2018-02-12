@@ -1,0 +1,47 @@
+﻿c curves plotting
+
+on 903 16K
+
+nonprinting off
+
+c translate program
+at ptr file ../903algol/alg1(iss6).bin
+j 8181
+st 8171
+
+at ptr file demo10.900
+at ptp file demo10.rlb
+
+c translate 
+j 8
+st 9
+de ptp
+
+c read in large program interpreter
+at ptr file ../903algol/alg16klp(iss6).bin
+j 8181
+st 4309
+
+select out tty
+
+c load modified plotter library
+nonstop on
+
+at ptr file alg3(tjf).rlb
+j 13
+st 15850
+
+c load program
+at ptr file demo10.rlb
+at tty inline
+R<!!>
+
+scale 3
+
+c load and run program
+j 8
+nonstop off
+
+delete demo10.rlb
+
+sh t
