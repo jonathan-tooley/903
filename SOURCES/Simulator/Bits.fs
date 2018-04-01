@@ -47,6 +47,8 @@ module Sim900.Bits
    let Normalize word = if word >= 131072 then (word%131072)-131072 else word
 
    type ISRCallback = delegate of unit -> unit
+
+
      
   //This module is used to initialise the library
    module public wiringPi =
@@ -145,7 +147,7 @@ module Sim900.Bits
    let wiringPiSPISetup channel speed   = SPI.wiringPiSPISetup     (channel, speed)
    let wiringPiSPIRW channel d l        = SPI.wiringPiSPIDataRW    (channel, d, l)
    let mcp23s17Setup pin0 port devId    = MCP.mcp23s17Setup        (pin0, port, devId)
- 
+
    let mutable controlPanelU1 = 0
    let mutable controlPanelU2 = 0
    let mutable controlPanelU3 = 0
@@ -159,16 +161,25 @@ module Sim900.Bits
    let mutable DisplayU3 = 0
    let mutable DisplayU4 = 0
    let mutable DisplayU5 = 0
-   let mutable hs = GPIO.pinValue.High
+   let mutable hs        = GPIO.pinValue.High
+   let mutable RdrVal    = -1
 
-   let SprocketOn  : ISRCallback = ISRCallback(fun() -> stdout.Write (wiringPiI2CReadReg8 I2cMultiplexer (int 0))
-                                                        wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
-                                                        stdout.Write (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB))
-                                                        while hs = GPIO.pinValue.High do hs <- digitalRead 5
-                                                        digitalWrite 6 GPIO.pinValue.High
-                                                        hs <- GPIO.pinValue.High
-                                                        printfn "ping"; ())
+   let mutable activeBus = 0b01000000  //Start with the control panel active
+  
+   let setI2CBus (bus) =
+     activeBus <- bus
+     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) bus |> ignore   
 
+   let resetI2CBus (aBus) =
+     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) aBus |> ignore
+
+   let SprocketOn  : ISRCallback = ISRCallback(fun() ->  hs <- GPIO.pinValue.High
+                                                         wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
+                                                         RdrVal <- wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB)
+                                                         while hs = GPIO.pinValue.High do hs <- digitalRead 5
+                                                         digitalWrite 6 GPIO.pinValue.High
+                                                         resetI2CBus activeBus
+                                                         ())
 
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
 
@@ -202,7 +213,7 @@ module Sim900.Bits
 
        I2cMultiplexer <- wiringPiI2CSetup 0x77
 
-       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore  //Select the control panel on
+       setI2CBus 0b01000000 //Select the control panel on
       
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
@@ -312,7 +323,7 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.GPPU ) 0b11111011 |> ignore //Bank A pull up resistors
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
 
-       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  //Select Reader, punch and plotter
+       setI2CBus 0b00100000  //Select Reader, punch and plotter
 
        //Setup the paper tape MCP23017 
        punchPort      <- wiringPiI2CSetup 0x27
@@ -323,7 +334,7 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
        wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.GPPUB ) 0b11111011 |> ignore //Bank B pull up resistors
 
-       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore  //Select Display Unit
+       setI2CBus 0b10000000  //Select Display Unit
 
        DisplayU1 <- wiringPiI2CSetup 0x23
        DisplayU2 <- wiringPiI2CSetup 0x24
