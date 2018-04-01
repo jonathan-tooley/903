@@ -1,0 +1,86 @@
+﻿c
+C McCracken A Guide to FORTRAN IV Programming Case Study 4
+C
+C Load Fortran system
+on 905 16K
+at ptr file 905fort(iss6).bin
+j 8181
+
+C Compile program
+
+nonstop on
+
+at ptp file demo5.bin
+at ptr inline
+
+C  CASE STUDY 4
+C  NEWTON-RAPHSON METHOD -- PROGRAM CHECKOUT
+C
+C  REVISED VERSION -- ERRORS REMOVED AND AN ITERATION COUNT INCLUDED
+C
+C
+    1 X = 1.0
+C
+C  N IS COUNT OF ITERATIONS
+      N = 1
+    2 EX = EXP(X)
+    3 EMX = 1.0 / EX
+    4 XNEW = X - ((EX+EMX)/2. + COS(X) - 3.)/((EX-EMX)/2. - SIN(X))
+    5 WRITE (3, 6) XNEW
+    6 FORMAT (F10.6)
+C
+C  THE IF STATEMENT NOW INCLUDES A TEST OF THE ITERATION COUNTER
+    7 IF (     ABS(X - XNEW) .LT. 1E-6
+     1    .OR. N .GT. 20) STOP
+C
+C  INCREMENT ITERATION COUNTER
+      N = N + 1
+    8 X = XNEW
+    9 GO TO 2
+      END
+<! Halt !>
+<!!>
+
+at tty inline
+O0R
+<!!>
+
+j 16
+
+c run out of tty input
+de ptp
+
+reverse demo5.bin
+
+c load loader
+at ptr file ../masir/loader(iss3).bin
+j 8181
+st 8171
+
+c load program
+at ptr file demo5.bin
+at tty inline
+O20L<!!>
+j 16
+
+c read unloads, load library tape 1
+at ptr file 905fortlib1(iss4).bin
+at tty inline
+O3L<!!>
+j 16
+
+c reader unloads, load library tape 2
+at ptr file 905fortlib2(iss5).bin
+r
+
+c reader unloads
+at tty inline
+MM<!!>
+j 16
+delete demo5.bin
+sh t
+
+
+
+
+
