@@ -1,9 +1,12 @@
 ﻿#light
 
 module Sim900.Formatting
+
     open System
     open System.IO
     open System.Text
+
+    open Sim900.Globals
     open Sim900.Bits
     open Sim900.Telecodes
     open Sim900.Devices
@@ -54,12 +57,9 @@ module Sim900.Formatting
     let AddressPut (word: int) =
         stdout.Write (AddressStr word)
              
-    let EnsureNewLine () = // force a newline if text has been output on current line
-        if System.Console.CursorLeft > 0 then printfn ""
+
                     
-
-
-                                                       
+                                                      
     let ShortNaturalPut word = // output 18 bit unsigned value in decimal
         printf "%d"   (Normalize word)
 
@@ -73,10 +73,7 @@ module Sim900.Formatting
             else sprintf (if fn < 10 then "  " else " ")) +
                (sprintf "%d%5d" fn addr)
 
-                            
-    let MessagePut item = // output a simulator message
-        EnsureNewLine ()
-        printfn "SIM900: %s" item
+                           
                                           
     let Prompt () = 
         EnsureNewLine ()

@@ -9,6 +9,7 @@ module Sim900.Devices
     open System.Drawing
     open System.Collections
     open System.Text
+    open Sim900.Globals
     open Sim900.Bits
     open Sim900.Telecodes
     
@@ -77,14 +78,6 @@ module Sim900.Devices
 
     let mutable ActivePunch = MechanicalP
 
-    let PriorityButtons() =
-            // This will allow us to see if a reset or off is pressed during TTY and Reader operations
-            let mutable PanelInput = 0
-            setI2CBus 0b01000000   //Select the control panel on
-            PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-            setI2CBus 0b00100000  //Go back to i/o 
-            if (PanelInput &&& 0b01000000 = 0b01000000) || (PanelInput &&& 0b00000100 = 0b00000100) then true else false
-
 
     module private PaperTapePunch =
 
@@ -99,20 +92,19 @@ module Sim900.Devices
     let punchByte (char : byte) =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 3
-             while handShake = GPIO.pinValue.Low && not (PriorityButtons ()) do 
+             while handShake = GPIO.pinValue.Low do 
                   punchHoldUp    <- true
                   handShake <- digitalRead 3
              punchHoldUp <- false
-             if not (PriorityButtons()) then 
-                // Then we set up the data on the mcp pins
-                setI2CBus 0b00100000   
-                wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) (int char) |> ignore
-                // Then we send a commit instruction to the punch
-                digitalWrite 4 GPIO.pinValue.High
-                // Now we wait for the punch to confirm that it is busy doing our instruction
-                while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
-                // Then we can stop telling to write as it has started working on our command
-                digitalWrite 4 GPIO.pinValue.Low
+             // Then we set up the data on the mcp pins
+             setI2CBus 0b00100000   
+             wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) (int char) |> ignore
+             // Then we send a commit instruction to the punch
+             digitalWrite 4 GPIO.pinValue.High
+             // Now we wait for the punch to confirm that it is busy doing our instruction
+             while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
+             // Then we can stop telling to write as it has started working on our command
+             digitalWrite 4 GPIO.pinValue.Low
         
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, ActivePunch) with
@@ -120,7 +112,7 @@ module Sim900.Devices
         | (Some (sw), AttachedBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                        punchOutPos <- (punchOutPos+1)%20
                                        if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), MechanicalP)  -> failwith("TRIED TO WRITE TO STEAM WHEN WE HAVE A MECHANICAL PUNCH")
+        | (Some (sw), MechanicalP)  -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
         | (None, _)          -> punchByte code
     
                          

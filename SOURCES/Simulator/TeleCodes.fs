@@ -5,6 +5,7 @@ module Sim900.Telecodes
         
     open System.Collections.Generic
     open System.Text
+    open Sim900.Globals
     open Sim900.Bits
 
     exception Code of string
