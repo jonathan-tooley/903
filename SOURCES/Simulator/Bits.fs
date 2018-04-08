@@ -26,7 +26,12 @@ module Sim900.Bits
      extern int WiringPiSetupPhys    ( );
      [<DllImport("libwiring.so"    , EntryPoint = "wiringPiISR"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiISR          ( int pin, int mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
- 
+     [<DllImport("libwiring.so"    , EntryPoint = "piLock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern void piLock              (int keyNum);
+     [<DllImport("libwiring.so"    , EntryPoint = "piUnlock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern void piUnlock            (int keyNum);
+
+
    //Used to define a GPIO pin's direction and to read or write to the pins
    module public GPIO =
      type pinType  = 
