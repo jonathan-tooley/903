@@ -201,6 +201,47 @@ module Sim900.Bits
        controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
        controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
 
+       let IntPing : ISRCallback = ISRCallback(fun() ->    match wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA) with
+                                                           | 0x18    //On button with key in auto
+                                                           | 0x19    //On button with key in test
+                                                           | 0x1A    //On button with key in operate
+                                                                  -> MessagePut "Turning system on."
+                                                                     digitalWrite 24 GPIO.pinValue.High
+                                                                     Reset()
+                                                                     //Illuminate On and Reset with No Off Light
+                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
+                                                           | 0xA4    //Off button pressed with On light on in auto
+                                                           | 0xA5    //Off button pressed with On light on in test
+                                                           | 0xA6    //Off button pressed with On light on in operate
+                                                                  -> MessagePut "Turning system off."
+                                                                     digitalWrite 24 GPIO.pinValue.Low
+                                                                     Reset()
+                                                                     //Illuminate just Off light
+                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
+                                                                     status <- machineMode.Off
+                                                           | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
+                                                           | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
+                                                           | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
+                                                                  -> MessagePut "Shuting down"
+                                                                     status <- machineMode.Dead
+                                                                     //Turn off U1 A Lights
+                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00000000 )  |> ignore
+                                                           | 0x60    //Reset button pressed when not lit in auto
+                                                           | 0x61    //Reset button pressed when not lit in test
+                                                           | 0x62    //Reset button pressed when not lit in operate
+                                                                  -> MessagePut "Resetting"
+                                                                     Reset()
+                                                                     //Illuminate On and Reset with No Off Light
+                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
+                                                           |_     -> ignore()   
+                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA)); 
+                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPB)); 
+                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTFA)); 
+                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTFB));
+                                                           ())
+
+       let r = wiringPi.wiringPiISR(0, 1, IntPing) 
+                                      // Setup pin 0 as an interrupt input.    
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
