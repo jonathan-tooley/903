@@ -59,6 +59,41 @@ module Sim900.Bits
      [<DllImport( "libwiring.so"     , EntryPoint="digitalRead"          , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern pinValue  digitalRead         ( int pin );
 
+   module public MCP =
+     [<DllImport( "libwiring.so"   , EntryPoint = "mcp23s17Setup"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     extern int mcp23s17Setup        (int pinBase, int spiPort, int devId);
+
+     type MCP23017 =
+       | IODIRA   = 0x00 //GPIO Bank A pin directions
+       | IODIRB   = 0x01 //GPIO Bank B pin directions
+       | IPOLA    = 0x02 //GPIO Bank A input polarity
+       | IPOLB    = 0x03 //GPIO Bank B input polarity
+       | GPINTENA = 0X04 //Interrupt on change control A
+       | GPINTENB = 0X05 //Interrupt on change control B
+       | DEFVALA  = 0x06 //Defined value for interrupt A
+       | DEFVALB  = 0x07 //Defined value for interrupt B
+       | INTCONA  = 0x08 //Interrupt control A
+       | INTCONB  = 0x09 //Interrupt control B
+       | IOCON    = 0X0A //IO Configuration register
+       | GPPUA    = 0x0C //GPIO Bank A pull up resistor settings
+       | GPPUB    = 0x0D //GPIO Bank A pull up resistor settings
+       | INTFA    = 0X0E //Interrupt flag A
+       | INTFB    = 0X0F //Interrunpt flag B
+       | INTCAPA  = 0X10 //Interrupt captured value A
+       | INTCAPB  = 0X11 //Interrupt captured value B
+       | GPIOA    = 0x12 //GPIO Bank A input values
+       | GPIOB    = 0x13 //GPIO Bank B input values
+       | OLATA    = 0x14 //Output Latch Bank A
+       | OLATB    = 0x15 //Output Latch Bank B
+
+     type MCP23008 =
+       | IODIR  = 0x00 //GPIO Bank A pin directions
+       | IPOL   = 0x01 //GPIO Bank A input polarity
+       | IOCON  = 0x05 //IO Configuration Register
+       | GPPU   = 0x06 //GPIO Bank A pull up resistor settings
+       | GPIO   = 0x09 //GPIO Bank A input values
+       | OLAT   = 0x0A //Output Latch Bank A
+
    module public I2C =
      [<DllImport( "libwiring.so", EntryPoint="wiringPiI2CSetup"       , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CSetup     ( int devId );
@@ -80,30 +115,6 @@ module Sim900.Bits
      extern int wiringPiSPISetup     (int channel, int speed);
      [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiSPIDataRW"    , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiSPIDataRW    (int channel, byte* data, int len);  
-
-   module public MCP =
-     [<DllImport( "libwiring.so"   , EntryPoint = "mcp23s17Setup"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int mcp23s17Setup        (int pinBase, int spiPort, int devId);
-
-     type MCP23017 =
-       | IODIRA = 0x00 //GPIO Bank A pin directions
-       | IODIRB = 0x01 //GPIO Bank B pin directions
-       | IPOLA  = 0x02 //GPIO Bank A input polarity
-       | IPOLB  = 0x03 //GPIO Bank B input polarity
-       | GPPUA  = 0x0C //GPIO Bank A pull up resistor settings
-       | GPPUB  = 0x0D //GPIO Bank A pull up resistor settings
-       | GPIOA  = 0x12 //GPIO Bank A input values
-       | GPIOB  = 0x13 //GPIO Bank B input values
-       | OLATA  = 0x14 //Output Latch Bank A
-       | OLATB  = 0x15 //Output Latch Bank B
-
-     type MCP23008 =
-       | IODIR  = 0x00 //GPIO Bank A pin directions
-       | IPOL   = 0x01 //GPIO Bank A input polarity
-       | GPPU   = 0x06 //GPIO Bank A pull up resistor settings
-       | GPIO   = 0x09 //GPIO Bank A input values
-       | OLAT   = 0x0A //Output Latch Bank A
-
 
  
    let wiringPiSetup                    = wiringPi.wiringPiSetup
