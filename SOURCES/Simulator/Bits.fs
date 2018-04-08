@@ -227,12 +227,16 @@ module Sim900.Bits
        // 4 : Jump indicator light                                       |  |  |  |  | 1|  |  |  |
 
        // Setup Registors for GPIO U1
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRA) 0b01010111 |> ignore //Set bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRB) 0b01010111 |> ignore //Set bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUA ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUB ) 0b01010111 |> ignore //Set pull up resistors on bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLA ) 0b01010111 |> ignore //Reverse bank A input polarity
-       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLB ) 0b01010111 |> ignore //Reverse bank B input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRA  ) 0b01010111 |> ignore //Set bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IODIRB  ) 0b01010111 |> ignore //Set bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUA   ) 0b01010111 |> ignore //Set pull up resistors on bank A inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPPUB   ) 0b01010111 |> ignore //Set pull up resistors on bank B inputs
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLA   ) 0b01010111 |> ignore //Reverse bank A input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IPOLB   ) 0b01010111 |> ignore //Reverse bank B input polarity
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.IOCON   ) 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.GPINTENA) 0b01010100 |> ignore //Set up reset, on and off keys for interrupt on change
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.INTCONA ) 0b00000000 |> ignore //Define the interrupt to only work one way
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.DEFVALA ) 0b00000000 |> ignore //Set the interrupt to trigger when button pressed
 
        // U2 Inputs
        //28 : 512   Bit 10
@@ -259,6 +263,7 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.GPPUB ) 0b11111111 |> ignore //Bank B pull up resistors
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLA ) 0b11111111 |> ignore //Bank A polarity 
        wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IPOLB ) 0b11111111 |> ignore //Bank A polarity
+       wiringPiI2CWriteReg8 controlPanelU2 (int MCP.MCP23017.IOCON ) 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
 
        // U3 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPA7  Trace 3                        | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -287,6 +292,7 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.GPPUB ) 0b01001001 |> ignore //Bank B pull up resistors
        wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IPOLA ) 0b11111100 |> ignore //Bank A polarity
        wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IPOLB ) 0b01001001 |> ignore //Bank B polarity
+       wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.IOCON ) 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
 
        // U4 Inputs                           | 7| 6| 5| 4| 3| 2| 1| 0| 
        //GP7 Obey                             | 1|  |  |  |  |  |  |  | 
@@ -302,8 +308,14 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IODIR) 0b11111011 |> ignore //Bank A inputs
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.GPPU ) 0b11111011 |> ignore //Bank A pull up resistors
        wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IPOL ) 0b11111011 |> ignore //Bank A polarity
+       wiringPiI2CWriteReg8 controlPanelU4 (int MCP.MCP23008.IOCON) 0b00000100 |> ignore //Set up interrupts to be open drain
 
-       setI2CBus 0b00100000  //Select Reader, punch and plotter
+
+       //Off indicator
+       wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
+
+
+(*       setI2CBus 0b00100000  //Select Reader, punch and plotter
 
        //Setup the paper tape MCP23017 
        punchPort      <- wiringPiI2CSetup 0x27
@@ -337,3 +349,4 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of S Register
        wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of S Register
 
+       setI2CBus 0b01000000 *)
