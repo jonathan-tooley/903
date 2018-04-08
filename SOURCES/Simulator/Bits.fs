@@ -148,18 +148,22 @@ module Sim900.Bits
   
    let setI2CBus (bus) =
      activeBus <- bus
-     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) bus |> ignore   
+     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) bus |> ignore
+     if (bus <> 0b01000000) then printf "Mult Sw"
 
    let resetI2CBus (aBus) =
      wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) aBus |> ignore
+     if (aBus <> 0b01000000) then printf "Mult Sw"
 
-   let SprocketOn  : ISRCallback = ISRCallback(fun() ->  hs <- GPIO.pinValue.High
-                                                         wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
-                                                         RdrVal <- wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB)
-                                                         while hs = GPIO.pinValue.High do hs <- digitalRead 5
-                                                         digitalWrite 6 GPIO.pinValue.High
-                                                         resetI2CBus activeBus
-                                                         ())
+ 
+
+   //let SprocketOn  : ISRCallback = ISRCallback(fun() ->  hs <- GPIO.pinValue.High
+   //                                                      wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
+   //                                                      RdrVal <- wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB)
+   //                                                      while hs = GPIO.pinValue.High do hs <- digitalRead 5
+   //                                                      digitalWrite 6 GPIO.pinValue.High
+   //                                                      resetI2CBus activeBus
+   //                                                      ())
 
    let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
 
@@ -174,8 +178,9 @@ module Sim900.Bits
        pinMode 4 GPIO.pinType.Output  // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
                                       // The Brown lead from the punch connects here.
 
-       let r = wiringPi.wiringPiISR(5, 1, SprocketOn) 
-                                      // Setup pin 5 as an interrupt input.  This is to detect when the spocket hole on the tape reader come into view.  
+       pinMode 5 GPIO.pinType.Input
+
+      
 
        pinMode 6 GPIO.pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
                                       // The Brown lead from the reader connects here. 

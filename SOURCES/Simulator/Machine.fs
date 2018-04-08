@@ -158,11 +158,17 @@ module Sim900.Machine
                                                                            (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
 
         let readByte char =
+            //wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0B00100000 |> ignore replace with setbus
             digitalWrite 6 GPIO.pinValue.Low
-            while RdrVal < 0 do ignore()
-            accumulator <- (accumulator <<< 7 ||| (RdrVal &&& mask8)) &&& mask18 
-            RdrVal <- -1
-            DisplayA ()
+            handShake <- digitalRead 5
+            while handShake = GPIO.pinValue.Low do handShake <- digitalRead 5
+            accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort (int MCP.MCP23017.GPIOB) &&& mask8)) &&& mask18
+            while handShake = GPIO.pinValue.High do handShake <- digitalRead 5
+            digitalWrite 6 GPIO.pinValue.High
+//            while RdrVal < 0 do ignore()
+//            accumulator <- (accumulator <<< 7 ||| (RdrVal &&& mask8)) &&& mask18 
+//            RdrVal <- -1
+            //DisplayA ()
 
         let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
@@ -183,13 +189,9 @@ module Sim900.Machine
                 ch <- (if OddParity ch then bit8 ||| ch else ch)
                 accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
                 port.Write (System.String.Concat( char (accumulator &&& mask7)))
-                DisplayA ()
+                //DisplayA ()
             with
-            _ ->  if PriorityButtons() then ch <- 0 
-                                            status <- machineMode.Stopped
-                                            ttyDemand <- false
-                                            MessagePut "Teleprinter Demand off"
-                                       else TTYInput Z
+            _ ->  TTYInput Z
 
         let TTYOutput Z =
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
@@ -597,41 +599,28 @@ module Sim900.Machine
    
         // turn off machine - finalize any output
     let turnOff () =
-            TidyUpDevices ()
             // Make sure front panel indicators are off
-            status <- machineMode.Off
-
-            //Shutdown the switched power and fan
-            digitalWrite 24 GPIO.pinValue.Low
             // Turn off the interrupt indicators
             setI2CBus 0b01000000  //Select the control panel on
             wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
             //Turn off the display leds
-            setI2CBus 0b10000000  //Select the display panel on
+            //setI2CBus 0b10000000  //Select the display panel on
 
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) 0 |> ignore
       
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) 0 |> ignore
 
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) 0 |> ignore
 
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) 0 |> ignore
 
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) 0 |> ignore
 
-
-        // turn on machine in specified configuration                  
-    let turnOn () =
-            Reset ()
-            //Power to the fan and mains connected accessories 
-            digitalWrite 24 GPIO.pinValue.High
-            iCount <- 0L
-            TidyUpDevices ()
 
 
         //For our control panel we will need some variables to read inputs, write outputs and debounce keys
@@ -642,7 +631,7 @@ module Sim900.Machine
     let mutable Flash         = false
 
         // These are for key debounce
-    let mutable ResetButton   = false
+   
     let mutable StopButton    = false
     let mutable RestartButton = false
     let mutable JumpButton    = false
@@ -664,17 +653,7 @@ module Sim900.Machine
                     HeartBeat <- HeartBeat + 1
                     if HeartBeat > 40 then Flash <- true
                     if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
-
-
-                    //Update MCP23017 U1 Outputs
-                    PanelOutput <- 0
-                     
-                    if status = machineMode.Reset  then PanelOutput <- (PanelOutput ||| 0b10000000) //Reset indicator
-                    if on()                        then PanelOutput <- (PanelOutput ||| 0b00100000) //On indicator which flashes the heartbeat
-                    if status = machineMode.Off    then PanelOutput <- (PanelOutput ||| 0b00001000) //Off indicator
-
-                    wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( PanelOutput )  |> ignore
-
+                                  
                     PanelOutput <- 0
 
                     // The restart button on the original ELLIOT did not have an indicator
@@ -706,30 +685,8 @@ module Sim900.Machine
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
 
 
+                   
 
-    let OffSwitch() = 
-                    setI2CBus 0b01000000 
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on()
-                        then MessagePut "System turned off."
-                             turnOff()
-                            
-
-                    if PanelInput &&& 0b00000100 = 0b00000100 && status = machineMode.Off
-                        then HeartBeat <- 0
-                             while (PanelInput &&& 0b00000100) = 0b00000100 && HeartBeat < 6000 do
-                                HeartBeat <- HeartBeat + 1
-                                PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-                             if HeartBeat =  6000 then MessagePut "Shuting down"
-                                                       status <- machineMode.Dead
-
-
-    let OnSwitch() =
-                    setI2CBus 0b01000000 
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
-                    if PanelInput &&& 0b00010000 = 0b00010000
-                        then MessagePut "Turn system on."
-                             turnOn ()
 
 
 
@@ -771,7 +728,8 @@ module Sim900.Machine
                              MessagePut "Enter command"
                              WordSwitch()
                              APut (WGet())
-                             DisplayA ()
+                             //DisplayA ()
+                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status <- machineMode.Stopped
 
                     if PanelInput &&& 0b00010000 = 0b00000000 then EnterButtonR <- false
@@ -779,7 +737,8 @@ module Sim900.Machine
                         then if not EnterButtonR then MessagePut "Repeating Enter Commands"; EnterButtonR <- true
                              WordSwitch()
                              APut (WGet())
-                             DisplayA ()
+                             //DisplayA ()
+                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status <- machineMode.Stopped
 
     let ObeySwitch() = 
@@ -790,32 +749,17 @@ module Sim900.Machine
                         then ObeyButtonS <- true
                              MessagePut "Obey command"
                              WordSwitch ()
+                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status     <- machineMode.Obey 
                     
                     if PanelInput &&& 0b01000000 = 0b00000000 then ObeyButtonR <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && operate = mode.Test
                         then if not ObeyButtonR then MessagePut "Repeating Obey Commands"; ObeyButtonR <- true 
                              WordSwitch()
+                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status    <- machineMode.Obey
 
-    let ResetSwitch() =
-                    setI2CBus 0b01000000 
-                    PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
 
-                    //Control the reset button
-                    if PanelInput &&& 0b01000000 = 0b00000000 then ResetButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Auto && not ResetButton 
-                        then MessagePut "Reset button pressed whilst in auto mode.  Resetting followed by jump to 8177."
-                             ResetButton <- true;     
-                             Reset ()
-                             DisplayRegisters ()
-                             //Handle Jump
-
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && not (operate = mode.Auto) && not ResetButton 
-                        then MessagePut "Reset button pressed."
-                             ResetButton <- true;
-                             Reset ()
-                             DisplayRegisters ()
 
 
     let CycleSwitch() =                    
@@ -933,13 +877,7 @@ module Sim900.Machine
                         | _, _, _, _       ->  ignore ()
 
 
-                                  
-
-
-
-//                        |  10 ->  let mutable fn = ""
-  //                                fn <- System.Console.In.ReadLine ()
-    //                              Delete fn                           
+                            
                    
 
 
@@ -1063,36 +1001,34 @@ module Sim900.Machine
 
     let Processor () =
             panelLights()
-            while status <> machineMode.Dead do
+            while status <> machineMode.Dead do 
                 match status with
-                | Dead       -> ignore           ()
-                | Off        -> OffSwitch        ()
-                                OnSwitch         ()
+                | Dead       -> ignore           () 
+                | Off        -> ignore           () 
                                 KeySwitch        ()
-                                panelLights      ()
-                | Reset      -> OffSwitch        ()
+                                //panelLights      ()
+                | Reset      -> 
                                 KeySwitch        ()
                                 EnterSwitch      ()
                                 ObeySwitch       ()
                                 JumpSwitch       ()
                                 Command          ()
                                 panelLights      ()
-                                DisplayRegisters ()
-                | Stopped   ->  OffSwitch        ()
+                                //DisplayRegisters ()
+                | Stopped   ->  
                                 KeySwitch        ()
                                 EnterSwitch      ()
                                 ObeySwitch       ()
                                 RestartSwitch    ()
-                                ResetSwitch      ()
                                 Command          ()
                                 panelLights      ()
-                                DisplayRegisters ()
+                                //DisplayRegisters ()
                 | Obey      ->  Execute (wordGenerator)
                                 status <- machineMode.Stopped  //After an obey we return to stopped
                 | Cycle     ->  NextInstruction ()
                                 status <- machineMode.Stopped
                 | Running   ->  NextInstruction ()
-                                if iCount %   50L = 0L then DisplayRegisters ()
-                                                            ResetSwitch ()
+                                if iCount %   50L = 0L then //DisplayRegisters ()
                                                             StopSwitch  ()
-                                                            OffSwitch   ()
+                                     
+
