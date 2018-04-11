@@ -206,8 +206,7 @@ module Sim900.Bits
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
        controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
-       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
-
+       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4 
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
