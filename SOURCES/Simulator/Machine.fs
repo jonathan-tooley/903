@@ -819,7 +819,7 @@ module Sim900.Machine
                                                       MessagePut (" 15 6148:  Select Output TTY")
 
                         | _          , 0, 1, 0    ->  System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/"
-                                                      play <- playStyle.None
+                                                      play <- playStyle.NotSet
 
                         | _          , 0, 1, 1    ->  MessagePut ("Moving to SIR directory")
                                                       System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903SIR/"
@@ -837,7 +837,7 @@ module Sim900.Machine
                                                       System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/905FORTRAN/"
                                                       play <- playStyle.Fortran_905
  
-                        | None       , 0,  2,    _ -> MessagePut ("Not in a directory.")
+                        | NotSet     , 0,  2,    _ -> MessagePut ("Not in a directory.")
 
                         | _          , 0,  2,    _ -> ListDirectory ()
                         | Sir        , 0,  3,    _ -> MessagePut  ("  1:   SIR(ISS6)(5500).BIN")
