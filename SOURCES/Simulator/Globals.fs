@@ -80,13 +80,13 @@ module Sim900.Globals
        | Running
 
     type playStyle = 
-       | None
+       | NotSet
        | Algol
        | Sir
        | Fortran_903
        | Fortran_905
 
-    let mutable play = playStyle.None
+    let mutable play = playStyle.NotSet
     let mutable status = machineMode.Off
 
     let on() = match status with
