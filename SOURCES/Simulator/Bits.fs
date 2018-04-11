@@ -28,7 +28,7 @@ module Sim900.Bits
      extern int wiringPiISR          ( int pin, int mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
      [<DllImport("libwiring.so"    , EntryPoint = "piLock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern void piLock              (int keyNum);
-     [<DllImport("libwiring.so"    , EntryPoint = "piUnlock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so"    , EntryPoint = "piUnlock"           , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern void piUnlock            (int keyNum);
 
 
@@ -127,6 +127,8 @@ module Sim900.Bits
    let wiringPiSPISetup channel speed   = SPI.wiringPiSPISetup     (channel, speed)
    let wiringPiSPIRW channel d l        = SPI.wiringPiSPIDataRW    (channel, d, l)
    let mcp23s17Setup pin0 port devId    = MCP.mcp23s17Setup        (pin0, port, devId)
+   let piLock   keyNum                  = wiringPi.piLock          (keyNum)
+   let piUnlock keyNum                  = wiringPi.piUnlock        (keyNum)
 
    let mutable controlPanelU1 = 0
    let mutable controlPanelU2 = 0
