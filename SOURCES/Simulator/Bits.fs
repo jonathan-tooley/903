@@ -356,6 +356,8 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of S Register
 
        setI2CBus 0b01000000 *)       MessagePut("Setting up interrupts")
+
+       MessagePut("Setting up interrupts")
    
 
        let IntPing : ISRCallback = ISRCallback(fun() ->    //ConnectPanel ()
