@@ -4,13 +4,13 @@
 module Sim900.Bits
 
    open Sim900.Globals
+   open Sim900.Console
    open System.IO
    open System.Runtime.InteropServices
     
    let not1   =  0X3fffe // relative to 18 bits
     
-   // Convert from 18 to 32 bit arithmetic
-   let Normalize word = if word >= 131072 then (word%131072)-131072 else word
+
 
    type ISRCallback = delegate of unit -> unit
      
@@ -145,19 +145,27 @@ module Sim900.Bits
    let mutable DisplayU5 = 0
    let mutable hs        = GPIO.pinValue.High
    let mutable RdrVal    = -1
-
-   let mutable activeBus = 0b01000000  //Start with the control panel active
-  
-   let setI2CBus (bus) =
-     activeBus <- bus
-     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) bus |> ignore
-     if (bus <> 0b01000000) then printf "Mult Sw"
-
-   let resetI2CBus (aBus) =
-     wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) aBus |> ignore
-     if (aBus <> 0b01000000) then printf "Mult Sw"
-
  
+   let ConnectPanel () =
+       piLock(1)
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b01000000 |> ignore
+    
+   let ReleasePanel () =
+       piUnlock (1)
+
+   let ConnectDisplay () =
+       piLock(1)
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b10000000 |> ignore 
+
+   let ReleaseDisplay () = 
+       piUnlock (1)
+
+   let ConnectPunch   () =
+       piLock   (1)
+       wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore 
+
+   let ReleasePunch () =
+       piUnlock (1)
 
    //let SprocketOn  : ISRCallback = ISRCallback(fun() ->  hs <- GPIO.pinValue.High
    //                                                      wiringPiI2CWriteReg8 I2cMultiplexer (int MCP.MCP23017.IODIRA) 0b00100000 |> ignore  
@@ -200,13 +208,46 @@ module Sim900.Bits
 
        I2cMultiplexer <- wiringPiI2CSetup 0x77
 
-       setI2CBus 0b01000000 //Select the control panel on
+       ConnectPanel ()
       
 
        controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
        controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
        controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
-       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4 
+       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
+
+       let IntPing : ISRCallback = ISRCallback(fun() ->    ConnectPanel ()
+                                                           match wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA) with
+                                                           | 0x18    //On button with key in auto
+                                                           | 0x19    //On button with key in test
+                                                           | 0x1A    //On button with key in operate
+                                                                  -> status <- machineMode.SwitchingOn
+                                                           | 0xA4    //Off button pressed with On light on in auto
+                                                           | 0xA5    //Off button pressed with On light on in test
+                                                           | 0xA6    //Off button pressed with On light on in operate
+                                                                  -> 
+                                                                     status <- machineMode.SwitchingOff
+                                                           | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
+                                                           | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
+                                                           | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
+                                                                  -> MessagePut "Shuting down"
+                                                                     status <- machineMode.Dead
+                                                           | 0x60    //Reset button pressed when not lit in auto
+                                                           | 0x61    //Reset button pressed when not lit in test
+                                                           | 0x62    //Reset button pressed when not lit in operate
+                                                                  -> MessagePut "Resetting"
+                                                                     status <- machineMode.Reset
+                                                           |_     -> ignore()   
+                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA)); 
+                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPB)); 
+                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTFA)); 
+                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTFB));
+                                                           ReleasePanel ()
+                                                           ())
+
+       let r = wiringPi.wiringPiISR(0, 1, IntPing) 
+                                      // Setup pin 0 as an interrupt input.    
+
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
@@ -321,18 +362,19 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
 
 
-(*       setI2CBus 0b00100000  //Select Reader, punch and plotter
+//       setI2CBus 0b00100000  //Select Reader, punch and plotter
 
        //Setup the paper tape MCP23017 
-       punchPort      <- wiringPiI2CSetup 0x27
-       readerPort     <- punchPort
+//       punchPort      <- wiringPiI2CSetup 0x27
+//       readerPort     <- punchPort
 //       plotterPort    <- wiringPiI2CSetup 0x25
 
-       wiringPiI2CWriteReg8 punchPort  (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
-       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
-       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.GPPUB ) 0b11111011 |> ignore //Bank B pull up resistors
+//       wiringPiI2CWriteReg8 punchPort  (int MCP.MCP23017.IODIRA) 0b00000000 |> ignore //Bank A is all outputs
+//       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.IODIRB) 0b11111111 |> ignore //Bank B is all inputs
+//       wiringPiI2CWriteReg8 readerPort (int MCP.MCP23017.GPPUB ) 0b11111011 |> ignore //Bank B pull up resistors
 
-       setI2CBus 0b10000000  //Select Display Unit
+       ReleasePanel ()
+       ConnectDisplay ()
 
        DisplayU1 <- wiringPiI2CSetup 0x23
        DisplayU2 <- wiringPiI2CSetup 0x24
@@ -356,54 +398,6 @@ module Sim900.Bits
        wiringPiI2CWriteReg8 DisplayU5 (int MCP.MCP23017.IODIRB) 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of S Register
 
 
-       MessagePut("Setting up interrupts")
-   
+       ReleaseDisplay ()
 
-       let IntPing : ISRCallback = ISRCallback(fun() ->    //ConnectPanel ()
-                                                           let mutable INTCAPA = 0;
-                                                           INTCAPA <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA);
-
-                                                           match INTCAPA with
-                                                           | 0x18    //On button with key in auto
-                                                           | 0x19    //On button with key in test
-                                                           | 0x1A    //On button with key in operate
-                                                                  -> MessagePut "Turning system on."
-                                                                     digitalWrite 24 GPIO.pinValue.High
-                                                                     Reset()
-                                                                     //Illuminate On and Reset with No Off Light
-                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
-                                                           | 0xA4    //Off button pressed with On light on in auto
-                                                           | 0xA5    //Off button pressed with On light on in test
-                                                           | 0xA6    //Off button pressed with On light on in operate
-                                                                  -> MessagePut "Turning system off."
-                                                                     digitalWrite 24 GPIO.pinValue.Low
-                                                                     Reset()
-                                                                     //Illuminate just Off light
-                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
-                                                                     status <- machineMode.Off
-                                                           | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
-                                                           | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
-                                                           | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
-                                                                  -> MessagePut "Shuting down"
-                                                                     status <- machineMode.Dead
-                                                                     //Turn off U1 A Lights
-                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00000000 )  |> ignore
-                                                           | 0x60    //Reset button pressed when not lit in auto
-                                                           | 0x61    //Reset button pressed when not lit in test
-                                                           | 0x62    //Reset button pressed when not lit in operate
-                                                                  -> MessagePut "Resetting"
-                                                                     Reset()
-                                                                     //Illuminate On and Reset with No Off Light
-                                                                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
-                                                           |_     -> ignore();
-                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPA)); 
-                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.INTCAPB)); 
-                                                           //ReleasePanel ()
-                                                           ())
-
-       let r = wiringPi.wiringPiISR(0, 1, IntPing)   // Setup pin 0 as an interrupt input. 
-
-
-
-       0
 
