@@ -613,8 +613,6 @@ module Sim900.Machine
     let mutable I3M           = false
 
     let panelLights() =
-            
-                    setI2CBus 0b01000000  //Select the control panel on
                     HeartBeat <- HeartBeat + 1
                     if HeartBeat > 40 then Flash <- true
                     if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
@@ -634,6 +632,7 @@ module Sim900.Machine
                     if status = machineMode.Reset &&
                        (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
 
+                    ConnectPanel ()
                     //Now set the lights by sending the combined value to the control panel
                     wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATB) ( PanelOutput )  |> ignore
 
@@ -648,16 +647,12 @@ module Sim900.Machine
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB) InterruptDisp |> ignore
-
-
-                   
-
-
-
+                    ReleasePanel ()
 
     let KeySwitch() =
-                    setI2CBus 0b01000000 
+                    ConnectPanel ()
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOA)
+                    ReleasePanel ()
                     if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
                         then operate <- mode.Test
                              MessagePut "Keyswitch turned to test"
@@ -667,13 +662,12 @@ module Sim900.Machine
                              MessagePut "Keyswitch turned to operate"
                              if EnterButtonR then MessagePut "Halting Repeat Enter"; EnterButtonR <- false
 
-
                     if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
                         then operate <- mode.Auto       
                              
 
     let WordSwitch() =
-                    setI2CBus 0b01000000 //Select the control panel on
+                    ConnectPanel ()
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU2 (int MCP.MCP23017.GPIOB) <<< 10
@@ -683,53 +677,56 @@ module Sim900.Machine
                     PanelInput <- PanelInput ||| (wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB) &&& 0x3)
                     if WGet () <> PanelInput && not (operate = mode.Auto)
                        then WPut PanelInput
+                    ReleasePanel ()
 
     let EnterSwitch() = 
-                    setI2CBus 0b01000000
+                    ConnectPanel ()
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    ReleasePanel ()
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButtonS <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButtonS && operate = mode.Test
                         then EnterButtonS <- true
                              MessagePut "Enter command"
                              WordSwitch()
                              APut (WGet())
-                             //DisplayA ()
-                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
+                             DisplayA ()
                              status <- machineMode.Stopped
+                             ROOLights ()
 
                     if PanelInput &&& 0b00010000 = 0b00000000 then EnterButtonR <- false
                     if PanelInput &&& 0b00010000 = 0b00010000 && operate = mode.Test
                         then if not EnterButtonR then MessagePut "Repeating Enter Commands"; EnterButtonR <- true
                              WordSwitch()
                              APut (WGet())
-                             //DisplayA ()
-                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
+                             DisplayA ()
                              status <- machineMode.Stopped
+                             ROOLights ()
 
     let ObeySwitch() = 
-                    setI2CBus 0b01000000 
+                    ConnectPanel ()
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    ReleasePanel ()
                     if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButtonS <- false 
                     if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButtonS && operate = mode.Test
                         then ObeyButtonS <- true
                              MessagePut "Obey command"
                              WordSwitch ()
-                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status     <- machineMode.Obey 
+                             ROOLights ()
                     
                     if PanelInput &&& 0b01000000 = 0b00000000 then ObeyButtonR <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && operate = mode.Test
                         then if not ObeyButtonR then MessagePut "Repeating Obey Commands"; ObeyButtonR <- true 
                              WordSwitch()
-                             wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
                              status    <- machineMode.Obey
-
+                             ROOLights ()
 
 
 
     let CycleSwitch() =                    
-                    setI2CBus 0b01000000 
+                    ConnectPanel () 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO ); 
+                    ReleasePanel ()
                     let mutable res = false
                     if PanelInput &&& 0b00000001 = 0b00000001   
                         then res <- true  //Order Stop is the same as cycle stop
@@ -754,8 +751,9 @@ module Sim900.Machine
                      handleBackspaces fn
 
     let Command() =
-                    setI2CBus 0b01000000 
+                    ConnectPanel () 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU4 (int MCP.MCP23008.GPIO )
+                    ReleasePanel ()
                     if PanelInput &&& 0b00001000 = 0b00000000 &&     CmdButton  then CmdButton <- false
                     if PanelInput &&& 0b00001000 = 0b00001000 && not CmdButton  then
                         WordSwitch ()
@@ -841,8 +839,6 @@ module Sim900.Machine
                         
                         | _, _, _, _       ->  ignore ()
 
-
-                            
                    
 
 
@@ -857,9 +853,9 @@ module Sim900.Machine
                           else status <- machineMode.Running; MessagePut "Jumping to address"
         
     let JumpSwitch() = 
-                    setI2CBus 0b01000000 
+                    ConnectPanel () 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
-           
+                    ReleasePanel ()
                     if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
                     if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && status = machineMode.Reset && not (operate = mode.Auto)
                         then JumpButton <- true
@@ -867,8 +863,9 @@ module Sim900.Machine
                              Jump ()
 
     let StopSwitch() = 
-                    setI2CBus 0b01000000 
+                    ConnectPanel ()
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
+                    ReleasePanel ()
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && not (operate = mode.Auto)
                         then MessagePut "Machine stopped"
@@ -876,8 +873,9 @@ module Sim900.Machine
                              StopButton <- true
 
     let RestartSwitch() =
-                    setI2CBus 0b01000000                  
+                    ConnectPanel ()                 
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
+                    ReleasePanel ()
                     if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
                     if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && not (operate = mode.Auto)
                         then RestartButton <- true
@@ -885,9 +883,9 @@ module Sim900.Machine
                                                else status <- machineMode.Running; MessagePut "Restart run"
 
     let panelButtons() =
-                    setI2CBus 0b01000000 
+                    ConnectPanel ()
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU1 (int MCP.MCP23017.GPIOB)
-
+                    ReleasePanel ()
                     // Handle MCP23017 U3 Inputs
                     PanelInput <- wiringPiI2CReadReg8 controlPanelU3 (int MCP.MCP23017.GPIOA); 
 
