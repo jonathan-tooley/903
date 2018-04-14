@@ -14,6 +14,68 @@ module Sim900.Devices
     open Sim900.Telecodes
     
     exception Device of string
+
+    let ROOLights () =
+        ConnectPanel ()
+        match status with
+        |     machineMode.Dead    -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00000000 )  |> ignore 
+        |     machineMode.Off     -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
+        |     machineMode.Reset   -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
+        |     machineMode.Stopped -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Obey    -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Cycle   -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Running -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore
+        |     _                   -> ignore ()     
+        ReleasePanel ()
+
+    let DisplayA () =
+            ConnectDisplay ()
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            //The most significant bits of the registers are packed into one byte so we need to keep 6 bits and replace 2
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            shown <- (shown &&& 0b11111100) ||| ((AGet() &&& 0b110000000000000000) >>> 16)
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            ReleaseDisplay ()
+
+    let DisplayQ () =
+            ConnectDisplay ()
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) (int (QGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            shown <- (shown &&& 0b11110011) ||| ((QGet() &&& 0b110000000000000000) >>> 14)
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            ReleaseDisplay ()
+    
+    let DisplayB () =
+            ConnectDisplay ()
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) (int (BGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            shown <- (shown &&& 0b11001111) ||| ((BGet() &&& 0b110000000000000000) >>> 12)
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            ReleaseDisplay ()
+    
+    let DisplayRegisters () =
+            DisplayA ()
+            DisplayQ ()    
+            DisplayB ()
+                  
+
+            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
+            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
+
+            //if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
+            //if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
+            //if ActiveReader = Attached      then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
+
+            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
+
+            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
+            //                                                               (int (QGet() &&& 0b110000000000000000) >>> 14) |||
+              //                                                             (int (BGet() &&& 0b110000000000000000) >>> 12) |||
+                //                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
+
    
     // PAPER TAPE READER                               
     type ReaderDevice =

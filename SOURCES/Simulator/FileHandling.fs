@@ -6,14 +6,12 @@ module Sim900.FileHandling
         open System.Text
 
         open Sim900.Globals
+        open Sim900.Console
         open Sim900.Bits
         open Sim900.Telecodes
         open Sim900.Devices
         open Sim900.Formatting
 
-       
-        // Elliott 903 simulator file handling commands
-           // Image files consist of raw bytes, 4 per word in little endian order, starting from location 8
 
         // Image files consist of raw bytes, 4 per word in little endian order, starting from location 8
 
