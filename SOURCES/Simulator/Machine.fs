@@ -543,59 +543,6 @@ module Sim900.Machine
     let mutable sr = 0
 
 
-
-    let DisplayRegisters () =
-            DisplayA ()         
-            setI2CBus 0b10000000  //Select the display panel on
-      
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) (int (BGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
-
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) (int (QGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
-
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
-
-            if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
-            if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
-            if ActiveReader = Attached      then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
-
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
-
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
-                                                                           (int (QGet() &&& 0b110000000000000000) >>> 14) |||
-                                                                           (int (BGet() &&& 0b110000000000000000) >>> 12) |||
-                                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
-
-
-   
-        // turn off machine - finalize any output
-    let turnOff () =
-            // Make sure front panel indicators are off
-            // Turn off the interrupt indicators
-            setI2CBus 0b01000000  //Select the control panel on
-            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
-            //Turn off the display leds
-            //setI2CBus 0b10000000  //Select the display panel on
-
-            //wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            //wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) 0 |> ignore
-      
-            //wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            //wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) 0 |> ignore
-
-            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) 0 |> ignore
-
-            //wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            //wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) 0 |> ignore
-
-            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) 0 |> ignore
-            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) 0 |> ignore
-
-
-
         //For our control panel we will need some variables to read inputs, write outputs and debounce keys
     let mutable PanelInput    = 0
     let mutable PanelOutput   = 0
