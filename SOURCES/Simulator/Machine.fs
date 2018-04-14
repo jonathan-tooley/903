@@ -968,32 +968,34 @@ module Sim900.Machine
             panelLights()
             while status <> machineMode.Dead do 
                 match status with
-                | Dead       -> ignore           () 
-                | Off        -> ignore           () 
-                                KeySwitch        ()
-                                //panelLights      ()
-                | Reset      -> 
-                                KeySwitch        ()
-                                EnterSwitch      ()
-                                ObeySwitch       ()
-                                JumpSwitch       ()
-                                Command          ()
-                                panelLights      ()
-                                //DisplayRegisters ()
-                | Stopped   ->  
-                                KeySwitch        ()
-                                EnterSwitch      ()
-                                ObeySwitch       ()
-                                RestartSwitch    ()
-                                Command          ()
-                                panelLights      ()
-                                //DisplayRegisters ()
-                | Obey      ->  Execute (wordGenerator)
-                                status <- machineMode.Stopped  //After an obey we return to stopped
-                | Cycle     ->  NextInstruction ()
-                                status <- machineMode.Stopped
-                | Running   ->  NextInstruction ()
-                                if iCount %   50L = 0L then //DisplayRegisters ()
-                                                            StopSwitch  ()
+                | Dead         -> ignore           () 
+                | Off          -> KeySwitch        ()
+                | SwitchingOff -> turnOff          ()
+                | SwitchingOn  -> turnOn           ()
+                | Reset        -> Reset            ()
+                                  KeySwitch        ()
+                                  EnterSwitch      ()
+                                  ObeySwitch       ()
+                                  JumpSwitch       ()
+                                  Command          ()
+                                  panelLights      ()
+                                  DisplayRegisters ()
+                | Stopped     ->  
+                                  KeySwitch        ()
+                                  EnterSwitch      ()
+                                  ObeySwitch       ()
+                                  RestartSwitch    ()
+                                  Command          ()
+                                  panelLights      ()
+                                  DisplayRegisters ()
+                | Obey        ->  Execute (wordGenerator)
+                                  status <- machineMode.Stopped  //After an obey we return to stopped
+                | Cycle       ->  NextInstruction ()
+                                  status <- machineMode.Stopped
+                | Running     ->  NextInstruction ()
+                                  if iCount %   50L = 0L then //DisplayRegisters ()
+                                                              StopSwitch  ()
+            ROOLights()
+
                                      
 
