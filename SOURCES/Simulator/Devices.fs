@@ -97,7 +97,7 @@ module Sim900.Devices
                   handShake <- digitalRead 3
              punchHoldUp <- false
              // Then we set up the data on the mcp pins
-             setI2CBus 0b00100000   
+             ConnectPunch ()    
              wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) (int char) |> ignore
              // Then we send a commit instruction to the punch
              digitalWrite 4 GPIO.pinValue.High
@@ -105,6 +105,7 @@ module Sim900.Devices
              while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
              // Then we can stop telling to write as it has started working on our command
              digitalWrite 4 GPIO.pinValue.Low
+             ReleasePunch ()
         
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, ActivePunch) with
