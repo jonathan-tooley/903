@@ -76,11 +76,56 @@ module Sim900.Machine
                  else memory.[address] <- initialInstructionStore.[address-initialInstructionsBase] ||| contents 
             else memory.[address] <- contents
 
-        // CENTRAL PROCESSING UNIT
-        // Instruction decoding, interrupt handling and monitoring 
-        
+         // MACHINE RESET
+        let Reset () =    
+            accumulator     <- 0       
+            qRegister       <- 0       
+            bRegisterAddr   <- 1       
+            scrAddr         <- 0      
+            iRegister       <- 0       
+            pRegister       <- 0      
+            interruptLevel  <- 1         
+            takeInterrupt   <- false        
+            protect         <- false 
+            status          <- machineMode.Reset
+            ROOLights ()
+            for i = 0 to 4 do
+                levelActive.[i]      <- false
+                interruptPending.[i] <- false
+                interruptTrace.[i]   <- false
+            levelActive.[1] <- true
+            EnableInitialInstructions ()
+            WriteMem 1 0
+            WriteMem 0 0
 
-                      
+        let turnOn () =
+            MessagePut "Turning system on."
+            digitalWrite 24 GPIO.pinValue.High
+            status <- machineMode.Reset
+            ROOLights ()
+
+        let turnOff () =
+            MessagePut "Turning system off."
+            digitalWrite 24 GPIO.pinValue.Low
+            status <- machineMode.Off
+            ROOLights ()
+            // Make sure front panel indicators are off
+            // Turn off the interrupt indicators
+            ConnectPanel ()
+            wiringPiI2CWriteReg8 controlPanelU3 (int MCP.MCP23017.OLATB ) 0b00000000 |> ignore
+            ReleasePanel ()
+            ConnectDisplay ()
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) 0 |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) 0 |> ignore
+            ReleaseDisplay ()
  
         let LevelCheck level = 
             if   level < 0 || level > 3 
