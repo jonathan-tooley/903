@@ -506,20 +506,6 @@ module Sim900.Machine
         InterruptOn level
 
 
-
-
-        //port.Write "\r\u001B\u003A"
-
-        for i = 0 to 4 do
-            levelActive.[i]      <- false
-            interruptPending.[i] <- false
-            interruptTrace.[i]   <- false
-        levelActive.[1] <- true
-        EnableInitialInstructions ()
-        WriteMem 1 0
-        WriteMem 0 0
-   
-              
                  
                         
     // TRACE INTERRUPTS
