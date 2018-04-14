@@ -29,7 +29,6 @@ module Sim900.Machine
         // or while the instructions are enabled should be regarded as undefined.
         //
 
-
         let mutable initialInstructionsEnabled = true
 
         let mutable initialInstructionsBase    = 0
