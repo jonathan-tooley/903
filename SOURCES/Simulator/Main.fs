@@ -19,6 +19,7 @@ open Sim900.FileHandling
 do
     //CloseReader () // force devices to initialize
     setupControlPorts ()
+    ROOLights ()
     MessagePut "Elliott 903 Run Console"
 
     Processor()

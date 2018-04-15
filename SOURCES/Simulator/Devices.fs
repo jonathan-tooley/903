@@ -18,66 +18,72 @@ module Sim900.Devices
     let ROOLights () =
         ConnectPanel ()
         match status with
-        |     machineMode.Dead    -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00000000 )  |> ignore 
-        |     machineMode.Off     -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00001000 )  |> ignore 
-        |     machineMode.Reset   -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b10100000 )  |> ignore 
-        |     machineMode.Stopped -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Obey    -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Cycle   -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Running -> wiringPiI2CWriteReg8 controlPanelU1 (int MCP.MCP23017.OLATA) ( 0b00100000 )  |> ignore
+        |     machineMode.Dead    -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00000000 )  |> ignore 
+        |     machineMode.Off     -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00001000 )  |> ignore 
+        |     machineMode.Reset   -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b10100000 )  |> ignore 
+        |     machineMode.Stopped -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Obey    -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Cycle   -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
+        |     machineMode.Running -> wiringPiI2CWriteReg8 controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore
         |     _                   -> ignore ()     
         ReleasePanel ()
 
     let DisplayA () =
             ConnectDisplay ()
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATB ) (int (AGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU1      (int MCP.MCP23017.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (MCP.Register.OLATB ) (int (AGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU1      (MCP.Register.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
             //The most significant bits of the registers are packed into one byte so we need to keep 6 bits and replace 2
-            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 ( MCP.Register.GPIOB)
             shown <- (shown &&& 0b11111100) ||| ((AGet() &&& 0b110000000000000000) >>> 16)
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (MCP.Register.OLATB ) (int shown) |> ignore
             ReleaseDisplay ()
 
     let DisplayQ () =
             ConnectDisplay ()
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATB ) (int (QGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU4      (int MCP.MCP23017.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
-            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            wiringPiI2CWriteReg8 DisplayU4      (MCP.Register.OLATB ) (int (QGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU4      (MCP.Register.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 ( MCP.Register.GPIOB)
             shown <- (shown &&& 0b11110011) ||| ((QGet() &&& 0b110000000000000000) >>> 14)
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      (MCP.Register.OLATB ) (int shown) |> ignore
             ReleaseDisplay ()
     
     let DisplayB () =
             ConnectDisplay ()
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATB ) (int (BGet())       &&& mask8) |> ignore
-            wiringPiI2CWriteReg8 DisplayU2      (int MCP.MCP23017.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
-            let mutable shown = wiringPiI2CReadReg8 DisplayU3 (int MCP.MCP23017.GPIOB)
+            wiringPiI2CWriteReg8 DisplayU2      (MCP.Register.OLATB ) (int (BGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU2      (MCP.Register.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 ( MCP.Register.GPIOB)
             shown <- (shown &&& 0b11001111) ||| ((BGet() &&& 0b110000000000000000) >>> 12)
-            wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) (int shown) |> ignore
+            wiringPiI2CWriteReg8 DisplayU3      ( MCP.Register.OLATB ) (int shown) |> ignore
             ReleaseDisplay ()
-    
+
+    let DisplayS () =
+            ConnectDisplay ()
+            wiringPiI2CWriteReg8 DisplayU5      ( MCP.Register.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
+            wiringPiI2CWriteReg8 DisplayU5      ( MCP.Register.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
+            let mutable shown = wiringPiI2CReadReg8 DisplayU3 ( MCP.Register.GPIOB)
+            shown <- (shown &&& 0b11001111) ||| ((OldSGet() &&& 0b110000000000000000) >>> 10)
+            wiringPiI2CWriteReg8 DisplayU3      ( MCP.Register.OLATB ) (int shown) |> ignore
+            ReleaseDisplay ()
+
+    let DisplayI () =            
+            ConnectDisplay ()
+            let mutable shown = 0
+            match status with
+            |Reset             -> shown <- shown ||| 0b10000000 
+            |Stopped           -> shown <- shown ||| 0b01000000
+            |_                 -> ignore ()
+
+            shown <- int (IGet()) &&& mask4 ||| shown 
+            wiringPiI2CWriteReg8 DisplayU3      ( MCP.Register.OLATA ) (shown) |> ignore
+            ReleaseDisplay ()
+
     let DisplayRegisters () =
             DisplayA ()
             DisplayQ ()    
             DisplayB ()
-                  
-
-            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
-            //wiringPiI2CWriteReg8 DisplayU5      (int MCP.MCP23017.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
-
-            //if status = machineMode.Reset   then sr <- sr ||| 0b10000000 else sr <- sr &&& 0b01111111
-            //if status = machineMode.Stopped then sr <- sr ||| 0b00100000 else sr <- sr &&& 0b11011111
-            //if ActiveReader = Attached      then sr <- sr ||| 0b01000000 else sr <- sr &&& 0b10111111
-
-            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATA ) (int (IGet()) &&& mask4 ||| sr) |> ignore
-
-            //wiringPiI2CWriteReg8 DisplayU3      (int MCP.MCP23017.OLATB ) ((int (AGet() &&& 0b110000000000000000) >>> 16) ||| 
-            //                                                               (int (QGet() &&& 0b110000000000000000) >>> 14) |||
-              //                                                             (int (BGet() &&& 0b110000000000000000) >>> 12) |||
-                //                                                           (int (SGet() &&& 0b110000000000000000) >>> 10)) |> ignore
-
+            DisplayS ()
+            DisplayI ()
    
-    // PAPER TAPE READER                               
     type ReaderDevice =
         |Attached
         |MechanicalR
@@ -113,16 +119,18 @@ module Sim900.Devices
         ActiveReader <- Attached
                  
     let GetReaderChar () = // get a character from the paper tape reader
-        let ti =
-            match tapeIn with
-            | Some ti   -> ti
-            | _         -> raise (Device "No input attached to tape reader")
-        if   tapeInPos >= ti.Length then ActiveReader <- MechanicalR
-                                         let code = byte 0
-                                         code
-        else let code = ti.[tapeInPos]
-             tapeInPos <- tapeInPos+1
-             code
+           let ti =
+               match tapeIn with
+               | Some ti   -> ti
+               | _         -> raise (Device "No input attached to tape reader")
+           if  tapeInPos >= ti.Length then let code = byte 0
+                                           ActiveReader <- MechanicalR
+                                           code
+                                      else let code = ti.[tapeInPos]
+                                           tapeInPos <- tapeInPos+1
+                                           printfn "%i  %i \n" tapeInPos ti.Length
+                                           code
+
 
     let CloseReader () = 
         // Close tape reader - clear buffer and reset character position
@@ -160,7 +168,7 @@ module Sim900.Devices
              punchHoldUp <- false
              // Then we set up the data on the mcp pins
              ConnectPunch ()    
-             wiringPiI2CWriteReg8 punchPort      (int MCP.MCP23017.OLATA ) (int char) |> ignore
+             wiringPiI2CWriteReg8 punchPort      ( MCP.Register.OLATA ) (int char) |> ignore
              // Then we send a commit instruction to the punch
              digitalWrite 4 GPIO.pinValue.High
              // Now we wait for the punch to confirm that it is busy doing our instruction
@@ -208,5 +216,105 @@ module Sim900.Devices
             ClosePunch ()
 
 
-    let StartDevices () = () // to force initialization of this module
+    type Input = 
+            | ReaderIn
+            | AutoIn
+            | TeleprinterIn
+
+    type Output = 
+            | PunchOut
+            | AutoOut
+            | TeleprinterOut
+
+    let mutable SelectInput  = AutoIn
+    let mutable SelectOutput = AutoOut
+
+
+    let ReaderInput Z =
+            pRegister <- Z
+            if status <> Reset
+            then try // reset SCR if error signalled
+                    let ch = int (GetReaderChar ())
+                    accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
+                 with
+                 | e -> sequenceControlRegister <- oldSequenceControlRegister
+                        raise e
+            else  accumulator <- accumulator <<< 7 
+
+    let PunchOutput Z =
+            pRegister <- Z
+            PutPunchChar (byte (accumulator &&& mask8))  
+
+
+
+    let readByte char =
+            digitalWrite 6 GPIO.pinValue.Low
+            handShake <- digitalRead 5
+            while handShake = GPIO.pinValue.Low  && status <> Reset do handShake <- digitalRead 5
+            ConnectPunch ()
+            accumulator <- (accumulator <<< 7 ||| (wiringPiI2CReadReg8 punchPort ( MCP.Register.GPIOB) &&& mask8)) &&& mask18
+            ReleasePunch ()
+            while handShake = GPIO.pinValue.High && status <> Reset do handShake <- digitalRead 5
+            digitalWrite 6 GPIO.pinValue.High
+
+//            while RdrVal < 0 do ignore()
+//            accumulator <- (accumulator <<< 7 ||| (RdrVal &&& mask8)) &&& mask18 
+//            RdrVal <- -1
+            //DisplayA ()
+
+    let BitCount code =
+           let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
+           let rec Shift residual =
+               if   residual = 0
+               then 0
+               else count.[residual &&& 0xf] + Shift (residual >>> 4)
+           Shift code
+
+    let OddParity code = ((BitCount code) &&& bit1) = bit1  
+
+    let rec TTYInput Z =
+            while status <> machineMode.Reset do
+              let mutable ch = 0
+              ttyDemand <- true
+              try
+                  ch <- int (port.ReadByte())
+
+                  ttyDemand <- false
+                  ch <- (if OddParity ch then bit8 ||| ch else ch)
+                  accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
+                  port.Write (System.String.Concat( char (accumulator &&& mask7)))
+                  DisplayA ()
+              with
+              _ ->  TTYInput Z
+
+    let TTYOutput Z =
+            if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
+            port.Write (System.String.Concat( char (accumulator &&& mask7)))
+
+    let Reader Z = 
+            match SelectInput, ActiveReader with
+            | ReaderIn, MechanicalR      -> readByte Z
+            | ReaderIn, Attached         -> ReaderInput Z
+            | AutoIn,   MechanicalR      -> readByte Z
+            | AutoIn,   Attached         -> ReaderInput Z
+            | TeleprinterIn, _           -> TTYInput Z
+
+    let TTYIn Z =
+            match SelectInput, ActiveReader with
+            | ReaderIn, MechanicalR     -> readByte Z
+            | ReaderIn, Attached        -> ReaderInput Z
+            | AutoIn, _
+            | TeleprinterIn, _          -> TTYInput Z
+
+    let Punch Z =
+            match SelectOutput with
+            | PunchOut        
+            | AutoOut         -> PunchOutput (accumulator &&& mask8)
+            | TeleprinterOut  -> TTYOutput Z
+
+    let TTYOut Z =
+            match SelectOutput with
+            | PunchOut        -> PunchOutput (accumulator &&& mask8)
+            | AutoOut
+            | TeleprinterOut  -> TTYOutput Z
  
