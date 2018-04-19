@@ -5,10 +5,10 @@ module Sim900.Bits
 
    open Sim900.Globals
    open Sim900.Console
-   open System.IO
-   open System.Runtime.InteropServices
+   open System.IO                      //Needed for the serial port 
+   open System.Runtime.InteropServices //Needed for Dll inports
     
-   let not1   =  0X3fffe // relative to 18 bits
+
     
    type ISRCallback = delegate of unit -> unit
      
@@ -111,9 +111,9 @@ module Sim900.Bits
    let pinMode pin mode                 = GPIO.pinMode             (pin, mode)
    let digitalWrite pin value           = GPIO.digitalWrite        (pin, value)
    let digitalRead  pin                 = GPIO.digitalRead         (pin)
-   let wiringPiI2CSetup devId           = I2C.wiringPiI2CSetup     (devId)
-   let wiringPiI2CWriteReg8 fd reg data = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
-   let wiringPiI2CReadReg8  fd reg      = I2C.wiringPiI2CReadReg8  (fd, reg)
+   let I2CSetup devId                   = I2C.wiringPiI2CSetup     (devId)
+   let I2CWrite fd reg data             = I2C.wiringPiI2CWriteReg8 (fd, reg, data)
+   let I2CRead  fd reg                  = I2C.wiringPiI2CReadReg8  (fd, reg)
 
    let piLock   keyNum                  = wiringPi.piLock          (keyNum)
    let piUnlock keyNum                  = wiringPi.piUnlock        (keyNum)
@@ -126,31 +126,29 @@ module Sim900.Bits
    let mutable punchPort      = 0
    let mutable readerPort     = 0
    let mutable plotterPort    = 0
-   let mutable DisplayU1 = 0
-   let mutable DisplayU2 = 0
-   let mutable DisplayU3 = 0
-   let mutable DisplayU4 = 0
-   let mutable DisplayU5 = 0
-   let mutable hs        = GPIO.pinValue.High
-   let mutable RdrVal    = -1
- 
+   let mutable DisplayU1      = 0
+   let mutable DisplayU2      = 0
+   let mutable DisplayU3      = 0
+   let mutable DisplayU4      = 0
+   let mutable DisplayU5      = 0
+    
    let ConnectPanel () =
        piLock(1)
-       wiringPiI2CWriteReg8 I2cMultiplexer MCP.Register.IODIRA 0b01000000 |> ignore
+       I2CWrite I2cMultiplexer MCP.Register.IODIRA 0b01000000 |> ignore
     
    let ReleasePanel () =
        piUnlock (1)
 
    let ConnectDisplay () =
        piLock(1)
-       wiringPiI2CWriteReg8 I2cMultiplexer MCP.Register.IODIRA 0b10000000 |> ignore 
+       I2CWrite I2cMultiplexer MCP.Register.IODIRA 0b10000000 |> ignore 
 
    let ReleaseDisplay () = 
        piUnlock (1)
 
    let ConnectPunch   () =
        piLock   (1)
-       wiringPiI2CWriteReg8 I2cMultiplexer MCP.Register.IODIRA 0b00100000 |> ignore 
+       I2CWrite I2cMultiplexer MCP.Register.IODIRA 0b00100000 |> ignore 
 
    let ReleasePunch () =
        piUnlock (1)
@@ -194,18 +192,18 @@ module Sim900.Bits
 
        port.Write "\r\u001B\u003A"
 
-       I2cMultiplexer <- wiringPiI2CSetup 0x77
+       I2cMultiplexer <- I2CSetup 0x77
 
        ConnectPanel ()
       
 
-       controlPanelU1 <- wiringPiI2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
-       controlPanelU2 <- wiringPiI2CSetup 0x26 //U2
-       controlPanelU3 <- wiringPiI2CSetup 0x25 //U3
-       controlPanelU4 <- wiringPiI2CSetup 0x24 //U4
+       controlPanelU1 <- I2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
+       controlPanelU2 <- I2CSetup 0x26 //U2
+       controlPanelU3 <- I2CSetup 0x25 //U3
+       controlPanelU4 <- I2CSetup 0x24 //U4
 
        let IntPing : ISRCallback = ISRCallback(fun() ->    ConnectPanel ()
-                                                           match wiringPiI2CReadReg8 controlPanelU1 ( MCP.Register.INTCAPA) with
+                                                           match I2CRead controlPanelU1 (MCP.Register.INTCAPA) with
                                                            | 0x18    //On button with key in auto
                                                            | 0x19    //On button with key in test
                                                            | 0x1A    //On button with key in operate
@@ -226,10 +224,10 @@ module Sim900.Bits
                                                                   -> MessagePut "Resetting"
                                                                      status <- machineMode.Reset
                                                            |_     -> ignore()   
-                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 ( MCP.Register.INTCAPA)); 
-                                                           printf "INTCAP %x \n"   (wiringPiI2CReadReg8 controlPanelU1 ( MCP.Register.INTCAPB)); 
-                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 ( MCP.Register.INTFA)); 
-                                                           printf "INTF   %x \n"   (wiringPiI2CReadReg8 controlPanelU1 ( MCP.Register.INTFB));
+                                                           printf "INTCAP %x \n"   (I2CRead controlPanelU1 ( MCP.Register.INTCAPA)); 
+                                                           printf "INTCAP %x \n"   (I2CRead controlPanelU1 ( MCP.Register.INTCAPB)); 
+                                                           printf "INTF   %x \n"   (I2CRead controlPanelU1 ( MCP.Register.INTFA)); 
+                                                           printf "INTF   %x \n"   (I2CRead controlPanelU1 ( MCP.Register.INTFB));
                                                            ReleasePanel ()
                                                            ())
 
@@ -262,16 +260,16 @@ module Sim900.Bits
        // 4 : Jump indicator light                                       |  |  |  |  | 1|  |  |  |
 
        // Setup Registors for GPIO U1
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.IODIRA   0b01010111 |> ignore //Set bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.IODIRB   0b01010111 |> ignore //Set bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.GPPUA    0b01010111 |> ignore //Set pull up resistors on bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.GPPUB    0b01010111 |> ignore //Set pull up resistors on bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.IPOLA    0b01010111 |> ignore //Reverse bank A input polarity
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.IPOLB    0b01010111 |> ignore //Reverse bank B input polarity
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.IOCON17  0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.GPINTENA 0b01010100 |> ignore //Set up reset, on and off keys for interrupt on change
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.INTCONA  0b00000000 |> ignore //Define the interrupt to only work one way
-       wiringPiI2CWriteReg8 controlPanelU1 MCP.Register.DEFVALA  0b00000000 |> ignore //Set the interrupt to trigger when button pressed
+       I2CWrite controlPanelU1 MCP.Register.IODIRA   0b01010111 |> ignore //Set bank A inputs
+       I2CWrite controlPanelU1 MCP.Register.IODIRB   0b01010111 |> ignore //Set bank B inputs
+       I2CWrite controlPanelU1 MCP.Register.GPPUA    0b01010111 |> ignore //Set pull up resistors on bank A inputs
+       I2CWrite controlPanelU1 MCP.Register.GPPUB    0b01010111 |> ignore //Set pull up resistors on bank B inputs
+       I2CWrite controlPanelU1 MCP.Register.IPOLA    0b01010111 |> ignore //Reverse bank A input polarity
+       I2CWrite controlPanelU1 MCP.Register.IPOLB    0b01010111 |> ignore //Reverse bank B input polarity
+       I2CWrite controlPanelU1 MCP.Register.IOCON17  0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite controlPanelU1 MCP.Register.GPINTENA 0b01010100 |> ignore //Set up reset, on and off keys for interrupt on change
+       I2CWrite controlPanelU1 MCP.Register.INTCONA  0b00000000 |> ignore //Define the interrupt to only work one way
+       I2CWrite controlPanelU1 MCP.Register.DEFVALA  0b00000000 |> ignore //Set the interrupt to trigger when button pressed
 
        // U2 Inputs
        //28 : 512   Bit 10
@@ -292,13 +290,13 @@ module Sim900.Bits
        // 1 : 1024  Bit 11
 
        // Setup Registers for GPIO U2
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.IODIRA  0b11111111 |> ignore //Bank A is all inputs
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.IODIRB  0b11111111 |> ignore //Bank B is all inputs
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.GPPUA   0b11111111 |> ignore //Bank A pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.GPPUB   0b11111111 |> ignore //Bank B pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.IPOLA   0b11111111 |> ignore //Bank A polarity 
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.IPOLB   0b11111111 |> ignore //Bank A polarity
-       wiringPiI2CWriteReg8 controlPanelU2 MCP.Register.IOCON17 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite controlPanelU2 MCP.Register.IODIRA  0b11111111 |> ignore //Bank A is all inputs
+       I2CWrite controlPanelU2 MCP.Register.IODIRB  0b11111111 |> ignore //Bank B is all inputs
+       I2CWrite controlPanelU2 MCP.Register.GPPUA   0b11111111 |> ignore //Bank A pull up resistors
+       I2CWrite controlPanelU2 MCP.Register.GPPUB   0b11111111 |> ignore //Bank B pull up resistors
+       I2CWrite controlPanelU2 MCP.Register.IPOLA   0b11111111 |> ignore //Bank A polarity 
+       I2CWrite controlPanelU2 MCP.Register.IPOLB   0b11111111 |> ignore //Bank A polarity
+       I2CWrite controlPanelU2 MCP.Register.IOCON17 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
 
        // U3 Inputs                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPA7  Trace 3                        | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -321,13 +319,13 @@ module Sim900.Bits
        //GPB1  IR 3 Led                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
 
        // Setup registers for GPIO U3
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.IODIRA  0b11111100 |> ignore //Bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.IODIRB  0b01001001 |> ignore //Bank B inputs
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.GPPUA   0b11111100 |> ignore //Bank A pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.GPPUB   0b01001001 |> ignore //Bank B pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.IPOLA   0b11111100 |> ignore //Bank A polarity
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.IPOLB   0b01001001 |> ignore //Bank B polarity
-       wiringPiI2CWriteReg8 controlPanelU3 MCP.Register.IOCON17 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite controlPanelU3 MCP.Register.IODIRA  0b11111100 |> ignore //Bank A inputs
+       I2CWrite controlPanelU3 MCP.Register.IODIRB  0b01001001 |> ignore //Bank B inputs
+       I2CWrite controlPanelU3 MCP.Register.GPPUA   0b11111100 |> ignore //Bank A pull up resistors
+       I2CWrite controlPanelU3 MCP.Register.GPPUB   0b01001001 |> ignore //Bank B pull up resistors
+       I2CWrite controlPanelU3 MCP.Register.IPOLA   0b11111100 |> ignore //Bank A polarity
+       I2CWrite controlPanelU3 MCP.Register.IPOLB   0b01001001 |> ignore //Bank B polarity
+       I2CWrite controlPanelU3 MCP.Register.IOCON17 0b01000100 |> ignore //Set up interrupts to mirror A & B and to be open drain
 
        // U4 Inputs                           | 7| 6| 5| 4| 3| 2| 1| 0| 
        //GP7 Obey                             | 1|  |  |  |  |  |  |  | 
@@ -340,47 +338,47 @@ module Sim900.Bits
        //GP0 Order Stop                       |  |  |  |  |  |  |  | 1| 
 
        // Setup registers for GPIO U4
-       wiringPiI2CWriteReg8 controlPanelU4 MCP.Register.IODIR   0b11111011 |> ignore //Bank A inputs
-       wiringPiI2CWriteReg8 controlPanelU4 MCP.Register.GPPU    0b11111011 |> ignore //Bank A pull up resistors
-       wiringPiI2CWriteReg8 controlPanelU4 MCP.Register.IPOL    0b11111011 |> ignore //Bank A polarity
-       wiringPiI2CWriteReg8 controlPanelU4 MCP.Register.IOCON08 0b00000100 |> ignore //Set up interrupts to be open drain
+       I2CWrite controlPanelU4 MCP.Register.IODIR   0b11111011 |> ignore //Bank A inputs
+       I2CWrite controlPanelU4 MCP.Register.GPPU    0b11111011 |> ignore //Bank A pull up resistors
+       I2CWrite controlPanelU4 MCP.Register.IPOL    0b11111011 |> ignore //Bank A polarity
+       I2CWrite controlPanelU4 MCP.Register.IOCON08 0b00000100 |> ignore //Set up interrupts to be open drain
 
        ReleasePanel ()
 
        ConnectPunch ()
        //Setup the paper tape MCP23017 
-       punchPort      <- wiringPiI2CSetup 0x27
+       punchPort      <- I2CSetup 0x27
        readerPort     <- punchPort
-       plotterPort    <- wiringPiI2CSetup 0x25
+       plotterPort    <- I2CSetup 0x25
 
-       wiringPiI2CWriteReg8 punchPort  MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs
-       wiringPiI2CWriteReg8 readerPort MCP.Register.IODIRB 0b11111111 |> ignore //Bank B is all inputs
-       wiringPiI2CWriteReg8 readerPort MCP.Register.GPPUB  0b11111011 |> ignore //Bank B pull up resistors
+       I2CWrite punchPort  MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs
+       I2CWrite readerPort MCP.Register.IODIRB 0b11111111 |> ignore //Bank B is all inputs
+       I2CWrite readerPort MCP.Register.GPPUB  0b11111011 |> ignore //Bank B pull up resistors
        ReleasePunch ()
 
 
        ConnectDisplay ()
 
-       DisplayU1 <- wiringPiI2CSetup 0x23
-       DisplayU2 <- wiringPiI2CSetup 0x24
-       DisplayU3 <- wiringPiI2CSetup 0x25
-       DisplayU4 <- wiringPiI2CSetup 0x26
-       DisplayU5 <- wiringPiI2CSetup 0x27
+       DisplayU1 <- I2CSetup 0x23
+       DisplayU2 <- I2CSetup 0x24
+       DisplayU3 <- I2CSetup 0x25
+       DisplayU4 <- I2CSetup 0x26
+       DisplayU5 <- I2CSetup 0x27
 
-       wiringPiI2CWriteReg8 DisplayU1 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of Accumulator
-       wiringPiI2CWriteReg8 DisplayU1 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of Accumulator
+       I2CWrite DisplayU1 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of Accumulator
+       I2CWrite DisplayU1 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of Accumulator
 
-       wiringPiI2CWriteReg8 DisplayU2 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of B Register
-       wiringPiI2CWriteReg8 DisplayU2 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of B Register
+       I2CWrite DisplayU2 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of B Register
+       I2CWrite DisplayU2 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of B Register
 
-       wiringPiI2CWriteReg8 DisplayU3 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: RESET|Y|STOP|X|I4|I3|I2|I1
-       wiringPiI2CWriteReg8 DisplayU3 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits 18:17 of SS BB QQ AA
+       I2CWrite DisplayU3 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: RESET|Y|STOP|X|I4|I3|I2|I1
+       I2CWrite DisplayU3 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits 18:17 of SS BB QQ AA
 
-       wiringPiI2CWriteReg8 DisplayU4 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of Q Register
-       wiringPiI2CWriteReg8 DisplayU4 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of Q Register
+       I2CWrite DisplayU4 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of Q Register
+       I2CWrite DisplayU4 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of Q Register
 
-       wiringPiI2CWriteReg8 DisplayU5 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of S Register
-       wiringPiI2CWriteReg8 DisplayU5 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of S Register
+       I2CWrite DisplayU5 MCP.Register.IODIRA 0b00000000 |> ignore //Bank A is all outputs: Bits 16: 9 of S Register
+       I2CWrite DisplayU5 MCP.Register.IODIRB 0b00000000 |> ignore //Bank B is all outputs: Bits  8: 1 of S Register
 
 
        ReleaseDisplay ()
