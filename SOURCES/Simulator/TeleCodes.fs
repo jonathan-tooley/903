@@ -78,7 +78,7 @@ module Sim900.Telecodes
     
     let Parity (code: byte) = byte ((BitCount (int code)) &&& 1) 
 
-    let TelecodeOf telecode ch = // map UTF character to equivalent in one of Elliott telecodes
+    let TelecodeOf ch = // map UTF character to equivalent in one of Elliott telecodes
         let found, code = teleCode900Dict.TryGetValue (ch)
         if   found
         then byte code
@@ -130,7 +130,7 @@ module Sim900.Telecodes
           elif text.[inp] = '<'
           then copy (escape (inp, outp))
           else chars.[outp] <- 
-                 try (TelecodeOf telecode text.[inp]) with
+                 try (TelecodeOf text.[inp]) with
                           | e ->    CharError inp (int text.[inp])
                copy (inp+1, outp+1)
         and escape (inp, outp) =
@@ -165,7 +165,7 @@ module Sim900.Telecodes
                       chars.[outp] <- code
                       (inp+last+escEnd.Length, outp+1)
                  else // not an escape
-                      chars.[outp] <- TelecodeOf telecode '<'
+                      chars.[outp] <- TelecodeOf '<'
                       (inp+1, outp+1)
                      
         copy (0, if addRunout then 30 else 0)
