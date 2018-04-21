@@ -84,19 +84,13 @@ module Sim900.Telecodes
         then byte code
         else raise (Code (ch.ToString ()))
     
-    let FromMode1 code = ((code >>> 1) &&& 0x70uy)+(code &&& 0xfuy)
-    let FromMode2 code = code &&& 0x7fuy
-
-    let ToMode1   code = ((code <<< 1) &&& 0xe0uy)+(code &&& 0xfuy)
-
     let cr900 = 141uy
     let lf900 = 010uy
     let nl920 = 002uy
         
     let UTFOf teleCode (code: byte) = // map Elliott telecode to UTF representation
         let BadSymbol () = if nonPrinting then sprintf "<! %03d !>" code else  "" // illegal char
-        match teleCode with
-        | T900  ->  match FromMode2 code with
+        match code &&& 0x7fuy with
                     | 000uy           // blank
                     | 013uy           // return
                     | 127uy  -> ""    // erase 
@@ -106,7 +100,6 @@ module Sim900.Telecodes
                     | i      -> match teleCode900.[int i] with
                                 | '¬'  -> BadSymbol ()
                                 | ch   -> ch.ToString ()
-
     
 
     // TRANSLATE TEXT STRINGS TO TELECODE SYMBOLS
