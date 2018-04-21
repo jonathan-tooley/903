@@ -4,7 +4,6 @@
 module Sim900.Bits
 
    open Sim900.Globals
-   open Sim900.Console
    open System.IO                      //Needed for the serial port 
    open System.Runtime.InteropServices //Needed for Dll inports
     
