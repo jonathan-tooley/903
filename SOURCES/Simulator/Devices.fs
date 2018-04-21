@@ -104,7 +104,7 @@ module Sim900.Devices
 
     let OpenReaderTextString text = 
         // take text input from command stream
-        tapeIn <- Some (TranslateFromText T900 text)                           
+        tapeIn <- Some (TranslateFromText text)
         tapeInPos <- 0 
         
     let OpenReaderText teleCode fileName =

@@ -92,7 +92,7 @@ module Sim900.FileHandling
         let ToBinary (f: string)  =
             let bytes =
                 if f.EndsWith ".900"
-                then File.ReadAllText f  |> TranslateFromText T900 
+                then File.ReadAllText f  |> TranslateFromText
                 else raise (Syntax "File extension must be .900")
             let prefix = f.[..(f.Length-5)]
             use out = new StreamWriter (prefix+".BIN")
@@ -126,7 +126,7 @@ module Sim900.FileHandling
                  let bytes =
                     match extn with
                     | ".BIN"                    -> File.ReadAllText f  |> TranslateFromBinary
-                    | ".900"                    -> File.ReadAllText f  |> TranslateFromText T900 
+                    | ".900"                    -> File.ReadAllText f  |> TranslateFromText
                     | _                         -> BadFile () 
                  let prefix = f.[..(f.Length-5)]
                  let extn = 

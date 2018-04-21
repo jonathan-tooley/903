@@ -107,7 +107,7 @@ module Sim900.Telecodes
     // Escape sequences <! Bell !> and <! Halt !> allowed
 
     // 900 and 903 telecode mapping
-    let TranslateFromText telecode (text: string)  =
+    let TranslateFromText (text: string)  =
         let legibleBegin = "<! Legible Header "
         let legibleEnd   = " !>\n"
         let escBegin     = "<! "
