@@ -40,7 +40,7 @@ module Sim900.Formatting
         | 10uy  -> printfn ""             // NL
         | 135uy -> System.Console.Beep () // BEL
         | 141uy -> ()                     // CR
-        | _    -> printf "%s" (UTFOf telecode code) 
+        | _    -> printf "%s" (UTFOf code) 
                         
 
 

@@ -133,7 +133,7 @@ module Sim900.FileHandling
                     match telecode with
                     T900 -> ".900" 
                  use out = new StreamWriter (prefix+extn)
-                 for b in bytes do out.Write (UTFOf telecode b)
+                 for b in bytes do out.Write (UTFOf b)
                  out.Close ()
                      
 

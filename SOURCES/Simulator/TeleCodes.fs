@@ -88,7 +88,7 @@ module Sim900.Telecodes
     let lf900 = 010uy
     let nl920 = 002uy
         
-    let UTFOf teleCode (code: byte) = // map Elliott telecode to UTF representation
+    let UTFOf (code: byte) = // map Elliott telecode to UTF representation
         let BadSymbol () = if nonPrinting then sprintf "<! %03d !>" code else  "" // illegal char
         match code &&& 0x7fuy with
                     | 000uy           // blank

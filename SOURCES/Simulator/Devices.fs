@@ -164,7 +164,7 @@ module Sim900.Devices
         
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, ActivePunch) with
-        | (Some (sw), Attached900)  -> sw.Write (UTFOf T900 code)     // output as UTF character
+        | (Some (sw), Attached900)  -> sw.Write (UTFOf code)     // output as UTF character
         | (Some (sw), AttachedBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                                        punchOutPos <- (punchOutPos+1)%20
                                        if punchOutPos = 0 then sw.WriteLine ()
