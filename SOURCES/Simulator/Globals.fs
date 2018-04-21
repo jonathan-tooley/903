@@ -95,6 +95,54 @@ module Sim900.Globals
        | Fortran_903
        | Fortran_905
 
+    type pinType  =
+       | Input          = 0
+       | Output         = 1
+       | PWMOutput      = 2
+       | GPIOClock      = 3
+       | SoftPWMOutput  = 4
+       | SoftToneOutput = 5
+       | PWMToneOutput  = 6
+
+    type pinValue =
+       | High = 1
+       | Low  = 0
+
+    type PullUpDnValue =
+       | Off  = 0
+       | Down = 1
+       | Up   = 2
+
+    type Register =
+       | IODIRA   = 0x00 //GPIO Bank A pin directions
+       | IODIRB   = 0x01 //GPIO Bank B pin directions
+       | IPOLA    = 0x02 //GPIO Bank A input polarity
+       | IPOLB    = 0x03 //GPIO Bank B input polarity
+       | GPINTENA = 0X04 //Interrupt on change control A
+       | GPINTENB = 0X05 //Interrupt on change control B
+       | DEFVALA  = 0x06 //Defined value for interrupt A
+       | DEFVALB  = 0x07 //Defined value for interrupt B
+       | INTCONA  = 0x08 //Interrupt control A
+       | INTCONB  = 0x09 //Interrupt control B
+       | IOCON17  = 0X0A //IO Configuration register
+       | GPPUA    = 0x0C //GPIO Bank A pull up resistor settings
+       | GPPUB    = 0x0D //GPIO Bank A pull up resistor settings
+       | INTFA    = 0X0E //Interrupt flag A
+       | INTFB    = 0X0F //Interrunpt flag B
+       | INTCAPA  = 0X10 //Interrupt captured value A
+       | INTCAPB  = 0X11 //Interrupt captured value B
+       | GPIOA    = 0x12 //GPIO Bank A input values
+       | GPIOB    = 0x13 //GPIO Bank B input values
+       | OLATA    = 0x14 //Output Latch Bank A
+       | OLATB    = 0x15 //Output Latch Bank B
+       | IODIR    = 0x00 //GPIO Bank A pin directions
+       | IPOL     = 0x01 //GPIO Bank A input polarity
+       | IOCON08  = 0x05 //IO Configuration Register
+       | GPPU     = 0x06 //GPIO Bank A pull up resistor settings
+       | GPIO     = 0x09 //GPIO Bank A input values
+       | OLAT     = 0x0A //Output Latch Bank A
+
+
     let mutable play = playStyle.NotSet
     let mutable status = machineMode.Off
 
