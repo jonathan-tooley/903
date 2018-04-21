@@ -42,11 +42,9 @@ module Sim900.Telecodes
         let teleCode900   = "¬¬¬¬¬¬¬¬¬\t"       + "\n¬¬\r¬¬¬¬¬¬" + "¬¬¬¬¬¬¬¬¬¬"    + "¬¬ !\"£$%&'" + 
                             "()*+,-./01"        + "23456789:;"   +  "<=>?@ABCDE"   + "FGHIJKLMNO"  + 
                             "PQRSTUVWXY"        + "Z[\\]^_`abc"  +  "defghijklm"   + "nopqrstuvw"  + 
-                            "xyz{|}‾¬"  // note ‾ renders as ? on console
-        
-        
-        // All Elliott telecodes use even parity.  For 920 telecode the parity is in track 5, for 900 and
-        // 903, track 8.  
+                            "xyz{|}‾¬"
+
+        // All Elliott telecodes use even parity.  For the 903 it is in track 8.
         let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
            let rec Shift residual =
@@ -76,21 +74,12 @@ module Sim900.Telecodes
         teleCode900Dict.['~']    <- teleCode900Dict.['‾']   // 900: ~ for ‾
         teleCode900Dict.['❿']    <- teleCode900Dict.['?']  
         
-
-        let TelecodeDict code =
-            match code with
-             | T900 -> teleCode900Dict
-
-        let TelecodeChars code =
-            match code with
-             | T900 -> teleCode900
-
     open TelecodeHelper  
     
     let Parity (code: byte) = byte ((BitCount (int code)) &&& 1) 
 
     let TelecodeOf telecode ch = // map UTF character to equivalent in one of Elliott telecodes
-        let found, code = (TelecodeDict telecode).TryGetValue (ch)
+        let found, code = teleCode900Dict.TryGetValue (ch)
         if   found
         then byte code
         else raise (Code (ch.ToString ()))
@@ -114,7 +103,7 @@ module Sim900.Telecodes
                     | 007uy  -> bellOut ()
                     | 010uy  -> "\n"
                     | 020uy  -> haltOut ()
-                    | i      -> match (TelecodeChars teleCode).[int i] with                     
+                    | i      -> match teleCode900.[int i] with
                                 | '¬'  -> BadSymbol ()
                                 | ch   -> ch.ToString ()
 
