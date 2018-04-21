@@ -246,20 +246,16 @@ module Sim900.Devices
 
     let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
-    let rec TTYInput Z =
-            while status <> machineMode.Reset do
+    let TTYInput Z =
               let mutable ch = 0
               ttyDemand <- true
-              try
-                  ch <- int (port.ReadByte())
+              ch <- int (port.ReadByte())
+              ttyDemand <- false
+              ch <- (if OddParity ch then bit8 ||| ch else ch)
+              accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
+              //port.Write (System.String.Concat( char (accumulator &&& mask7)))
+              DisplayA ()
 
-                  ttyDemand <- false
-                  ch <- (if OddParity ch then bit8 ||| ch else ch)
-                  accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
-                  port.Write (System.String.Concat( char (accumulator &&& mask7)))
-                  DisplayA ()
-              with
-              _ ->  TTYInput Z
 
     let TTYOutput Z =
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
