@@ -12,31 +12,6 @@ module Sim900.FileHandling
         open Sim900.Formatting
 
 
-        // Image files consist of raw bytes, 4 per word in little endian order, starting from location 8
-
-        // DUMP IMAGE
-//        let DumpImage count  = 
-//            let maxAddr = count-1
-//            ReadMem (maxAddr) |> ignore
-//            let bytes: byte[] = Array.zeroCreate ((count-8)*4)
-//            for i = 8 to count-1 do // don't dump words 0-7
-//                let iv = (i-8)*4
-//                let word = memory.[i]
-//                bytes.[iv]   <- byte   word
-//                bytes.[iv+1] <- byte ((word >>>  8) &&& mask8)
-//                bytes.[iv+2] <- byte  (word >>> 16)
-                // bytes.[iv+3] <- 0
-//            bytes          
-
-        // LOAD IMAGE
-//        let LoadImage (bytes: byte[]) =
-//            let maxAddr = 8+bytes.Length/4-1
-//            ReadMem maxAddr |> ignore // ensure with maxMemory
-//            for i = 0 to maxAddr-8 do
-//            let iv = i*4
-//           memory.[i+8] <- (int bytes.[iv]) ||| ((int bytes.[iv+1]) <<< 8) ||| ((int bytes.[iv+2]) <<< 16) 
-
-
         // Delete
         let Delete file =
             try File.Delete file with

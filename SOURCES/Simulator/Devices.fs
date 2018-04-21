@@ -2,13 +2,7 @@
 
 module Sim900.Devices
 
-// DEVICES
-   
-    open System
     open System.IO
-    open System.Drawing
-    open System.Collections
-    open System.Text
     open Sim900.Globals
     open Sim900.Bits
     open Sim900.Telecodes
@@ -18,51 +12,51 @@ module Sim900.Devices
     let ROOLights () =
         ConnectPanel ()
         match status with
-        |     machineMode.Dead    -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00000000 )  |> ignore 
-        |     machineMode.Off     -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00001000 )  |> ignore 
-        |     machineMode.Reset   -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b10100000 )  |> ignore 
-        |     machineMode.Stopped -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Obey    -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Cycle   -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore 
-        |     machineMode.Running -> I2CWrite controlPanelU1 (MCP.Register.OLATA) ( 0b00100000 )  |> ignore
+        |     machineMode.Dead    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 )
+        |     machineMode.Off     -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 )
+        |     machineMode.Reset   -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
+        |     machineMode.Stopped -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+        |     machineMode.Obey    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+        |     machineMode.Cycle   -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+        |     machineMode.Running -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
         |     _                   -> ignore ()     
         ReleasePanel ()
 
     let DisplayA () =
             ConnectDisplay ()
-            I2CWrite DisplayU1      (MCP.Register.OLATB ) (int (AGet())       &&& mask8) |> ignore
-            I2CWrite DisplayU1      (MCP.Register.OLATA ) (int (AGet()) >>> 8 &&& mask8) |> ignore
+            I2CWrite DisplayU1      (Register.OLATB ) (int (AGet())       &&& mask8)
+            I2CWrite DisplayU1      (Register.OLATA ) (int (AGet()) >>> 8 &&& mask8)
             //The most significant bits of the registers are packed into one byte so we need to keep 6 bits and replace 2
-            let mutable shown = I2CRead DisplayU3 ( MCP.Register.GPIOB)
+            let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
             shown <- (shown &&& 0b11111100) ||| ((AGet() &&& 0b110000000000000000) >>> 16)
-            I2CWrite DisplayU3      (MCP.Register.OLATB ) (int shown) |> ignore
+            I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
     let DisplayQ () =
             ConnectDisplay ()
-            I2CWrite DisplayU4      (MCP.Register.OLATB ) (int (QGet())       &&& mask8) |> ignore
-            I2CWrite DisplayU4      (MCP.Register.OLATA ) (int (QGet()) >>> 8 &&& mask8) |> ignore
-            let mutable shown = I2CRead DisplayU3 ( MCP.Register.GPIOB)
+            I2CWrite DisplayU4      (Register.OLATB ) (int (QGet())       &&& mask8)
+            I2CWrite DisplayU4      (Register.OLATA ) (int (QGet()) >>> 8 &&& mask8)
+            let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
             shown <- (shown &&& 0b11110011) ||| ((QGet() &&& 0b110000000000000000) >>> 14)
-            I2CWrite DisplayU3      (MCP.Register.OLATB ) (int shown) |> ignore
+            I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
     
     let DisplayB () =
             ConnectDisplay ()
-            I2CWrite DisplayU2      (MCP.Register.OLATB ) (int (BGet())       &&& mask8) |> ignore
-            I2CWrite DisplayU2      (MCP.Register.OLATA ) (int (BGet()) >>> 8 &&& mask8) |> ignore
-            let mutable shown = I2CRead DisplayU3 ( MCP.Register.GPIOB)
+            I2CWrite DisplayU2      (Register.OLATB ) (int (BGet())       &&& mask8)
+            I2CWrite DisplayU2      (Register.OLATA ) (int (BGet()) >>> 8 &&& mask8)
+            let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
             shown <- (shown &&& 0b11001111) ||| ((BGet() &&& 0b110000000000000000) >>> 12)
-            I2CWrite DisplayU3      ( MCP.Register.OLATB ) (int shown) |> ignore
+            I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
     let DisplayS () =
             ConnectDisplay ()
-            I2CWrite DisplayU5      ( MCP.Register.OLATB ) (int (OldSGet())       &&& mask8) |> ignore
-            I2CWrite DisplayU5      ( MCP.Register.OLATA ) (int (OldSGet()) >>> 8 &&& mask8) |> ignore
-            let mutable shown = I2CRead DisplayU3 ( MCP.Register.GPIOB)
+            I2CWrite DisplayU5      (Register.OLATB ) (int (OldSGet())       &&& mask8)
+            I2CWrite DisplayU5      (Register.OLATA ) (int (OldSGet()) >>> 8 &&& mask8)
+            let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
             shown <- (shown &&& 0b11001111) ||| ((OldSGet() &&& 0b110000000000000000) >>> 10)
-            I2CWrite DisplayU3      ( MCP.Register.OLATB ) (int shown) |> ignore
+            I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
     let DisplayI () =            
@@ -74,7 +68,7 @@ module Sim900.Devices
             |_                 -> ignore ()
 
             shown <- int (IGet()) &&& mask4 ||| shown 
-            I2CWrite DisplayU3      ( MCP.Register.OLATA ) (shown) |> ignore
+            I2CWrite DisplayU3      (Register.OLATA ) (shown)
             ReleaseDisplay ()
 
     let DisplayRegisters () =
@@ -123,9 +117,8 @@ module Sim900.Devices
                                            code
                                       else let code = ti.[tapeInPos]
                                            tapeInPos <- tapeInPos+1
-                                           printfn "%i  %i \n" tapeInPos ti.Length
+                                           printfn "%i  %i %i \n" tapeInPos ti.Length code
                                            code
-
 
     let CloseReader () = 
         // Close tape reader - clear buffer and reset character position
@@ -142,24 +135,24 @@ module Sim900.Devices
 
     open PaperTapePunch
 
-    let mutable handShake = GPIO.pinValue.High
+    let mutable handShake = pinValue.High
    
     let punchByte (char : byte) =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 3
-             while handShake = GPIO.pinValue.Low do 
+             while handShake = pinValue.Low do 
                   punchHoldUp    <- true
                   handShake <- digitalRead 3
              punchHoldUp <- false
              // Then we set up the data on the mcp pins
              ConnectPunch ()    
-             I2CWrite punchPort      ( MCP.Register.OLATA ) (int char) |> ignore
+             I2CWrite punchPort      (Register.OLATA ) (int char)
              // Then we send a commit instruction to the punch
-             digitalWrite 4 GPIO.pinValue.High
+             digitalWrite 4 pinValue.High
              // Now we wait for the punch to confirm that it is busy doing our instruction
-             while handShake = GPIO.pinValue.High do handShake <- digitalRead 3
+             while handShake = pinValue.High do handShake <- digitalRead 3
              // Then we can stop telling to write as it has started working on our command
-             digitalWrite 4 GPIO.pinValue.Low
+             digitalWrite 4 pinValue.Low
              ReleasePunch ()
         
     let PutPunchChar (code: byte) = // output a character to the punch
@@ -200,10 +193,6 @@ module Sim900.Devices
             CloseReader ()
             ClosePunch ()
 
-
-
-
-
     let ReaderInput Z =
             pRegister <- Z
             if status <> Reset
@@ -222,19 +211,14 @@ module Sim900.Devices
 
 
     let readByte char =
-            digitalWrite 6 GPIO.pinValue.Low
+            digitalWrite 6 pinValue.Low
             handShake <- digitalRead 5
-            while handShake = GPIO.pinValue.Low  && status <> Reset do handShake <- digitalRead 5
+            while handShake = pinValue.Low  && status <> Reset do handShake <- digitalRead 5
             ConnectPunch ()
-            accumulator <- (accumulator <<< 7 ||| (I2CRead punchPort ( MCP.Register.GPIOB) &&& mask8)) &&& mask18
+            accumulator <- (accumulator <<< 7 ||| (I2CRead punchPort (Register.GPIOB) &&& mask8)) &&& mask18
             ReleasePunch ()
-            while handShake = GPIO.pinValue.High && status <> Reset do handShake <- digitalRead 5
-            digitalWrite 6 GPIO.pinValue.High
-
-//            while RdrVal < 0 do ignore()
-//            accumulator <- (accumulator <<< 7 ||| (RdrVal &&& mask8)) &&& mask18 
-//            RdrVal <- -1
-            //DisplayA ()
+            while handShake = pinValue.High && status <> Reset do handShake <- digitalRead 5
+            digitalWrite 6 pinValue.High
 
     let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]

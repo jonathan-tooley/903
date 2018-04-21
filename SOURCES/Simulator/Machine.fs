@@ -90,31 +90,31 @@ module Sim900.Machine
 
         let turnOn () =
             MessagePut "Turning system on."
-            digitalWrite 24 GPIO.pinValue.High
+            //digitalWrite 24 GPIO.pinValue.High
             status <- machineMode.Reset
             ROOLights ()
 
         let turnOff () =
             MessagePut "Turning system off."
-            digitalWrite 24 GPIO.pinValue.Low
+            digitalWrite 24 pinValue.Low
             status <- machineMode.Off
             ROOLights ()
             // Make sure front panel indicators are off
             // Turn off the interrupt indicators
             ConnectPanel ()
-            I2CWrite controlPanelU3 ( MCP.Register.OLATB ) 0b00000000 |> ignore
+            I2CWrite PanelU3 (Register.OLATB ) 0
             ReleasePanel ()
             ConnectDisplay ()
-            I2CWrite DisplayU1      ( MCP.Register.OLATB ) 0 |> ignore
-            I2CWrite DisplayU1      ( MCP.Register.OLATA ) 0 |> ignore
-            I2CWrite DisplayU2      ( MCP.Register.OLATB ) 0 |> ignore
-            I2CWrite DisplayU2      ( MCP.Register.OLATA ) 0 |> ignore
-            I2CWrite DisplayU3      ( MCP.Register.OLATB ) 0 |> ignore
-            I2CWrite DisplayU3      ( MCP.Register.OLATA ) 0 |> ignore
-            I2CWrite DisplayU4      ( MCP.Register.OLATB ) 0 |> ignore
-            I2CWrite DisplayU4      ( MCP.Register.OLATA ) 0 |> ignore
-            I2CWrite DisplayU5      ( MCP.Register.OLATB ) 0 |> ignore
-            I2CWrite DisplayU5      ( MCP.Register.OLATA ) 0 |> ignore
+            I2CWrite DisplayU1      (Register.OLATB ) 0
+            I2CWrite DisplayU1      (Register.OLATA ) 0
+            I2CWrite DisplayU2      (Register.OLATB ) 0
+            I2CWrite DisplayU2      (Register.OLATA ) 0
+            I2CWrite DisplayU3      (Register.OLATB ) 0
+            I2CWrite DisplayU3      (Register.OLATA ) 0
+            I2CWrite DisplayU4      (Register.OLATB ) 0
+            I2CWrite DisplayU4      (Register.OLATA ) 0
+            I2CWrite DisplayU5      (Register.OLATB ) 0
+            I2CWrite DisplayU5      (Register.OLATA ) 0
             ReleaseDisplay ()
  
         let LevelCheck level = 
@@ -497,7 +497,7 @@ module Sim900.Machine
 
                     ConnectPanel ()
                     //Now set the lights by sending the combined value to the control panel
-                    I2CWrite controlPanelU1 ( MCP.Register.OLATB) ( PanelOutput )  |> ignore
+                    I2CWrite PanelU1 (Register.OLATB) ( PanelOutput )
 
                     // Display the current Interrupt level
                     if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
@@ -509,12 +509,12 @@ module Sim900.Machine
                     if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
-                    I2CWrite controlPanelU3 ( MCP.Register.OLATB) InterruptDisp |> ignore
+                    I2CWrite PanelU3 (Register.OLATB) InterruptDisp
                     ReleasePanel ()
 
     let KeySwitch() =
                     ConnectPanel ()
-                    PanelInput <- I2CRead controlPanelU1 ( MCP.Register.GPIOA)
+                    PanelInput <- I2CRead PanelU1 (Register.GPIOA)
                     ReleasePanel ()
                     if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
                         then operate <- mode.Test
@@ -533,18 +533,18 @@ module Sim900.Machine
                     ConnectPanel ()
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
                     // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
-                    PanelInput <- I2CRead controlPanelU2 ( MCP.Register.GPIOB) <<< 10
+                    PanelInput <- I2CRead PanelU2 (Register.GPIOB) <<< 10
                     // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
-                    PanelInput <- PanelInput ||| (I2CRead controlPanelU2 ( MCP.Register.GPIOA) <<< 2)
+                    PanelInput <- PanelInput ||| (I2CRead PanelU2 (Register.GPIOA) <<< 2)
                     // Read from U1 bank B the final two bits, 2 and 1
-                    PanelInput <- PanelInput ||| (I2CRead controlPanelU1 ( MCP.Register.GPIOB) &&& 0x3)
+                    PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
                     if WGet () <> PanelInput && not (operate = mode.Auto)
                        then WPut PanelInput
                     ReleasePanel ()
 
     let EnterSwitch() = 
                     ConnectPanel ()
-                    PanelInput <- I2CRead controlPanelU4 ( MCP.Register.GPIO )
+                    PanelInput <- I2CRead PanelU4 (Register.GPIO )
                     ReleasePanel ()
                     if PanelInput &&& 0b00100000 = 0b00000000 then EnterButtonS <- false
                     if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButtonS && operate = mode.Test
@@ -567,7 +567,7 @@ module Sim900.Machine
 
     let ObeySwitch() = 
                     ConnectPanel ()
-                    PanelInput <- I2CRead controlPanelU4 ( MCP.Register.GPIO )
+                    PanelInput <- I2CRead PanelU4 (Register.GPIO )
                     ReleasePanel ()
                     if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButtonS <- false 
                     if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButtonS && operate = mode.Test
@@ -588,7 +588,7 @@ module Sim900.Machine
 
     let CycleSwitch() =                    
                     ConnectPanel () 
-                    PanelInput <- I2CRead controlPanelU4 ( MCP.Register.GPIO ); 
+                    PanelInput <- I2CRead PanelU4 (Register.GPIO ); 
                     ReleasePanel ()
                     let mutable res = false
                     if PanelInput &&& 0b00000001 = 0b00000001   
@@ -615,7 +615,7 @@ module Sim900.Machine
 
     let Command() =
                     ConnectPanel () 
-                    PanelInput <- I2CRead controlPanelU4 ( MCP.Register.GPIO )
+                    PanelInput <- I2CRead PanelU4 (Register.GPIO )
                     ReleasePanel ()
                     if PanelInput &&& 0b00001000 = 0b00000000 &&     CmdButton  then CmdButton <- false
                     if PanelInput &&& 0b00001000 = 0b00001000 && not CmdButton  then
@@ -718,7 +718,7 @@ module Sim900.Machine
         
     let JumpSwitch() = 
                     ConnectPanel () 
-                    PanelInput <- I2CRead controlPanelU1 ( MCP.Register.GPIOB)
+                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
                     ReleasePanel ()
                     if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
                     if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && status = machineMode.Reset && not (operate = mode.Auto)
@@ -728,7 +728,7 @@ module Sim900.Machine
 
     let StopSwitch() = 
                     ConnectPanel ()
-                    PanelInput <- I2CRead controlPanelU1 ( MCP.Register.GPIOB)
+                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
                     ReleasePanel ()
                     if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
                     if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && not (operate = mode.Auto)
@@ -738,7 +738,7 @@ module Sim900.Machine
 
     let RestartSwitch() =
                     ConnectPanel ()                 
-                    PanelInput <- I2CRead controlPanelU1 ( MCP.Register.GPIOB)
+                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
                     ReleasePanel ()
                     if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
                     if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && not (operate = mode.Auto)
@@ -748,10 +748,10 @@ module Sim900.Machine
 
     let panelButtons() =
                     ConnectPanel ()
-                    PanelInput <- I2CRead controlPanelU1 ( MCP.Register.GPIOB)
+                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
                     ReleasePanel ()
                     // Handle MCP23017 U3 Inputs
-                    PanelInput <- I2CRead controlPanelU3 ( MCP.Register.GPIOA); 
+                    PanelInput <- I2CRead PanelU3 (Register.GPIOA); 
 
                     if PanelInput &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not I1M
                         then I1M <- true    //Interupt 1:Manual
@@ -778,7 +778,7 @@ module Sim900.Machine
                         then MessagePut ("Interrupt 3: Trace")
                     
  
-                    PanelInput <- I2CRead controlPanelU3 ( MCP.Register.GPIOB); 
+                    PanelInput <- I2CRead PanelU3 (Register.GPIOB); 
 
                     if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I1 && I1M
                         then MessagePut ("Interrupt 1: Request"); I1 <- true; ManualInterrupt 1
