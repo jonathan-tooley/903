@@ -5,8 +5,7 @@ module Sim900.Telecodes
 
     exception Code of string
 
-    type Telecodes = 
-        | T900  // 900 telecode encoded in UTF-8
+   
 
                     
     // printable representation of newline, return and tab

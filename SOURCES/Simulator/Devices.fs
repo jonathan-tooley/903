@@ -107,7 +107,7 @@ module Sim900.Devices
         tapeIn <- Some (TranslateFromText text)
         tapeInPos <- 0 
         
-    let OpenReaderText teleCode fileName =
+    let OpenReaderText fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
         OpenReaderTextString text

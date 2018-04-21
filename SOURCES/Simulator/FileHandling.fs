@@ -46,7 +46,7 @@ module Sim900.FileHandling
         let FileOpen (f: string)  =
             let extn = f.Substring ((f.Length-4), 4)
             match extn with
-                 | ".900"                   -> OpenReaderText T900  f
+                 | ".900"                   -> OpenReaderText f
                  | ".BIN" | ".RLB" | _      -> OpenReaderBin f
                                     
 
@@ -118,7 +118,7 @@ module Sim900.FileHandling
             (start, finish)
 
         // convert file to telecode format
-        let ToTelecode (f: string) telecode =
+        let ToTelecode (f: string) =
             let BadFile () = raise (Syntax "File extension must be .BIN, .900")
             if   f.Length < 5
             then BadFile ()
@@ -129,10 +129,7 @@ module Sim900.FileHandling
                     | ".900"                    -> File.ReadAllText f  |> TranslateFromText
                     | _                         -> BadFile () 
                  let prefix = f.[..(f.Length-5)]
-                 let extn = 
-                    match telecode with
-                    T900 -> ".900" 
-                 use out = new StreamWriter (prefix+extn)
+                 use out = new StreamWriter (prefix+".900")
                  for b in bytes do out.Write (UTFOf b)
                  out.Close ()
                      
