@@ -1,12 +1,7 @@
 ﻿#light
 
-
 module Sim900.Telecodes
-        
-    open System.Collections.Generic
-    open System.Text
     open Sim900.Globals
-    open Sim900.Bits
 
     exception Code of string
 
@@ -70,7 +65,7 @@ module Sim900.Telecodes
         let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
         // Dictionaries to map symbols to internal codes
-        let teleCode900Dict = new Dictionary<char, int> ()
+        let teleCode900Dict = new System.Collections.Generic.Dictionary<char, int> ()
 
         // Initialize telecode dictionaries
         for i = 0 to 127 do
