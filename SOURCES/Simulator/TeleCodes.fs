@@ -27,13 +27,6 @@ module Sim900.Telecodes
         let haltOut () = if nonPrinting then "<! Halt !>" else ""
         let bellOut () = if nonPrinting then "<! Bell !>" else ""
             
-        // ELLIOTT TELECODES
-
-        let TelecodeName code =
-            match code with
-            | T900 -> "Elliott 900 Telecode"
-
-                                                                                          
         // 900 Series TELECODE
         //         00   10   20   30    40    50    60    70   100    110   120   130   140   150   160 
         // 
