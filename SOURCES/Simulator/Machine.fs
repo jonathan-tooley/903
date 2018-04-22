@@ -824,11 +824,20 @@ module Sim900.Machine
             
             // increment instruction count
             iCount <- iCount+1L
-     
+    
+    let statusChange () =
+        if status <> oldstatus then 
+            match status with
+            | Dead          -> MessagePut "Status changed to Dead"
+            | Off           -> MessagePut "Status changed to Off"
+            | SwitchingOff  -> MessagePut "Status changed to SwitchingOff"
+            | _             -> MessagePut "Status Changed"
 
     let Processor () =
             panelLights()
             while status <> machineMode.Dead do 
+                System.Threading.Thread.Sleep 20
+                statusChange ()
                 match status with
                 | Dead         -> ignore           () 
                 | Off          -> KeySwitch        ()
@@ -856,7 +865,7 @@ module Sim900.Machine
                                   status <- machineMode.Stopped
                 | Running     ->  NextInstruction ()
                                   if iCount %   50L = 0L then DisplayRegisters ()
-                                                              StopSwitch  ()
+                oldstatus <- status
             ROOLights()
 
                                      

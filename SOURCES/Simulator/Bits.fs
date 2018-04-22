@@ -73,7 +73,10 @@ module Sim900.Bits
    let mutable DisplayU3      = 0
    let mutable DisplayU4      = 0
    let mutable DisplayU5      = 0
-    
+  
+   wiringPiSetup ()
+   I2cMultiplexer <- I2CSetup 0x77
+     
    let ConnectPanel () =
        piLock(1)
        I2CWrite I2cMultiplexer Register.IODIRA 0b01000000
@@ -95,34 +98,59 @@ module Sim900.Bits
    let ReleasePunch () =
        piUnlock (1)
 
-   let port = new System.IO.Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
+   let port = new Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
 
-   port.WriteBufferSize <- 1
+   let setupRS232 () = 
+       port.WriteBufferSize <- 10
+       port.Open ()
+       port.Write "Elliott"
    //port.ReadTimeout     <- 250
 
-   let setupControlPorts () =
-       wiringPiSetup ()
-
-       pinMode 3 pinType.Input   // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
-                                      // The Gold lead from the punch connects here.
-       pinMode 4 pinType.Output  // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
-                                      // The Brown lead from the punch connects here.
-
+   let setupPins () =
+       pinMode 3 pinType.Input      // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
+                                    // The Gold lead from the punch connects here.
+       pinMode 4 pinType.Output     // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+                                    // The Brown lead from the punch connects here.
        pinMode 5 pinType.Input
+       pinMode 6 pinType.Output     // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
+                                    // The Brown lead from the reader connects here. 
+       digitalWrite 6 pinValue.High // Make sure the reader motor is off
+       pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
+       digitalWrite 24 pinValue.Low // Make sure the fan is off
 
-       pinMode 6 pinType.Output  // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
-                                      // The Brown lead from the reader connects here. 
+   let panelHandler () =
+       ConnectPanel ()
+       match I2CRead PanelU1 (Register.INTCAPA) with
+       | 0x18    //On button with key in auto
+       | 0x19    //On button with key in test
+       | 0x1A    //On button with key in operate
+              -> status <- machineMode.SwitchingOn
+       | 0xA4    //Off button pressed with On light on in auto
+       | 0xA5    //Off button pressed with On light on in test
+       | 0xA6    //Off button pressed with On light on in operate
+              -> status <- machineMode.SwitchingOff
+       | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
+       | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
+       | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
+              -> MessagePut "Shuting down"
+                 status <- machineMode.Dead
+       | 0x60    //Reset button pressed when not lit in auto
+       | 0x61    //Reset button pressed when not lit in test
+       | 0x62    //Reset button pressed when not lit in operate
+              -> MessagePut "Resetting"
+                 status <- machineMode.Reset
+       |_     -> ignore()   
+       printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPA)); 
+       printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPB)); 
+       printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFA)); 
+       printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFB));
+       ReleasePanel ()
 
-       digitalWrite 6 pinValue.High //Make sure the reader motor is off
+   let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
-       //Pin 24 controls the mains out and the cooling fan
-       pinMode 24 pinType.Output; digitalWrite 24 pinValue.Low
-
-       port.Open ()
-
-       port.Write "\r\u001B\u003A"
-
-       I2cMultiplexer <- I2CSetup 0x77
+   let r = wiringPiISR(0, 1, panelCB) 
+              
+   let setupPanel () =
 
        ConnectPanel ()
 
@@ -130,39 +158,6 @@ module Sim900.Bits
        PanelU2 <- I2CSetup 0x26 //U2
        PanelU3 <- I2CSetup 0x25 //U3
        PanelU4 <- I2CSetup 0x24 //U4
-
-       let IntPing : ISRCallback = ISRCallback(fun() ->    ConnectPanel ()
-                                                           match I2CRead PanelU1 (Register.INTCAPA) with
-                                                           | 0x18    //On button with key in auto
-                                                           | 0x19    //On button with key in test
-                                                           | 0x1A    //On button with key in operate
-                                                                  -> status <- machineMode.SwitchingOn
-                                                           | 0xA4    //Off button pressed with On light on in auto
-                                                           | 0xA5    //Off button pressed with On light on in test
-                                                           | 0xA6    //Off button pressed with On light on in operate
-                                                                  -> 
-                                                                     status <- machineMode.SwitchingOff
-                                                           | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
-                                                           | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
-                                                           | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
-                                                                  -> MessagePut "Shuting down"
-                                                                     status <- machineMode.Dead
-                                                           | 0x60    //Reset button pressed when not lit in auto
-                                                           | 0x61    //Reset button pressed when not lit in test
-                                                           | 0x62    //Reset button pressed when not lit in operate
-                                                                  -> MessagePut "Resetting"
-                                                                     status <- machineMode.Reset
-                                                           |_     -> ignore()   
-                                                           printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPA)); 
-                                                           printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPB)); 
-                                                           printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFA)); 
-                                                           printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFB));
-                                                           ReleasePanel ()
-                                                           ())
-
-       let r = wiringPi.wiringPiISR(0, 1, IntPing) 
-                                      // Setup pin 0 as an interrupt input.    
-
 
        //Colours on the cable: orange yellow white blue red mauve grey black 
        //                      brown gold 
@@ -197,8 +192,11 @@ module Sim900.Bits
        I2CWrite PanelU1 Register.IPOLB    0b01010111  //Reverse bank B input polarity
        I2CWrite PanelU1 Register.IOCON17  0b01000100  //Set up interrupts to mirror A & B and to be open drain
        I2CWrite PanelU1 Register.GPINTENA 0b01010100  //Set up reset, on and off keys for interrupt on change
-       I2CWrite PanelU1 Register.INTCONA  0b00000000  //Define the interrupt to only work one way
+       I2CWrite PanelU1 Register.INTCONA  0b01010100  //Define the interrupt to only work one way
        I2CWrite PanelU1 Register.DEFVALA  0b00000000  //Set the interrupt to trigger when button pressed
+       I2CWrite PanelU1 Register.GPINTENB 0b01000000  //Set up stop button for interrupt
+       I2CWrite PanelU1 Register.INTCONB  0b01000000  //Define the interrupt to only work one way
+       I2CWrite PanelU1 Register.DEFVALB  0b00000000  //Set the interrupt to trigger when button pressed
 
        // U2 Inputs
        //28 : 512   Bit 10
@@ -274,8 +272,10 @@ module Sim900.Bits
 
        ReleasePanel ()
 
+   let setupPeripherals () =
+
        ConnectPunch ()
-       //Setup the paper tape MCP23017 
+        
        punchPort      <- I2CSetup 0x27
        readerPort     <- punchPort
        plotterPort    <- I2CSetup 0x25
@@ -283,8 +283,11 @@ module Sim900.Bits
        I2CWrite punchPort  Register.IODIRA 0b00000000 //Bank A is all outputs
        I2CWrite readerPort Register.IODIRB 0b11111111 //Bank B is all inputs
        I2CWrite readerPort Register.GPPUB  0b11111011 //Bank B pull up resistors
+
        ReleasePunch ()
 
+
+   let setupDisplay () =
 
        ConnectDisplay ()
 
@@ -311,7 +314,3 @@ module Sim900.Bits
 
 
        ReleaseDisplay ()
-
-
-
-

@@ -143,8 +143,9 @@ module Sim900.Globals
        | OLAT     = 0x0A //Output Latch Bank A
 
 
-    let mutable play = playStyle.NotSet
-    let mutable status = machineMode.Off
+    let mutable play      = playStyle.NotSet
+    let mutable status    = machineMode.Off
+    let mutable oldstatus = machineMode.Dead
 
     let on() = match status with
                | Dead -> false
