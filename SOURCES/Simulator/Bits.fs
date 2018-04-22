@@ -48,16 +48,17 @@ module Sim900.Bits
      [<DllImport("libwiring.so" , EntryPoint = "wiringPiI2CReadReg16" , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int wiringPiI2CReadReg16 (int fd, Register reg);
 
+   open wiringPi
 
-   let wiringPiSetup                    = wiringPi.wiringPiSetup
-   let pinMode pin mode                 = wiringPi.pinMode              (pin, mode)
-   let digitalWrite pin value           = wiringPi.digitalWrite         (pin, value)
-   let digitalRead  pin                 = wiringPi.digitalRead          (pin)
-   let I2CSetup devId                   = wiringPi.wiringPiI2CSetup     (devId)
-   let I2CWrite fd reg data             = wiringPi.wiringPiI2CWriteReg8 (fd, reg, data)
-   let I2CRead  fd reg                  = wiringPi.wiringPiI2CReadReg8  (fd, reg)
-   let piLock   keyNum                  = wiringPi.piLock               (keyNum)
-   let piUnlock keyNum                  = wiringPi.piUnlock             (keyNum)
+   let wiringPiSetup                    = wiringPiSetup
+   let pinMode pin mode                 = pinMode              (pin, mode)
+   let digitalWrite pin value           = digitalWrite         (pin, value)
+   let digitalRead  pin                 = digitalRead          (pin)
+   let I2CSetup devId                   = wiringPiI2CSetup     (devId)
+   let I2CWrite fd reg data             = wiringPiI2CWriteReg8 (fd, reg, data)
+   let I2CRead  fd reg                  = wiringPiI2CReadReg8  (fd, reg)
+   let piLock   keyNum                  = piLock               (keyNum)
+   let piUnlock keyNum                  = piUnlock             (keyNum)
 
    let mutable PanelU1        = 0
    let mutable PanelU2        = 0
