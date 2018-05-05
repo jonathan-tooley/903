@@ -1,6 +1,6 @@
 EESchema Schematic File Version 2
 LIBS:CPU
-LIBS:Connector
+LIBS:conn
 LIBS:CPU-cache
 EELAYER 25 0
 EELAYER END
@@ -268,14 +268,11 @@ Text GLabel 10400 4625 2    40   Input ~ 0
 0v
 NoConn ~ 9375 5025
 NoConn ~ 7775 5425
-NoConn ~ 2925 2375
 NoConn ~ 2925 3175
 NoConn ~ 2925 3275
 NoConn ~ 1125 3475
 NoConn ~ 1125 3575
 NoConn ~ 2225 1475
-NoConn ~ 1125 2075
-NoConn ~ 1125 3075
 $Comp
 L CONN_01X12 P1.3
 U 1 1 592D2FB3
@@ -472,22 +469,96 @@ NoConn ~ 4725 2375
 NoConn ~ 4725 2475
 NoConn ~ 4725 2575
 NoConn ~ 2125 1475
-$Comp
-L CONN_01X04 P1.7
-U 1 1 598A8332
-P 700 1750
-F 0 "P1.7" H 700 2000 50  0000 C CNN
-F 1 "Misc GPIO" V 800 1750 50  0000 C CNN
-F 2 "lib_fp:PhoenixContact_MC-G_04x3.50mm_Angled" H 700 1750 50  0001 C CNN
-F 3 "" H 700 1750 50  0000 C CNN
-	1    700  1750
-	-1   0    0    1   
-$EndComp
 NoConn ~ 1125 3175
-Text GLabel 1025 1600 2    40   Input ~ 0
+Text GLabel 1125 1800 3    40   Input ~ 0
 0v
 Text GLabel 9650 5425 2    40   Input ~ 0
 0v
+Text GLabel 7475 5025 0    40   Input ~ 0
+0v
+$Comp
+L R R7
+U 1 1 5AE62725
+P 8575 3300
+F 0 "R7" V 8475 3300 50  0000 C CNN
+F 1 "20R" V 8575 3300 50  0000 C CNN
+F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8505 3300 50  0001 C CNN
+F 3 "" H 8575 3300 50  0000 C CNN
+	1    8575 3300
+	1    0    0    1   
+$EndComp
+Text GLabel 5650 1950 3    40   Input ~ 0
+0v
+$Comp
+L R R9
+U 1 1 5AE663DA
+P 6225 2100
+F 0 "R9" V 6305 2100 50  0000 C CNN
+F 1 "4k7" V 6225 2100 50  0000 C CNN
+F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6155 2100 50  0001 C CNN
+F 3 "" H 6225 2100 50  0000 C CNN
+	1    6225 2100
+	0    1    -1   0   
+$EndComp
+$Comp
+L R R8
+U 1 1 5AE66463
+P 6225 2200
+F 0 "R8" V 6305 2200 50  0000 C CNN
+F 1 "4k7" V 6225 2200 50  0000 C CNN
+F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6155 2200 50  0001 C CNN
+F 3 "" H 6225 2200 50  0000 C CNN
+	1    6225 2200
+	0    1    1    0   
+$EndComp
+Text GLabel 6525 2100 2    40   Input ~ 0
++5v
+$Comp
+L C C9
+U 1 1 5AE66545
+P 6600 1925
+F 0 "C9" H 6625 2025 50  0000 L CNN
+F 1 "100n" H 6625 1825 50  0000 L CNN
+F 2 "lib_fp:C_Rect_L7.0mm_W2.5mm_P5.00mm" H 6638 1775 50  0001 C CNN
+F 3 "" H 6600 1925 50  0000 C CNN
+	1    6600 1925
+	0    -1   -1   0   
+$EndComp
+Text GLabel 6800 1925 2    40   Input ~ 0
+0v
+$Comp
+L PWR_FLAG #FLG03
+U 1 1 5AE6B344
+P 7525 3525
+F 0 "#FLG03" H 7525 3600 50  0001 C CNN
+F 1 "PWR_FLAG" H 7525 3675 50  0000 C CNN
+F 2 "" H 7525 3525 50  0001 C CNN
+F 3 "" H 7525 3525 50  0001 C CNN
+	1    7525 3525
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Conn_01x03 P1.9
+U 1 1 5AEDAC1F
+P 10475 4875
+F 0 "P1.9" H 10625 4900 50  0000 C CNN
+F 1 "RS232" H 10475 4675 50  0000 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_03x3.50mm_Angled" H 10475 4875 50  0001 C CNN
+F 3 "" H 10475 4875 50  0001 C CNN
+	1    10475 4875
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X06 P1.7
+U 1 1 5AEDB9C8
+P 825 1500
+F 0 "P1.7" H 825 1800 50  0000 C CNN
+F 1 "MISC GPIO" H 825 1100 50  0000 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_06x3.50mm_Angled" H 825 1500 50  0001 C CNN
+F 3 "" H 825 1500 50  0001 C CNN
+	1    825  1500
+	0    -1   -1   0   
+$EndComp
 Connection ~ 9600 4625
 Wire Wire Line
 	9375 4825 9650 4825
@@ -792,61 +863,17 @@ Wire Wire Line
 Wire Wire Line
 	4950 1375 4725 1375
 Wire Wire Line
-	1125 2175 1075 2175
+	925  2175 1125 2175
 Wire Wire Line
-	1075 2175 1075 1700
+	825  2275 1125 2275
 Wire Wire Line
-	1075 1700 900  1700
-Wire Wire Line
-	900  1800 1025 1800
-Wire Wire Line
-	1025 1800 1025 2275
-Wire Wire Line
-	1025 2275 1125 2275
-Wire Wire Line
-	900  1900 975  1900
-Wire Wire Line
-	975  1900 975  2375
-Wire Wire Line
-	975  2375 1125 2375
-Wire Wire Line
-	1025 1600 900  1600
-Text GLabel 7475 5025 0    40   Input ~ 0
-0v
+	725  2375 1125 2375
 Wire Wire Line
 	7475 5025 7775 5025
 Wire Wire Line
 	9375 5425 9650 5425
-$Comp
-L R R7
-U 1 1 5AE62725
-P 8575 3300
-F 0 "R7" V 8475 3300 50  0000 C CNN
-F 1 "20R" V 8575 3300 50  0000 C CNN
-F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8505 3300 50  0001 C CNN
-F 3 "" H 8575 3300 50  0000 C CNN
-	1    8575 3300
-	1    0    0    1   
-$EndComp
 Wire Wire Line
 	8575 3450 8575 3525
-$Comp
-L CONN_01X04 P1.8
-U 1 1 5AE64165
-P 5700 1725
-F 0 "P1.8" H 5700 1975 50  0000 C CNN
-F 1 "IO Control" V 5800 1725 50  0000 C CNN
-F 2 "lib_fp:PhoenixContact_MC-G_04x3.50mm_Angled" H 5700 1725 50  0001 C CNN
-F 3 "" H 5700 1725 50  0000 C CNN
-	1    5700 1725
-	0    1    -1   0   
-$EndComp
-Text GLabel 5425 2025 0    40   Input ~ 0
-0v
-Wire Wire Line
-	5550 1925 5550 2025
-Wire Wire Line
-	5550 2025 5425 2025
 Wire Wire Line
 	4725 1675 5225 1675
 Wire Wire Line
@@ -854,76 +881,20 @@ Wire Wire Line
 Wire Wire Line
 	5225 2100 6075 2100
 Wire Wire Line
-	5650 2100 5650 1925
-Wire Wire Line
 	4725 1775 5125 1775
 Wire Wire Line
 	5125 1775 5125 2200
 Wire Wire Line
 	5125 2200 6075 2200
 Wire Wire Line
-	5750 2200 5750 1925
-$Comp
-L R R9
-U 1 1 5AE663DA
-P 6225 2100
-F 0 "R9" V 6305 2100 50  0000 C CNN
-F 1 "4k7" V 6225 2100 50  0000 C CNN
-F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6155 2100 50  0001 C CNN
-F 3 "" H 6225 2100 50  0000 C CNN
-	1    6225 2100
-	0    1    -1   0   
-$EndComp
-$Comp
-L R R8
-U 1 1 5AE66463
-P 6225 2200
-F 0 "R8" V 6305 2200 50  0000 C CNN
-F 1 "4k7" V 6225 2200 50  0000 C CNN
-F 2 "lib_fp:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6155 2200 50  0001 C CNN
-F 3 "" H 6225 2200 50  0000 C CNN
-	1    6225 2200
-	0    1    1    0   
-$EndComp
-Text GLabel 6525 2100 2    40   Input ~ 0
-+5v
-$Comp
-L C C9
-U 1 1 5AE66545
-P 6600 1925
-F 0 "C9" H 6625 2025 50  0000 L CNN
-F 1 "100n" H 6625 1825 50  0000 L CNN
-F 2 "lib_fp:C_Rect_L7.0mm_W2.5mm_P5.00mm" H 6638 1775 50  0001 C CNN
-F 3 "" H 6600 1925 50  0000 C CNN
-	1    6600 1925
-	0    -1   -1   0   
-$EndComp
-Connection ~ 5650 2100
-Connection ~ 5750 2200
-Wire Wire Line
-	5850 1925 6450 1925
-Wire Wire Line
 	6375 2100 6525 2100
 Wire Wire Line
-	6375 2200 6450 2200
+	6450 2200 6375 2200
 Wire Wire Line
-	6450 2200 6450 2100
+	6450 1925 6450 2200
 Connection ~ 6450 2100
-Text GLabel 6800 1925 2    40   Input ~ 0
-0v
 Wire Wire Line
 	6800 1925 6750 1925
-$Comp
-L CONN_01X04 P1.9
-U 1 1 5AE68BC0
-P 10475 4925
-F 0 "P1.9" H 10475 5175 50  0000 C CNN
-F 1 "RS232" V 10575 4925 50  0000 C CNN
-F 2 "lib_fp:PhoenixContact_MC-G_04x3.50mm_Angled" H 10475 4925 50  0001 C CNN
-F 3 "" H 10475 4925 50  0000 C CNN
-	1    10475 4925
-	1    0    0    1   
-$EndComp
 Wire Wire Line
 	10275 4775 10175 4775
 Wire Wire Line
@@ -939,23 +910,10 @@ Wire Wire Line
 	9650 5225 9650 4975
 Wire Wire Line
 	9650 4975 10275 4975
-NoConn ~ 10275 5075
-$Comp
-L PWR_FLAG #FLG03
-U 1 1 5AE6B344
-P 7525 3525
-F 0 "#FLG03" H 7525 3600 50  0001 C CNN
-F 1 "PWR_FLAG" H 7525 3675 50  0000 C CNN
-F 2 "" H 7525 3525 50  0001 C CNN
-F 3 "" H 7525 3525 50  0001 C CNN
-	1    7525 3525
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	8575 3525 7525 3525
 Wire Wire Line
 	2925 2075 3225 2075
-NoConn ~ 2925 2275
 Wire Wire Line
 	3450 1025 3125 1025
 Wire Wire Line
@@ -966,4 +924,57 @@ Wire Wire Line
 	5200 975  5550 975 
 Wire Wire Line
 	5550 975  5550 875 
+Wire Wire Line
+	1025 2075 1125 2075
+Wire Wire Line
+	1025 2075 1025 1700
+Wire Wire Line
+	925  2175 925  1700
+Wire Wire Line
+	825  2275 825  1700
+Wire Wire Line
+	725  2375 725  1700
+Wire Wire Line
+	1125 3075 625  3075
+Wire Wire Line
+	625  3075 625  1700
+Wire Wire Line
+	2925 2275 3500 2275
+Wire Wire Line
+	3500 2275 3500 875 
+Wire Wire Line
+	3500 875  5450 875 
+$Comp
+L CONN_01X05 P1.8
+U 1 1 5AEDE261
+P 5750 1675
+F 0 "P1.8" H 5750 1975 50  0000 C CNN
+F 1 "IO Control" V 5900 1675 50  0000 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_05x3.50mm_Angled" H 5750 1675 50  0001 C CNN
+F 3 "" H 5750 1675 50  0001 C CNN
+	1    5750 1675
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	2925 2375 3200 2375
+Wire Wire Line
+	3200 2375 3200 3125
+Wire Wire Line
+	1125 1700 1125 1800
+Wire Wire Line
+	5950 1875 5950 1925
+Wire Wire Line
+	5950 1925 6450 1925
+Wire Wire Line
+	5850 1875 5850 2200
+Connection ~ 5850 2200
+Wire Wire Line
+	5750 1875 5750 2100
+Connection ~ 5750 2100
+Wire Wire Line
+	5650 1950 5650 1875
+Wire Wire Line
+	5550 1875 5550 3125
+Wire Wire Line
+	5550 3125 3200 3125
 $EndSCHEMATC

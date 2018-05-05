@@ -1,4 +1,4 @@
-update=5/4/2018 5:26:53 PM
+update=5/5/2018 1:20:37 PM
 version=1
 last_client=kicad
 [general]
@@ -39,7 +39,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=C:/Users/v-jtool/OneDrive/Repos/kicad-symbols
+LibDir=C:/Users/v-jtool/OneDrive/Repos/kicad-symbols;C:/Program Files/KiCad/share/kicad/library
 [eeschema/libraries]
 LibName1=lib_sch/CPU
-LibName2=Connector
+LibName2=conn
