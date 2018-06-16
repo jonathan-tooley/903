@@ -152,7 +152,7 @@ U 1 1 592C07D7
 P 3025 675
 F 0 "P1.1" H 3025 925 50  0000 C CNN
 F 1 "Control Panel" V 3125 675 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_05_P2.00mm_Vertical_StrainRelief" H 3025 675 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_05x3.50mm_Angled" H 3025 675 50  0001 C CNN
 F 3 "" H 3025 675 50  0000 C CNN
 	1    3025 675 
 	0    -1   -1   0   
@@ -163,7 +163,7 @@ U 1 1 592C293D
 P 5650 675
 F 0 "P1.2" H 5650 925 50  0000 C CNN
 F 1 "Display Unit" V 5750 675 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_05_P2.00mm_Vertical_StrainRelief" H 5650 675 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_05x3.50mm_Angled" H 5650 675 50  0001 C CNN
 F 3 "" H 5650 675 50  0000 C CNN
 	1    5650 675 
 	0    1    -1   0   
@@ -279,7 +279,7 @@ U 1 1 592D2FB3
 P 10400 675
 F 0 "P1.3" H 10400 1325 50  0000 C CNN
 F 1 "Tape Punch" V 10500 675 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_2x06_P2.00mm_Vertical_StrainRelief" H 10400 675 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_12x3.50mm_Angled" H 10400 675 50  0001 C CNN
 F 3 "" H 10400 675 50  0000 C CNN
 	1    10400 675 
 	0    -1   -1   0   
@@ -326,7 +326,7 @@ U 1 1 592DA90C
 P 10750 2525
 F 0 "P1.4" H 10750 3175 50  0000 C CNN
 F 1 "Tape Reader" V 10850 2525 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_2x06_P2.00mm_Vertical_StrainRelief" H 10750 2525 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_12x3.50mm_Angled" H 10750 2525 50  0001 C CNN
 F 3 "" H 10750 2525 50  0000 C CNN
 	1    10750 2525
 	1    0    0    -1  
@@ -341,7 +341,7 @@ U 1 1 592C5963
 P 1100 975
 F 0 "P1.5" H 1100 1125 50  0000 C CNN
 F 1 "CONN_01X02" V 1200 975 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_02_P2.00mm_Vertical_StrainRelief" H 1100 975 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_02x3.50mm_Angled" H 1100 975 50  0001 C CNN
 F 3 "" H 1100 975 50  0000 C CNN
 	1    1100 975 
 	-1   0    0    1   
@@ -404,7 +404,7 @@ U 1 1 59416CAB
 P 14075 1625
 F 0 "P1.6" H 14075 2275 50  0000 C CNN
 F 1 "Plotter" V 14175 1625 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_2x06_P2.00mm_Vertical_StrainRelief" H 14075 1625 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_12x3.50mm_Angled" H 14075 1625 50  0001 C CNN
 F 3 "" H 14075 1625 50  0000 C CNN
 	1    14075 1625
 	1    0    0    -1  
@@ -453,13 +453,13 @@ Text GLabel 4325 2875 3    40   Input ~ 0
 Text GLabel 3800 1375 0    40   Input ~ 0
 +5V
 Text GLabel 2850 1075 0    40   Input ~ 0
-SC7
+SC6
 Text GLabel 2850 1250 0    40   Input ~ 0
-SD7
-Text GLabel 4850 1175 2    40   Input ~ 0
-SC7
-Text GLabel 4850 1075 2    40   Input ~ 0
-SD7
+SD6
+Text GLabel 4950 1375 2    40   Input ~ 0
+SC6
+Text GLabel 4950 1275 2    40   Input ~ 0
+SD6
 NoConn ~ 4725 1875
 NoConn ~ 4725 1975
 NoConn ~ 4725 2075
@@ -543,7 +543,7 @@ U 1 1 5AEDAC1F
 P 10475 4875
 F 0 "P1.9" H 10625 4900 50  0000 C CNN
 F 1 "RS232" H 10475 4675 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_03_P2.00mm_Vertical_StrainRelief" H 10475 4875 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_03x3.50mm_Angled" H 10475 4875 50  0001 C CNN
 F 3 "" H 10475 4875 50  0001 C CNN
 	1    10475 4875
 	1    0    0    -1  
@@ -554,7 +554,7 @@ U 1 1 5AEDB9C8
 P 825 1500
 F 0 "P1.7" H 825 1800 50  0000 C CNN
 F 1 "MISC GPIO" H 825 1100 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_06_P2.00mm_Vertical_StrainRelief" H 825 1500 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_06x3.50mm_Angled" H 825 1500 50  0001 C CNN
 F 3 "" H 825 1500 50  0001 C CNN
 	1    825  1500
 	0    -1   -1   0   
@@ -637,6 +637,7 @@ Wire Wire Line
 Wire Wire Line
 	6450 875  6450 1175
 Connection ~ 5750 1175
+Connection ~ 5650 1075
 Wire Wire Line
 	2225 875  2825 875 
 Wire Wire Line
@@ -651,9 +652,13 @@ Wire Wire Line
 Wire Wire Line
 	4325 600  4325 875 
 Wire Wire Line
-	5750 875  5750 1375
+	5750 1175 5750 875 
 Wire Wire Line
-	5650 875  5650 1275
+	4725 1175 6075 1175
+Wire Wire Line
+	5650 1075 5650 875 
+Wire Wire Line
+	4725 1075 6075 1075
 Connection ~ 1825 1275
 Wire Wire Line
 	1825 1150 1825 1475
@@ -854,6 +859,10 @@ Wire Wire Line
 Wire Wire Line
 	3025 1250 2850 1250
 Wire Wire Line
+	4725 1275 4950 1275
+Wire Wire Line
+	4950 1375 4725 1375
+Wire Wire Line
 	925  2175 1125 2175
 Wire Wire Line
 	825  2275 1125 2275
@@ -941,7 +950,7 @@ U 1 1 5AEDE261
 P 5750 1675
 F 0 "P1.8" H 5750 1975 50  0000 C CNN
 F 1 "IO Control" V 5900 1675 50  0000 C CNN
-F 2 "lib_fp:Harwin_LTek-Male_05_P2.00mm_Vertical_StrainRelief" H 5750 1675 50  0001 C CNN
+F 2 "lib_fp:PhoenixContact_MC-G_05x3.50mm_Angled" H 5750 1675 50  0001 C CNN
 F 3 "" H 5750 1675 50  0001 C CNN
 	1    5750 1675
 	0    1    -1   0   
@@ -968,17 +977,4 @@ Wire Wire Line
 	5550 1875 5550 3125
 Wire Wire Line
 	5550 3125 3200 3125
-Wire Wire Line
-	4725 1075 4850 1075
-Wire Wire Line
-	4725 1175 4850 1175
-Wire Wire Line
-	5650 1275 4725 1275
-Wire Wire Line
-	5750 1375 4725 1375
-Wire Wire Line
-	5750 1175 6075 1175
-Wire Wire Line
-	6075 1075 5650 1075
-Connection ~ 5650 1075
 $EndSCHEMATC
