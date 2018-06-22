@@ -115,7 +115,7 @@ U 1 1 5A5BA3A3
 P 3725 4750
 F 0 "J1" H 3725 5300 50  0000 C CNN
 F 1 "CONN_02X10" V 3725 4750 50  0000 C CNN
-F 2 "Connectors_Molex:Molex_Microfit3_Header_02x10_Angled_43045-200x" H 3725 3550 50  0001 C CNN
+F 2 "Connectors_JST:B20-J11DK_2x10_Pitch2.54mm" H 3725 3550 50  0001 C CNN
 F 3 "" H 3725 3550 50  0001 C CNN
 	1    3725 4750
 	-1   0    0    1   
@@ -152,71 +152,6 @@ Text GLabel 4325 4500 2    60   Input ~ 0
 0V
 Text GLabel 4325 4900 2    60   Input ~ 0
 +5V
-Wire Wire Line
-	5325 3750 4800 3750
-Wire Wire Line
-	5325 4050 4800 4050
-Wire Wire Line
-	6925 3750 7450 3750
-Wire Wire Line
-	6925 4050 7450 4050
-Wire Wire Line
-	6125 3025 6125 3450
-Wire Wire Line
-	6125 6175 6125 5850
-Wire Wire Line
-	5775 5975 6500 5975
-Connection ~ 6125 5975
-Wire Wire Line
-	6925 4250 7125 4250
-Wire Wire Line
-	6925 4550 7125 4550
-Wire Wire Line
-	7425 4250 8375 4250
-Wire Wire Line
-	7675 3275 7675 4550
-Wire Wire Line
-	7425 4550 7900 4550
-Connection ~ 7675 4550
-Connection ~ 7675 4250
-Wire Wire Line
-	5550 3275 7125 3275
-Connection ~ 6125 3275
-Wire Wire Line
-	7425 3275 7675 3275
-Wire Wire Line
-	4325 4500 3975 4500
-Wire Wire Line
-	4325 4900 3975 4900
-Wire Wire Line
-	3975 4800 4150 4800
-Wire Wire Line
-	4150 4800 4150 4500
-Connection ~ 4150 4500
-Wire Wire Line
-	3975 4400 4850 4400
-Wire Wire Line
-	4850 4400 4850 5150
-Wire Wire Line
-	4850 5150 5325 5150
-Wire Wire Line
-	3975 4300 5025 4300
-Wire Wire Line
-	5025 4300 5025 4750
-Wire Wire Line
-	5025 4750 5325 4750
-Wire Wire Line
-	8375 5050 7675 5050
-Wire Wire Line
-	7675 5050 7675 5150
-Wire Wire Line
-	7675 5150 6925 5150
-Wire Wire Line
-	8375 5250 7325 5250
-Wire Wire Line
-	7325 5250 7325 4950
-Wire Wire Line
-	7325 4950 6925 4950
 NoConn ~ 5325 5350
 NoConn ~ 6925 4750
 NoConn ~ 8375 3050
@@ -269,12 +204,8 @@ F 3 "" H 6500 5975 50  0001 C CNN
 $EndComp
 Text GLabel 7900 5350 2    60   Input ~ 0
 0V
-Wire Wire Line
-	6925 5350 7900 5350
 Text GLabel 5075 4950 0    60   Input ~ 0
 0V
-Wire Wire Line
-	5075 4950 5325 4950
 $Comp
 L R R1
 U 1 1 5AE60F69
@@ -286,10 +217,6 @@ F 3 "" H 6125 2875 50  0001 C CNN
 	1    6125 2875
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6125 2725 6125 2625
-Wire Wire Line
-	6125 2625 5825 2625
 $Comp
 L DB25_MALE_MountingHoles J2
 U 1 1 5AE8AB2A
@@ -301,5 +228,85 @@ F 3 "" H 8675 4250 50  0001 C CNN
 	1    8675 4250
 	1    0    0    -1  
 $EndComp
-NoConn ~ 8675 5650
+Wire Wire Line
+	5325 3750 4800 3750
+Wire Wire Line
+	5325 4050 4800 4050
+Wire Wire Line
+	6925 3750 7450 3750
+Wire Wire Line
+	6925 4050 7450 4050
+Wire Wire Line
+	6125 3025 6125 3450
+Wire Wire Line
+	6125 5850 6125 6175
+Wire Wire Line
+	5775 5975 6500 5975
+Connection ~ 6125 5975
+Wire Wire Line
+	6925 4250 7125 4250
+Wire Wire Line
+	6925 4550 7125 4550
+Wire Wire Line
+	7425 4250 8375 4250
+Wire Wire Line
+	7675 3275 7675 4550
+Wire Wire Line
+	7425 4550 7900 4550
+Connection ~ 7675 4550
+Connection ~ 7675 4250
+Wire Wire Line
+	5550 3275 7125 3275
+Connection ~ 6125 3275
+Wire Wire Line
+	7425 3275 7675 3275
+Wire Wire Line
+	3975 4500 4325 4500
+Wire Wire Line
+	4325 4900 3975 4900
+Wire Wire Line
+	3975 4800 4150 4800
+Wire Wire Line
+	4150 4800 4150 4500
+Connection ~ 4150 4500
+Wire Wire Line
+	3975 4400 4850 4400
+Wire Wire Line
+	4850 4400 4850 5150
+Wire Wire Line
+	4850 5150 5325 5150
+Wire Wire Line
+	3975 4300 5025 4300
+Wire Wire Line
+	5025 4300 5025 4750
+Wire Wire Line
+	5025 4750 5325 4750
+Wire Wire Line
+	8375 5050 7675 5050
+Wire Wire Line
+	7675 5050 7675 5150
+Wire Wire Line
+	7675 5150 6925 5150
+Wire Wire Line
+	8375 5250 7325 5250
+Wire Wire Line
+	7325 5250 7325 4950
+Wire Wire Line
+	7325 4950 6925 4950
+Wire Wire Line
+	6925 5350 7900 5350
+Wire Wire Line
+	5075 4950 5325 4950
+Wire Wire Line
+	6125 2725 6125 2625
+Wire Wire Line
+	6125 2625 5825 2625
+Wire Wire Line
+	6125 5650 6125 5975
+Text GLabel 8675 5925 3    60   Input ~ 0
+0V
+Wire Wire Line
+	8675 5925 8675 5925
+Wire Wire Line
+	8675 5925 8675 5650
 $EndSCHEMATC
