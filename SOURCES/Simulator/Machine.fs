@@ -516,17 +516,7 @@ module Sim900.Machine
                     ConnectPanel ()
                     PanelInput <- I2CRead PanelU1 (Register.GPIOA)
                     ReleasePanel ()
-                    if PanelInput &&& 0b00000001 = 0b00000001 && not (operate = mode.Test)
-                        then operate <- mode.Test
-                             MessagePut "Keyswitch turned to test"
-
-                    if PanelInput &&& 0b00000010 = 0b00000010 && not (operate = mode.Operate)
-                        then operate <- mode.Operate
-                             MessagePut "Keyswitch turned to operate"
-                             if EnterButtonR then MessagePut "Halting Repeat Enter"; EnterButtonR <- false
-
-                    if PanelInput &&& 0b00000011 = 0b00000000 && not (operate = mode.Auto)
-                        then operate <- mode.Auto       
+                       
                              
 
     let WordSwitch() =
@@ -844,7 +834,6 @@ module Sim900.Machine
                 | SwitchingOff -> turnOff          ()
                 | SwitchingOn  -> turnOn           ()
                 | Reset        -> Reset            ()
-                                  KeySwitch        ()
                                   EnterSwitch      ()
                                   ObeySwitch       ()
                                   JumpSwitch       ()
@@ -852,7 +841,7 @@ module Sim900.Machine
                                   panelLights      ()
                                   DisplayRegisters ()
                 | Stopped     ->  panelButtons     ()
-                                  KeySwitch        ()
+                                  
                                   EnterSwitch      ()
                                   ObeySwitch       ()
                                   RestartSwitch    ()

@@ -16,6 +16,7 @@ open Sim900.FileHandling
 // MAIN PROGRAM
 [<STAThread>]
 do
+    
     setupPins        ()
     setupRS232       ()
     setupPanel       ()
