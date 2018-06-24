@@ -1,4 +1,4 @@
-update=5/5/2018 1:20:37 PM
+update=6/22/2018 4:52:13 PM
 version=1
 last_client=kicad
 [general]
@@ -27,6 +27,12 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[eeschema]
+version=1
+LibDir=C:/Users/v-jtool/OneDrive/Repos/kicad-symbols;C:/Program Files/KiCad/share/kicad/library
+[eeschema/libraries]
+LibName1=lib_sch/CPU
+LibName2=conn
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
@@ -37,9 +43,3 @@ NetFmtName=
 SpiceForceRefPrefix=0
 SpiceUseNetNumbers=0
 LabSize=60
-[eeschema]
-version=1
-LibDir=C:/Users/v-jtool/OneDrive/Repos/kicad-symbols;C:/Program Files/KiCad/share/kicad/library
-[eeschema/libraries]
-LibName1=lib_sch/CPU
-LibName2=conn

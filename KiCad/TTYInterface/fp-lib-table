@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name TTY)(type KiCad)(uri "$(KIPRJMOD)/TTY.pretty")(options "")(descr ""))
+)
