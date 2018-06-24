@@ -3,7 +3,11 @@ C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\Elliott903.XM
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\Elliott903.exe
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\Elliott903.pdb
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\FSharp.Core.dll
-C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\System.ValueTuple.dll
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\FSharp.Core.xml
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.exe
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.pdb
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\System.ValueTuple.dll
+Z:\Elliott903.exe.config
+Z:\Elliott903.exe
+Z:\Elliott903.pdb
+Z:\Elliott903.XML

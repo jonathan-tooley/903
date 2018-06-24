@@ -98,12 +98,12 @@ module Sim900.Bits
    let ReleasePunch () =
        piUnlock (1)
 
-   let port = new Ports.SerialPort ("/dev/ttyAMA0", 110, Ports.Parity.Even, 7, Ports.StopBits.One)
+   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=110, Parity=Ports.Parity.None, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
 
    let setupRS232 () = 
        port.WriteBufferSize <- 10
        port.Open ()
-       port.Write "Elliott"
+       port.Write "EEElliott"
    //port.ReadTimeout     <- 250
 
    let setupPins () =
@@ -139,11 +139,23 @@ module Sim900.Bits
        | 0x62    //Reset button pressed when not lit in operate
               -> MessagePut "Resetting"
                  status <- machineMode.Reset
+       | 0x08    //Keyswitch turned to Auto when system off
+       | 0x20    //Keyswitch turned to Auto when on and not reset
+       | 0xA0    //Keyswitch turned to Auto when system reset
+              -> if not (operate = mode.Auto) then operate <- mode.Auto  
+       | 0x0A    //Keyswitch turned to Operate when system off
+       | 0x22    //Keyswitch turned to Operate when on and not reset
+       | 0xA2    //Keyswitch turned to Operate when system reset
+              -> if not (operate = mode.Operate) then operate <- mode.Operate
+                 MessagePut "Keyswitch turned to operate"      
+       | 0x09    //Keyswitch turned to Test when system off
+       | 0x21    //Keyswitch turned to Test when on and not reset
+       | 0xA1    //Keyswitch turned to Test when system reset
+              -> if not (operate = mode.Test) then operate <- mode.Test 
+                 MessagePut "Keyswitch turned to test"           
        |_     -> ignore()   
        printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPA)); 
        printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPB)); 
-       printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFA)); 
-       printf "INTF   %x \n"   (I2CRead PanelU1 ( Register.INTFB));
        ReleasePanel ()
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
@@ -191,12 +203,12 @@ module Sim900.Bits
        I2CWrite PanelU1 Register.IPOLA    0b01010111  //Reverse bank A input polarity
        I2CWrite PanelU1 Register.IPOLB    0b01010111  //Reverse bank B input polarity
        I2CWrite PanelU1 Register.IOCON17  0b01000100  //Set up interrupts to mirror A & B and to be open drain
-       I2CWrite PanelU1 Register.GPINTENA 0b01010100  //Set up reset, on and off keys for interrupt on change
-       I2CWrite PanelU1 Register.INTCONA  0b01010100  //Define the interrupt to only work one way
-       I2CWrite PanelU1 Register.DEFVALA  0b00000000  //Set the interrupt to trigger when button pressed
+       I2CWrite PanelU1 Register.GPINTENA 0b01010111  //Set up reset, on, off and keyswitch for interrupt on change
+       //I2CWrite PanelU1 Register.INTCONA  0b01010100  //Define the interrupt to only work one way
+       //I2CWrite PanelU1 Register.DEFVALA  0b00000000  //Set the interrupt to trigger when button pressed
        I2CWrite PanelU1 Register.GPINTENB 0b01000000  //Set up stop button for interrupt
-       I2CWrite PanelU1 Register.INTCONB  0b01000000  //Define the interrupt to only work one way
-       I2CWrite PanelU1 Register.DEFVALB  0b00000000  //Set the interrupt to trigger when button pressed
+       //I2CWrite PanelU1 Register.INTCONB  0b01000000  //Define the interrupt to only work one way
+       //I2CWrite PanelU1 Register.DEFVALB  0b00000000  //Set the interrupt to trigger when button pressed
 
        // U2 Inputs
        //28 : 512   Bit 10
