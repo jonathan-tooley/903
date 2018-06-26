@@ -2,14 +2,7 @@
 
 module Sim900.Formatting
 
-    open System
-    open System.IO
-    open System.Text
-
-    open Sim900.Globals
-    open Sim900.Bits
     open Sim900.Telecodes
-    open Sim900.Devices
 
     exception Syntax of string
 
