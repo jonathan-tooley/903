@@ -164,6 +164,7 @@ module Sim900.Globals
         | Test
 
     let mutable operate           = mode.Auto                        // Keyswitch position defaults to auto
+    let mutable oldoperate        = mode.Operate
 
     // INTERRUPTS 
     let mutable interruptLevel             = 1                   // current interrupt level 1..4 

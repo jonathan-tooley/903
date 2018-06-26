@@ -807,13 +807,19 @@ module Sim900.Machine
             | Obey          -> MessagePut "Status Changed to Obey"
             | Restarting    -> MessagePut "Status Changed to Restarting"
             | Running       -> MessagePut "Status Changed to Running"
+        if operate <> oldoperate then
+            match operate with
+            | Auto          -> MessagePut "Key changed to Auto" 
+            | Operate       -> MessagePut "Key changed to Operate"
+            | Test          -> MessagePut "Key Changed to Test"
 
     let Processor () =
             panelLights()
             while status <> machineMode.Dead do 
                 System.Threading.Thread.Sleep 20
                 statusChange ()
-                oldstatus <- status
+                oldstatus  <- status
+                oldoperate <- operate
                 match status with
                 | Dead         -> ignore           () 
                 | Off          -> ignore           ()
