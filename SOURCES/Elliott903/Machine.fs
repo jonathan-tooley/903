@@ -530,7 +530,7 @@ module Sim900.Machine
                              WordSwitch()
                              APut (WGet())
                              DisplayA ()
-                             status <- machineMode.Stopped
+                             status <- machineMode.NotRunning
                              ROOLights ()
 
                     if PanelInput &&& 0b00010000 = 0b00000000 then EnterButtonR <- false
@@ -539,7 +539,7 @@ module Sim900.Machine
                              WordSwitch()
                              APut (WGet())
                              DisplayA ()
-                             status <- machineMode.Stopped
+                             status <- machineMode.NotRunning
                              ROOLights ()
 
     let ObeySwitch() = 
@@ -802,6 +802,7 @@ module Sim900.Machine
             | SwitchingOff  -> MessagePut "Status changed to Switching Off"
             | SwitchingOn   -> MessagePut "Status changed to Switching On"
             | Reset         -> MessagePut "Status changed to Reset"
+            | NotRunning    -> MessagePut "Status changed to NotRunning"
             | Stopped       -> MessagePut "Status changed to Stopped"
             | Cycle         -> MessagePut "Status Changed to Cycle"
             | Obey          -> MessagePut "Status Changed to Obey"
@@ -843,6 +844,7 @@ module Sim900.Machine
                 | Restarting  ->  if CycleSwitch () then status <- machineMode.Cycle
                                                     else status <- machineMode.Running
                 | Obey        ->  status <- machineMode.Stopped  //After an obey we return to stopped
+                | Obey        ->  status <- machineMode.NotRunning  //After an obey we return to NotRunning
                                   Execute (wordGenerator)
                 | Cycle       ->  NextInstruction ()
                                   status <- machineMode.Stopped
