@@ -19,10 +19,12 @@ do
     setupPanel       ()
     setupPeripherals ()
     setupDisplay     ()
+    panelHandler     ()  //The interface chips start with an interrupt state
+                         //We need to call this just to clear the initial interrupt
     ROOLights        ()
 
     MessagePut "Elliott 903 Run Console"
 
-    Processor()
-
+    Processor        ()
+    panelHandler     ()
 
