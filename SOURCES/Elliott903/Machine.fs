@@ -482,7 +482,8 @@ module Sim900.Machine
                        then PanelOutput <- (PanelOutput ||| 0b00100000)
                     
                     //Set the Stop light
-                    if status = machineMode.Stopped then PanelOutput <- (PanelOutput ||| 0b10000000)
+                    if status = machineMode.Running && (operate = mode.Operate || operate = mode.Test)
+                    then PanelOutput <- (PanelOutput ||| 0b10000000) 
 
                     // The Jump button on the original ELLIOT did not have an indicator
                     // We have defined an indicator logic here to indicate when jump can be used
@@ -705,15 +706,7 @@ module Sim900.Machine
 
    
 
-    let RestartSwitch() =
-                    ConnectPanel ()                 
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
-                    ReleasePanel ()
-                    if PanelInput &&& 0b00010000 = 0b00000000 then RestartButton <- false
-                    if PanelInput &&& 0b00010000 = 0b00010000 && not RestartButton && not (operate = mode.Auto)
-                        then RestartButton <- true
-                             if CycleSwitch () then status <- machineMode.Cycle  ; MessagePut "Restart in single step"
-                                               else status <- machineMode.Running; MessagePut "Restart run"
+
 
     let panelButtons() =
                     ConnectPanel ()
@@ -834,16 +827,22 @@ module Sim900.Machine
                                   panelLights      ()
                                   DisplayRegisters ()
                 | Stopped     ->  panelButtons     ()
-                                  
                                   EnterSwitch      ()
                                   ObeySwitch       ()
-                                  RestartSwitch    ()
+                                  
                                   Command          ()
                                   panelLights      ()
                                   DisplayRegisters ()
-                | Restarting  ->  if CycleSwitch () then status <- machineMode.Cycle
+                | NotRunning  ->  panelButtons     ()
+                                  EnterSwitch      ()
+                                  ObeySwitch       ()
+                                  
+                                  Command          ()
+                                  panelLights      ()
+                                  DisplayRegisters ()
+                | Restarting  ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                     else status <- machineMode.Running
-                | Obey        ->  status <- machineMode.Stopped  //After an obey we return to stopped
+                                  panelLights      ()
                 | Obey        ->  status <- machineMode.NotRunning  //After an obey we return to NotRunning
                                   Execute (wordGenerator)
                 | Cycle       ->  NextInstruction ()
