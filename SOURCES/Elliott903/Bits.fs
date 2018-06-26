@@ -131,18 +131,18 @@ module Sim900.Bits
        PI1b <- (I2CRead PanelU1 (Register.INTCAPB))
        PI1b <- PI1b &&& 0b11111100//Filter the word generator keys
        PI4  <- (I2CRead PanelU4 (Register.INTCAP ))
-       if (PI1a = PL1a) then PI1a <- 0 else PL1a <- PI1a
-       if (PI1b = PL1b) then PI1b <- 0 else PL1b <- PI1b
-       if (PI4  = PL4 ) then PI4  <- 0 else PL4  <- PI4
+       //if (PI1a = PL1a) then PI1a <- 0 else PL1a <- PI1a
+       //if (PI1b = PL1b) then PI1b <- 0 else PL1b <- PI1b
+       //if (PI4  = PL4 ) then PI4  <- 0 else PL4  <- PI4
        ReleasePanel ()
        match (PI1a, PI1b, PI4) with
        | (0x18,_,_)    //On button with key with Off light on in auto
        | (0x19,_,_)    //On button with key in test
        | (0x1A,_,_)    //On button with key in operate
               -> status <- machineMode.SwitchingOn
-       | (0xA4,_,_)    //Off button pressed with On light on in auto
-       | (0xA5,_,_)    //Off button pressed with On light on in test
-       | (0xA6,_,_)    //Off button pressed with On light on in operate
+       | (0xA4,_,_)    //Off button pressed with On and Reset lights on in auto
+       | (0xA5,_,_)    //Off button pressed with On and Reset lights on in test
+       | (0xA6,_,_)    //Off button pressed with On and Reset lights on in operate
               -> status <- machineMode.SwitchingOff
        | (0x0C,_,_)    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
        | (0x0D,_,_)    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
@@ -152,21 +152,33 @@ module Sim900.Bits
        | (0x61,_,_)    //Reset button pressed when not lit in test
        | (0x62,_,_)    //Reset button pressed when not lit in operate
               -> status <- machineMode.Reset
-       | (0x08,_,_)    //Keyswitch turned to Auto when system off
-       | (0x20,_,_)    //Keyswitch turned to Auto when on and not reset
-       | (0xA0,_,_)    //Keyswitch turned to Auto when system reset
-              -> if not (operate = mode.Auto) then operate <- mode.Auto  
-       | (0x0A,_,_)    //Keyswitch turned to Operate when system off
-       | (0x22,_,_)    //Keyswitch turned to Operate when on and not reset
-       | (0xA2,_,_)    //Keyswitch turned to Operate when system reset
-              -> if not (operate = mode.Operate) then operate <- mode.Operate
-       | (0x09,_,_)    //Keyswitch turned to Test when system off
-       | (0x21,_,_)    //Keyswitch turned to Test when on and not reset
-       | (0xA1,_,_)    //Keyswitch turned to Test when system reset
-              -> if not (operate = mode.Test) then operate <- mode.Test 
-       | (_,0x40,_)    //Stop key pressed with the restart light off
-              -> if (status = machineMode.Running) then status <- machineMode.Stopped
-       | (_,0xb0,_)    //Restart key pressed
+       | (0x08,0x00,_)    //Keyswitch turned to Auto when system off
+       | (0x08,0x80,_)    //Keyswitch turned to Auto when system off
+       | (0x20,0x00,_)    //Keyswitch turned to Auto when on and not reset
+       | (0x20,0x80,_)    //Keyswitch turned to Auto when on and not reset
+       | (0x20,0x20,_)    //Keyswitch turned to Auto when on and not reset
+       | (0xA0,0x08,_)    //Keyswitch turned to Auto when system reset
+       | (0xA0,0x80,_)    //Keyswitch turned to Auto when system reset
+              -> operate <- mode.Auto  
+       | (0x0A,0x00,_)    //Keyswitch turned to Operate when system off
+       | (0x0A,0x80,_)    //Keyswitch turned to Operate when system off
+       | (0x22,0x00,_)    //Keyswitch turned to Operate when on and not reset
+       | (0x22,0x80,_)    //Keyswitch turned to Operate when on and not reset
+       | (0x22,0x20,_)    //Keyswitch turned to Operate when on and not reset
+       | (0xA2,0x08,_)    //Keyswitch turned to Operate when system reset
+       | (0xA2,0x80,_)    //Keyswitch turned to Operate when system reset
+              -> operate <- mode.Operate
+       | (0x09,0x00,_)    //Keyswitch turned to Test when system off
+       | (0x09,0x80,_)    //Keyswitch turned to Test when system off
+       | (0x21,0x00,_)    //Keyswitch turned to Test when on and not reset
+       | (0x21,0x80,_)    //Keyswitch turned to Test when on and not reset
+       | (0x21,0x20,_)    //Keyswitch turned to Test when on and not reset
+       | (0xA1,0x08,_)    //Keyswitch turned to Test when system reset
+       | (0xA1,0x80,_)    //Keyswitch turned to Test when system reset
+              -> operate <- mode.Test 
+       | (0xA1,0xC0,_)    //Stop key pressed when it is lit (showing that it can be used)
+              -> if not (operate = mode.Auto) then status <- machineMode.Stopped
+       | (0xA1,0x30,_)    //Restart key pressed
               -> if not (operate = mode.Auto) then status <- machineMode.Restarting
        |_     -> ignore()
       
