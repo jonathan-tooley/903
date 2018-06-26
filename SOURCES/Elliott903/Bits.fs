@@ -118,45 +118,60 @@ module Sim900.Bits
        pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
        digitalWrite 24 pinValue.Low // Make sure the fan is off
 
+   let mutable PI1a = 0
+   let mutable PI1b = 0
+   let mutable PI4  = 0
+   let mutable PL1a = 0
+   let mutable PL1b = 0
+   let mutable PL4  = 0
+
    let panelHandler () =
        ConnectPanel ()
-       match I2CRead PanelU1 (Register.INTCAPA) with
-       | 0x18    //On button with key in auto
-       | 0x19    //On button with key in test
-       | 0x1A    //On button with key in operate
-              -> status <- machineMode.SwitchingOn
-       | 0xA4    //Off button pressed with On light on in auto
-       | 0xA5    //Off button pressed with On light on in test
-       | 0xA6    //Off button pressed with On light on in operate
-              -> status <- machineMode.SwitchingOff
-       | 0x0C    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
-       | 0x0D    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
-       | 0x0E    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
-              -> MessagePut "Shuting down"
-                 status <- machineMode.Dead
-       | 0x60    //Reset button pressed when not lit in auto
-       | 0x61    //Reset button pressed when not lit in test
-       | 0x62    //Reset button pressed when not lit in operate
-              -> MessagePut "Resetting"
-                 status <- machineMode.Reset
-       | 0x08    //Keyswitch turned to Auto when system off
-       | 0x20    //Keyswitch turned to Auto when on and not reset
-       | 0xA0    //Keyswitch turned to Auto when system reset
-              -> if not (operate = mode.Auto) then operate <- mode.Auto  
-       | 0x0A    //Keyswitch turned to Operate when system off
-       | 0x22    //Keyswitch turned to Operate when on and not reset
-       | 0xA2    //Keyswitch turned to Operate when system reset
-              -> if not (operate = mode.Operate) then operate <- mode.Operate
-                 MessagePut "Keyswitch turned to operate"      
-       | 0x09    //Keyswitch turned to Test when system off
-       | 0x21    //Keyswitch turned to Test when on and not reset
-       | 0xA1    //Keyswitch turned to Test when system reset
-              -> if not (operate = mode.Test) then operate <- mode.Test 
-                 MessagePut "Keyswitch turned to test"           
-       |_     -> ignore()   
-       printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPA)); 
-       printf "INTCAP %x \n"   (I2CRead PanelU1 ( Register.INTCAPB)); 
+       PI1a <- (I2CRead PanelU1 (Register.INTCAPA))
+       PI1b <- (I2CRead PanelU1 (Register.INTCAPB))
+       PI1b <- PI1b &&& 0b11111100//Filter the word generator keys
+       PI4  <- (I2CRead PanelU4 (Register.INTCAP ))
+       if (PI1a = PL1a) then PI1a <- 0 else PL1a <- PI1a
+       if (PI1b = PL1b) then PI1b <- 0 else PL1b <- PI1b
+       if (PI4  = PL4 ) then PI4  <- 0 else PL4  <- PI4
        ReleasePanel ()
+       match (PI1a, PI1b, PI4) with
+       | (0x18,_,_)    //On button with key with Off light on in auto
+       | (0x19,_,_)    //On button with key in test
+       | (0x1A,_,_)    //On button with key in operate
+              -> status <- machineMode.SwitchingOn
+       | (0xA4,_,_)    //Off button pressed with On light on in auto
+       | (0xA5,_,_)    //Off button pressed with On light on in test
+       | (0xA6,_,_)    //Off button pressed with On light on in operate
+              -> status <- machineMode.SwitchingOff
+       | (0x0C,_,_)    //Off button pressed with the Off indicator Lit and the On Indicator Off in auto
+       | (0x0D,_,_)    //Off button pressed with the Off indicator Lit and the On Indicator Off in test
+       | (0x0E,_,_)    //Off button pressed with the Off indicator Lit and the On Indicator Off in operate
+              -> status <- machineMode.Dead
+       | (0x60,_,_)    //Reset button pressed when not lit in auto
+       | (0x61,_,_)    //Reset button pressed when not lit in test
+       | (0x62,_,_)    //Reset button pressed when not lit in operate
+              -> status <- machineMode.Reset
+       | (0x08,_,_)    //Keyswitch turned to Auto when system off
+       | (0x20,_,_)    //Keyswitch turned to Auto when on and not reset
+       | (0xA0,_,_)    //Keyswitch turned to Auto when system reset
+              -> if not (operate = mode.Auto) then operate <- mode.Auto  
+       | (0x0A,_,_)    //Keyswitch turned to Operate when system off
+       | (0x22,_,_)    //Keyswitch turned to Operate when on and not reset
+       | (0xA2,_,_)    //Keyswitch turned to Operate when system reset
+              -> if not (operate = mode.Operate) then operate <- mode.Operate
+       | (0x09,_,_)    //Keyswitch turned to Test when system off
+       | (0x21,_,_)    //Keyswitch turned to Test when on and not reset
+       | (0xA1,_,_)    //Keyswitch turned to Test when system reset
+              -> if not (operate = mode.Test) then operate <- mode.Test 
+       | (_,0x40,_)    //Stop key pressed with the restart light off
+              -> if (status = machineMode.Running) then status <- machineMode.Stopped
+       | (_,0xb0,_)    //Restart key pressed
+              -> if not (operate = mode.Auto) then status <- machineMode.Restarting
+       |_     -> ignore()
+      
+       printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
+       
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
@@ -203,12 +218,8 @@ module Sim900.Bits
        I2CWrite PanelU1 Register.IPOLA    0b01010111  //Reverse bank A input polarity
        I2CWrite PanelU1 Register.IPOLB    0b01010111  //Reverse bank B input polarity
        I2CWrite PanelU1 Register.IOCON17  0b01000100  //Set up interrupts to mirror A & B and to be open drain
-       I2CWrite PanelU1 Register.GPINTENA 0b01010111  //Set up reset, on, off and keyswitch for interrupt on change
-       //I2CWrite PanelU1 Register.INTCONA  0b01010100  //Define the interrupt to only work one way
-       //I2CWrite PanelU1 Register.DEFVALA  0b00000000  //Set the interrupt to trigger when button pressed
-       I2CWrite PanelU1 Register.GPINTENB 0b01000000  //Set up stop button for interrupt
-       //I2CWrite PanelU1 Register.INTCONB  0b01000000  //Define the interrupt to only work one way
-       //I2CWrite PanelU1 Register.DEFVALB  0b00000000  //Set the interrupt to trigger when button pressed
+       I2CWrite PanelU1 Register.GPINTENA 0b01010111  //Set up reset, on, off and keyswitch for interrupt
+       I2CWrite PanelU1 Register.GPINTENB 0b01010100  //Set up stop, restart and jump for interrupt
 
        // U2 Inputs
        //28 : 512   Bit 10
@@ -281,6 +292,7 @@ module Sim900.Bits
        I2CWrite PanelU4 Register.GPPU    0b11111011 //Bank A pull up resistors
        I2CWrite PanelU4 Register.IPOL    0b11111011 //Bank A polarity
        I2CWrite PanelU4 Register.IOCON08 0b00000100 //Set up interrupts to be open drain
+       I2CWrite PanelU4 Register.GPINTEN 0b11110011 //Set up interrupts on cycle, enter and obey
 
        ReleasePanel ()
 
