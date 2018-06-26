@@ -6,9 +6,13 @@
 *.pdb
 *.so
 
+*.suo
+
 
 SOURCES/Simulator/bin
-Debug/
+[Dd]ebug/
+[Oo]bj/
 
-
+#Visual Studio cache directory
+.vs/
 

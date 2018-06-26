@@ -11,3 +11,5 @@ Z:\Elliott903.exe.config
 Z:\Elliott903.exe
 Z:\Elliott903.pdb
 Z:\Elliott903.XML
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.fsprojAssemblyReference.cache
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.fsproj.CopyComplete
