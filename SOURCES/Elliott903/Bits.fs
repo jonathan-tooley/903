@@ -121,9 +121,6 @@ module Sim900.Bits
    let mutable PI1a = 0
    let mutable PI1b = 0
    let mutable PI4  = 0
-   let mutable PL1a = 0
-   let mutable PL1b = 0
-   let mutable PL4  = 0
 
    let panelHandler () =
        ConnectPanel ()
@@ -131,9 +128,6 @@ module Sim900.Bits
        PI1b <- (I2CRead PanelU1 (Register.INTCAPB))
        PI1b <- PI1b &&& 0b11111100//Filter the word generator keys
        PI4  <- (I2CRead PanelU4 (Register.INTCAP ))
-       //if (PI1a = PL1a) then PI1a <- 0 else PL1a <- PI1a
-       //if (PI1b = PL1b) then PI1b <- 0 else PL1b <- PI1b
-       //if (PI4  = PL4 ) then PI4  <- 0 else PL4  <- PI4
        ReleasePanel ()
        match (PI1a, PI1b, PI4) with
        | (0x18,_,_)    //On button with key with Off light on in auto

@@ -4,10 +4,7 @@ module Sim900.Telecodes
     open Sim900.Globals
 
     exception Code of string
-
-   
-
-                    
+                
     // printable representation of newline, return and tab
     let VisibleWhiteSpace (str: string) =
             (((str.Replace ("\\", "\\\\")).Replace ("\n", "\\n")).Replace ("\t", "\\t")).Replace ("\r", "\\r")  //"
@@ -210,5 +207,6 @@ module Sim900.Telecodes
             skip (inp+1) // search for end of comment
 
         copy (0, 0)
+ 
 
   
