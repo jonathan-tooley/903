@@ -84,6 +84,7 @@ module Sim900.Globals
        | SwitchingOn             // Machine is moving to Reset
        | Reset
        | Stopped
+       | Restarting
        | Obey                    
        | Cycle
        | Running
