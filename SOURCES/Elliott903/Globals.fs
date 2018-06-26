@@ -79,13 +79,14 @@ module Sim900.Globals
    
     type machineMode =
        | Dead                    // Emulator ends when status is set to dead
-       | Off                     // Machine is off
-       | SwitchingOff            // Machine is moving to off
+       | Off                     // Machine is Off
+       | SwitchingOff            // Machine is moving to Off
        | SwitchingOn             // Machine is moving to Reset
-       | Reset
-       | Stopped
-       | Restarting
-       | Obey                    
+       | Reset                   // Machine is in the Reset state
+       | NotRunning              // Machine is Stopped but can't be restarted
+       | Stopped                 // Machine is Stopped but can be restarted
+       | Restarting              // Machine is moving to Cycle or Running
+       | Obey                    // Machine will obey an instruction
        | Cycle
        | Running
 
