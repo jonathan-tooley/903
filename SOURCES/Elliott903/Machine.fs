@@ -5,13 +5,9 @@
 module Sim900.Machine
                 
     open System
-    open System.Text
-    open System.Diagnostics
     open System.IO
-    open System.Collections.Generic
     open Sim900.Globals
     open Sim900.Bits
-    open Sim900.Telecodes
     open Sim900.Devices
     open Sim900.Formatting
     open Sim900.FileHandling
@@ -89,13 +85,11 @@ module Sim900.Machine
             oldSequenceControlRegister <- 0
 
         let turnOn () =
-            MessagePut "Turning system on."
             //digitalWrite 24 GPIO.pinValue.High
             status <- machineMode.Reset
             ROOLights ()
 
         let turnOff () =
-            MessagePut "Turning system off."
             digitalWrite 24 pinValue.Low
             status <- machineMode.Off
             ROOLights ()
@@ -512,13 +506,6 @@ module Sim900.Machine
                     I2CWrite PanelU3 (Register.OLATB) InterruptDisp
                     ReleasePanel ()
 
-    let KeySwitch() =
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOA)
-                    ReleasePanel ()
-                       
-                             
-
     let WordSwitch() =
                     ConnectPanel ()
                     // Update the word generator using MCP23017 U1 & U2 Inputs  
@@ -716,15 +703,7 @@ module Sim900.Machine
                              WordSwitch ()
                              Jump ()
 
-    let StopSwitch() = 
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
-                    ReleasePanel ()
-                    if PanelInput &&& 0b01000000 = 0b00000000 then StopButton <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && not StopButton && not (operate = mode.Auto)
-                        then MessagePut "Machine stopped"
-                             status <- machineMode.Stopped
-                             StopButton <- true
+   
 
     let RestartSwitch() =
                     ConnectPanel ()                 
@@ -834,9 +813,10 @@ module Sim900.Machine
             while status <> machineMode.Dead do 
                 System.Threading.Thread.Sleep 20
                 statusChange ()
+                oldstatus <- status
                 match status with
                 | Dead         -> ignore           () 
-                | Off          -> KeySwitch        ()
+                | Off          -> ignore           ()
                 | SwitchingOff -> turnOff          ()
                 | SwitchingOn  -> turnOn           ()
                 | Reset        -> Reset            ()
@@ -854,13 +834,15 @@ module Sim900.Machine
                                   Command          ()
                                   panelLights      ()
                                   DisplayRegisters ()
+                | Restarting  ->  if CycleSwitch () then status <- machineMode.Cycle
+                                                    else status <- machineMode.Running
                 | Obey        ->  status <- machineMode.Stopped  //After an obey we return to stopped
                                   Execute (wordGenerator)
                 | Cycle       ->  NextInstruction ()
                                   status <- machineMode.Stopped
                 | Running     ->  NextInstruction ()
-                                  if iCount %   50L = 0L then DisplayRegisters ()
-                oldstatus <- status
+                                  if iCount %   1L = 0L then DisplayRegisters ()
+                
             ROOLights()
 
                                      
