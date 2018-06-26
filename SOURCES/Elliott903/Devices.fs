@@ -12,18 +12,22 @@ module Sim900.Devices
     let ROOLights () =
         ConnectPanel ()
         match status with
-        |     machineMode.Dead    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 )
-                                     I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
-                                     I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
-        |     machineMode.Off     -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 )
-                                     I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
-                                     I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
-        |     machineMode.Reset   -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
-        |     machineMode.Stopped -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
-        |     machineMode.Obey    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
-        |     machineMode.Cycle   -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
-        |     machineMode.Running -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
-        |     _                   -> ignore ()     
+        |     machineMode.Dead       -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 )
+                                        I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
+                                        I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
+        |     machineMode.SwitchingOff
+        |     machineMode.SwitchingOn
+        |     machineMode.Off        -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 )
+                                        I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
+                                        I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
+        |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
+        |     machineMode.Stopped    
+        |     machineMode.NotRunning 
+        |     machineMode.Restarting 
+        |     machineMode.Obey      
+        |     machineMode.Cycle      
+        |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+   
         ReleasePanel ()
 
     let DisplayA () =
