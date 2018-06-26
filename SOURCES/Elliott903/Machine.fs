@@ -820,8 +820,14 @@ module Sim900.Machine
             match status with
             | Dead          -> MessagePut "Status changed to Dead"
             | Off           -> MessagePut "Status changed to Off"
-            | SwitchingOff  -> MessagePut "Status changed to SwitchingOff"
-            | _             -> MessagePut "Status Changed"
+            | SwitchingOff  -> MessagePut "Status changed to Switching Off"
+            | SwitchingOn   -> MessagePut "Status changed to Switching On"
+            | Reset         -> MessagePut "Status changed to Reset"
+            | Stopped       -> MessagePut "Status changed to Stopped"
+            | Cycle         -> MessagePut "Status Changed to Cycle"
+            | Obey          -> MessagePut "Status Changed to Obey"
+            | Restarting    -> MessagePut "Status Changed to Restarting"
+            | Running       -> MessagePut "Status Changed to Running"
 
     let Processor () =
             panelLights()
