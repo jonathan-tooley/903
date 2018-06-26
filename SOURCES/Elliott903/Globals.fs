@@ -14,6 +14,8 @@ module Sim900.Globals
     let mutable pRegister                  = 0       // peripheral i/o
     let mutable wordGenerator              = 0       // setting of keys on control panel
 
+    exception Syntax of string
+
     let bit1   =      0x1
     let bit8   =     0x80
     let bit14  =   0x2000

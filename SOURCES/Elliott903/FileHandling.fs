@@ -8,7 +8,6 @@ module Sim900.FileHandling
         open Sim900.Globals
         open Sim900.Telecodes
         open Sim900.Devices
-        open Sim900.Formatting
 
 
         // Delete
