@@ -135,10 +135,15 @@ module Sim900.Globals
        | GPIOB    = 0x13 //GPIO Bank B input values
        | OLATA    = 0x14 //Output Latch Bank A
        | OLATB    = 0x15 //Output Latch Bank B
+       //From here these relate to the MCP23008 only
        | IODIR    = 0x00 //GPIO Bank A pin directions
        | IPOL     = 0x01 //GPIO Bank A input polarity
+       | GPINTEN  = 0x02 //Interrupt on change control
+       | DEFVAL   = 0x03 //Defined value for interrupt
+       | INTCON   = 0x04 //Interrupt control
        | IOCON08  = 0x05 //IO Configuration Register
        | GPPU     = 0x06 //GPIO Bank A pull up resistor settings
+       | INTCAP   = 0x08 //Interrupt captured
        | GPIO     = 0x09 //GPIO Bank A input values
        | OLAT     = 0x0A //Output Latch Bank A
 
@@ -205,3 +210,6 @@ module Sim900.Globals
     let MessagePut item = // output a simulator message
         if System.Console.CursorLeft > 0 then printfn ""
         printfn "SIM900: %s" item
+
+
+    
