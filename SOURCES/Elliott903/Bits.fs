@@ -121,6 +121,9 @@ module Sim900.Bits
    let mutable PI1a = 0
    let mutable PI1b = 0
    let mutable PI4  = 0
+   let mutable PG1a = 0
+   let mutable PG1b = 0
+   let mutable PG4  = 0
 
    let panelHandler () =
        ConnectPanel ()
@@ -128,6 +131,11 @@ module Sim900.Bits
        PI1b <- (I2CRead PanelU1 (Register.INTCAPB))
        PI1b <- PI1b &&& 0b11111100//Filter the word generator keys
        PI4  <- (I2CRead PanelU4 (Register.INTCAP ))
+       PG1a <- (I2CRead PanelU1 (Register.GPIOA))
+       PG1b <- (I2CRead PanelU1 (Register.GPIOB))
+       PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
+       PG4  <- (I2CRead PanelU4 (Register.GPIO ))
+
        ReleasePanel ()
        match (PI1a, PI1b, PI4) with
        | (0x18,_,_)    //On button with key with Off light on in auto
@@ -177,7 +185,7 @@ module Sim900.Bits
        |_     -> ignore()
       
        printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
-       
+       printf "PG1a %x | PG1b %x | PG4 %x \n" PG1a PG1b PG4
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
