@@ -525,26 +525,11 @@ module Sim900.Machine
 
 
     let ObeySwitch() = 
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU4 (Register.GPIO )
-                    ReleasePanel ()
-                    if PanelInput &&& 0b10000000 = 0b00000000 then ObeyButtonS <- false 
-                    if PanelInput &&& 0b10000000 = 0b10000000 && not ObeyButtonS && operate = mode.Test
-                        then ObeyButtonS <- true
-                             MessagePut "Obey command"
-                             WordSwitch ()
-                             status     <- machineMode.Obey 
-                             ROOLights ()
+                    WordSwitch ()
+                    Execute (WGet())
+                    DisplayRegisters ()
+                    ROOLights ()
                     
-                    if PanelInput &&& 0b01000000 = 0b00000000 then ObeyButtonR <- false
-                    if PanelInput &&& 0b01000000 = 0b01000000 && operate = mode.Test
-                        then if not ObeyButtonR then MessagePut "Repeating Obey Commands"; ObeyButtonR <- true 
-                             WordSwitch()
-                             status    <- machineMode.Obey
-                             ROOLights ()
-
-
-
     let CycleSwitch() =                    
                     ConnectPanel () 
                     PanelInput <- I2CRead PanelU4 (Register.GPIO ); 
