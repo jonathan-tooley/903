@@ -85,10 +85,17 @@ module Sim900.Globals
        | SwitchingOff            // Machine is moving to Off
        | SwitchingOn             // Machine is moving to Reset
        | Reset                   // Machine is in the Reset state
-       | NotRunning              // Machine is Stopped but can't be restarted
-       | Stopped                 // Machine is Stopped but can be restarted
-       | Restarting              // Machine is moving to Cycle or Running
-       | Obey                    // Machine will obey an instruction
+       | NotRunning              // Machine is Stopped but can't be restarted because no jump entered
+       | Stopped                 // Machine is Stopped but can be restarted 
+       | Restarting              // Machine is moving to Cycle or Running depending on cycle mode
+       | ObeyNotRunning          // Machine will obey an instruction and return to NotRunning
+       | ObeyStopped             // Machine will obey an instruction and return to Stopped
+       | RepeatObeyNotRunning    // Machine will obey an instruction repeatedly and return to NotRunning
+       | RepeatObeyStopped       // Machine will obey an instruction repeatedly and return to Stopped
+       | EnterNotRunning         // Machine will enter a word and return to NotRunning
+       | EnterStopped            // Machine will enter a word and return to Stopped
+       | RepeatEnterNotRunning   // Machine will repeatedly enter a word and return to NotRunning
+       | RepeatEnterStopped      // Machine will repeatedly enter a word and return to Stopped
        | Cycle
        | Running
 
