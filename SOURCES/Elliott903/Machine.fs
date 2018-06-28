@@ -391,6 +391,7 @@ module Sim900.Machine
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper
+    open System.Threading
 
     let ClearStore () = // clear entire store to zero
         for i = 0 to memorySize-1 do memory.[i] <- 0
@@ -453,13 +454,10 @@ module Sim900.Machine
 
         // These are for key debounce
    
-    let mutable StopButton    = false
+    //let mutable StopButton    = false
     let mutable RestartButton = false
     let mutable JumpButton    = false
-    let mutable EnterButtonS  = false
-    let mutable EnterButtonR  = false
-    let mutable ObeyButtonS   = false
-    let mutable ObeyButtonR   = false
+    
     let mutable CmdButton     = false
     let mutable I1            = false
     let mutable I1M           = false
