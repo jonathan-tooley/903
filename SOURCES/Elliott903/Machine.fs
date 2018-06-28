@@ -670,9 +670,6 @@ module Sim900.Machine
                              WordSwitch ()
                              Jump ()
 
-   
-
-
 
     let panelButtons() =
                     ConnectPanel ()
@@ -754,20 +751,29 @@ module Sim900.Machine
             iCount <- iCount+1L
     
     let statusChange () =
-        if status <> oldstatus then 
+        if status <> oldstatus then
+            ROOLights ()
             match status with
-            | Dead          -> MessagePut "Status changed to Dead"
-            | Off           -> MessagePut "Status changed to Off"
-            | SwitchingOff  -> MessagePut "Status changed to Switching Off"
-            | SwitchingOn   -> MessagePut "Status changed to Switching On"
-            | Reset         -> MessagePut "Status changed to Reset"
-            | NotRunning    -> MessagePut "Status changed to NotRunning"
-            | Stopped       -> MessagePut "Status changed to Stopped"
-            | Cycle         -> MessagePut "Status Changed to Cycle"
-            | Obey          -> MessagePut "Status Changed to Obey"
-            | Restarting    -> MessagePut "Status Changed to Restarting"
-            | Running       -> MessagePut "Status Changed to Running"
+            | Dead                  -> MessagePut "Status changed to Dead"
+            | Off                   -> MessagePut "Status changed to Off"
+            | SwitchingOff          -> MessagePut "Status changed to Switching Off"
+            | SwitchingOn           -> MessagePut "Status changed to Switching On"
+            | Reset                 -> MessagePut "Status changed to Reset"
+            | NotRunning            -> MessagePut "Status changed to NotRunning"
+            | Stopped               -> MessagePut "Status changed to Stopped"
+            | Cycle                 -> MessagePut "Status Changed to Cycle"
+            | ObeyNotRunning
+            | ObeyStopped           -> MessagePut "Status Changed to Obey"
+            | RepeatObeyNotRunning
+            | RepeatObeyStopped     -> MessagePut "Status Changed to Obey (Repeat)"
+            | EnterNotRunning
+            | EnterStopped          -> MessagePut "Status Changed to Enter"
+            | RepeatEnterNotRunning
+            | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"                           
+            | Restarting            -> MessagePut "Status Changed to Restarting"
+            | Running               -> MessagePut "Status Changed to Running"
         if operate <> oldoperate then
+            
             match operate with
             | Auto          -> MessagePut "Key changed to Auto" 
             | Operate       -> MessagePut "Key changed to Operate"
