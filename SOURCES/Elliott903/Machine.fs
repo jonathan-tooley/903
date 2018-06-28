@@ -782,45 +782,49 @@ module Sim900.Machine
     let Processor () =
             panelLights()
             while status <> machineMode.Dead do 
-                System.Threading.Thread.Sleep 20
+                System.Threading.Thread.Sleep 10
                 statusChange ()
                 oldstatus  <- status
                 oldoperate <- operate
                 match status with
-                | Dead         -> ignore           () 
-                | Off          -> ignore           ()
-                | SwitchingOff -> turnOff          ()
-                | SwitchingOn  -> turnOn           ()
-                | Reset        -> Reset            ()
-                                  EnterSwitch      ()
-                                  ObeySwitch       ()
-                                  JumpSwitch       ()
-                                  Command          ()
-                                  panelLights      ()
-                                  DisplayRegisters ()
-                | Stopped     ->  panelButtons     ()
-                                  EnterSwitch      ()
-                                  ObeySwitch       ()
-                                  
-                                  Command          ()
-                                  panelLights      ()
-                                  DisplayRegisters ()
-                | NotRunning  ->  panelButtons     ()
-                                  EnterSwitch      ()
-                                  ObeySwitch       ()
-                                  
-                                  Command          ()
-                                  panelLights      ()
-                                  DisplayRegisters ()
-                | Restarting  ->  if CycleSwitch   () then status <- machineMode.Cycle
-                                                    else status <- machineMode.Running
-                                  panelLights      ()
-                | Obey        ->  status <- machineMode.NotRunning  //After an obey we return to NotRunning
-                                  Execute (wordGenerator)
-                | Cycle       ->  NextInstruction ()
-                                  status <- machineMode.Stopped
-                | Running     ->  NextInstruction ()
-                                  if iCount %   1L = 0L then DisplayRegisters ()
+                | Dead             -> ignore           () 
+                | Off              -> ignore           ()
+                | SwitchingOff     -> turnOff          ()
+                | SwitchingOn      -> turnOn           ()
+                | Reset            -> Reset            ()
+                                      //JumpSwitch       ()
+                                      //Command          ()
+                                      //panelLights      ()
+                                      //DisplayRegisters ()
+                | Stopped         ->  //panelButtons     ()
+                                      //Command          ()
+                                      //panelLights      ()
+                                      DisplayRegisters ()
+                | NotRunning      ->  //panelButtons     ()
+                                      //Command          ()
+                                      //panelLights      ()
+                                      DisplayRegisters ()
+                | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
+                                                          else status <- machineMode.Running
+                                      panelLights      ()
+                | EnterNotRunning ->  status <- machineMode.NotRunning
+                                      EnterSwitch ()
+                | EnterStopped    ->  status <- machineMode.Stopped
+                                      EnterSwitch ()
+                | RepeatEnterNotRunning
+                | RepeatEnterStopped
+                                  ->  EnterSwitch ()
+                | ObeyNotRunning  ->  status <- machineMode.NotRunning  
+                                      ObeySwitch ()
+                | ObeyStopped     ->  status <- machineMode.Stopped
+                                      ObeySwitch ()
+                | RepeatObeyNotRunning 
+                | RepeatObeyStopped
+                                  ->  ObeySwitch ()
+                | Cycle           ->  NextInstruction ()
+                                      status <- machineMode.Stopped
+                | Running         ->  NextInstruction ()
+                                      if iCount %   1L = 0L then DisplayRegisters ()
                 
             ROOLights()
 
