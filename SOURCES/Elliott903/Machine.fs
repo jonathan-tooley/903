@@ -518,27 +518,11 @@ module Sim900.Machine
                     ReleasePanel ()
 
     let EnterSwitch() = 
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU4 (Register.GPIO )
-                    ReleasePanel ()
-                    if PanelInput &&& 0b00100000 = 0b00000000 then EnterButtonS <- false
-                    if PanelInput &&& 0b00100000 = 0b00100000 && not EnterButtonS && operate = mode.Test
-                        then EnterButtonS <- true
-                             MessagePut "Enter command"
-                             WordSwitch()
-                             APut (WGet())
-                             DisplayA ()
-                             status <- machineMode.NotRunning
-                             ROOLights ()
+                    WordSwitch()
+                    APut (WGet())
+                    DisplayA ()
+                    ROOLights ()
 
-                    if PanelInput &&& 0b00010000 = 0b00000000 then EnterButtonR <- false
-                    if PanelInput &&& 0b00010000 = 0b00010000 && operate = mode.Test
-                        then if not EnterButtonR then MessagePut "Repeating Enter Commands"; EnterButtonR <- true
-                             WordSwitch()
-                             APut (WGet())
-                             DisplayA ()
-                             status <- machineMode.NotRunning
-                             ROOLights ()
 
     let ObeySwitch() = 
                     ConnectPanel ()
