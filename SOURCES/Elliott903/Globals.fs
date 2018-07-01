@@ -87,6 +87,7 @@ module Sim900.Globals
        | Reset                   // Machine is in the Reset state
        | NotRunning              // Machine is Stopped but can't be restarted because no jump entered
        | Stopped                 // Machine is Stopped but can be restarted 
+       | Jump                    // Machine will jump to address set on the word generator
        | Restarting              // Machine is moving to Cycle or Running depending on cycle mode
        | ObeyNotRunning          // Machine will obey an instruction and return to NotRunning
        | ObeyStopped             // Machine will obey an instruction and return to Stopped

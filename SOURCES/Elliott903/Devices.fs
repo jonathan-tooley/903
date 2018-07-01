@@ -23,6 +23,7 @@ module Sim900.Devices
         |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
         |     machineMode.Stopped    
         |     machineMode.NotRunning 
+        |     machineMode.Jump
         |     machineMode.Restarting 
         |     machineMode.ObeyNotRunning
         |     machineMode.ObeyStopped
