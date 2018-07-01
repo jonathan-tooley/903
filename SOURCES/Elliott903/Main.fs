@@ -13,7 +13,7 @@ open System
 // MAIN PROGRAM
 [<STAThread>]
 do
-    
+    wiringPiSetup ()
     setupPins        ()
     setupRS232       ()
     setupPanel       ()
@@ -26,5 +26,6 @@ do
     MessagePut "Elliott 903 Run Console"
 
     Processor        ()
+    ROOLights        ()
     panelHandler     ()
 
