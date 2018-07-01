@@ -75,8 +75,7 @@ module Sim900.Bits
    let mutable DisplayU5      = 0
   
    wiringPiSetup ()
-   I2cMultiplexer <- I2CSetup 0x77
-     
+    
    let ConnectPanel () =
        piLock(1)
        I2CWrite I2cMultiplexer Register.IODIRA 0b01000000
@@ -98,13 +97,12 @@ module Sim900.Bits
    let ReleasePunch () =
        piUnlock (1)
 
-   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=110, Parity=Ports.Parity.None, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
+   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=110, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
 
    let setupRS232 () = 
-       port.WriteBufferSize <- 10
+       port.WriteBufferSize <- 1
        port.Open ()
-       port.Write "EEElliott"
-   //port.ReadTimeout     <- 250
+       port.ReadTimeout     <- 250
 
    let setupPins () =
        pinMode 3 pinType.Input      // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
@@ -154,7 +152,7 @@ module Sim900.Bits
        |_     -> ignore ()
 
        // Control the Enter Switch
-       match (status, (PI4 &&& 0b00110000)) with
+       match (status, (PG4 &&& 0b00110000)) with
        | (machineMode.Reset                , 0x20) 
        | (machineMode.NotRunning           , 0x20) -> status <- machineMode.EnterNotRunning
        | (machineMode.Stopped              , 0x20) -> status <- machineMode.EnterStopped
@@ -166,7 +164,7 @@ module Sim900.Bits
        | _ -> ignore ()
 
        // Control the Obey Switch
-       match (status, (PI4 &&& 0b11000000)) with
+       match (status, (PG4 &&& 0b11000000)) with
        | (machineMode.Reset                , 0x80) 
        | (machineMode.NotRunning           , 0x80) -> status <- machineMode.ObeyNotRunning
        | (machineMode.Stopped              , 0x80) -> status <- machineMode.ObeyStopped
@@ -177,13 +175,13 @@ module Sim900.Bits
        | (machineMode.RepeatObeyNotRunning , 0x00) -> status <- machineMode.NotRunning
        | _ -> ignore ()
 
-
-
-       match (PI1a, PI1b, PI4) with
-       | (0xA1,0xC0,_)    //Stop key pressed when it is lit (showing that it can be used)
-              -> if not (operate = mode.Auto) then status <- machineMode.Stopped
-       | (0xA1,0x30,_)    //Restart key pressed
-              -> if not (operate = mode.Auto) then status <- machineMode.Restarting
+       match (status, operate, PG1b &&& 0b01010100) with
+       | (machineMode.Running, mode.Operate, 0x40)    //Stop key pressed
+       | (machineMode.Running, mode.Test   , 0x40)    -> status <- machineMode.Stopped
+       | (machineMode.Stopped, mode.Operate, 0x10)    //Restart key pressed
+       | (machineMode.Stopped, mode.Test   , 0x10)    -> status <- machineMode.Restarting
+       | (machineMode.Reset  , mode.Operate, 0x04) 
+       | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
        |_     -> ignore()
       
        printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
@@ -191,10 +189,17 @@ module Sim900.Bits
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
-   let r = wiringPiISR(0, 1, panelCB) 
+   let ReaderHandler () =
+       MessagePut "Hi"
+       let y = digitalRead 5
+       ignore ()
+
+   let readerCB : ISRCallback = ISRCallback(fun() -> ReaderHandler ())
               
    let setupPanel () =
-
+       I2cMultiplexer <- I2CSetup 0x77
+       let r = wiringPiISR(0, 1, panelCB) 
+       let r = wiringPiISR(5, 1, readerCB)
        ConnectPanel ()
 
        PanelU1 <- I2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel

@@ -72,7 +72,6 @@ module Sim900.Machine
             takeInterrupt   <- false        
             protect         <- false 
             status          <- machineMode.Reset
-            ROOLights ()
             for i = 0 to 4 do
                 levelActive.[i]      <- false
                 interruptPending.[i] <- false
@@ -82,16 +81,15 @@ module Sim900.Machine
             WriteMem 1 0
             WriteMem 0 0
             oldSequenceControlRegister <- 0
+            digitalWrite 6 pinValue.High
 
         let turnOn () =
-            //digitalWrite 24 GPIO.pinValue.High
+            digitalWrite 24 pinValue.High
             status <- machineMode.Reset
-            ROOLights ()
 
         let turnOff () =
             digitalWrite 24 pinValue.Low
             status <- machineMode.Off
-            ROOLights ()
             // Make sure front panel indicators are off
             // Turn off the interrupt indicators
             ConnectPanel ()
@@ -454,9 +452,9 @@ module Sim900.Machine
 
         // These are for key debounce
    
-    //let mutable StopButton    = false
-    let mutable RestartButton = false
-    let mutable JumpButton    = false
+    
+    //let mutable RestartButton = false
+    //let mutable JumpButton    = false
     
     let mutable CmdButton     = false
     let mutable I1            = false
@@ -646,30 +644,6 @@ module Sim900.Machine
                         
                         | _, _, _, _       ->  ignore ()
 
-                   
-
-
-    let Jump () =
-        scrAddr         <- 0
-        bRegisterAddr   <- 1
-        interruptLevel  <- 1  
-        levelActive.[1] <- true    
-        EnableInitialInstructions () 
-        sequenceControlRegister <- (wordGenerator &&& mask13)
-        if CycleSwitch () then status <- machineMode.Cycle  ; MessagePut "Jumping to address in single step mode"
-                          else status <- machineMode.Running; MessagePut "Jumping to address"
-        ROOLights()
-        
-    let JumpSwitch() = 
-                    ConnectPanel () 
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
-                    ReleasePanel ()
-                    if PanelInput &&& 0b00000100 = 0b00000000 then JumpButton <- false
-                    if PanelInput &&& 0b00000100 = 0b00000100 && not JumpButton && status = machineMode.Reset && not (operate = mode.Auto)
-                        then JumpButton <- true
-                             WordSwitch ()
-                             Jump ()
-
 
     let panelButtons() =
                     ConnectPanel ()
@@ -753,6 +727,7 @@ module Sim900.Machine
     let statusChange () =
         if status <> oldstatus then
             ROOLights ()
+            panelLights ()
             match status with
             | Dead                  -> MessagePut "Status changed to Dead"
             | Off                   -> MessagePut "Status changed to Off"
@@ -769,7 +744,8 @@ module Sim900.Machine
             | EnterNotRunning
             | EnterStopped          -> MessagePut "Status Changed to Enter"
             | RepeatEnterNotRunning
-            | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"                           
+            | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"    
+            | Jump                  -> MessagePut "Status changed to Jump"
             | Restarting            -> MessagePut "Status Changed to Restarting"
             | Running               -> MessagePut "Status Changed to Running"
         if operate <> oldoperate then
@@ -782,7 +758,7 @@ module Sim900.Machine
     let Processor () =
             panelLights()
             while status <> machineMode.Dead do 
-                System.Threading.Thread.Sleep 10
+                //System.Threading.Thread.Sleep 10
                 statusChange ()
                 oldstatus  <- status
                 oldoperate <- operate
@@ -792,18 +768,26 @@ module Sim900.Machine
                 | SwitchingOff     -> turnOff          ()
                 | SwitchingOn      -> turnOn           ()
                 | Reset            -> Reset            ()
-                                      //JumpSwitch       ()
-                                      //Command          ()
-                                      //panelLights      ()
-                                      //DisplayRegisters ()
+                                      Command          ()
+                                      panelLights      ()
+                                      DisplayRegisters ()
                 | Stopped         ->  //panelButtons     ()
-                                      //Command          ()
-                                      //panelLights      ()
+                                      Command          ()
+                                      panelLights      ()
                                       DisplayRegisters ()
                 | NotRunning      ->  //panelButtons     ()
-                                      //Command          ()
-                                      //panelLights      ()
+                                      Command          ()
+                                      panelLights      ()
                                       DisplayRegisters ()
+                | Jump            ->  scrAddr         <- 0
+                                      bRegisterAddr   <- 1
+                                      interruptLevel  <- 1  
+                                      levelActive.[1] <- true    
+                                      EnableInitialInstructions () 
+                                      WordSwitch ()
+                                      sequenceControlRegister <- (WGet () &&& mask13)
+                                      printf "%i" sequenceControlRegister
+                                      status <- machineMode.Restarting
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running
                                       panelLights      ()
@@ -824,9 +808,9 @@ module Sim900.Machine
                 | Cycle           ->  NextInstruction ()
                                       status <- machineMode.Stopped
                 | Running         ->  NextInstruction ()
-                                      if iCount %   1L = 0L then DisplayRegisters ()
+                                      if iCount %   50L = 0L then DisplayRegisters ()
                 
-            ROOLights()
+
 
                                      
 
