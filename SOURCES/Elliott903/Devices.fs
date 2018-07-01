@@ -133,7 +133,6 @@ module Sim900.Devices
                                            code
                                       else let code = ti.[tapeInPos]
                                            tapeInPos <- tapeInPos+1
-                                           printfn "%i  %i %i \n" tapeInPos ti.Length code
                                            code
 
     let CloseReader () = 
@@ -224,8 +223,6 @@ module Sim900.Devices
             pRegister <- Z
             PutPunchChar (byte (accumulator &&& mask8))  
 
-
-
     let readByte char =
             digitalWrite 6 pinValue.Low
             handShake <- digitalRead 5
@@ -247,13 +244,17 @@ module Sim900.Devices
     let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
     let TTYInput Z =
+              port.DiscardInBuffer ()
               let mutable ch = 0
-              ttyDemand <- true
-              ch <- int (port.ReadByte())
+              ttyDemand <- true 
+              let rec getbyte () =
+                try int (port.ReadByte()) 
+                with _ -> if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
+              ch <- getbyte ()
               ttyDemand <- false
               ch <- (if OddParity ch then bit8 ||| ch else ch)
               accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
-              //port.Write (System.String.Concat( char (accumulator &&& mask7)))
+              port.Write (System.String.Concat( char (accumulator &&& mask7)))
               DisplayA ()
 
 
