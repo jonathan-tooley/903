@@ -13,6 +13,7 @@ module Sim900.Globals
     let mutable iRegister                  = 0       // function code
     let mutable pRegister                  = 0       // peripheral i/o
     let mutable wordGenerator              = 0       // setting of keys on control panel
+    let mutable readerByte                 = 0
 
     exception Syntax of string
 
