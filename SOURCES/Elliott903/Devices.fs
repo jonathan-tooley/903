@@ -149,6 +149,7 @@ module Sim900.Devices
         let mutable punchHoldUp    = false
 
     open PaperTapePunch
+    open System.Runtime.Remoting
 
     let mutable handShake = pinValue.High
    
@@ -224,14 +225,12 @@ module Sim900.Devices
             PutPunchChar (byte (accumulator &&& mask8))  
 
     let readByte char =
+            readerByte <- -1  
             digitalWrite 6 pinValue.Low
-            handShake <- digitalRead 5
-            while handShake = pinValue.Low  && status <> Reset do handShake <- digitalRead 5
-            ConnectPunch ()
-            accumulator <- (accumulator <<< 7 ||| (I2CRead punchPort (Register.GPIOB) &&& mask8)) &&& mask18
-            ReleasePunch ()
-            while handShake = pinValue.High && status <> Reset do handShake <- digitalRead 5
-            digitalWrite 6 pinValue.High
+            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0) do ignore()   
+            printf "%i \n" readerByte
+            accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
+            //digitalWrite 6 pinValue.High
 
     let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
