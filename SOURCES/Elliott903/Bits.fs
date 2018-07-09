@@ -49,6 +49,7 @@ module Sim900.Bits
      extern int wiringPiI2CReadReg16 (int fd, Register reg);
 
    open wiringPi
+   open System.IO.Ports
 
    let wiringPiSetup                    = wiringPiSetup
    let pinMode pin mode                 = pinMode              (pin, mode)
@@ -184,8 +185,8 @@ module Sim900.Bits
        | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
        |_     -> ignore()
       
-       printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
-       printf "PG1a %x | PG1b %x | PG4 %x \n" PG1a PG1b PG4
+//       printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
+//       printf "PG1a %x | PG1b %x | PG4 %x \n" PG1a PG1b PG4
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
@@ -194,7 +195,7 @@ module Sim900.Bits
        let y = digitalRead 5
        ignore ()
 
-   let readerCB : ISRCallback = ISRCallback(fun() -> ReaderHandler ())
+   let readerCB : ISRCallback = ISRCallback(fun() -> readerHandler ())
               
    let setupPanel () =
        I2cMultiplexer <- I2CSetup 0x77
