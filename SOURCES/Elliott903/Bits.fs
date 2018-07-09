@@ -190,10 +190,15 @@ module Sim900.Bits
 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
-   let ReaderHandler () =
-       MessagePut "Hi"
-       let y = digitalRead 5
-       ignore ()
+   let mutable rbyte = 0 
+
+   let readerHandler () =
+       digitalWrite 6 pinValue.High
+       ConnectPunch ()
+       rbyte <- (I2CRead punchPort (Register.GPIOB) &&& mask8)
+       ReleasePunch ()
+       readerByte <- rbyte
+       
 
    let readerCB : ISRCallback = ISRCallback(fun() -> readerHandler ())
               
