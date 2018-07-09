@@ -125,6 +125,11 @@ module Sim900.Globals
        | Down = 1
        | Up   = 2
 
+    type EdgeType =
+       | INT_EDGE_FALLING = 1
+       | INT_EDGE_RISING  = 2
+       | INT_EDGE_BOTH    = 3
+
     type Register =
        | IODIRA   = 0x00 //GPIO Bank A pin directions
        | IODIRB   = 0x01 //GPIO Bank B pin directions

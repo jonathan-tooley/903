@@ -20,7 +20,7 @@ module Sim900.Bits
      [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupPhys"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern int WiringPiSetupPhys    ( );
      [<DllImport("libwiring.so"    , EntryPoint = "wiringPiISR"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int wiringPiISR          (int pin, int mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
+     extern int wiringPiISR          (int pin, EdgeType mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
      [<DllImport("libwiring.so"    , EntryPoint = "piLock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
      extern void piLock              (int keyNum);
      [<DllImport("libwiring.so"    , EntryPoint = "piUnlock"           , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
