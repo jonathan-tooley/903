@@ -22,10 +22,15 @@ do
     panelHandler     ()  //The interface chips start with an interrupt state
                          //We need to call this just to clear the initial interrupt
     ROOLights        ()
-
     MessagePut "Elliott 903 Run Console"
 
     Processor        ()
     ROOLights        ()
+    pinMode 0 pinType.Input
+    pinMode 5 pinType.Input
     panelHandler     ()
+    readerHandler    ()
+    failwith "Syntax" 
+
+    
 
