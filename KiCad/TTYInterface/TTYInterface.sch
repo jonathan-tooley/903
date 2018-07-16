@@ -115,7 +115,7 @@ U 1 1 5A5BA3A3
 P 3725 4750
 F 0 "J1" H 3725 5300 50  0000 C CNN
 F 1 "CONN_02X10" V 3725 4750 50  0000 C CNN
-F 2 "Connectors_JST:B20-J11DK_2x10_Pitch2.54mm" H 3725 3550 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Angled_2x10_Pitch2.54mm" H 3725 3550 50  0001 C CNN
 F 3 "" H 3725 3550 50  0001 C CNN
 	1    3725 4750
 	-1   0    0    1   
@@ -153,7 +153,6 @@ Text GLabel 4325 4500 2    60   Input ~ 0
 Text GLabel 4325 4900 2    60   Input ~ 0
 +5V
 NoConn ~ 5325 5350
-NoConn ~ 6925 4750
 NoConn ~ 8375 3050
 NoConn ~ 8375 3150
 NoConn ~ 8375 3250
@@ -288,11 +287,9 @@ Wire Wire Line
 Wire Wire Line
 	7675 5150 6925 5150
 Wire Wire Line
-	8375 5250 7325 5250
+	7325 5250 8375 5250
 Wire Wire Line
-	7325 5250 7325 4950
-Wire Wire Line
-	7325 4950 6925 4950
+	7325 4750 7325 5250
 Wire Wire Line
 	6925 5350 7900 5350
 Wire Wire Line
@@ -309,4 +306,7 @@ Wire Wire Line
 	8675 5925 8675 5925
 Wire Wire Line
 	8675 5925 8675 5650
+NoConn ~ 6925 4950
+Wire Wire Line
+	7325 4750 6925 4750
 $EndSCHEMATC
