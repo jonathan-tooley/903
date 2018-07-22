@@ -266,9 +266,8 @@ module Sim900.Devices
             readerByte <- -1  
             digitalWrite 6 pinValue.Low
             while ((status <> Reset) && status <> SwitchingOff && readerByte < 0) do ignore()   
-            printf "%i \n" readerByte
             accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
-            //digitalWrite 6 pinValue.High
+
 
     let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
