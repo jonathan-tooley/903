@@ -15,6 +15,23 @@ module Sim900.Globals
     let mutable wordGenerator              = 0       // setting of keys on control panel
     let mutable readerByte                 = 0
 
+            //For our control panel we will need some variables to read inputs, write outputs and debounce keys
+    let mutable PanelInput    = 0
+    let mutable PanelOutput   = 0
+    let mutable InterruptDisp = 0
+    let mutable HeartBeat     = 0
+    let mutable Flash         = false
+
+  
+    
+    let mutable CmdButton     = false
+    let mutable I1            = false
+    let mutable I1M           = false
+    let mutable I2            = false
+    let mutable I2M           = false
+    let mutable I3            = false
+    let mutable I3M           = false
+
     exception Syntax of string
 
     let bit1   =      0x1

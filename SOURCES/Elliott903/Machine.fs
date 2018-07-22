@@ -12,6 +12,7 @@ module Sim900.Machine
     open Sim900.FileHandling
 
     module public MachineStateHelper =
+        open Sim900
       
         let mutable initialInstructionsEnabled = true
 
@@ -379,6 +380,7 @@ module Sim900.Machine
                                                      RestoreSB ()
                                                      // check to see if trace interrupts enabled
                                                      if interruptTrace.[oldLevel] then InterruptOn oldLevel
+                                                     panelLights() 
                          
 //                         | (4864) -> // output code to plotter
 //                                                pRegister <- Z
@@ -443,64 +445,8 @@ module Sim900.Machine
             else raise (Syntax (sprintf "Cannot open directory %s" d))
             
 
-        //For our control panel we will need some variables to read inputs, write outputs and debounce keys
-    let mutable PanelInput    = 0
-    let mutable PanelOutput   = 0
-    let mutable InterruptDisp = 0
-    let mutable HeartBeat     = 0
-    let mutable Flash         = false
 
-        // These are for key debounce
-   
-    
-    //let mutable RestartButton = false
-    //let mutable JumpButton    = false
-    
-    let mutable CmdButton     = false
-    let mutable I1            = false
-    let mutable I1M           = false
-    let mutable I2            = false
-    let mutable I2M           = false
-    let mutable I3            = false
-    let mutable I3M           = false
 
-    let panelLights() =
-                    HeartBeat <- HeartBeat + 1
-                    if HeartBeat > 40 then Flash <- true
-                    if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
-                                  
-                    PanelOutput <- 0
-
-                    // The restart button on the original ELLIOT did not have an indicator
-                    // We have defined an indicator logic here to indicate when restart can be used
-                    if status = machineMode.Stopped && (operate = mode.Operate || operate = mode.Test)
-                       then PanelOutput <- (PanelOutput ||| 0b00100000)
-                    
-                    //Set the Stop light
-                    if status = machineMode.Running && (operate = mode.Operate || operate = mode.Test)
-                    then PanelOutput <- (PanelOutput ||| 0b10000000) 
-
-                    // The Jump button on the original ELLIOT did not have an indicator
-                    // We have defined an indicator logic here to indicate when jump can be used
-                    if status = machineMode.Reset &&
-                       (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
-
-                    ConnectPanel ()
-                    //Now set the lights by sending the combined value to the control panel
-                    I2CWrite PanelU1 (Register.OLATB) ( PanelOutput )
-
-                    // Display the current Interrupt level
-                    if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
-                                                          else InterruptDisp <- InterruptDisp &&& 0b11111101
-
-                    if on() && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
-                                                          else InterruptDisp <- InterruptDisp &&& 0b11101111
-
-                    if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
-                                                          else InterruptDisp <- InterruptDisp &&& 0b01111111
-
-                    I2CWrite PanelU3 (Register.OLATB) InterruptDisp
-                    ReleasePanel ()
 
     let WordSwitch() =
                     ConnectPanel ()
@@ -719,7 +665,7 @@ module Sim900.Machine
             try
                     Execute (ReadMem oldSequenceControlRegister) 
             with
-            | exn -> status <- machineMode.Stopped; stdout.Write("Execution Error in Processor")
+            | exn -> status <- machineMode.Stopped
             
             // increment instruction count
             iCount <- iCount+1L

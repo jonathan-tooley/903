@@ -93,6 +93,44 @@ module Sim900.Devices
             DisplayB ()
             DisplayS ()
             DisplayI ()
+
+    let panelLights() =
+                    HeartBeat <- HeartBeat + 1
+                    if HeartBeat > 40 then Flash <- true
+                    if HeartBeat > 80 then Flash <- false; HeartBeat <- 0
+                                  
+                    PanelOutput <- 0
+
+                    // The restart button on the original ELLIOT did not have an indicator
+                    // We have defined an indicator logic here to indicate when restart can be used
+                    if status = machineMode.Stopped && (operate = mode.Operate || operate = mode.Test)
+                       then PanelOutput <- (PanelOutput ||| 0b00100000)
+                    
+                    //Set the Stop light
+                    if status = machineMode.Running && (operate = mode.Operate || operate = mode.Test)
+                    then PanelOutput <- (PanelOutput ||| 0b10000000) 
+
+                    // The Jump button on the original ELLIOT did not have an indicator
+                    // We have defined an indicator logic here to indicate when jump can be used
+                    if status = machineMode.Reset &&
+                       (operate = mode.Operate || operate = mode.Test) then PanelOutput <- (PanelOutput ||| 0b00001000)
+
+                    ConnectPanel ()
+                    //Now set the lights by sending the combined value to the control panel
+                    I2CWrite PanelU1 (Register.OLATB) ( PanelOutput )
+
+                    // Display the current Interrupt level
+                    if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
+                                                          else InterruptDisp <- InterruptDisp &&& 0b11111101
+
+                    if on() && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
+                                                          else InterruptDisp <- InterruptDisp &&& 0b11101111
+
+                    if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
+                                                          else InterruptDisp <- InterruptDisp &&& 0b01111111
+
+                    I2CWrite PanelU3 (Register.OLATB) InterruptDisp
+                    ReleasePanel ()
    
 
     module private PaperTapeReader =
