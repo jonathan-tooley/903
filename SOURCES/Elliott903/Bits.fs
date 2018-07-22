@@ -79,14 +79,14 @@ module Sim900.Bits
     
    let ConnectPanel () =
        piLock(1)
-       I2CWrite I2cMultiplexer Register.IODIRA 0b01000000
+       I2CWrite I2cMultiplexer Register.IODIRA 0b10000000
     
    let ReleasePanel () =
        piUnlock (1)
 
    let ConnectDisplay () =
        piLock(1)
-       I2CWrite I2cMultiplexer Register.IODIRA 0b10000000
+       I2CWrite I2cMultiplexer Register.IODIRA 0b01000000
 
    let ReleaseDisplay () = 
        piUnlock (1)
@@ -98,7 +98,7 @@ module Sim900.Bits
    let ReleasePunch () =
        piUnlock (1)
 
-   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=300, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
+   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=110, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
 
    let setupRS232 () = 
        port.WriteBufferSize <- 1
@@ -204,7 +204,7 @@ module Sim900.Bits
               
    let setupPanel () =
        I2cMultiplexer <- I2CSetup 0x77
-       let r = wiringPiISR(0, EdgeType.INT_EDGE_FALLING, panelCB) 
+       let r = wiringPiISR(7, EdgeType.INT_EDGE_FALLING, panelCB) 
        let r = wiringPiISR(5, EdgeType.INT_EDGE_RISING, readerCB)
        ConnectPanel ()
 
