@@ -194,7 +194,7 @@ module Sim900.Devices
     let punchByte (char : byte) =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 3
-             while handShake = pinValue.Low do 
+             while handShake = pinValue.Low && status <> machineMode.Reset do 
                   punchHoldUp    <- true
                   handShake <- digitalRead 3
              punchHoldUp <- false
