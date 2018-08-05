@@ -1,6 +1,4 @@
-﻿#light
-
-
+﻿
 module Sim900.Bits
 
    open Sim900.Globals
