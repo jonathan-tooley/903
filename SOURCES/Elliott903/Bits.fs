@@ -197,8 +197,9 @@ module Sim900.Bits
               
    let setupPanel () =
        I2cMultiplexer <- I2CSetup 0x77
-       let r = wiringPiISR(7, EdgeType.INT_EDGE_FALLING, panelCB) 
-       let r = wiringPiISR(5, EdgeType.INT_EDGE_RISING, readerCB)
+       let r = wiringPiISR( 7, EdgeType.INT_EDGE_FALLING, panelCB) 
+       let r = wiringPiISR( 5, EdgeType.INT_EDGE_RISING , readerCB)
+       let r = wiringPiISR(22, EdgeType.INT_EDGE_FALLING, IOCB)
        ConnectPanel ()
 
        PanelU1 <- I2CSetup 0x27 //This is a link to MCP2017 U1 on the control panel
