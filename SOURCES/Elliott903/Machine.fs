@@ -703,11 +703,14 @@ module Sim900.Machine
 
     let Processor () =
             panelLights()
+            ROOLights  ()
             while status <> machineMode.Dead do 
-                //System.Threading.Thread.Sleep 10
+                //System.Threading.Thread.Sleep 50
                 statusChange ()
                 oldstatus  <- status
                 oldoperate <- operate
+                
+
                 match status with
                 | Dead             -> ignore           () 
                 | Off              -> ignore           ()
@@ -717,14 +720,17 @@ module Sim900.Machine
                                       Command          ()
                                       panelLights      ()
                                       DisplayRegisters ()
+                                      RunIOOp          ()
                 | Stopped         ->  //panelButtons     ()
                                       Command          ()
                                       panelLights      ()
                                       DisplayRegisters ()
+                                      RunIOOp          ()
                 | NotRunning      ->  //panelButtons     ()
                                       Command          ()
                                       panelLights      ()
                                       DisplayRegisters ()
+                                      RunIOOp          ()
                 | Jump            ->  scrAddr         <- 0
                                       bRegisterAddr   <- 1
                                       interruptLevel  <- 1  
@@ -754,8 +760,12 @@ module Sim900.Machine
                 | Cycle           ->  NextInstruction ()
                                       status <- machineMode.Stopped
                 | Running         ->  NextInstruction ()
-                                      if iCount %   50L = 0L then DisplayRegisters ()
+                                      if iCount %   100L = 0L then DisplayRegisters ()
                 
+                if (interrupt = Interrupt.PanelInterrupt) then ClearPanelInt ()
+                if (interrupt = Interrupt.IOInterrupt   ) then ClearIOInt    ()
+
+
 
 
                                      
