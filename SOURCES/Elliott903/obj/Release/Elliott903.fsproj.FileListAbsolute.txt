@@ -4,12 +4,12 @@ C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\Elliott903.ex
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\Elliott903.pdb
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\FSharp.Core.dll
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\FSharp.Core.xml
-C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.exe
-C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.pdb
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\bin\Release\System.ValueTuple.dll
 Z:\Elliott903.exe.config
 Z:\Elliott903.exe
 Z:\Elliott903.pdb
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.fsproj.CopyComplete
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.exe
+C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.pdb
 Z:\Elliott903.XML
 C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.fsprojAssemblyReference.cache
-C:\Users\v-jtool\OneDrive\Repos\903\SOURCES\Elliott903\obj\Release\Elliott903.fsproj.CopyComplete
