@@ -447,13 +447,6 @@ module Sim900.Machine
     let WordGeneratorPut value = 
         wordGenerator <- value &&& mask18
 
-    // PAPER TAPE STATION
-    let InputSelectReader ()       = SelectInput  <- ReaderIn
-    let InputSelectAuto ()         = SelectInput  <- AutoIn
-    let InputSelectTeleprinter ()  = SelectInput  <- TeleprinterIn
-    let OutputSelectPunch ()       = SelectOutput <- PunchOut
-    let OutputSelectAuto ()        = SelectOutput <- AutoOut
-    let OutputSelectTeleprinter () = SelectOutput <- TeleprinterOut
 
     // change directory
     let ChangeDir d =
