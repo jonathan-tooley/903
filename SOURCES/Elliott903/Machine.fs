@@ -639,6 +639,83 @@ module Sim900.Machine
             | Operate       -> MessagePut "Key changed to Operate"
             | Test          -> MessagePut "Key Changed to Test"
 
+
+    let RunIOOp () =
+        let mutable fn = ""
+        let mutable er = 0
+        match operation with
+        | ioOperation.List       -> ListDirectory ()
+        | ioOperation.ReaderA    -> fn <- GetFileName ()
+                                    try FileOpen (fn) with
+                                    | exc -> er <- 1 
+                                    if (er=0) then
+                                       ConnectIO ()
+                                       I2CWrite IOU2 Register.OLATA 0b00001000
+                                       ReleaseIO()
+                                       ActiveReader <- ReaderDevice.Attached
+        | ioOperation.ReaderD    -> CloseReader ()
+        | ioOperation.PunchA     -> fn <- GetFileName ()
+                                    if   fn.EndsWith ".900" 
+                                    then OpenPunchTxt fn 
+                                    elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
+                                    then OpenPunchBin fn 
+                                    else MessagePut ("File type must be .900 or .BIN or .RLB")
+        | ioOperation.PunchD     -> ClosePunch  ()
+        | ioOperation.Delete     -> fn <- GetFileName ()
+                                    Delete fn
+        | ioOperation.Runout     -> while (operation = Runout) do
+                                        punchByte (byte 0)
+                                        ClearIOInt ()
+        | ioOperation.Read       -> match SelectInput with 
+                                    | Input.AutoIn          -> MessagePut  ("Selecting Input TTY")
+                                                               SelectInput <- Input.TeleprinterIn
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b00010000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+                                    | Input.TeleprinterIn   -> MessagePut  ("Selecting Input PTR")
+                                                               SelectInput <- Input.ReaderIn
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b00001000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+                                    | Input.ReaderIn        -> MessagePut  ("Selecting Input Auto")
+                                                               SelectInput <- Input.AutoIn
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b00011000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+        | ioOperation.Stop       -> match SelectOutput with
+                                    | Output.AutoOut        -> MessagePut  ("Selecting Output TTY")
+                                                               SelectOutput <- Output.TeleprinterOut
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b00010000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+                                    | Output.TeleprinterOut -> MessagePut  ("Selecting Output PTP")
+                                                               SelectOutput <- Output.PunchOut
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b01000000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+                                    | Output.PunchOut       -> MessagePut  ("Selecting Output Auto")
+                                                               SelectOutput <- Output.AutoOut
+                                                               ConnectIO ()
+                                                               I2CWrite IOU1 Register.OLATA 0b01010000
+                                                               Thread.Sleep 1000
+                                                               I2CWrite IOU1 Register.OLATA 0b00000000
+                                                               ReleaseIO ()
+
+        | ioOperation.NoOp       -> ignore ()
+        operation <- ioOperation.NoOp
+
+
+
     let Processor () =
             panelLights()
             ROOLights  ()
