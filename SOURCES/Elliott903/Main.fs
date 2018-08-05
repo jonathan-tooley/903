@@ -13,24 +13,29 @@ open System
 // MAIN PROGRAM
 [<STAThread>]
 do
-    wiringPiSetup ()
+    wiringPiSetup
     setupPins        ()
     setupRS232       ()
     setupPanel       ()
     setupPeripherals ()
     setupDisplay     ()
-    panelHandler     ()  //The interface chips start with an interrupt state
+    setupIO          ()
+    for i in 1..5 do ClearIOInt ()       
+    
+    for i in 1..5 do ClearPanelInt    ()  //The interface chips start with an interrupt state
                          //We need to call this just to clear the initial interrupt
     ROOLights        ()
-    MessagePut "Elliott 903 Run Console"
-
+    
+    port.WriteLine ("\r\nElliott 903 Console\r\n")
+ 
     Processor        ()
     ROOLights        ()
-    pinMode 0 pinType.Input
-    pinMode 5 pinType.Input
-    panelHandler     ()
+    for i in 1..5 do ClearPanelInt    ()
+    for i in 1..5 do ClearIOInt       ()
     readerHandler    ()
-    failwith "Syntax" 
+
+    failwith ("Syntax")
+
 
     
 
