@@ -168,6 +168,9 @@ module Sim900.Devices
                | _         -> raise (Device "No input attached to tape reader")
            if  tapeInPos >= ti.Length then let code = byte 0
                                            ActiveReader <- MechanicalR
+                                           ConnectIO ()
+                                           I2CWrite IOU2 Register.OLATA 0b00000000
+                                           ReleaseIO ()
                                            code
                                       else let code = ti.[tapeInPos]
                                            tapeInPos <- tapeInPos+1
@@ -178,6 +181,9 @@ module Sim900.Devices
         tapeIn <- None 
         tapeInPos <- 0
         ActiveReader <- MechanicalR
+        ConnectIO ()
+        I2CWrite IOU2 Register.OLATA 0b00000000
+        ReleaseIO ()
 
 
     module private PaperTapePunch =
@@ -188,19 +194,22 @@ module Sim900.Devices
 
     open PaperTapePunch
     open System.Runtime.Remoting
+    open System.Runtime.CompilerServices
+    open Sim900
+    open System.Linq.Expressions
 
     let mutable handShake = pinValue.High
    
     let punchByte (char : byte) =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 3
-             while handShake = pinValue.Low && status <> machineMode.Reset do 
+             while handShake = pinValue.Low do 
                   punchHoldUp    <- true
                   handShake <- digitalRead 3
              punchHoldUp <- false
              // Then we set up the data on the mcp pins
              ConnectPunch ()    
-             I2CWrite punchPort      (Register.OLATA ) (int char)
+             I2CWrite punchPort      (Register.OLATA) (int char)
              // Then we send a commit instruction to the punch
              digitalWrite 4 pinValue.High
              // Now we wait for the punch to confirm that it is busy doing our instruction
@@ -264,10 +273,47 @@ module Sim900.Devices
 
     let readByte char =
             readerByte <- -1  
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA 0b00001000
+            ReleaseIO ()
             digitalWrite 6 pinValue.Low
-            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0) do ignore()   
-            accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
+            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
+                match interrupt with
+                | Interrupt.None           -> ignore ()
+                | Interrupt.IOInterrupt    -> ClearIOInt ()
+                | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                | _                        -> ignore ()
+            if (operation = Read) then accumulator <- 255
+            if (status = Reset || status = SwitchingOff) then accumulator <- 0
+                                                         else accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA 0b00000000
+            ReleaseIO ()
 
+ 
+    let readTTYint () =
+            let mutable ch:int = 0
+            ttyDemand <- true
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA 0b00010000
+            ReleaseIO ()
+            let rec getbyte () =
+                try port.ReadByte() 
+                with _ -> match interrupt with
+                          | Interrupt.None           -> getbyte ()
+                          | Interrupt.IOInterrupt    -> ClearIOInt ()
+                                                        getbyte ()
+                          | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                                                        if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
+                          | _ -> 0
+            ch <- getbyte ()
+            ttyDemand <- false
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA 0b00000000
+            ReleaseIO ()
+            ch
+
+    let readTTYchar () = char (readTTYint ())
 
     let BitCount code =
            let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
@@ -280,21 +326,16 @@ module Sim900.Devices
     let OddParity code = ((BitCount code) &&& bit1) = bit1  
 
     let TTYInput Z =
-              port.DiscardInBuffer ()
+              pRegister <- Z
               let mutable ch = 0
-              ttyDemand <- true 
-              let rec getbyte () =
-                try int (port.ReadByte()) 
-                with _ -> if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
-              ch <- getbyte ()
-              ttyDemand <- false
+              ttyDemand <- true
+              ch <- readTTYint ()
               ch <- (if OddParity ch then bit8 ||| ch else ch)
               accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
-              port.Write (System.String.Concat( char (accumulator &&& mask7)))
               DisplayA ()
 
-
     let TTYOutput Z =
+            pRegister <- Z 
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
             port.Write (System.String.Concat( char (accumulator &&& mask7)))
 
