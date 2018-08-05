@@ -1,4 +1,4 @@
-(module Ada (layer F.Cu) (tedit 5B570D10)
+(module ADAMult (layer F.Cu) (tedit 5B570D10)
   (descr "16-lead dip package, row spacing 7.62 mm (300 mils)")
   (tags "DIL DIP PDIP 2.54mm 7.62mm 300mil")
   (fp_text reference U1.2 (at 3.81 -2.39) (layer F.SilkS)
