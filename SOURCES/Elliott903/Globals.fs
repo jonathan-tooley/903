@@ -117,6 +117,17 @@ module Sim900.Globals
        | Cycle
        | Running
 
+    type ioOperation =
+       | NoOp
+       | List
+       | ReaderA
+       | ReaderD
+       | PunchA
+       | PunchD
+       | Runout
+       | Delete
+       | Read
+       | Stop
 
     type pinType  =
        | Input          = 0
