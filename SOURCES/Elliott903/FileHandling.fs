@@ -8,6 +8,7 @@ module Sim900.FileHandling
         open Sim900.Globals
         open Sim900.Telecodes
         open Sim900.Devices
+        open Sim900.Bits
 
 
         // Delete
@@ -23,14 +24,24 @@ module Sim900.FileHandling
                  | ".BIN" | ".RLB" | _      -> OpenReaderBin f
                                     
 
+        let PrintDir (i, s: System.String) = if (i=0)   then port.Write(string(char 10))
+                                                             port.Write(string(char 13))
+                                             port.WriteLine (sprintf "%20s" s.[2..])
+                                             if (i%6=5) then port.Write(string(char 10))
+                                                             port.Write(string(char 13))
+
         // list directory
         let ListDirectory () =
+            port.WriteLine ("\r\n Binary Files:")
             Directory.EnumerateFileSystemEntries (".", "*.BIN") 
-                |> Seq.iter (fun s -> printfn "%s" s.[2..])
+                |> Seq.iteri (fun i s -> PrintDir (i, s))
+            port.WriteLine ("\r\n Text Files:")
             Directory.EnumerateFileSystemEntries (".", "*.900") 
-                |> Seq.iter (fun s -> printfn "%s" s.[2..])
+                |> Seq.iteri (fun i s -> PrintDir (i, s))
+            port.WriteLine ("\r\n Relocatable Binary Files:")
             Directory.EnumerateFileSystemEntries (".", "*.RLB") 
-                |> Seq.iter (fun s -> printfn "%s" s.[2..])
+                |> Seq.iteri (fun i s -> PrintDir (i, s))
+            port.WriteLine ("\r\n")
 
         // read inline text
         let ReadInlineText () =
