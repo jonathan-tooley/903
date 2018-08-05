@@ -33,7 +33,7 @@ module Sim900.Bits
    open wiringPi
    open System.IO.Ports
 
-   let wiringPiSetup                    = wiringPiSetup
+   let wiringPiSetup                    = wiringPiSetup        ()
    let pinMode pin mode                 = pinMode              (pin, mode)
    let digitalWrite pin value           = digitalWrite         (pin, value)
    let digitalRead  pin                 = digitalRead          (pin)
@@ -57,7 +57,7 @@ module Sim900.Bits
    let mutable DisplayU4      = 0
    let mutable DisplayU5      = 0
   
-   wiringPiSetup ()
+   wiringPiSetup 
     
    let ConnectPanel () =
        piLock(1)
