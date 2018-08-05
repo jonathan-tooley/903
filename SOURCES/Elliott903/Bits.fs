@@ -92,7 +92,9 @@ module Sim900.Bits
    let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=300, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
 
    let setupRS232 () = 
-       port.WriteBufferSize <- 1
+       port.WriteBufferSize <- 10
+       port.ReadBufferSize  <- 10
+       port.NewLine <- " "
        port.Open ()
        port.ReadTimeout     <- 250
 
