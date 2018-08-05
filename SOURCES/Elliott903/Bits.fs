@@ -110,12 +110,14 @@ module Sim900.Bits
        pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
        digitalWrite 24 pinValue.Low // Make sure the fan is off
 
-   let mutable PI1a = 0
-   let mutable PI1b = 0
-   let mutable PI4  = 0
    let mutable PG1a = 0
    let mutable PG1b = 0
    let mutable PG4  = 0
+   let mutable IG1a = 0
+   let mutable IG1b = 0 
+   let mutable IG2a = 0
+   let mutable IG2b = 0
+   
 
    let panelHandler () =
        ConnectPanel ()
