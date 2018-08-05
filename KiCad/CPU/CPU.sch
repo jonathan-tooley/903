@@ -443,7 +443,7 @@ U 1 1 5989E74B
 P 4325 1875
 F 0 "U1.2" H 4125 2675 50  0000 L CNN
 F 1 "TCA9548A" H 4375 2675 50  0000 L CNN
-F 2 "lib_fp:Ada" H 5325 975 50  0001 C CNN
+F 2 "lib_fp:ADAMult" H 5325 975 50  0001 C CNN
 F 3 "" H 4375 2125 50  0000 C CNN
 	1    4325 1875
 	1    0    0    1   
@@ -926,10 +926,6 @@ Wire Wire Line
 Wire Wire Line
 	725  2375 725  1700
 Wire Wire Line
-	1125 3075 625  3075
-Wire Wire Line
-	625  3075 625  1700
-Wire Wire Line
 	2925 2275 3500 2275
 Wire Wire Line
 	3500 2275 3500 875 
@@ -981,4 +977,9 @@ Wire Wire Line
 Wire Wire Line
 	6075 1075 5650 1075
 Connection ~ 5650 1075
+NoConn ~ 1125 3075
+Text GLabel 625  1800 3    40   Input ~ 0
++5v
+Wire Wire Line
+	625  1800 625  1700
 $EndSCHEMATC
