@@ -87,10 +87,12 @@ module Sim900.Machine
         let turnOn () =
             digitalWrite 24 pinValue.High
             status <- machineMode.Reset
+            ROOLights ()
 
         let turnOff () =
             digitalWrite 24 pinValue.Low
             status <- machineMode.Off
+            ROOLights ()
             // Make sure front panel indicators are off
             // Turn off the interrupt indicators
             ConnectPanel ()
@@ -143,6 +145,19 @@ module Sim900.Machine
             else levelActive.[level]      <- true // set level active  
             if   level < interruptLevel
             then takeInterrupt <- true
+
+        let WordSwitch() =
+                    ConnectPanel ()
+                    // Update the word generator using MCP23017 U1 & U2 Inputs  
+                    // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
+                    PanelInput <- I2CRead PanelU2 (Register.GPIOB) <<< 10
+                    // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
+                    PanelInput <- PanelInput ||| (I2CRead PanelU2 (Register.GPIOA) <<< 2)
+                    // Read from U1 bank B the final two bits, 2 and 1
+                    PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
+                    if WGet () <> PanelInput && not (operate = mode.Auto)
+                       then WPut PanelInput
+                    ReleasePanel ()
 
         // INSTRUCTION DECODING          
         let Execute word =  
@@ -346,7 +361,8 @@ module Sim900.Machine
 
 
                          | 7171  -> // read word generator
-                                                accumulator <- wordGenerator
+                                                WordSwitch ()
+                                                accumulator <- WGet()
 
                          | 7172  -> // A to Q; Q[18..2] := A[17..1]
                                                 qRegister <- (accumulator <<< 1) &&& mask18
@@ -391,6 +407,7 @@ module Sim900.Machine
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper
+    open System.Threading
     open System.Threading
 
     let ClearStore () = // clear entire store to zero
@@ -438,7 +455,7 @@ module Sim900.Machine
     let OutputSelectAuto ()        = SelectOutput <- AutoOut
     let OutputSelectTeleprinter () = SelectOutput <- TeleprinterOut
 
-                        // change directory
+    // change directory
     let ChangeDir d =
             if   Directory.Exists d 
             then System.Environment.CurrentDirectory <- d
@@ -448,18 +465,7 @@ module Sim900.Machine
 
 
 
-    let WordSwitch() =
-                    ConnectPanel ()
-                    // Update the word generator using MCP23017 U1 & U2 Inputs  
-                    // Read from U2 bank B and shift left 10 digits.  These are the most significant bits (18 to 11)
-                    PanelInput <- I2CRead PanelU2 (Register.GPIOB) <<< 10
-                    // Read from U2 bank A and shift left  2 digits.  These are bits 10 to 3
-                    PanelInput <- PanelInput ||| (I2CRead PanelU2 (Register.GPIOA) <<< 2)
-                    // Read from U1 bank B the final two bits, 2 and 1
-                    PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
-                    if WGet () <> PanelInput && not (operate = mode.Auto)
-                       then WPut PanelInput
-                    ReleasePanel ()
+
 
     let EnterSwitch() = 
                     WordSwitch()
