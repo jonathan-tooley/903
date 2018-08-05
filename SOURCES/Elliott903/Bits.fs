@@ -191,10 +191,36 @@ module Sim900.Bits
        rbyte <- (I2CRead punchPort (Register.GPIOB) &&& mask8)
        ReleasePunch ()
        readerByte <- rbyte
-       
 
    let readerCB : ISRCallback = ISRCallback(fun() -> readerHandler ())
+
+   let IOHandler () =
+       interrupt <- Interrupt.IOInterrupt
+
+   let IOCB : ISRCallback = ISRCallback(fun() -> IOHandler ())
               
+   let ClearIOInt () =
+       ConnectIO ()
+       IG2a <- (I2CRead IOU2 (Register.GPIOA))
+       IG2b <- (I2CRead IOU2 (Register.GPIOB))
+       IG1a <- (I2CRead IOU1 (Register.GPIOA))
+       IG1b <- (I2CRead IOU1 (Register.GPIOB))
+       ReleaseIO ()
+       operation <- ioOperation.NoOp
+       if ((IG2a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.List
+       if ((IG2a &&& 0b00000100) = 0b00000100) then operation <- ioOperation.ReaderA
+       if ((IG2b &&& 0b00000100) = 0b00000100) then operation <- ioOperation.ReaderD
+       if ((IG1b &&& 0b10000000) = 0b10000000) then operation <- ioOperation.Read
+       if ((IG1a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.Stop
+       if ((IG1a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.Runout
+       if ((IG2b &&& 0b00010000) = 0b00010000) then operation <- ioOperation.Delete 
+       if ((IG2b &&& 0b00000001) = 0b00000001) then operation <- ioOperation.PunchD
+       if ((IG1b &&& 0b00010000) = 0b00010000) then operation <- ioOperation.PunchA
+       printfn "%i | %i | %i | %i\n"  IG1a IG1b IG2a IG2b
+       interrupt <- Interrupt.None
+       
+
+
    let setupPanel () =
        I2cMultiplexer <- I2CSetup 0x77
        let r = wiringPiISR( 7, EdgeType.INT_EDGE_FALLING, panelCB) 
