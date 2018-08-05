@@ -129,6 +129,13 @@ module Sim900.Globals
        | Read
        | Stop
 
+
+    type Interrupt = 
+        | PanelInterrupt = 1
+        | IOInterrupt    = 2
+        | None           = 0
+
+
     type pinType  =
        | Input          = 0
        | Output         = 1
@@ -186,15 +193,15 @@ module Sim900.Globals
        | GPIO     = 0x09 //GPIO Bank A input values
        | OLAT     = 0x0A //Output Latch Bank A
 
-
-    let mutable play      = playStyle.NotSet
     let mutable status    = machineMode.Off
-    let mutable oldstatus = machineMode.Dead
+    let mutable oldstatus = machineMode.Off
+    let mutable interrupt = Interrupt.None   
+    let mutable operation = ioOperation.NoOp
 
     let on() = match status with
-               | Dead -> false
-               | Off  -> false
-               | _    -> true
+               | Dead        -> false
+               | Off         -> false
+               | _           -> true
 
     type mode =
         | Auto
