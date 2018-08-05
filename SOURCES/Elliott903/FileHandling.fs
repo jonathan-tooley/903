@@ -116,5 +116,21 @@ module Sim900.FileHandling
                  use out = new StreamWriter (prefix+".900")
                  for b in bytes do out.Write (UTFOf b)
                  out.Close ()
+
+
+        let GetFileName () =
+            let mutable ch  = 1
+            let mutable str = new StringBuilder ()
+            port.WriteLine "\r\n>:  "
+            port.DiscardInBuffer ()
+            while (ch <> 13 && ch <> 0) do
+                   ch <- readTTYint ()
+                   str.Append (char ch)   |> ignore
+            if (ch =13) then str.Remove(str.Length - 1, 1) |> ignore
+                             str.ToString ()
+                        else ""
+
+
+            
                      
 
