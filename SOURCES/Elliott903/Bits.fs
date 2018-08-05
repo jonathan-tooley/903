@@ -9,42 +9,26 @@ module Sim900.Bits
      
   //This module is used to initialise the library
    module public wiringPi =
-     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiSetup"      , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "wiringPiSetup"        , CallingConvention = CallingConvention.Cdecl)>]
      extern void wiringPiSetup       ( ) ;
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupGpio"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int WiringPiSetupGpio    ( );
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupSys"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int WiringPiSetupSys     ( );
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiSetupPhys"  , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int WiringPiSetupPhys    ( );
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiISR"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "wiringPiISR"          , CallingConvention = CallingConvention.Cdecl)>]
      extern int wiringPiISR          (int pin, EdgeType mode, [<MarshalAs(UnmanagedType.FunctionPtr)>]ISRCallback callback);
-     [<DllImport("libwiring.so"    , EntryPoint = "piLock"             , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "piLock"               , CallingConvention = CallingConvention.Cdecl)>]
      extern void piLock              (int keyNum);
-     [<DllImport("libwiring.so"    , EntryPoint = "piUnlock"           , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "piUnlock"             , CallingConvention = CallingConvention.Cdecl)>]
      extern void piUnlock            (int keyNum);
-     [<DllImport( "libwiring.so"   , EntryPoint = "pinMode"            , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "pinMode"              , CallingConvention = CallingConvention.Cdecl)>]
      extern void pinMode             (int pin, pinType mode) ;
-     [<DllImport( "libwiring.so"   , EntryPoint = "digitalWrite"       , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "digitalWrite"         , CallingConvention = CallingConvention.Cdecl)>]
      extern void digitalWrite        (int pin, pinValue value );
-     [<DllImport( "libwiring.so"   , EntryPoint = "digitalRead"        , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "digitalRead"          , CallingConvention = CallingConvention.Cdecl)>]
      extern pinValue digitalRead     (int pin);
-     [<DllImport( "libwiring.so"   , EntryPoint = "mcp23s17Setup"      , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int mcp23s17Setup        (int pinBase, int spiPort, int devId);
-     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiI2CSetup"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "wiringPiI2CSetup"     , CallingConvention = CallingConvention.Cdecl)>]
      extern int wiringPiI2CSetup     (int devId );
-     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiI2CWriteReg8", CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern void wiringPiI2CWriteReg8 (int fd, Register reg, int data); 
-     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiI2CReadReg8", CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
+     [<DllImport("libwiring.so", EntryPoint = "wiringPiI2CWriteReg8" , CallingConvention = CallingConvention.Cdecl)>]
+     extern void wiringPiI2CWriteReg8(int fd, Register reg, int data); 
+     [<DllImport("libwiring.so", EntryPoint = "wiringPiI2CReadReg8"  , CallingConvention = CallingConvention.Cdecl)>]
      extern int wiringPiI2CReadReg8  (int fd, Register reg);
-     [<DllImport( "libwiring.so"   , EntryPoint = "wiringPiI2CRead"    , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int wiringPiI2CRead      (int fd);
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiI2CWrite"   , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int wiringPiI2CWrite     (int fd, int data);
-     [<DllImport("libwiring.so"    , EntryPoint = "wiringPiI2CWriteReg16", CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int wiringPiI2CWriteReg16(int fd, Register reg, int data);
-     [<DllImport("libwiring.so" , EntryPoint = "wiringPiI2CReadReg16" , CallingConvention = CallingConvention.Cdecl, SetLastError=true )>]
-     extern int wiringPiI2CReadReg16 (int fd, Register reg);
 
    open wiringPi
    open System.IO.Ports
