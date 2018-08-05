@@ -15,7 +15,7 @@ module Sim900.Globals
     let mutable wordGenerator              = 0       // setting of keys on control panel
     let mutable readerByte                 = 0
 
-            //For our control panel we will need some variables to read inputs, write outputs and debounce keys
+    //For our control panel we will need some variables to read inputs, write outputs and debounce keys
     let mutable PanelInput    = 0
     let mutable PanelOutput   = 0
     let mutable InterruptDisp = 0
@@ -77,19 +77,18 @@ module Sim900.Globals
     let ModifyField   addr = (addr >>> mShift) &&& bit1 
     let ModuleField   addr = (addr &&& cModuleMask) >>> moduleShift
 
-    let memorySize    = 4 * 4096
-    let memory: int[] = Array.zeroCreate (8*16*1024)
+    let memorySize    = 16384
+    let memory: int[] = Array.zeroCreate (memorySize)
 
          // ACCESS REGISTERS
     let AGet ()     = accumulator 
     let APut value  = accumulator <- value &&& mask18
     let QGet ()     = qRegister 
-    let QPut value  = qRegister   <- value &&& mask18
+    //let QPut value  = qRegister   <- value &&& mask18
     let BGet ()     = memory.[int bRegisterAddr] 
-    let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
-    let SGet ()     = sequenceControlRegister
+    //let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
+    //let SGet ()     = sequenceControlRegister
     let OldSGet ()  = oldSequenceControlRegister
-    let SPut value  = sequenceControlRegister 
     let IGet ()     = iRegister
     let WGet ()     = wordGenerator
     let WPut value  = wordGenerator <- value &&& mask18
@@ -118,12 +117,6 @@ module Sim900.Globals
        | Cycle
        | Running
 
-    type playStyle = 
-       | NotSet
-       | Algol
-       | Sir
-       | Fortran_903
-       | Fortran_905
 
     type pinType  =
        | Input          = 0
