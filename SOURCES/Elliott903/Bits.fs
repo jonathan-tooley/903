@@ -120,70 +120,68 @@ module Sim900.Bits
    
 
    let panelHandler () =
-       ConnectPanel ()
-       PI1a <- (I2CRead PanelU1 (Register.INTCAPA))
-       PI1b <- (I2CRead PanelU1 (Register.INTCAPB))
-       PI1b <- PI1b &&& 0b11111100//Filter the word generator keys
-       PI4  <- (I2CRead PanelU4 (Register.INTCAP ))
-       PG1a <- (I2CRead PanelU1 (Register.GPIOA))
-       PG1b <- (I2CRead PanelU1 (Register.GPIOB))
-       PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
-       PG4  <- (I2CRead PanelU4 (Register.GPIO ))
-
-       ReleasePanel ()
-
-       // Control the On, Off and Reset keys
-       match (on(), (PG1a &&& 0b01010100)) with
-       |(false, 0x10)  -> status <- machineMode.SwitchingOn
-       |(true , 0x40)  -> status <- machineMode.Reset
-       |(true , 0x04)  -> status <- machineMode.SwitchingOff
-       |(false, 0x04)  -> status <- machineMode.Dead
-       |_              -> ignore ()
-
-       // Control the keyswitch
-       match PG1a &&& 0b00000011 with
-       |0x01  -> operate <- mode.Test
-       |0x02  -> operate <- mode.Operate
-       |0x00  -> operate <- mode.Auto
-       |_     -> ignore ()
-
-       // Control the Enter Switch
-       match (status, (PG4 &&& 0b00110000)) with
-       | (machineMode.Reset                , 0x20) 
-       | (machineMode.NotRunning           , 0x20) -> status <- machineMode.EnterNotRunning
-       | (machineMode.Stopped              , 0x20) -> status <- machineMode.EnterStopped
-       | (machineMode.Reset                , 0x10)
-       | (machineMode.NotRunning           , 0x10) -> status <- machineMode.RepeatEnterNotRunning
-       | (machineMode.Stopped              , 0x10) -> status <- machineMode.RepeatEnterStopped
-       | (machineMode.RepeatEnterStopped   , 0x00) -> status <- machineMode.Stopped
-       | (machineMode.RepeatEnterNotRunning, 0x00) -> status <- machineMode.NotRunning
-       | _ -> ignore ()
-
-       // Control the Obey Switch
-       match (status, (PG4 &&& 0b11000000)) with
-       | (machineMode.Reset                , 0x80) 
-       | (machineMode.NotRunning           , 0x80) -> status <- machineMode.ObeyNotRunning
-       | (machineMode.Stopped              , 0x80) -> status <- machineMode.ObeyStopped
-       | (machineMode.Reset                , 0x40)
-       | (machineMode.NotRunning           , 0x40) -> status <- machineMode.RepeatObeyNotRunning
-       | (machineMode.Stopped              , 0x40) -> status <- machineMode.RepeatObeyStopped
-       | (machineMode.RepeatObeyStopped    , 0x00) -> status <- machineMode.Stopped
-       | (machineMode.RepeatObeyNotRunning , 0x00) -> status <- machineMode.NotRunning
-       | _ -> ignore ()
-
-       match (status, operate, PG1b &&& 0b01010100) with
-       | (machineMode.Running, mode.Operate, 0x40)    //Stop key pressed
-       | (machineMode.Running, mode.Test   , 0x40)    -> status <- machineMode.Stopped
-       | (machineMode.Stopped, mode.Operate, 0x10)    //Restart key pressed
-       | (machineMode.Stopped, mode.Test   , 0x10)    -> status <- machineMode.Restarting
-       | (machineMode.Reset  , mode.Operate, 0x04) 
-       | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
-       |_     -> ignore()
-      
-//       printf "PI1a %x | PI1b %x | PI4 %x \n" PI1a PI1b PI4
-//       printf "PG1a %x | PG1b %x | PG4 %x \n" PG1a PG1b PG4
-
+        interrupt    <- Interrupt.PanelInterrupt 
+ 
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
+
+   let ClearPanelInt () =
+            ConnectPanel ()
+            PG1a <- (I2CRead PanelU1 (Register.GPIOA))
+            PG1b <- (I2CRead PanelU1 (Register.GPIOB))
+            PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
+            PG4  <- (I2CRead PanelU4 (Register.GPIO ))
+            ReleasePanel ()
+
+
+            // Control the On, Off and Reset keys
+            match (on(), PG1a &&& 0b01010100) with
+            |(false, 0x10)  -> status <- machineMode.SwitchingOn
+            |(true , 0x40)  -> status <- machineMode.Reset
+            |(true , 0x04)  -> status <- machineMode.SwitchingOff
+            |(false, 0x04)  -> status <- machineMode.Dead
+            |_              -> ignore ()
+
+             // Control the keyswitch
+            match PG1a &&& 0b00000011 with
+            |0x01  -> operate <- mode.Test
+            |0x02  -> operate <- mode.Operate
+            |0x00  -> operate <- mode.Auto
+            |_     -> ignore ()
+
+            // Control the Enter Switch
+            match (status, (PG4 &&& 0b00110000)) with
+            | (machineMode.Reset                , 0x20) 
+            | (machineMode.NotRunning           , 0x20) -> status <- machineMode.EnterNotRunning
+            | (machineMode.Stopped              , 0x20) -> status <- machineMode.EnterStopped
+            | (machineMode.Reset                , 0x10)
+            | (machineMode.NotRunning           , 0x10) -> status <- machineMode.RepeatEnterNotRunning
+            | (machineMode.Stopped              , 0x10) -> status <- machineMode.RepeatEnterStopped
+            | (machineMode.RepeatEnterStopped   , 0x00) -> status <- machineMode.Stopped
+            | (machineMode.RepeatEnterNotRunning, 0x00) -> status <- machineMode.NotRunning
+            | _ -> ignore ()
+
+            // Control the Obey Switch
+            match (status, (PG4 &&& 0b11000000)) with
+            | (machineMode.Reset                , 0x80) 
+            | (machineMode.NotRunning           , 0x80) -> status <- machineMode.ObeyNotRunning
+            | (machineMode.Stopped              , 0x80) -> status <- machineMode.ObeyStopped
+            | (machineMode.Reset                , 0x40)
+            | (machineMode.NotRunning           , 0x40) -> status <- machineMode.RepeatObeyNotRunning
+            | (machineMode.Stopped              , 0x40) -> status <- machineMode.RepeatObeyStopped
+            | (machineMode.RepeatObeyStopped    , 0x00) -> status <- machineMode.Stopped
+            | (machineMode.RepeatObeyNotRunning , 0x00) -> status <- machineMode.NotRunning
+            | _ -> ignore ()
+
+            match (status, operate, PG1b &&& 0b01010100) with
+            | (machineMode.Running, mode.Operate, 0x40)    //Stop key pressed
+            | (machineMode.Running, mode.Test   , 0x40)    -> status <- machineMode.Stopped
+            | (machineMode.Stopped, mode.Operate, 0x10)    //Restart key pressed
+            | (machineMode.Stopped, mode.Test   , 0x10)    -> status <- machineMode.Restarting
+            | (machineMode.Reset  , mode.Operate, 0x04) 
+            | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
+            |_     -> ignore()
+      
+            interrupt <- Interrupt.None
 
    let mutable rbyte = 0 
 
