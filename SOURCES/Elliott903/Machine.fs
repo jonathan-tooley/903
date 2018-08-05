@@ -511,83 +511,22 @@ module Sim900.Machine
                         let m = ModifyField   wordGenerator
                         let n = AddressField  wordGenerator 
                         CmdButton <- true
-                        match play, m, f, n with
-                        | _          , 0, 0, _    ->  MessagePut ("  1    1:  Select SIR Mode.")
-                                                      MessagePut ("  1    2:  Select Algol Mode.")
-                                                      MessagePut ("  1    3:  Select Fortran (903) Mode.")
-                                                      MessagePut ("  1    4:  Select Fortran (905) Mode.")
-                                                      MessagePut ("  2    _:  List   Directory")
-                                                      MessagePut ("  3    _:  List   Software")
-                                                      MessagePut ("  4    N:  Attach Software to PTR")
-                                                      MessagePut ("/ 4    _:  Detach PTR")
-                                                      MessagePut ("  5    _:  Attach File to PTR")
-                                                      MessagePut ("/ 5    _:  Detach PTR")
-                                                      MessagePut ("  6    _:  Attach File to PTP")
-                                                      MessagePut ("/ 6    _:  Detach PTP")
-                                                      MessagePut (" 15    0:  Select Input Automatic")
-                                                      MessagePut (" 15 2048:  Select Input PTR")
-                                                      MessagePut (" 15 2052:  Select Input TTY")
-                                                      MessagePut ("/15    0:  Select Output Automatic")
-                                                      MessagePut (" 15 6144:  Select Output PTP")
-                                                      MessagePut (" 15 6148:  Select Output TTY")
-
-                        | _          , 0, 1, 0    ->  System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/"
-                                                      play <- playStyle.NotSet
-
-                        | _          , 0, 1, 1    ->  MessagePut ("Moving to SIR directory")
-                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903SIR/"
-                                                      play <- playStyle.Sir
-
-                        | _          , 0, 1, 2    ->  MessagePut ("Moving to Algol directory")
-                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903ALGOL/"
-                                                      play <- playStyle.Algol
-
-                        | _          , 0, 1, 3    ->  MessagePut ("Moving to Fortran (903) directory")
-                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903FORTRAN/"
-                                                      play <- playStyle.Fortran_903
-
-                        | _          , 0, 1, 4     -> MessagePut ("Moving to Fortran (905) directory")
-                                                      System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/905FORTRAN/"
-                                                      play <- playStyle.Fortran_905
- 
-                        | NotSet     , 0,  2,    _ -> MessagePut ("Not in a directory.")
-
-                        | _          , 0,  2,    _ -> ListDirectory ()
-                        | Sir        , 0,  3,    _ -> MessagePut  ("  1:   SIR(ISS6)(5500).BIN")
-                        | Sir        , 0,  4,    1 -> MessagePut  ("Attaching SIR(ISS6)(5500).BIN to PTR")
-                                                      FileOpen    ("SIR(ISS6)(5500).BIN")
-                        | Sir        , 0,  4,    _ -> MessagePut  ("File not recognised.")
-                        | _          , 1,  4,    _ -> MessagePut  ("Detaching file from paper tape reader.")
-                                                      CloseReader ()
-                        | _          , 0,  5,    _ -> let mutable fn = ""
-                                                      fn <- cmdLine ()
-                                                      stdout.Write (fn)
-                                                      try FileOpen (fn) with
-                                                      | e -> MessagePut "File not read error. "
-                        | _          , 1,  5,    _ -> MessagePut  ("Detaching file from paper tape reader.")
-                                                      CloseReader ()
-                        | _          , 0,  6,    _ -> let mutable fn = ""
-                                                      fn <- cmdLine ()
-                                                      if   fn.EndsWith ".900" 
-                                                          then OpenPunchTxt fn 
-                                                          elif fn.EndsWith ".BIN" || fn.EndsWith ".RLB"
-                                                          then OpenPunchBin fn 
-                                                          else MessagePut ("File type must be .900 or .BIN or .RLB")
-                        | _          , 1,  6,    _ -> ClosePunch ()
-                        | _          , 0, 15,    0 -> MessagePut  ("Selecting input Auto")
-                                                      InputSelectAuto () 
-                        | _          , 1, 15,    0 -> MessagePut  ("Selecting output auto")
-                                                      OutputSelectAuto ()
-                        | _          , 0, 15, 2048 -> MessagePut  ("Selecting Input PTR")
-                                                      InputSelectReader ()
-                        | _          , 0, 15, 2052 -> MessagePut  ("Selecting Input TTY")
-                                                      InputSelectTeleprinter ()        
-                        | _          , 0, 15, 6144 -> MessagePut  ("Selecting Output PTP")
-                                                      OutputSelectPunch () 
-                        | _          , 0, 15, 6148 -> MessagePut  ("Selecting Output TTY")
-                                                      OutputSelectTeleprinter ()
-                        
-                        | _, _, _, _       ->  ignore ()
+                        match m, f, n with
+                        |  0, 0, _    ->  MessagePut ("  1    1:  Select SIR Mode.")
+                                          MessagePut ("  1    2:  Select Algol Mode.")
+                                          MessagePut ("  1    3:  Select Fortran (903) Mode.")
+                                          MessagePut ("  1    4:  Select Fortran (905) Mode.")        
+                                          MessagePut ("  6    _:  Attach File to PTP")
+                        |  0, 1, 0    ->  System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/"
+                        |  0, 1, 1    ->  MessagePut ("Moving to SIR directory")
+                                          System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903SIR/"
+                        |  0, 1, 2    ->  MessagePut ("Moving to Algol directory")
+                                          System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903ALGOL/"
+                        |  0, 1, 3    ->  MessagePut ("Moving to Fortran (903) directory")
+                                          System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903FORTRAN/"
+                        |  0, 1, 4    ->  MessagePut ("Moving to Fortran (905) directory")
+                                          System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/905FORTRAN/"
+                        | _, _, _     ->  ignore ()
 
 
     let panelButtons() =
