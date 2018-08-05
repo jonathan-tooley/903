@@ -82,7 +82,6 @@ module Sim900.Bits
    let ReleasePunch () =
        piUnlock (1)
 
-   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=110, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
    let ConnectIO () =
        piLock (1)
        I2CWrite I2cMultiplexer Register.IODIRA 0b00010000
@@ -90,6 +89,7 @@ module Sim900.Bits
    let ReleaseIO () =
         piUnlock (1)
 
+   let port = new Ports.SerialPort (PortName = "/dev/ttyAMA0", BaudRate=300, Parity=Ports.Parity.Even, DataBits=7, StopBits=Ports.StopBits.One, Handshake=Ports.Handshake.None)
 
    let setupRS232 () = 
        port.WriteBufferSize <- 1
