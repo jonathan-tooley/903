@@ -56,6 +56,8 @@ module Sim900.Bits
    let mutable DisplayU3      = 0
    let mutable DisplayU4      = 0
    let mutable DisplayU5      = 0
+   let mutable IOU1           = 0
+   let mutable IOU2           = 0
   
    wiringPiSetup 
     
