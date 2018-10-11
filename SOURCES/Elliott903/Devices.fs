@@ -295,7 +295,9 @@ module Sim900.Devices
             let mutable ch:int = 0
             ttyDemand <- true
             ConnectIO ()
-            I2CWrite IOU1 Register.OLATA 0b00010000
+            let mutable lamp = 0
+            lamp <- I2CRead IOU1 Register.GPIOA  
+            I2CWrite IOU1 Register.OLATA (lamp ||| 0b01000000)
             ReleaseIO ()
             let rec getbyte () =
                 try port.ReadByte() 
@@ -309,7 +311,7 @@ module Sim900.Devices
             ch <- getbyte ()
             ttyDemand <- false
             ConnectIO ()
-            I2CWrite IOU1 Register.OLATA 0b00000000
+            I2CWrite IOU1 Register.OLATA (lamp &&& 0b10111111)
             ReleaseIO ()
             ch
 
