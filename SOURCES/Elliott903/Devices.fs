@@ -169,7 +169,9 @@ module Sim900.Devices
            if  tapeInPos >= ti.Length then let code = byte 0
                                            ActiveReader <- MechanicalR
                                            ConnectIO ()
-                                           I2CWrite IOU2 Register.OLATA 0b00000000
+                                           let mutable lamp = 0
+                                           lamp <- (lamp &&& 11111011) ||| 0b00000001
+                                           I2CWrite IOU2 Register.OLATA lamp
                                            ReleaseIO ()
                                            code
                                       else let code = ti.[tapeInPos]
