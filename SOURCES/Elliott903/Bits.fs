@@ -99,9 +99,9 @@ module Sim900.Bits
        port.ReadTimeout     <- 250
 
    let setupPins () =
-       pinMode 3 pinType.Input      // Setup pin 3 as an input.  This is for the punch to effect a handshake by reporting when it is busy.
+       pinMode 28 pinType.Input     // Setup pin as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                     // The Gold lead from the punch connects here.
-       pinMode 4 pinType.Output     // Setup pin 4 as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
+       pinMode 29 pinType.Output    // Setup pin as an output. A high on this pin instructs the tape punch to commit the data on the mcp to paper.
                                     // The Brown lead from the punch connects here.
        pinMode 5 pinType.Input
        pinMode 6 pinType.Output     // Setup as an output.  A low on this pin instructs the tape reader to engage the motor.  
