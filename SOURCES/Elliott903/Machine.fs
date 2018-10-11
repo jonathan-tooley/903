@@ -516,7 +516,7 @@ module Sim900.Machine
                                           MessagePut ("  1    2:  Select Algol Mode.")
                                           MessagePut ("  1    3:  Select Fortran (903) Mode.")
                                           MessagePut ("  1    4:  Select Fortran (905) Mode.")        
-                                          MessagePut ("  6    _:  Attach File to PTP")
+                                          MessagePut ("  1    5:  Select Utilities Mode.")
                         |  0, 1, 0    ->  System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/"
                         |  0, 1, 1    ->  MessagePut ("Moving to SIR directory")
                                           System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903SIR/"
@@ -526,6 +526,8 @@ module Sim900.Machine
                                           System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903FORTRAN/"
                         |  0, 1, 4    ->  MessagePut ("Moving to Fortran (905) directory")
                                           System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/905FORTRAN/"
+                        |  0, 1, 5    ->  MessagePut ("Moving to Utilities directory")
+                                          System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903UTILITIES/"
                         | _, _, _     ->  ignore ()
 
 
