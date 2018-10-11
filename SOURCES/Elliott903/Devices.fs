@@ -203,22 +203,29 @@ module Sim900.Devices
     let mutable handShake = pinValue.High
    
     let punchByte (char : byte) =
+             let mutable i = 0
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 28
              while handShake = pinValue.Low do 
                   punchHoldUp    <- true
                   handShake <- digitalRead 28
              punchHoldUp <- false
+             i <-0; while (i < 1000) do i <- i + 1
              // Then we set up the data on the mcp pins
              ConnectPunch ()    
              I2CWrite plotterPort   (Register.OLATA) (int char)
              ReleasePunch ()
+             i <-0; while (i < 1000) do i <- i + 1
              // Then we send a commit instruction to the punch
              digitalWrite 29 pinValue.High
              // Now we wait for the punch to confirm that it is busy doing our instruction
              while handShake = pinValue.High do handShake <- digitalRead 28
              // Then we can stop telling to write as it has started working on our command
+             i <-0; while (i < 1000) do i <- i + 1
              digitalWrite 29 pinValue.Low
+            
+         
+            
         
     let PutPunchChar (code: byte) = // output a character to the punch
         match (punchStream, ActivePunch) with
