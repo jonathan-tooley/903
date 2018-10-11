@@ -9,6 +9,13 @@ module Sim900.Devices
     
     exception Device of string
 
+
+    let IOLights () =
+        
+        ConnectIO ()
+
+        ReleaseIO ()
+
     let ROOLights () =
         ConnectPanel ()
         match status with
@@ -184,7 +191,10 @@ module Sim900.Devices
         tapeInPos <- 0
         ActiveReader <- MechanicalR
         ConnectIO ()
-        I2CWrite IOU2 Register.OLATA 0b00000000
+        let mutable lamp = 0
+        lamp <- I2CRead IOU2 Register.GPIOA 
+        lamp <- (lamp &&& 0b11111011) ||| 0b00000001
+        I2CWrite IOU2 Register.OLATA lamp
         ReleaseIO ()
 
 
@@ -246,6 +256,12 @@ module Sim900.Devices
         punchOutPos <- 0
         punchStream <- None
         ActivePunch <- MechanicalP
+        ConnectIO ()
+        let mutable lamp = 0
+        lamp <- I2CRead IOU1 Register.GPIOB
+        lamp <- (lamp &&& 0b11011111) ||| 0b10000000
+        I2CWrite IOU1 Register.OLATB lamp
+        ReleaseIO ()
 
     let OpenPunchTxt (fileName: string) =
         // open text file for paper tape punch output
@@ -283,7 +299,9 @@ module Sim900.Devices
     let readByte char =
             readerByte <- -1  
             ConnectIO ()
-            I2CWrite IOU1 Register.OLATA 0b00001000
+            let mutable lamp = 0
+            lamp <- I2CRead IOU2 Register.GPIOA
+            I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
             ReleaseIO ()
             digitalWrite 6 pinValue.Low
             while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
@@ -296,7 +314,7 @@ module Sim900.Devices
             if (status = Reset || status = SwitchingOff) then accumulator <- 0
                                                          else accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
             ConnectIO ()
-            I2CWrite IOU1 Register.OLATA 0b00000000
+            I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
             ReleaseIO ()
 
  
