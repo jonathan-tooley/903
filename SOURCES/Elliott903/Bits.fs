@@ -399,61 +399,61 @@ module Sim900.Bits
        IOU2 <- I2CSetup 0x21
 
        //U1A Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
-       //GPA5 Runout                          |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA1 Stop                            |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  | 
+       //GPA1 Delete Sw                       |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
+       //GPA3 List Sw                         |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA4 Input TTY                       |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA5 Input RDR                       |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA7 Output TTY                      | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //U1A Outputs:
-       //GPA7 Reload                          | 0|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA6 Runout                          |  | 0|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA4 TTY Demand                      |  |  |  | 0|  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA3 HoldUp                          |  |  |  |  | 0|  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA2 Stop                            |  |  |  |  |  | 0|  |  |  |  |  |  |  |  |  |  |  |
-       //GPA0 Read                            |  |  |  |  |  |  |  | 0|  |  |  |  |  |  |  |  |  |
-
+       //GPA0 Delete Led                      |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
+       //GPA2 List Led                        |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //GPA6 TTY Demand                      |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+     
        //U1B Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
-       //GPB7 Read Switch                     |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |
+       //GPB0 Output PCH                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
+       //GPB2 Runout Sw                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |
        //GPB4 Punch Attach                    |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |
+       //GPB6 Punch Detach                    |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |
        //U1B Outputs:
-       //GPB5 Punch Attach                    |  |  |  |  |  |  |  |  |  |  |  | 0|  |  |  |  |  |
-       //U1B NC                               |  |  |  |  |  |  |  |  |  |  | 0|  |  | 0| 0| 0| 0|
+       //GPB1 Runout Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
+       //GPB3 Reload Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
+       //GPB5 Punch Led                       |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |
+       //GPB7 Punch Detach Led                |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |
 
        //U2A Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
-       //GPA7 TTY In                          | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA6 Reader In                       |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA5 TTY out                         |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA4 Punch Out                       |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //GPA2 Reader Attach                   |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
-       //GPA1 List                            |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |       
+       //GPA1 Reader Detach                   |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
+       //GPA3 Reader Sw                       |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA5 Read Sw                         |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA7 Stop Sw                         | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |       
        //U2A Outputs:
-       //GPA3 Reader Attach                   |  |  |  |  | 0|  |  |  |  |  |  |  |  |  |  |  |  |
-       //U2A NC                               |  |  |  |  |  |  |  | 0|  |  |  |  |  |  |  |  |  |
+       //GPA0 Reader Detach Led               |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
+       //GPA2 Reader Led                      |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //GPA4 Read Led                        |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
+       //GPA6 Stop Led                        |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
        //U2B Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
-       //GPB4 Delete                          |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |
-       //GPB2 Reader Detach                   |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |
-       //GPB0 Punch Detach                    |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
        //U2B Outputs:
-       //GPB3 Reader Detach                   |  |  |  |  |  |  |  |  |  |  |  |  |  | 0|  |  |  |
-       //GPB1 Punch Detach                    |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 0|  |
-       //U2B NC                               |  |  |  |  |  |  |  |  |  | 0| 0| 0|  |  |  |  |  |
+       //GPB0 Holdup Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
+       //U2B NC                               |  |  |  |  |  |  |  |  |  | 1| 1| 1| 1| 1| 1| 1| 1|
 
-       I2CWrite IOU1 Register.IODIRA   0b00100010 //Bank A inputs
-       I2CWrite IOU1 Register.IODIRB   0b10010000 //Bank B inputs
-       I2CWrite IOU1 Register.GPPUA    0b00100010 //Bank A pull up resistors
-       I2CWrite IOU1 Register.GPPUB    0b10010000 //Bank B pull up resistors
-       I2CWrite IOU1 Register.IPOLA    0b00100010 //Bank A polarity
-       I2CWrite IOU1 Register.IPOLB    0b10010000 //Bank B polarity
+       I2CWrite IOU1 Register.IODIRA   0b10111010 //Bank A inputs
+       I2CWrite IOU1 Register.IODIRB   0b01010101 //Bank B inputs
+       I2CWrite IOU1 Register.GPPUA    0b10111010 //Bank A pull up resistors
+       I2CWrite IOU1 Register.GPPUB    0b01010101 //Bank B pull up resistors
+       I2CWrite IOU1 Register.IPOLA    0b10111010 //Bank A polarity
+       I2CWrite IOU1 Register.IPOLB    0b11111111 //Bank B polarity
        I2CWrite IOU1 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
-       I2CWrite IOU1 Register.GPINTENA 0b00100010 //Set up Stop and Runout for interrupt
-       I2CWrite IOU1 Register.GPINTENB 0b10010000 //Set up Read and Punch Attach switches for interrupt
+       I2CWrite IOU1 Register.GPINTENA 0b10111010 //Set up Stop and Runout for interrupt
+       I2CWrite IOU1 Register.GPINTENB 0b01010101 //Set up Read and Punch Attach switches for interrupt
 
-       I2CWrite IOU2 Register.IODIRA   0b11110110 //Bank A inputs
-       I2CWrite IOU2 Register.IODIRB   0b00010101 //Bank B inputs
-       I2CWrite IOU2 Register.GPPUA    0b11110110 //Bank A pull up resistors
-       I2CWrite IOU2 Register.GPPUB    0b00010101 //Bank B pull up resistors
-       I2CWrite IOU2 Register.IPOLA    0b11110110 //Bank A polarity
-       I2CWrite IOU2 Register.IPOLB    0b00010101 //Bank B polarity
+       I2CWrite IOU2 Register.IODIRA   0b10101010 //Bank A inputs
+       I2CWrite IOU2 Register.IODIRB   0b00000000 //Bank B inputs
+       I2CWrite IOU2 Register.GPPUA    0b10101010 //Bank A pull up resistors
+       I2CWrite IOU2 Register.GPPUB    0b00000000 //Bank B pull up resistors
+       I2CWrite IOU2 Register.IPOLA    0b10101010 //Bank A polarity
+       I2CWrite IOU2 Register.IPOLB    0b00000000 //Bank B polarity
        I2CWrite IOU2 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
-       I2CWrite IOU2 Register.GPINTENA 0b11110110  //Set up list, Reader Attach for interrupt
-       I2CWrite IOU2 Register.GPINTENB 0b00010101  //Set up Reader Detach
+       I2CWrite IOU2 Register.GPINTENA 0b10101010  //Set up list, Reader Attach for interrupt
+       I2CWrite IOU2 Register.GPINTENB 0b00000000  //Set up Reader Detach
 
        ReleaseIO ()
