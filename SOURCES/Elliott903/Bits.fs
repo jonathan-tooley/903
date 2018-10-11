@@ -355,12 +355,13 @@ module Sim900.Bits
         
        punchPort      <- I2CSetup 0x27
        readerPort     <- punchPort
-       plotterPort    <- I2CSetup 0x25
+       plotterPort    <- I2CSetup 0x26
 
-       I2CWrite punchPort  Register.IODIRA 0b00000000 //Bank A is all outputs
-       I2CWrite readerPort Register.IODIRB 0b11111111 //Bank B is all inputs
-       I2CWrite readerPort Register.GPPUB  0b11111011 //Bank B pull up resistors
-
+       I2CWrite punchPort    Register.IODIRA 0b00000000 //Bank A is all outputs
+       I2CWrite readerPort   Register.IODIRB 0b11111111 //Bank B is all inputs
+       I2CWrite readerPort   Register.GPPUB  0b11111111 //Bank B pull up resistors
+       I2CWrite plotterPort  Register.IODIRA 0b00000000 //Bank A is all outputs
+       I2CWrite plotterPort  Register.IODIRB 0b00000000 //Bank B is all outputs
        ReleasePunch ()
 
 
