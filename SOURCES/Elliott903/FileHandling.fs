@@ -15,6 +15,15 @@ module Sim900.FileHandling
         let Delete file =
             try File.Delete file with
             | e -> MessagePut e.Message
+            let mutable lamp = 0
+            ConnectIO ()
+            lamp <- I2CRead IOU1 Register.GPIOA
+            I2CWrite IOU1 Register.OLATA (lamp ||| 0b00000001)
+            ReleaseIO()
+            System.Threading.Thread.Sleep 3000
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA (lamp &&& 0b11111110)
+            ReleaseIO ()
 
         // Open file to 900 paper tape stream
         let FileOpen (f: string)  =
@@ -32,6 +41,11 @@ module Sim900.FileHandling
 
         // list directory
         let ListDirectory () =
+            let mutable lamp = 0
+            ConnectIO ()
+            lamp <- I2CRead IOU1 Register.GPIOA
+            I2CWrite IOU1 Register.OLATA  (lamp ||| 0b00000100)
+            ReleaseIO ()
             port.WriteLine ("\r\n Binary Files:")
             Directory.EnumerateFileSystemEntries (".", "*.BIN") 
                 |> Seq.iteri (fun i s -> PrintDir (i, s))
@@ -42,6 +56,10 @@ module Sim900.FileHandling
             Directory.EnumerateFileSystemEntries (".", "*.RLB") 
                 |> Seq.iteri (fun i s -> PrintDir (i, s))
             port.WriteLine ("\r\n")
+            System.Threading.Thread.Sleep 5000
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATA (lamp &&& 0b11111011) 
+            ReleaseIO ()
 
         // read inline text
         let ReadInlineText () =
