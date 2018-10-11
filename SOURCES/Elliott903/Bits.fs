@@ -207,15 +207,21 @@ module Sim900.Bits
        IG1b <- (I2CRead IOU1 (Register.GPIOB))
        ReleaseIO ()
        operation <- ioOperation.NoOp
-       if ((IG2a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.List
-       if ((IG2a &&& 0b00000100) = 0b00000100) then operation <- ioOperation.ReaderA
-       if ((IG2b &&& 0b00000100) = 0b00000100) then operation <- ioOperation.ReaderD
-       if ((IG1b &&& 0b10000000) = 0b10000000) then operation <- ioOperation.Read
-       if ((IG1a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.Stop
-       if ((IG1a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.Runout
-       if ((IG2b &&& 0b00010000) = 0b00010000) then operation <- ioOperation.Delete 
-       if ((IG2b &&& 0b00000001) = 0b00000001) then operation <- ioOperation.PunchD
+       if ((IG1a &&& 0b00001000) = 0b00001000) then operation <- ioOperation.List
+       if ((IG2a &&& 0b00001000) = 0b00001000) then operation <- ioOperation.ReaderA
+       if ((IG2a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.ReaderD
+       //if ((IG2a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.Read
+       //if ((IG2a &&& 0b10000000) = 0b10000000) then operation <- ioOperation.Stop
+       //if ((IG1b &&& 0b00000100) = 0b00000100) then operation <- ioOperation.Runout
+       if ((IG1a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.Delete 
+       if ((IG1b &&& 0b01000000) = 0b01000000) then operation <- ioOperation.PunchD
        if ((IG1b &&& 0b00010000) = 0b00010000) then operation <- ioOperation.PunchA
+       if ((IG1a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.RdrIn
+       if ((IG1a &&& 0b00010000) = 0b00010000) then operation <- ioOperation.TTYIn
+       if ((IG1b &&& 0b00000001) = 0b00000001) then operation <- ioOperation.TTYOut
+       if ((IG1a &&& 0b10000000) = 0b10000000) then operation <- ioOperation.PncOut
+       if (SelectInput  <> Input.AutoIn   && operation = NoOp) then operation <- ioOperation.AutIn
+       if (SelectOutput <> Output.AutoOut && operation = NoOp) then operation <- ioOperation.AutOut
        printfn "%i | %i | %i | %i\n"  IG1a IG1b IG2a IG2b
        interrupt <- Interrupt.None
        
