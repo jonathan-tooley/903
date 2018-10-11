@@ -130,6 +130,12 @@ module Sim900.Globals
        | Delete
        | Read
        | Stop
+       | RdrIn
+       | TTYIn
+       | AutIn
+       | PncOut
+       | TTYOut
+       | AutOut
 
 
     type Interrupt = 
