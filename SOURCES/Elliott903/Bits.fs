@@ -193,11 +193,6 @@ module Sim900.Bits
        readerByte <- rbyte
 
    let readerCB : ISRCallback = ISRCallback(fun() -> readerHandler ())
-
-   let IOHandler () =
-       interrupt <- Interrupt.IOInterrupt
-
-   let IOCB : ISRCallback = ISRCallback(fun() -> IOHandler ())
               
    let ClearIOInt () =
        ConnectIO ()
@@ -225,6 +220,11 @@ module Sim900.Bits
        printfn "%i | %i | %i | %i\n"  IG1a IG1b IG2a IG2b
        interrupt <- Interrupt.None
        
+   let IOHandler () =
+       ClearIOInt ()
+       interrupt <- Interrupt.IOInterrupt
+
+   let IOCB : ISRCallback = ISRCallback(fun() -> IOHandler ())
 
 
    let setupPanel () =
