@@ -79,6 +79,8 @@ module Sim900.Globals
 
     let memorySize    = 16384
     let memory: int[] = Array.zeroCreate (memorySize)
+    let mutable tapeloaded    = false
+
 
          // ACCESS REGISTERS
     let AGet ()     = accumulator 
