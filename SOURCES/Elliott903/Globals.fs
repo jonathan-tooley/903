@@ -21,9 +21,7 @@ module Sim900.Globals
     let mutable InterruptDisp = 0
     let mutable HeartBeat     = 0
     let mutable Flash         = false
-
-  
-    
+        
     let mutable CmdButton     = false //This is for our change directory mechanism
     let mutable I1            = false //Interrupt button 1
     let mutable I1M           = false //Interrupt switch 1 set to manual
@@ -59,8 +57,7 @@ module Sim900.Globals
     // Address layout
     let moduleShift = 13                         // module number
     let aModuleMask = bit16 ||| bit15 ||| bit14  // 900, 920A,B,M have 16 bit address bus
-    let cModuleMask = bit17 ||| aModuleMask      // 920C has 17 bit address bus
-        
+         
     // Instruction layout
     let mShift      = 17                                  // B modification flag (bit18)
     let fShift      = 13                                  // function (op) code field (bits 17-14)
@@ -75,8 +72,7 @@ module Sim900.Globals
     let AddressField  word = word &&& operandMask
     let FunctionField word = (word &&& fMask) >>> fShift
     let ModifyField   addr = (addr >>> mShift) &&& bit1 
-    let ModuleField   addr = (addr &&& cModuleMask) >>> moduleShift
-
+    
     let memorySize    = 16384
     let memory: int[] = Array.zeroCreate (memorySize)
     let mutable tapeloaded    = false
