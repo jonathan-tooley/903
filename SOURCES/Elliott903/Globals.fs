@@ -30,6 +30,14 @@ module Sim900.Globals
     let mutable I3            = false
     let mutable I3M           = false
 
+    let mutable PG1a = 0
+    let mutable PG1b = 0
+    let mutable PG4  = 0
+    let mutable IG1a = 0
+    let mutable IG1b = 0 
+    let mutable IG2a = 0
+    let mutable IG2b = 0
+
     exception Syntax of string
 
     let bit1   =      0x1

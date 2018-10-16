@@ -117,16 +117,7 @@ module Sim900.Bits
        pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
        digitalWrite 24 pinValue.Low // Make sure the fan is off
 
-   let mutable PG1a = 0
-   let mutable PG1b = 0
-   let mutable PG4  = 0
-   let mutable IG1a = 0
-   let mutable IG1b = 0 
-   let mutable IG2a = 0
-   let mutable IG2b = 0
-   
 
-   
 
    let ClearPanelInt () =
             ConnectPanel ()
@@ -135,7 +126,6 @@ module Sim900.Bits
             PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
             PG4  <- (I2CRead PanelU4 (Register.GPIO ))
             ReleasePanel ()
-
 
             // Control the On, Off and Reset keys
             match (on(), PG1a &&& 0b01010100) with
