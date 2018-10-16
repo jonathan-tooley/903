@@ -44,7 +44,8 @@ module Sim900.Devices
             ConnectDisplay ()
             I2CWrite DisplayU1      (Register.OLATB ) (int (AGet())       &&& mask8)
             I2CWrite DisplayU1      (Register.OLATA ) (int (AGet()) >>> 8 &&& mask8)
-            //The most significant bits of the registers are packed into one byte so we need to keep 6 bits and replace 2
+            //The most significant bits of the registers are packed into one byte so we 
+            //need to keep 6 bits and replace 2
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
             shown <- (shown &&& 0b11111100) ||| ((AGet() &&& 0b110000000000000000) >>> 16)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
