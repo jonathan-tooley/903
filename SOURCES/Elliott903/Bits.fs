@@ -447,7 +447,7 @@ module Sim900.Bits
        I2CWrite IOU1 Register.GPPUA    0b10111010 //Bank A pull up resistors
        I2CWrite IOU1 Register.GPPUB    0b01010101 //Bank B pull up resistors
        I2CWrite IOU1 Register.IPOLA    0b10111010 //Bank A polarity
-       I2CWrite IOU1 Register.IPOLB    0b11111111 //Bank B polarity
+       I2CWrite IOU1 Register.IPOLB    0b01010101 //Bank B polarity
        I2CWrite IOU1 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
        I2CWrite IOU1 Register.GPINTENA 0b10111010 //Set up Stop and Runout for interrupt
        I2CWrite IOU1 Register.GPINTENB 0b01010101 //Set up Read and Punch Attach switches for interrupt
