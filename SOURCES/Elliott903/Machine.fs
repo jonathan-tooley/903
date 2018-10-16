@@ -103,17 +103,23 @@ module Sim900.Machine
             I2CWrite PanelU3 (Register.OLATB ) 0
             ReleasePanel ()
             ConnectDisplay ()
-            I2CWrite DisplayU1      (Register.OLATB ) 0
-            I2CWrite DisplayU1      (Register.OLATA ) 0
-            I2CWrite DisplayU2      (Register.OLATB ) 0
-            I2CWrite DisplayU2      (Register.OLATA ) 0
-            I2CWrite DisplayU3      (Register.OLATB ) 0
-            I2CWrite DisplayU3      (Register.OLATA ) 0
-            I2CWrite DisplayU4      (Register.OLATB ) 0
-            I2CWrite DisplayU4      (Register.OLATA ) 0
-            I2CWrite DisplayU5      (Register.OLATB ) 0
-            I2CWrite DisplayU5      (Register.OLATA ) 0
+            I2CWrite DisplayU1      Register.OLATB 0
+            I2CWrite DisplayU1      Register.OLATA 0
+            I2CWrite DisplayU2      Register.OLATB 0
+            I2CWrite DisplayU2      Register.OLATA 0
+            I2CWrite DisplayU3      Register.OLATB 0
+            I2CWrite DisplayU3      Register.OLATA 0
+            I2CWrite DisplayU4      Register.OLATB 0
+            I2CWrite DisplayU4      Register.OLATA 0
+            I2CWrite DisplayU5      Register.OLATB 0
+            I2CWrite DisplayU5      Register.OLATA 0
             ReleaseDisplay ()
+            ConnectIO ()
+            I2CWrite IOU1           Register.OLATA 0
+            I2CWrite IOU1           Register.OLATB 0
+            I2CWrite IOU2           Register.OLATA 0
+            I2CWrite IOU2           Register.OLATB 0
+            ReleaseIO ()
  
         let LevelCheck level = 
             if   level < 0 || level > 3 
@@ -411,7 +417,6 @@ module Sim900.Machine
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper
-    open System.Threading
     open System.Threading
 
     let ClearStore () = // clear entire store to zero
@@ -757,12 +762,9 @@ module Sim900.Machine
             panelLights()
             ROOLights  ()
             while status <> machineMode.Dead do 
-                //System.Threading.Thread.Sleep 50
                 statusChange ()
                 oldstatus  <- status
                 oldoperate <- operate
-                
-
                 match status with
                 | Dead             -> ignore           () 
                 | Off              -> ignore           ()

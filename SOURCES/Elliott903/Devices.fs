@@ -288,7 +288,7 @@ module Sim900.Devices
                     let ch = int (GetReaderChar ())
                     accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
                  with
-                 | e -> sequenceControlRegister <- oldSequenceControlRegister
+                 | e -> SCR <- oldSCR
                         raise e
             else  accumulator <- accumulator <<< 7 
 
