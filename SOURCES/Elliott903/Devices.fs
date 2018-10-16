@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Devices
 
@@ -299,9 +299,7 @@ module Sim900.Devices
     let readByte char =
             readerByte <- -1  
             ConnectIO ()
-            let mutable lamp = 0
-            lamp <- I2CRead IOU2 Register.GPIOA
-            I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+            I2CWrite IOU2 Register.OLATB 0b00000001
             ReleaseIO ()
             digitalWrite 6 pinValue.Low
             while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
@@ -314,7 +312,7 @@ module Sim900.Devices
             if (status = Reset || status = SwitchingOff) then accumulator <- 0
                                                          else accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
             ConnectIO ()
-            I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+            I2CWrite IOU2 Register.OLATA 0b11101111
             ReleaseIO ()
 
  
