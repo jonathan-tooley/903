@@ -32,6 +32,7 @@ module Sim900.Bits
 
    open wiringPi
    open System.IO.Ports
+   open Sim900
 
    let wiringPiSetup                    = wiringPiSetup        ()
    let pinMode pin mode                 = pinMode              (pin, mode)
@@ -125,10 +126,7 @@ module Sim900.Bits
    let mutable IG2b = 0
    
 
-   let panelHandler () =
-        interrupt    <- Interrupt.PanelInterrupt 
- 
-   let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
+   
 
    let ClearPanelInt () =
             ConnectPanel ()
@@ -188,6 +186,12 @@ module Sim900.Bits
             |_     -> ignore()
       
             interrupt <- Interrupt.None
+
+   let panelHandler () =
+       interrupt    <- Interrupt.PanelInterrupt 
+       ClearPanelInt ()
+ 
+   let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
    let mutable rbyte = 0 
 
