@@ -624,16 +624,11 @@ module Sim900.Machine
             | SwitchingOff          -> MessagePut "Status changed to Switching Off"
             | SwitchingOn           -> MessagePut "Status changed to Switching On"
             | Reset                 -> MessagePut "Status changed to Reset"
-            | NotRunning            -> MessagePut "Status changed to NotRunning"
             | Stopped               -> MessagePut "Status changed to Stopped"
             | Cycle                 -> MessagePut "Status Changed to Cycle"
-            | ObeyNotRunning
             | ObeyStopped           -> MessagePut "Status Changed to Obey"
-            | RepeatObeyNotRunning
             | RepeatObeyStopped     -> MessagePut "Status Changed to Obey (Repeat)"
-            | EnterNotRunning
             | EnterStopped          -> MessagePut "Status Changed to Enter"
-            | RepeatEnterNotRunning
             | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"    
             | Jump                  -> MessagePut "Status changed to Jump"
             | Restarting            -> MessagePut "Status Changed to Restarting"
@@ -764,11 +759,6 @@ module Sim900.Machine
                                       panelLights      ()
                                       DisplayRegisters ()
                                       RunIOOp          ()
-                | NotRunning      ->  panelButtons     ()
-                                      Command          ()
-                                      panelLights      ()
-                                      DisplayRegisters ()
-                                      RunIOOp          ()
                 | Jump            ->  scrAddr         <- 0
                                       bRegisterAddr   <- 1
                                       interruptLevel  <- 1  
@@ -780,18 +770,12 @@ module Sim900.Machine
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running
                                       panelLights      ()
-                | EnterNotRunning ->  status <- machineMode.NotRunning
-                                      EnterSwitch ()
                 | EnterStopped    ->  status <- machineMode.Stopped
                                       EnterSwitch ()
-                | RepeatEnterNotRunning
                 | RepeatEnterStopped
                                   ->  EnterSwitch ()
-                | ObeyNotRunning  ->  status <- machineMode.NotRunning  
-                                      ObeySwitch ()
                 | ObeyStopped     ->  status <- machineMode.Stopped
                                       ObeySwitch ()
-                | RepeatObeyNotRunning 
                 | RepeatObeyStopped
                                   ->  ObeySwitch ()
                 | Cycle           ->  NextInstruction ()

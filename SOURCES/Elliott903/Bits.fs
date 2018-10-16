@@ -145,25 +145,19 @@ module Sim900.Bits
             // Control the Enter Switch
             match (status, (PG4 &&& 0b00110000)) with
             | (machineMode.Reset                , 0x20) 
-            | (machineMode.NotRunning           , 0x20) -> status <- machineMode.EnterNotRunning
             | (machineMode.Stopped              , 0x20) -> status <- machineMode.EnterStopped
             | (machineMode.Reset                , 0x10)
-            | (machineMode.NotRunning           , 0x10) -> status <- machineMode.RepeatEnterNotRunning
             | (machineMode.Stopped              , 0x10) -> status <- machineMode.RepeatEnterStopped
             | (machineMode.RepeatEnterStopped   , 0x00) -> status <- machineMode.Stopped
-            | (machineMode.RepeatEnterNotRunning, 0x00) -> status <- machineMode.NotRunning
             | _ -> ignore ()
 
             // Control the Obey Switch
             match (status, (PG4 &&& 0b11000000)) with
             | (machineMode.Reset                , 0x80) 
-            | (machineMode.NotRunning           , 0x80) -> status <- machineMode.ObeyNotRunning
             | (machineMode.Stopped              , 0x80) -> status <- machineMode.ObeyStopped
             | (machineMode.Reset                , 0x40)
-            | (machineMode.NotRunning           , 0x40) -> status <- machineMode.RepeatObeyNotRunning
             | (machineMode.Stopped              , 0x40) -> status <- machineMode.RepeatObeyStopped
             | (machineMode.RepeatObeyStopped    , 0x00) -> status <- machineMode.Stopped
-            | (machineMode.RepeatObeyNotRunning , 0x00) -> status <- machineMode.NotRunning
             | _ -> ignore ()
 
             match (status, operate, PG1b &&& 0b01010100) with
