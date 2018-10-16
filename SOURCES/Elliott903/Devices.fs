@@ -138,27 +138,19 @@ module Sim900.Devices
         let mutable tapeInPos = 0  
 
     open PaperTapeReader    
-            
-    let OpenReaderBinaryString text  = 
-        // take binary format input from command stream
-        tapeIn <- Some (TranslateFromBinary text)                
-        tapeInPos <- 0    
-            
+              
     let OpenReaderBin fileName = 
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderBinaryString text
-        ActiveReader <- Attached
-
-    let OpenReaderTextString text = 
-        // take text input from command stream
-        tapeIn <- Some (TranslateFromText text)
+        tapeIn <- Some (TranslateFromBinary text)                
         tapeInPos <- 0 
+        ActiveReader <- Attached
         
     let OpenReaderText fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderTextString text
+        tapeIn <- Some (TranslateFromText text)
+        tapeInPos <- 0 
         ActiveReader <- Attached
                  
     let GetReaderChar () = // get a character from the paper tape reader
