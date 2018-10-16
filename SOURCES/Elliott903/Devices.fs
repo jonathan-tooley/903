@@ -10,17 +10,19 @@ module Sim900.Devices
     exception Device of string
 
     let ROOLights () =
+        //This function updates the Reser, On and Off lights.  
+        //It is separate because it is only called when we need to change one of these three
         ConnectPanel ()
         match status with
-        |     machineMode.Dead       -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 )
+        |     machineMode.Dead       -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 ) //All lights off
                                         I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
                                         I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
         |     machineMode.SwitchingOff
         |     machineMode.SwitchingOn
-        |     machineMode.Off        -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 )
+        |     machineMode.Off        -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 ) //Just the off light
                                         I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
                                         I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
-        |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
+        |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 ) //On and reset light
         |     machineMode.Stopped    
         |     machineMode.NotRunning 
         |     machineMode.Jump
@@ -34,7 +36,7 @@ module Sim900.Devices
         |     machineMode.RepeatEnterNotRunning
         |     machineMode.RepeatEnterStopped
         |     machineMode.Cycle      
-        |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+        |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 ) //On light
    
         ReleasePanel ()
 

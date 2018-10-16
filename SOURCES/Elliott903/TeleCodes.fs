@@ -166,8 +166,6 @@ module Sim900.Telecodes
                      
         copy (0, if addRunout then 30 else 0)
 
-
-
     let TranslateFromBinary (text: string) = // no padding for binary
         let chars: byte[] = Array.zeroCreate (text.Length/2) 
         let rec copy (inp, outp) =
