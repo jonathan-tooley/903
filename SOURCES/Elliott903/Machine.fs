@@ -88,6 +88,10 @@ module Sim900.Machine
             digitalWrite 24 pinValue.High
             status <- machineMode.Reset
             ROOLights ()
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATB 0b10000000
+            I2CWrite IOU2 Register.OLATA 0b00010001
+            ReleaseIO ()
 
         let turnOff () =
             digitalWrite 24 pinValue.Low
