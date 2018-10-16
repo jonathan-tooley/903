@@ -9,13 +9,6 @@ module Sim900.Devices
     
     exception Device of string
 
-
-    let IOLights () =
-        
-        ConnectIO ()
-
-        ReleaseIO ()
-
     let ROOLights () =
         ConnectPanel ()
         match status with
