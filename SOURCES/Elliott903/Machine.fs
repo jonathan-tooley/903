@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 // Elliott 900 CENTRAL PROCESSING UNIT
 
@@ -81,7 +81,7 @@ module Sim900.Machine
             EnableInitialInstructions ()
             WriteMem 1 0
             WriteMem 0 0
-            oldSequenceControlRegister <- 0
+            oldSCR <- 0
             digitalWrite 6 pinValue.High
 
         let turnOn () =
@@ -127,13 +127,13 @@ module Sim900.Machine
         let SaveSB () = // save S and B register for current interrupt level
             scrAddr <- (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
-            memory.[scrAddr] <- sequenceControlRegister    
+            memory.[scrAddr] <- SCR    
               
         let RestoreSB () = // restore S and B register for current interrupt level
             scrAddr <-  (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
-            let SCR = memory.[scrAddr] // includes H bit
-            sequenceControlRegister <- SCR &&& mask17
+            let scr = memory.[scrAddr] // includes H bit
+            SCR <- scr &&& mask17
 
         let DisableInitialInstructions () =
             initialInstructionsEnabled <- false 
@@ -198,10 +198,10 @@ module Sim900.Machine
                 then // apply B modification - Q is affected
                      let m = N + memory.[bRegisterAddr]
                      qRegister <- N                                           
-                     let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
+                     let mm = (m+(oldSCR &&& aModuleMask)) &&& mask16
                      (mm, mm)       
                 else 
-                      let mm = N+(oldSequenceControlRegister &&& aModuleMask)
+                      let mm = N+(oldSCR &&& aModuleMask)
                       (mm, mm)            
             
             // Helper functions for jump instructions
@@ -254,13 +254,13 @@ module Sim900.Machine
                          then ignore ()
                          elif accumulator > 0 
                          then ignore ()
-                         else sequenceControlRegister <- MJump                           
+                         else SCR <- MJump                           
 
                 |  8  -> // jump unconditional
                          // S:=M
                          // Q affected (920A only)
                          // M is always relative
-                         sequenceControlRegister <- MJump
+                         SCR <- MJump
                         
                 |  9  -> // jump if negative
                          // if A<0 then S:=M; 
@@ -270,7 +270,7 @@ module Sim900.Machine
             
                          if   accumulator < bit18 
                          then ignore ()
-                         else sequenceControlRegister <- MJump
+                         else SCR <- MJump
 
                 | 10  -> // count in store
                          // m:=m+1
@@ -279,8 +279,8 @@ module Sim900.Machine
                 | 11  -> // store Sequence Control Register
                          // m[13..1]:=(S+1)[13..1]; Q[17..14]:=(S+1)[17..14]; Q[13..1]:=0
                          // S[16..14] for machines before 920C
-                         qRegister   <- sequenceControlRegister &&& aModuleMask
-                         WriteMem M (sequenceControlRegister &&& operandMask)
+                         qRegister   <- SCR &&& aModuleMask
+                         WriteMem M (SCR &&& operandMask)
 
                 | 12  -> // fixed point multiply 
                          // (A,Q[18..2]):=A*m; Q1:=1 if A<0 otherwise 0
@@ -350,14 +350,14 @@ module Sim900.Machine
                          | 7169  -> // test standardized: 
                                                 // skip next instruction if A > 0.5 or A < -0.5 or A = 0
                                                 if   accumulator = 0 || (accumulator &&& bit17) <> 0 
-                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+                                                then SCR <- (SCR+1) &&& mask17
 
                          | 7170  -> // increment and skip
                                                 // B := B+1; skip next instruction if B[13..1] = 0
                                                 let inc = memory.[bRegisterAddr] + 1
                                                 memory.[int bRegisterAddr] <- inc
                                                 if   inc &&& mask13 = 0 
-                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+                                                then SCR <- (SCR+1) &&& mask17
 
 
                          | 7171  -> // read word generator
@@ -454,11 +454,6 @@ module Sim900.Machine
             then System.Environment.CurrentDirectory <- d
             else raise (Syntax (sprintf "Cannot open directory %s" d))
             
-
-
-
-
-
 
     let EnterSwitch() = 
                     WordSwitch()
@@ -600,10 +595,10 @@ module Sim900.Machine
             let oldLevel = interruptLevel // 15 7168 might change the interrupt level
 
             // SCR is incremented after instruction fetch, before decode
-            oldSequenceControlRegister <- sequenceControlRegister
-            sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
+            oldSCR <- SCR
+            SCR <- (oldSCR+1) &&& mask17
             try
-                    Execute (ReadMem oldSequenceControlRegister) 
+                    Execute (ReadMem oldSCR) 
             with
             | exn -> status <- machineMode.Stopped
             
@@ -790,7 +785,7 @@ module Sim900.Machine
                                       levelActive.[1] <- true    
                                       EnableInitialInstructions () 
                                       WordSwitch ()
-                                      sequenceControlRegister <- (WGet () &&& mask13)
+                                      SCR <- (WGet () &&& mask13)
                                       status <- machineMode.Restarting
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running

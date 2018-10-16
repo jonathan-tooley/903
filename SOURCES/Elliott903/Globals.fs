@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Globals
 
@@ -8,8 +8,8 @@ module Sim900.Globals
     let mutable qRegister                  = 0       // extension accumulator
     let mutable bRegisterAddr              = 1       // index register
     let mutable scrAddr                    = 0       // sequence control register in memory
-    let mutable sequenceControlRegister    = 0       // 
-    let mutable oldSequenceControlRegister = 0       // copy of SCR before incremented in instruction decode
+    let mutable SCR    = 0       // 
+    let mutable oldSCR = 0       // copy of SCR before incremented in instruction decode
     let mutable iRegister                  = 0       // function code
     let mutable pRegister                  = 0       // peripheral i/o
     let mutable wordGenerator              = 0       // setting of keys on control panel
@@ -89,8 +89,8 @@ module Sim900.Globals
     //let QPut value  = qRegister   <- value &&& mask18
     let BGet ()     = memory.[int bRegisterAddr] 
     //let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
-    //let SGet ()     = sequenceControlRegister
-    let OldSGet ()  = oldSequenceControlRegister
+    //let SGet ()     = SCR
+    let OldSGet ()  = oldSCR
     let IGet ()     = iRegister
     let WGet ()     = wordGenerator
     let WPut value  = wordGenerator <- value &&& mask18
