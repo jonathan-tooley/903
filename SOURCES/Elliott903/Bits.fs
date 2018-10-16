@@ -1,4 +1,4 @@
-﻿
+
 module Sim900.Bits
 
    open Sim900.Globals
@@ -97,6 +97,12 @@ module Sim900.Bits
        port.NewLine <- " "
        port.Open ()
        port.ReadTimeout     <- 250
+
+   let MessagePut item = // output a simulator message
+        if System.Console.CursorLeft > 0 then printfn ""
+                                              //port.WriteLine("\r\n")
+        printfn "SIM900: %s" item
+        //port.WriteLine (sprintf "SIM900: %s \r\n" item)
 
    let setupPins () =
        pinMode 28 pinType.Input     // Setup pin as an input.  This is for the punch to effect a handshake by reporting when it is busy.

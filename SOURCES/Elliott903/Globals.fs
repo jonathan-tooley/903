@@ -258,9 +258,7 @@ module Sim900.Globals
     let mutable SelectInput  = AutoIn
     let mutable SelectOutput = AutoOut
 
-    let MessagePut item = // output a simulator message
-        if System.Console.CursorLeft > 0 then printfn ""
-        printfn "SIM900: %s" item
+
 
 
     
