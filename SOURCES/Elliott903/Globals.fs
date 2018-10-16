@@ -24,10 +24,10 @@ module Sim900.Globals
 
   
     
-    let mutable CmdButton     = false
-    let mutable I1            = false
-    let mutable I1M           = false
-    let mutable I2            = false
+    let mutable CmdButton     = false //This is for our change directory mechanism
+    let mutable I1            = false //Interrupt button 1
+    let mutable I1M           = false //Interrupt switch 1 set to manual
+    let mutable I2            = false //...
     let mutable I2M           = false
     let mutable I3            = false
     let mutable I3M           = false
@@ -53,7 +53,7 @@ module Sim900.Globals
 
     let not1   =  0X3fffe 
 
-    // Convert from 18 to 32 bit arithmetic
+    // Convert from 32 to 18 bit arithmetic
     let Normalize word = if word >= 131072 then (word%131072)-131072 else word
 
     // Address layout
