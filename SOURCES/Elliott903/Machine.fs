@@ -682,13 +682,19 @@ module Sim900.Machine
                                     else MessagePut ("File type must be .900 or .BIN or .RLB")
                                     ReleaseIO ()
         | ioOperation.PunchD     -> ClosePunch  ()
-                                    
-
         | ioOperation.Delete     -> fn <- GetFileName ()
                                     Delete fn
-        | ioOperation.Runout     -> while (operation = Runout) do
+        | ioOperation.Runout     -> let mutable lamp = 0
+                                    ConnectIO ()
+                                    lamp <- I2CRead IOU1 Register.GPIOB
+                                    I2CWrite IOU1 Register.OLATB (lamp ||| 0b00000010)
+                                    ReleaseIO()
+                                    while (operation = Runout) do
                                         punchByte (byte 0)
                                         ClearIOInt ()
+                                    ConnectIO()
+                                    I2CWrite IOU1 Register.OLATB lamp
+                                    ReleaseIO()
         | ioOperation.RdrIn      -> MessagePut  ("Selecting Input PTR")
                                     let mutable lamp = 0
                                     SelectInput <- Input.ReaderIn
@@ -709,7 +715,8 @@ module Sim900.Machine
                                     ReleaseIO ()
         | ioOperation.AutIn      -> MessagePut ("Selecting Input Auto")
                                     SelectInput <- Input.AutoIn
-
+        | ioOperation.Read       -> ignore()
+        | ioOperation.Stop       -> ignore()
         | ioOperation.PncOut     -> MessagePut  ("Selecting Output Punch")
                                     let mutable lamp = 0
                                     SelectOutput <- Output.PunchOut
@@ -730,29 +737,6 @@ module Sim900.Machine
                                     ReleaseIO ()
         | ioOperation.AutOut     -> MessagePut ("Selecting Output Auto")
                                     SelectOutput <- Output.AutoOut                               
-        | ioOperation.Stop       -> match SelectOutput with
-                                    | Output.AutoOut        -> MessagePut  ("Selecting Output TTY")
-                                                               SelectOutput <- Output.TeleprinterOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b00010000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-                                    | Output.TeleprinterOut -> MessagePut  ("Selecting Output PTP")
-                                                               SelectOutput <- Output.PunchOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b01000000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-                                    | Output.PunchOut       -> MessagePut  ("Selecting Output Auto")
-                                                               SelectOutput <- Output.AutoOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b01010000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-
         | ioOperation.NoOp       -> ignore ()
         operation <- ioOperation.NoOp
 
@@ -816,7 +800,6 @@ module Sim900.Machine
                                       if iCount %  100L = 0L then DisplayRegisters ()
                                                                   RunIOOp ()
                 
-                if (interrupt = Interrupt.PanelInterrupt) then ClearPanelInt ()
                 
 
 
