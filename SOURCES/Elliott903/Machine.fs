@@ -626,10 +626,10 @@ module Sim900.Machine
             | Reset                 -> MessagePut "Status changed to Reset"
             | Stopped               -> MessagePut "Status changed to Stopped"
             | Cycle                 -> MessagePut "Status Changed to Cycle"
-            | ObeyStopped           -> MessagePut "Status Changed to Obey"
-            | RepeatObeyStopped     -> MessagePut "Status Changed to Obey (Repeat)"
-            | EnterStopped          -> MessagePut "Status Changed to Enter"
-            | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"    
+            | Obey                  -> MessagePut "Status Changed to Obey"
+            | RepeatObey            -> MessagePut "Status Changed to Obey (Repeat)"
+            | Enter                 -> MessagePut "Status Changed to Enter"
+            | RepeatEnter           -> MessagePut "Status Changed to Enter (Repeat)"    
             | Jump                  -> MessagePut "Status changed to Jump"
             | Restarting            -> MessagePut "Status Changed to Restarting"
             | Running               -> MessagePut "Status Changed to Running"
@@ -770,13 +770,13 @@ module Sim900.Machine
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running
                                       panelLights      ()
-                | EnterStopped    ->  status <- machineMode.Stopped
+                | Enter           ->  status <- machineMode.Stopped
                                       EnterSwitch ()
-                | RepeatEnterStopped
+                | RepeatEnter
                                   ->  EnterSwitch ()
-                | ObeyStopped     ->  status <- machineMode.Stopped
+                | Obey            ->  status <- machineMode.Stopped
                                       ObeySwitch ()
-                | RepeatObeyStopped
+                | RepeatObey
                                   ->  ObeySwitch ()
                 | Cycle           ->  NextInstruction ()
                                       status <- machineMode.Stopped

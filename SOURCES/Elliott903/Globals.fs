@@ -111,10 +111,10 @@ module Sim900.Globals
        | Stopped                 // Machine is Stopped but can be restarted 
        | Jump                    // Machine will jump to address set on the word generator
        | Restarting              // Machine is moving to Cycle or Running depending on cycle mode
-       | ObeyStopped             // Machine will obey an instruction and return to Stopped
-       | RepeatObeyStopped       // Machine will obey an instruction repeatedly and return to Stopped
-       | EnterStopped            // Machine will enter a word and return to Stopped
-       | RepeatEnterStopped      // Machine will repeatedly enter a word and return to Stopped
+       | Obey                    // Machine will obey an instruction and return to Stopped
+       | RepeatObey              // Machine will obey an instruction repeatedly and return to Stopped
+       | Enter                   // Machine will enter a word and return to Stopped
+       | RepeatEnter             // Machine will repeatedly enter a word and return to Stopped
        | Cycle
        | Running
 

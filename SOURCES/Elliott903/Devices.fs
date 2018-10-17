@@ -26,10 +26,10 @@ module Sim900.Devices
         |     machineMode.Stopped    
         |     machineMode.Jump
         |     machineMode.Restarting 
-        |     machineMode.ObeyStopped
-        |     machineMode.RepeatObeyStopped
-        |     machineMode.EnterStopped
-        |     machineMode.RepeatEnterStopped
+        |     machineMode.Obey
+        |     machineMode.RepeatObey
+        |     machineMode.Enter
+        |     machineMode.RepeatEnter
         |     machineMode.Cycle      
         |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 ) //On light
    
