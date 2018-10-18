@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Devices
 
@@ -57,10 +57,10 @@ module Sim900.Devices
     
     let DisplayB () =
             ConnectDisplay ()
-            I2CWrite DisplayU2      (Register.OLATB ) (int (BGet())       &&& mask8)
-            I2CWrite DisplayU2      (Register.OLATA ) (int (BGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU2      (Register.OLATB ) (memory.[int bRegisterAddr] &&& mask8)
+            I2CWrite DisplayU2      (Register.OLATA ) (memory.[int bRegisterAddr] >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11001111) ||| ((BGet() &&& 0b110000000000000000) >>> 12)
+            shown <- (shown &&& 0b11001111) ||| ((memory.[int bRegisterAddr]  &&& 0b110000000000000000) >>> 12)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
