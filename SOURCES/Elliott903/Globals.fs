@@ -87,13 +87,9 @@ module Sim900.Globals
 
 
          // ACCESS REGISTERS
-    let AGet ()     = accumulator 
     let APut value  = accumulator <- value &&& mask18
     let QGet ()     = qRegister 
-    //let QPut value  = qRegister   <- value &&& mask18
     let BGet ()     = memory.[int bRegisterAddr] 
-    //let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
-    //let SGet ()     = SCR
     let OldSGet ()  = oldSCR
     let IGet ()     = iRegister
     let WGet ()     = wordGenerator
