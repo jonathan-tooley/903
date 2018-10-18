@@ -142,7 +142,7 @@ module Sim900.FileHandling
             port.WriteLine "\r\n>:  "
             port.DiscardInBuffer ()
             while (ch <> 13 && ch <> 0) do
-                   ch <- readTTYint ()
+                   ch <- readTTYchar ()
                    str.Append (char ch)   |> ignore
             if (ch =13) then str.Remove(str.Length - 1, 1) |> ignore
                              str.ToString ()

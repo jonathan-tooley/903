@@ -735,8 +735,6 @@ module Sim900.Machine
         | ioOperation.NoOp       -> ignore ()
         operation <- ioOperation.NoOp
 
-
-
     let Processor () =
             panelLights()
             ROOLights  ()

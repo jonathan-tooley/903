@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Devices
 
@@ -10,7 +10,7 @@ module Sim900.Devices
     exception Device of string
 
     let ROOLights () =
-        //This function updates the Reser, On and Off lights.  
+        //This function updates the Reset, On and Off lights.  
         //It is separate because it is only called when we need to change one of these three
         ConnectPanel ()
         match status with
@@ -298,8 +298,7 @@ module Sim900.Devices
             I2CWrite IOU2 Register.OLATA 0b11101111
             ReleaseIO ()
 
- 
-    let readTTYint () =
+    let readTTYchar () =
             let mutable ch:int = 0
             ttyDemand <- true
             ConnectIO ()
