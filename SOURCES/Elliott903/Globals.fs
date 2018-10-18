@@ -88,7 +88,6 @@ module Sim900.Globals
 
          // ACCESS REGISTERS
     let BGet ()     = memory.[int bRegisterAddr] 
-    let OldSGet ()  = oldSCR
     let WPut value  = wordGenerator <- value &&& mask18
 
     let mutable readerholdUp      = true       // true when io blocked

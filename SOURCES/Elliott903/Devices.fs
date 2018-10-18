@@ -66,10 +66,10 @@ module Sim900.Devices
 
     let DisplayS () =
             ConnectDisplay ()
-            I2CWrite DisplayU5      (Register.OLATB ) (int (OldSGet())       &&& mask8)
-            I2CWrite DisplayU5      (Register.OLATA ) (int (OldSGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU5      (Register.OLATB ) (oldSCR &&& mask8)
+            I2CWrite DisplayU5      (Register.OLATA ) (oldSCR >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11001111) ||| ((OldSGet() &&& 0b110000000000000000) >>> 10)
+            shown <- (shown &&& 0b11001111) ||| ((oldSCR &&& 0b110000000000000000) >>> 10)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
