@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Globals
 
@@ -90,7 +90,7 @@ module Sim900.Globals
     let BGet ()     = memory.[int bRegisterAddr] 
     let OldSGet ()  = oldSCR
     let IGet ()     = iRegister
-    let WGet ()     = wordGenerator
+    //let WGet ()     = wordGenerator
     let WPut value  = wordGenerator <- value &&& mask18
 
     let mutable readerholdUp      = true       // true when io blocked

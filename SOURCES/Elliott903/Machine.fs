@@ -165,7 +165,7 @@ module Sim900.Machine
                     PanelInput <- PanelInput ||| (I2CRead PanelU2 (Register.GPIOA) <<< 2)
                     // Read from U1 bank B the final two bits, 2 and 1
                     PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
-                    if WGet () <> PanelInput && not (operate = mode.Auto)
+                    if wordGenerator <> PanelInput && not (operate = mode.Auto)
                        then WPut PanelInput
                     ReleasePanel ()
 
@@ -372,7 +372,7 @@ module Sim900.Machine
 
                          | 7171  -> // read word generator
                                                 WordSwitch ()
-                                                accumulator <- WGet()
+                                                accumulator <- wordGenerator
 
                          | 7172  -> // A to Q; Q[18..2] := A[17..1]
                                                 qRegister <- (accumulator <<< 1) &&& mask18
@@ -466,14 +466,14 @@ module Sim900.Machine
 
     let EnterSwitch() = 
                     WordSwitch()
-                    accumulator <- WGet() &&& mask18
+                    accumulator <- wordGenerator
                     DisplayA ()
                     ROOLights ()
 
 
     let ObeySwitch() = 
                     WordSwitch ()
-                    Execute (WGet())
+                    Execute (wordGenerator)
                     DisplayRegisters ()
                     ROOLights ()
                     
@@ -763,7 +763,7 @@ module Sim900.Machine
                                       levelActive.[1] <- true    
                                       EnableInitialInstructions () 
                                       WordSwitch ()
-                                      SCR <- (WGet () &&& mask13)
+                                      SCR <- (wordGenerator &&& mask13)
                                       status <- machineMode.Restarting
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running
