@@ -118,13 +118,13 @@ module Sim900.Devices
                     I2CWrite PanelU1 (Register.OLATB) ( PanelOutput )
 
                     // Display the current Interrupt level
-                    if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
+                    if on() && (interruptLevel = 3 || (levelActive.[3] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
                                                           else InterruptDisp <- InterruptDisp &&& 0b11111101
 
-                    if on() && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
+                    if on() && (interruptLevel = 2 || (levelActive.[2] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
                                                           else InterruptDisp <- InterruptDisp &&& 0b11101111
 
-                    if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
+                    if on() && (interruptLevel = 1 || (levelActive.[1] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     I2CWrite PanelU3 (Register.OLATB) InterruptDisp

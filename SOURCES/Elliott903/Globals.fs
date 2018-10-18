@@ -216,11 +216,6 @@ module Sim900.Globals
     // NB use of five elements in following vectors is laziness to simplify initialization.
     let levelActive      = [|false; true;  false; false; false|] // true if level n is runnable
 
-    let L1Get()     = levelActive.[1]
-    let L2Get()     = levelActive.[2]
-    let L3Get()     = levelActive.[3]
-    let LGet ()     = interruptLevel 
-
     let interruptPending = [|false; false; false; false; false|] // true if interrupt pending 
                                                                  // on level 1-3
     let interruptTrace   = [|false; false; false; false; false|] // true if trace interrupt set 
