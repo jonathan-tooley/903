@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Globals
 
@@ -87,7 +87,6 @@ module Sim900.Globals
 
 
          // ACCESS REGISTERS
-    let QGet ()     = qRegister 
     let BGet ()     = memory.[int bRegisterAddr] 
     let OldSGet ()  = oldSCR
     let IGet ()     = iRegister

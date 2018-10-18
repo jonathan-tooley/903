@@ -48,10 +48,10 @@ module Sim900.Devices
 
     let DisplayQ () =
             ConnectDisplay ()
-            I2CWrite DisplayU4      (Register.OLATB ) (int (QGet())       &&& mask8)
-            I2CWrite DisplayU4      (Register.OLATA ) (int (QGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU4      (Register.OLATB ) (int (qRegister)       &&& mask8)
+            I2CWrite DisplayU4      (Register.OLATA ) (int (qRegister) >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11110011) ||| ((QGet() &&& 0b110000000000000000) >>> 14)
+            shown <- (shown &&& 0b11110011) ||| ((qRegister &&& 0b110000000000000000) >>> 14)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
     
