@@ -86,8 +86,6 @@ module Sim900.Globals
     let mutable tapeloaded    = false
 
 
-         // ACCESS REGISTERS
-    let WPut value  = wordGenerator <- value &&& mask18
 
     let mutable readerholdUp      = true       // true when io blocked
     let mutable ttyDemand         = false

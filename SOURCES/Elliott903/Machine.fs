@@ -166,7 +166,7 @@ module Sim900.Machine
                     // Read from U1 bank B the final two bits, 2 and 1
                     PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
                     if wordGenerator <> PanelInput && not (operate = mode.Auto)
-                       then WPut PanelInput
+                       then wordGenerator <- PanelInput &&& mask18
                     ReleasePanel ()
 
         // INSTRUCTION DECODING          
