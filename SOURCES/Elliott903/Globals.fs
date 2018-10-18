@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Globals
 
@@ -83,12 +83,6 @@ module Sim900.Globals
     
     let memorySize    = 16384
     let memory: int[] = Array.zeroCreate (memorySize)
-    let mutable tapeloaded    = false
-
-
-
-    let mutable readerholdUp      = true       // true when io blocked
-    let mutable ttyDemand         = false
    
     type machineMode =
        | Dead                    // Emulator ends when status is set to dead
@@ -124,12 +118,10 @@ module Sim900.Globals
        | TTYOut
        | AutOut
 
-
     type Interrupt = 
         | PanelInterrupt = 1
         | IOInterrupt    = 2
         | None           = 0
-
 
     type pinType  =
        | Input          = 0
@@ -220,6 +212,7 @@ module Sim900.Globals
 
     type ReaderDevice =
         |Attached
+        |Unloaded
         |MechanicalR
 
     let mutable ActiveReader = MechanicalR

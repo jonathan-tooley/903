@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Devices
 
@@ -302,6 +302,7 @@ module Sim900.Devices
               pRegister <- Z
               match ActiveReader with
               | MechanicalR   -> readPTRcharM ()
+              | Unloaded      -> ignore () //****
               | Attached      -> readPTRcharA () 
 
     let PTPOutput Z =
