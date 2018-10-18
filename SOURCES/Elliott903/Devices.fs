@@ -81,7 +81,7 @@ module Sim900.Devices
             |Stopped           -> shown <- shown ||| 0b01000000
             |_                 -> ignore ()
 
-            shown <- int (IGet()) &&& mask4 ||| shown 
+            shown <- iRegister &&& mask4 ||| shown 
             I2CWrite DisplayU3      (Register.OLATA ) (shown)
             ReleaseDisplay ()
 
