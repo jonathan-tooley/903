@@ -466,7 +466,7 @@ module Sim900.Machine
 
     let EnterSwitch() = 
                     WordSwitch()
-                    APut (WGet())
+                    accumulator <- WGet() &&& mask18
                     DisplayA ()
                     ROOLights ()
 
