@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Devices
 
@@ -131,12 +131,9 @@ module Sim900.Devices
                     ReleasePanel ()
    
 
-    module private PaperTapeReader =
-        let mutable tapeIn: byte[] option = None 
-        let mutable tapeInPos = 0  
+    let mutable tapeIn: byte[] option = None 
+    let mutable tapeInPos = 0  
 
-    open PaperTapeReader    
-              
     let OpenReaderBin fileName = 
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
@@ -150,24 +147,7 @@ module Sim900.Devices
         tapeIn <- Some (TranslateFromText text)
         tapeInPos <- 0 
         ActiveReader <- Attached
-                 
-    let GetReaderChar () = // get a character from the paper tape reader
-           let ti =
-               match tapeIn with
-               | Some ti   -> ti
-               | _         -> raise (Device "No input attached to tape reader")
-           if  tapeInPos >= ti.Length then let code = byte 0
-                                           ActiveReader <- MechanicalR
-                                           ConnectIO ()
-                                           let mutable lamp = 0
-                                           lamp <- (lamp &&& 11111011) ||| 0b00000001
-                                           I2CWrite IOU2 Register.OLATA lamp
-                                           ReleaseIO ()
-                                           code
-                                      else let code = ti.[tapeInPos]
-                                           tapeInPos <- tapeInPos+1
-                                           code
-
+                     
     let CloseReader () = 
         // Close tape reader - clear buffer and reset character position
         tapeIn <- None 
@@ -180,22 +160,13 @@ module Sim900.Devices
         I2CWrite IOU2 Register.OLATA lamp
         ReleaseIO ()
 
-
-    module private PaperTapePunch =
-
-        let mutable punchStream: StreamWriter option = None
-        let mutable punchOutPos    = 0
-        let mutable punchHoldUp    = false
-
-    open PaperTapePunch
-    open System.Runtime.Remoting
-    open System.Runtime.CompilerServices
-    open Sim900
-    open System.Linq.Expressions
-
+    let mutable punchStream: StreamWriter option = None
+    let mutable punchOutPos    = 0
+    let mutable punchHoldUp    = false
+    
     let mutable handShake = pinValue.High
    
-    let punchByte (char : byte) =
+    let punchPTPcharM (code: byte) =
              let mutable i = 0
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 28
@@ -206,7 +177,7 @@ module Sim900.Devices
              i <-0; while (i < 1000) do i <- i + 1
              // Then we set up the data on the mcp pins
              ConnectPunch ()    
-             I2CWrite plotterPort   (Register.OLATA) (int char)
+             I2CWrite plotterPort   (Register.OLATA) (int code )
              ReleasePunch ()
              i <-0; while (i < 1000) do i <- i + 1
              // Then we send a commit instruction to the punch
@@ -216,24 +187,23 @@ module Sim900.Devices
              // Then we can stop telling to write as it has started working on our command
              i <-0; while (i < 1000) do i <- i + 1
              digitalWrite 29 pinValue.Low
-            
-         
-            
-        
-    let PutPunchChar (code: byte) = // output a character to the punch
-        match (punchStream, ActivePunch) with
-        | (Some (sw), Attached900)  -> sw.Write (UTFOf code)     // output as UTF character
-        | (Some (sw), AttachedBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
-                                       punchOutPos <- (punchOutPos+1)%20
-                                       if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), MechanicalP)  -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
-        | (None, _)          -> punchByte code
+               
+    let PunchPTPcharA (code: byte) = // output a character to the punch
+        let sw = match punchStream with
+                 | Some (sw) -> sw        
+                 | _         -> null
+        match ActivePunch with
+        |  Attached900  -> sw.Write (UTFOf code)     // output as UTF character
+        |  AttachedBin  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
+                           punchOutPos <- (punchOutPos+1)%20
+                           if punchOutPos = 0 then sw.WriteLine ()
+        | MechanicalP   -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
     
                          
     let ClosePunch () = 
         // close punch output file if open, otherwise does nothing.
         match punchStream with
-        | Some (sw) -> if ActivePunch = AttachedBin then for i=1 to 30 do PutPunchChar 0uy        
+        | Some (sw) -> if ActivePunch = AttachedBin then for i=1 to 30 do PunchPTPcharA 0uy        
                        sw.Close ()
         | _         -> () 
         punchOutPos <- 0
@@ -257,29 +227,35 @@ module Sim900.Devices
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
         ActivePunch <- AttachedBin
-        for i=1 to 20 do PutPunchChar 0uy
+        for i=1 to 20 do PunchPTPcharA 0uy
     
     // GENERAL FUNCTIONS
     let TidyUpDevices () =
             CloseReader ()
             ClosePunch ()
 
-    let ReaderInput Z =
-            pRegister <- Z
-            if status <> Reset
-            then try // reset SCR if error signalled
+    let GetReaderChar () = // get a character from the paper tape reader
+           let ti =
+               match tapeIn with
+               | Some ti   -> ti
+               | _         -> raise (Device "No input attached to tape reader")
+           if  tapeInPos >= ti.Length then let code = byte 0
+                                           ActiveReader <- MechanicalR
+                                           ConnectIO ()
+                                           let mutable lamp = 0
+                                           lamp <- (lamp &&& 11111011) ||| 0b00000001
+                                           I2CWrite IOU2 Register.OLATA lamp
+                                           ReleaseIO ()
+                                           code
+                                      else let code = ti.[tapeInPos]
+                                           tapeInPos <- tapeInPos+1
+                                           code
+
+    let readPTRcharA () =
                     let ch = int (GetReaderChar ())
                     accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
-                 with
-                 | e -> SCR <- oldSCR
-                        raise e
-            else  accumulator <- accumulator <<< 7 
-
-    let PunchOutput Z =
-            pRegister <- Z
-            PutPunchChar (byte (accumulator &&& mask8))  
-
-    let readByte char =
+                          
+    let readPTRcharM () =
             readerByte <- -1  
             ConnectIO ()
             I2CWrite IOU2 Register.OLATB 0b00000001
@@ -322,23 +298,24 @@ module Sim900.Devices
             ReleaseIO ()
             ch
 
-    let readTTYchar () = char (readTTYint ())
+    let PTRInput Z =
+              pRegister <- Z
+              match ActiveReader with
+              | MechanicalR   -> readPTRcharM ()
+              | Attached      -> readPTRcharA () 
 
-    let BitCount code =
-           let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
-           let rec Shift residual =
-               if   residual = 0
-               then 0
-               else count.[residual &&& 0xf] + Shift (residual >>> 4)
-           Shift code
-
-    let OddParity code = ((BitCount code) &&& bit1) = bit1  
+    let PTPOutput Z =
+              pRegister <- Z
+              match ActivePunch with
+              | MechanicalP   -> punchPTPcharM (byte (accumulator &&& mask8)) 
+              | Attached900   -> ignore() //****
+              | AttachedBin   -> ignore() //****
 
     let TTYInput Z =
               pRegister <- Z
               let mutable ch = 0
               ttyDemand <- true
-              ch <- readTTYint ()
+              ch <- readTTYchar ()
               ch <- (if OddParity ch then bit8 ||| ch else ch)
               accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
               DisplayA ()
@@ -348,30 +325,31 @@ module Sim900.Devices
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
             port.Write (System.String.Concat( char (accumulator &&& mask7)))
 
+     // The processor can call one of these four functions for IO
+     // Depending on the selector switches and attached status this
+     // code will marshal different routines
+
     let Reader Z = 
-            match SelectInput, ActiveReader with
-            | ReaderIn, MechanicalR      -> readByte Z
-            | ReaderIn, Attached         -> ReaderInput Z
-            | AutoIn,   MechanicalR      -> readByte Z
-            | AutoIn,   Attached         -> ReaderInput Z
-            | TeleprinterIn, _           -> TTYInput Z
+            match SelectInput with
+            | ReaderIn
+            | AutoIn                -> PTRInput Z
+            | TeleprinterIn         -> TTYInput Z
 
     let TTYIn Z =
-            match SelectInput, ActiveReader with
-            | ReaderIn, MechanicalR     -> readByte Z
-            | ReaderIn, Attached        -> ReaderInput Z
-            | AutoIn, _
-            | TeleprinterIn, _          -> TTYInput Z
+            match SelectInput with
+            | ReaderIn              -> PTRInput Z
+            | AutoIn        
+            | TeleprinterIn         -> TTYInput Z
 
     let Punch Z =
             match SelectOutput with
-            | PunchOut        
-            | AutoOut         -> PunchOutput (accumulator &&& mask8)
-            | TeleprinterOut  -> TTYOutput Z
+            | PunchOut      
+            | AutoOut               -> PTPOutput Z
+            | TeleprinterOut        -> TTYOutput Z
 
     let TTYOut Z =
             match SelectOutput with
-            | PunchOut        -> PunchOutput (accumulator &&& mask8)
-            | AutoOut
-            | TeleprinterOut  -> TTYOutput Z
+            | PunchOut              -> PTPOutput Z
+            | AutoOut      
+            | TeleprinterOut        -> TTYOutput Z
  

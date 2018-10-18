@@ -685,7 +685,7 @@ module Sim900.Machine
                                     I2CWrite IOU1 Register.OLATB (lamp ||| 0b00000010)
                                     ReleaseIO()
                                     while (operation = Runout) do
-                                        punchByte (byte 0)
+                                        punchPTPcharM (byte 0)
                                         ClearIOInt ()
                                     ConnectIO()
                                     I2CWrite IOU1 Register.OLATB lamp
