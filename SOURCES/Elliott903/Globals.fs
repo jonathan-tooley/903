@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Globals
 
@@ -26,6 +26,8 @@ module Sim900.Globals
 
     let mutable PG1a = 0
     let mutable PG1b = 0
+    let mutable PG3a = 0
+    let mutable PG3b = 0
     let mutable PG4  = 0
     let mutable IG1a = 0
     let mutable IG1b = 0 
