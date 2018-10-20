@@ -31,8 +31,6 @@ module Sim900.Bits
      extern int wiringPiI2CReadReg8  (int fd, Register reg);
 
    open wiringPi
-   open System.IO.Ports
-   open Sim900
 
    let wiringPiSetup                    = wiringPiSetup        ()
    let pinMode pin mode                 = pinMode              (pin, mode)
@@ -248,6 +246,8 @@ module Sim900.Bits
        // 3 : Jump push button                                           |  |  |  |  |  | 1|  |  |
        // 2 : WG Switch 2                                                |  |  |  |  |  |  | 1|  |
        // 1 : WG Switch 1                                                |  |  |  |  |  |  |  | 1|
+       //                                     -------------------------  -------------------------
+       //                                       0  1  0  1  0  1  1  1     0  1  0  1  0  1  1  1
 
        // U1 Outputs
        //28 : Reset button indicator          | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -269,22 +269,22 @@ module Sim900.Bits
        I2CWrite PanelU1 Register.GPINTENB 0b01010100  //Set up stop, restart and jump for interrupt
 
        // U2 Inputs
-       //28 : 512   Bit 10
-       //27 : 256   Bit  9
-       //26 : 128   Bit  8
-       //25 : 64    Bit  7
-       //24 : 32    Bit  6
-       //23 : 16    Bit  5
-       //22 : 8     Bit  4
-       //21 : 4     Bit  3
-       // 8 : /     Bit 18
-       // 7 : 8     Bit 17
-       // 6 : 4     Bit 16
-       // 5 : 2     Bit 15
-       // 4 : 1     Bit 14
-       // 3 : 4096  Bit 13
-       // 2 : 2048  Bit 12
-       // 1 : 1024  Bit 11
+       //28 : WG 512   Bit 10
+       //27 : WG 256   Bit  9
+       //26 : WG 128   Bit  8
+       //25 : WG 64    Bit  7
+       //24 : WG 32    Bit  6
+       //23 : WG 16    Bit  5
+       //22 : WG 8     Bit  4
+       //21 : WG 4     Bit  3
+       // 8 : WG /     Bit 18
+       // 7 : WG 8     Bit 17
+       // 6 : WG 4     Bit 16
+       // 5 : WG 2     Bit 15
+       // 4 : WG 1     Bit 14
+       // 3 : WG 4096  Bit 13
+       // 2 : WG 2048  Bit 12
+       // 1 : WG 1024  Bit 11
 
        // Setup Registers for GPIO U2
        I2CWrite PanelU2 Register.IODIRA  0b11111111 //Bank A is all inputs
@@ -309,6 +309,8 @@ module Sim900.Bits
        //GPB3  IR 2 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
        //GPB2  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPB0  IR 3 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
+       //                                     -------------------------  -------------------------
+       //                                       1  1  1  1  1  1  0  0     0  1  0  0  1  0  0  1
 
        // U3 Outputs
        //GPB7  IR 1 Led                       |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |
@@ -333,6 +335,8 @@ module Sim900.Bits
        //GP2 nc                               |  |  |  |  |  |  |  |  | 
        //GP1 Cycle Stop                       |  |  |  |  |  |  | 1|  | 
        //GP0 Order Stop                       |  |  |  |  |  |  |  | 1| 
+       //                                     -------------------------
+       //                                       1  1  1  1  1  0  1  1
 
        // Setup registers for GPIO U4
        I2CWrite PanelU4 Register.IODIR   0b11111011 //Bank A inputs
@@ -392,23 +396,23 @@ module Sim900.Bits
        IOU1 <- I2CSetup 0x20
        IOU2 <- I2CSetup 0x21
 
-       //U1A Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //U1 Inputs:                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPA1 Delete Sw                       |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
        //GPA3 List Sw                         |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA4 Input TTY                       |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA5 Input RDR                       |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA7 Output TTY                      | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //U1A Outputs:
-       //GPA0 Delete Led                      |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
-       //GPA2 List Led                        |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
-       //GPA6 TTY Demand                      |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-     
-       //U1B Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPB0 Output PCH                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
        //GPB2 Runout Sw                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |
        //GPB4 Punch Attach                    |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |
        //GPB6 Punch Detach                    |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |
-       //U1B Outputs:
+       //                                     -------------------------  -------------------------
+       //                                       1  0  1  1  1  0  1  0     0  1  0  1  0  1  0  1
+
+       //U1 Outputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //GPA0 Delete Led                      |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
+       //GPA2 List Led                        |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //GPA6 TTY Demand                      |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |            
        //GPB1 Runout Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
        //GPB3 Reload Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
        //GPB5 Punch Led                       |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |
