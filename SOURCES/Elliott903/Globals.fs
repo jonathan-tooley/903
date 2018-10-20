@@ -215,9 +215,10 @@ module Sim900.Globals
     type PunchDevice =
         | Attached900
         | AttachedBin
-        | MechanicalP
+        | MechanicalPLoaded
+        | MechanicalPUnloaded
 
-    let mutable ActivePunch = MechanicalP
+    let mutable ActivePunch = MechanicalPUnloaded
 
     type Input = 
             | ReaderIn

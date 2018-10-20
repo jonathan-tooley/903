@@ -197,7 +197,9 @@ module Sim900.Devices
         |  AttachedBin  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
                            punchOutPos <- (punchOutPos+1)%20
                            if punchOutPos = 0 then sw.WriteLine ()
-        | MechanicalP   -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
+        | MechanicalPLoaded
+        | MechanicalPUnloaded
+                        -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
     
                          
     let ClosePunch () = 
@@ -208,7 +210,7 @@ module Sim900.Devices
         | _         -> () 
         punchOutPos <- 0
         punchStream <- None
-        ActivePunch <- MechanicalP
+        ActivePunch <- MechanicalPUnloaded
         ConnectIO ()
         let mutable lamp = 0
         lamp <- I2CRead IOU1 Register.GPIOB
@@ -306,9 +308,10 @@ module Sim900.Devices
     let PTPOutput Z =
               pRegister <- Z
               match ActivePunch with
-              | MechanicalP   -> punchPTPcharM (byte (accumulator &&& mask8)) 
-              | Attached900   -> ignore() //****
-              | AttachedBin   -> ignore() //****
+              | MechanicalPLoaded   
+              | MechanicalPUnloaded -> punchPTPcharM (byte (accumulator &&& mask8)) 
+              | Attached900         -> ignore() //****
+              | AttachedBin         -> ignore() //****
 
     let TTYInput Z =
               pRegister <- Z
