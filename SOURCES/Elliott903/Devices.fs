@@ -276,7 +276,6 @@ module Sim900.Devices
 
     let readTTYchar () =
             let mutable ch:int = 0
-            ttyDemand <- true
             ConnectIO ()
             let mutable lamp = 0
             lamp <- I2CRead IOU1 Register.GPIOA  
@@ -292,7 +291,6 @@ module Sim900.Devices
                                                         if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
                           | _ -> 0
             ch <- getbyte ()
-            ttyDemand <- false
             ConnectIO ()
             I2CWrite IOU1 Register.OLATA (lamp &&& 0b10111111)
             ReleaseIO ()
@@ -315,7 +313,6 @@ module Sim900.Devices
     let TTYInput Z =
               pRegister <- Z
               let mutable ch = 0
-              ttyDemand <- true
               ch <- readTTYchar ()
               ch <- (if OddParity ch then bit8 ||| ch else ch)
               accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
