@@ -1,4 +1,4 @@
-﻿
+
 module Sim900.Bits
 
    open Sim900.Globals
@@ -210,7 +210,7 @@ module Sim900.Bits
        if (SelectInput  <> Input.AutoIn   && operation = NoOp) then operation <- ioOperation.AutIn
        if (SelectOutput <> Output.AutoOut && operation = NoOp) then operation <- ioOperation.AutOut
        printfn "%i | %i | %i | %i\n"  IG1a IG1b IG2a IG2b
-       interrupt <- Interrupt.None
+       interrupt <- Interrupt.NoInt
        
    let IOHandler () =
        ClearIOInt ()

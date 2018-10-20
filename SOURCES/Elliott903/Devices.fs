@@ -265,7 +265,7 @@ module Sim900.Devices
             digitalWrite 6 pinValue.Low
             while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
                 match interrupt with
-                | Interrupt.None           -> ignore ()
+                | Interrupt.NoInt           -> ignore ()
                 | Interrupt.IOInterrupt    -> ClearIOInt ()
                 | Interrupt.PanelInterrupt -> ClearPanelInt ()
                 | _                        -> ignore ()
@@ -286,7 +286,7 @@ module Sim900.Devices
             let rec getbyte () =
                 try port.ReadByte() 
                 with _ -> match interrupt with
-                          | Interrupt.None           -> getbyte ()
+                          | Interrupt.NoInt          -> getbyte ()
                           | Interrupt.IOInterrupt    -> ClearIOInt ()
                                                         getbyte ()
                           | Interrupt.PanelInterrupt -> ClearPanelInt ()

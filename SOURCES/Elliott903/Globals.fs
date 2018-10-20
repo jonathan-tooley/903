@@ -113,9 +113,12 @@ module Sim900.Globals
        | AutOut
 
     type Interrupt = 
-        | PanelInterrupt = 1
-        | IOInterrupt    = 2
-        | None           = 0
+        | PanelInterrupt
+        | IOInterrupt
+        | I1
+        | I2
+        | I3
+        | NoInt
 
     type pinType  =
        | Input          = 0
@@ -171,7 +174,7 @@ module Sim900.Globals
 
     let mutable status    = machineMode.Off
     let mutable oldstatus = machineMode.Off
-    let mutable interrupt = Interrupt.None   
+    let mutable interrupt = Interrupt.NoInt   
     let mutable operation = ioOperation.NoOp
 
     let on() = match status with
