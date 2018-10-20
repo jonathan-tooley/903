@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Globals
 
@@ -23,12 +23,6 @@ module Sim900.Globals
     let mutable Flash         = false
         
     let mutable CmdButton     = false //This is for our change directory mechanism
-    let mutable I1            = false //Interrupt button 1
-    let mutable I1M           = false //Interrupt switch 1 set to manual
-    let mutable I2            = false //...
-    let mutable I2M           = false
-    let mutable I3            = false
-    let mutable I3M           = false
 
     let mutable PG1a = 0
     let mutable PG1b = 0
@@ -199,11 +193,10 @@ module Sim900.Globals
     let mutable protect                    = false               // set true if interrupts have to be deferred
     // NB use of five elements in following vectors is laziness to simplify initialization.
     let levelActive      = [|false; true;  false; false; false|] // true if level n is runnable
-
     let interruptPending = [|false; false; false; false; false|] // true if interrupt pending 
-                                                                 // on level 1-3
     let interruptTrace   = [|false; false; false; false; false|] // true if trace interrupt set 
-                                                                 // on level 1-3  
+    let interruptManual  = [|false; false; false; false; false|] // true if the switch is set to manual
+    let interruptTrigger = [|false; false; false; false; false|] // true if an interrupt button pressed
 
     type ReaderDevice =
         |Attached
