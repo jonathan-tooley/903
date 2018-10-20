@@ -126,11 +126,6 @@ module Sim900.Globals
     type pinType  =
        | Input          = 0
        | Output         = 1
-       | PWMOutput      = 2
-       | GPIOClock      = 3
-       | SoftPWMOutput  = 4
-       | SoftToneOutput = 5
-       | PWMToneOutput  = 6
 
     type pinValue =
        | High = 1
