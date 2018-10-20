@@ -1,4 +1,4 @@
-
+﻿
 module Sim900.Bits
 
    open Sim900.Globals
@@ -115,14 +115,14 @@ module Sim900.Bits
        pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
        digitalWrite 24 pinValue.Low // Make sure the fan is off
 
-
-
    let ClearPanelInt () =
             ConnectPanel ()
-            PG1a <- (I2CRead PanelU1 (Register.GPIOA))
-            PG1b <- (I2CRead PanelU1 (Register.GPIOB))
+            PG1a <- I2CRead PanelU1 Register.GPIOA
+            PG1b <- I2CRead PanelU1 Register.GPIOB
             PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
-            PG4  <- (I2CRead PanelU4 (Register.GPIO ))
+            PG3a <- I2CRead PanelU3 Register.GPIOA
+            PG3b <- I2CRead PanelU3 Register.GPIOB
+            PG4  <- I2CRead PanelU4 Register.GPIO
             ReleasePanel ()
 
             // Control the On, Off and Reset keys
@@ -166,8 +166,79 @@ module Sim900.Bits
             | (machineMode.Reset  , mode.Operate, 0x04) 
             | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
             |_     -> ignore()
+
+            printfn "%i" PG3a
+
+            if PG3a &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not interruptTrace.[1]
+                        then MessagePut ("Interrupt 1: Trace"); interruptTrace.[1] <- true
+
+            if PG3a &&& 0b00100000 = 0b00100000 && on() && operate = mode.Test && not interruptTrace.[2]
+                        then MessagePut ("Interrupt 2: Trace"); interruptTrace.[2] <- true
+
+            if PG3a &&& 0b10000000 = 0b10000000 && on() && operate = mode.Test && not interruptTrace.[3]
+                        then MessagePut ("Interrupt 3: Trace"); interruptTrace.[3] <- true
+
+            if PG3a &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Manual"); interruptManual.[1] <- true
+
+            if PG3a &&& 0b00010000 = 0b00010000 && on() && operate = mode.Test && not interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Manual"); interruptManual.[2] <- true
+
+            if PG3a &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Manual"); interruptManual.[3] <- true
+
+            if PG3a &&& 0b10000000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[3]
+                        then MessagePut ("Interrupt 3: Online From Trace"); interruptTrace.[3] <-false
+
+            if PG3a &&& 0b01000000 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Online From Manual"); interruptManual.[3] <-false
       
-            interrupt <- Interrupt.None
+            if PG3a &&& 0b00100000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[2]
+                        then MessagePut ("Interrupt 2: Online From Trace"); interruptTrace.[2] <-false
+
+            if PG3a &&& 0b00010000 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Online From Manual"); interruptManual.[2] <-false
+
+            if PG3a &&& 0b00001000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[1]
+                        then MessagePut ("Interrupt 1: Online From Trace"); interruptTrace.[1] <-false
+
+            if PG3a &&& 0b00000100 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Online From Manual"); interruptManual.[1] <-false
+
+            if PG3b &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test 
+               && not interruptTrigger.[1] && interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Request") 
+                             interruptTrigger.[1] <- true 
+                             //ManualInterrupt 1
+            if PG3b &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[1] 
+                        then interruptTrigger.[1] <- false
+
+            if PG3b &&& 0b00001000 = 0b000001000 && on() && operate = mode.Test 
+               && not interruptTrigger.[2] && interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Request") 
+                             interruptTrigger.[2] <- true 
+                             //ManualInterrupt 2
+            if PG3b &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[2] 
+                        then interruptTrigger.[2] <- false
+
+            if PG3b &&& 0b00000001 = 0b00000001 && on() && operate = mode.Test 
+               && not interruptTrigger.[3] && interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Request") 
+                             interruptTrigger.[3] <- true; 
+                             //ManualInterrupt 3
+            if PG3b &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[3] 
+                        then interruptTrigger.[3] <- false
+
+            interrupt <- Interrupt.NoInt
 
    let panelHandler () =
        interrupt    <- Interrupt.PanelInterrupt 

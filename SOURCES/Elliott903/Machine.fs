@@ -533,58 +533,7 @@ module Sim900.Machine
                         |  0, 1, 5    ->  MessagePut ("Moving to Utilities directory")
                                           System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903UTILITIES/"
                         | _, _, _     ->  ignore ()
-
-
-    let panelButtons() =
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
-                    ReleasePanel ()
-                    // Handle MCP23017 U3 Inputs
-                    PanelInput <- I2CRead PanelU3 (Register.GPIOA); 
-
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not I1M
-                        then I1M <- true    //Interupt 1:Manual
-                    if PanelInput &&& 0b00000100 = 0b00000000 && on() && operate = mode.Test && I1M
-                        then I1M <- false   //Interrupt 1: Online
-                    
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 1: Trace")
-                    
-                    if PanelInput &&& 0b00010000 = 0b00010000 && on() && operate = mode.Test && not I2M
-                        then I2M <-true     //Interrupt 2: Manual
-                    if PanelInput &&& 0b00010000 = 0b00000000 && on() && operate = mode.Test && I2M
-                        then I2M <-false;       //Interrupt 2: Online
-                                        
-                    if PanelInput &&& 0b00100000 = 0b00100000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 2: Trace")
-                    
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I3M
-                        then MessagePut ("Interrupt 3: Manual"); I3M <- true
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I3M
-                        then MessagePut ("Interrupt 3: Online"); I3M <-false
-                    
-                    if PanelInput &&& 0b10000000 = 0b10000000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 3: Trace")
-                    
- 
-                    PanelInput <- I2CRead PanelU3 (Register.GPIOB); 
-
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I1 && I1M
-                        then MessagePut ("Interrupt 1: Request"); I1 <- true; ManualInterrupt 1
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I1 
-                        then I1 <- false
-                       
-                                           
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not I2 && I2M
-                        then MessagePut ("Interrupt 2: Request"); I2 <- true; ManualInterrupt 2
-                    if PanelInput &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test && I2 
-                        then I2 <- false
-
-                       
-                    if PanelInput &&& 0b00000001 = 0b00000001 && on() && operate = mode.Test && not I3 && I3M
-                        then MessagePut ("Interrupt 3: Request"); I3 <- true; ManualInterrupt 3
-                    if PanelInput &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test && I3 
-                        then I3 <- false                       
+                 
 
     let NextInstruction() = 
                 
@@ -752,8 +701,7 @@ module Sim900.Machine
                                       panelLights      ()
                                       DisplayRegisters ()
                                       RunIOOp          ()
-                | Stopped         ->  panelButtons     ()
-                                      Command          ()
+                | Stopped         ->  Command          ()
                                       panelLights      ()
                                       DisplayRegisters ()
                                       RunIOOp          ()
