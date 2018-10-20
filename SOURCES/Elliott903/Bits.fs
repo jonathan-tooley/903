@@ -318,13 +318,15 @@ module Sim900.Bits
        //GPB1  IR 3 Led                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
 
        // Setup registers for GPIO U3
-       I2CWrite PanelU3 Register.IODIRA  0b11111100 //Bank A inputs
-       I2CWrite PanelU3 Register.IODIRB  0b01001001 //Bank B inputs
-       I2CWrite PanelU3 Register.GPPUA   0b11111100 //Bank A pull up resistors
-       I2CWrite PanelU3 Register.GPPUB   0b01001001 //Bank B pull up resistors
-       I2CWrite PanelU3 Register.IPOLA   0b11111100 //Bank A polarity
-       I2CWrite PanelU3 Register.IPOLB   0b01001001 //Bank B polarity
-       I2CWrite PanelU3 Register.IOCON17 0b01000100 //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite PanelU3 Register.IODIRA   0b11111100 //Bank A inputs
+       I2CWrite PanelU3 Register.IODIRB   0b01001001 //Bank B inputs
+       I2CWrite PanelU3 Register.GPPUA    0b11111100 //Bank A pull up resistors
+       I2CWrite PanelU3 Register.GPPUB    0b01001001 //Bank B pull up resistors
+       I2CWrite PanelU3 Register.IPOLA    0b11111100 //Bank A polarity
+       I2CWrite PanelU3 Register.IPOLB    0b01001001 //Bank B polarity
+       I2CWrite PanelU3 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite PanelU3 Register.GPINTENA 0b11111100 
+       I2CWrite PanelU3 Register.GPINTENB 0b01001001 
 
        // U4 Inputs                           | 7| 6| 5| 4| 3| 2| 1| 0| 
        //GP7 Obey                             | 1|  |  |  |  |  |  |  | 
