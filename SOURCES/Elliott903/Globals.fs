@@ -206,9 +206,10 @@ module Sim900.Globals
     type ReaderDevice =
         |Attached
         |Unloaded
+        |Stop
         |MechanicalR
 
-    let mutable ActiveReader = MechanicalR
+    let mutable ActiveReader = Unloaded
 
     type PunchDevice =
         | Attached900
