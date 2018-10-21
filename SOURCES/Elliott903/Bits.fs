@@ -167,8 +167,6 @@ module Sim900.Bits
             | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
             |_     -> ignore()
 
-            printfn "%i" PG3a
-
             if PG3a &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not interruptTrace.[1]
                         then MessagePut ("Interrupt 1: Trace"); interruptTrace.[1] <- true
 
@@ -215,7 +213,7 @@ module Sim900.Bits
                && not interruptTrigger.[1] && interruptManual.[1]
                         then MessagePut ("Interrupt 1: Request") 
                              interruptTrigger.[1] <- true 
-                             //ManualInterrupt 1
+                             interrupt <- Interrupt.I1
             if PG3b &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test 
                && interruptTrigger.[1] 
                         then interruptTrigger.[1] <- false
@@ -224,7 +222,7 @@ module Sim900.Bits
                && not interruptTrigger.[2] && interruptManual.[2]
                         then MessagePut ("Interrupt 2: Request") 
                              interruptTrigger.[2] <- true 
-                             //ManualInterrupt 2
+                             interrupt <- Interrupt.I2
             if PG3b &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test 
                && interruptTrigger.[2] 
                         then interruptTrigger.[2] <- false
@@ -233,17 +231,15 @@ module Sim900.Bits
                && not interruptTrigger.[3] && interruptManual.[3]
                         then MessagePut ("Interrupt 3: Request") 
                              interruptTrigger.[3] <- true; 
-                             //ManualInterrupt 3
+                             interrupt <- Interrupt.I3
             if PG3b &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test 
                && interruptTrigger.[3] 
                         then interruptTrigger.[3] <- false
 
-            interrupt <- Interrupt.NoInt
-
    let panelHandler () =
-       interrupt    <- Interrupt.PanelInterrupt 
        ClearPanelInt ()
- 
+       interrupt    <- Interrupt.PanelInterrupt 
+  
    let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
    let mutable rbyte = 0 
