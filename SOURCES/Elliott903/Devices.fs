@@ -166,6 +166,30 @@ module Sim900.Devices
     let mutable punchHoldUp    = false
     
     let mutable handShake = pinValue.High
+
+    let punchLoad () =
+             // We wait for the punch to signal that it is ready
+             while (ActivePunch = PunchDevice.MechanicalPUnloaded && status <> Reset && status <> SwitchingOff) do
+                if (interrupt = Interrupt.PanelInterrupt) then DecodePanelInt ()
+                let mutable i    = 0
+                let mutable lamp = 0
+                handShake <- digitalRead 28 
+                while handShake = pinValue.Low && i < 10 do 
+                     i <- i + 1
+                     punchHoldUp <- true
+                     handShake   <- digitalRead 28
+                if i < 10 then  ActivePunch <- PunchDevice.MechanicalPLoaded
+                                ConnectIO()
+                                lamp <- I2CRead IOU1 Register.GPIOB
+                                I2CWrite IOU1 Register.OLATB (lamp &&& 0b11110111)
+                                ReleaseIO()
+                if i = 10 then  ActivePunch <- PunchDevice.MechanicalPUnloaded
+                                ConnectIO()
+                                lamp <- I2CRead IOU1 Register.GPIOB
+                                I2CWrite IOU1 Register.OLATB (lamp ||| 0b00001000)
+                                ReleaseIO ()
+             punchHoldUp <- true
+             
    
     let punchPTPcharM (code: byte) =
              let mutable i = 0
