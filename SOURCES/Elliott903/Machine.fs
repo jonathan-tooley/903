@@ -736,7 +736,13 @@ module Sim900.Machine
                 | Running         ->  NextInstruction ()
                                       if iCount %  100L = 0L then DisplayRegisters ()
                                                                   RunIOOp ()
+
+                if interrupt = Interrupt.PanelInterrupt then DecodePanelInt ()
+                if interrupt = Interrupt.I1 then ManualInterrupt 1; interrupt <- Interrupt.NoInt
+                if interrupt = Interrupt.I2 then ManualInterrupt 2; interrupt <- Interrupt.NoInt
+                if interrupt = Interrupt.I3 then ManualInterrupt 3; interrupt <- Interrupt.NoInt
                 
+
                 
 
 

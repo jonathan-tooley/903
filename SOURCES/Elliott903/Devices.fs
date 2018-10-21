@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 module Sim900.Devices
 
@@ -6,6 +6,7 @@ module Sim900.Devices
     open Sim900.Globals
     open Sim900.Bits
     open Sim900.Telecodes
+    open System.Configuration
     
     exception Device of string
 
