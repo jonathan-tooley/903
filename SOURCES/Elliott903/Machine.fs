@@ -83,6 +83,13 @@ module Sim900.Machine
             WriteMem 0 0
             oldSCR <- 0
             digitalWrite 6 pinValue.High
+            ConnectIO ()
+            let mutable lamp = 0
+            lamp <- I2CRead IOU1 Register.GPIOB
+            I2CWrite IOU1 Register.OLATA 0b00000000
+            I2CWrite IOU2 Register.OLATB 0b00000000
+            I2CWrite IOU1 Register.OLATB (lamp &&& 0b11110000) 
+            ReleaseIO ()
 
         let turnOn () =
             digitalWrite 24 pinValue.High
