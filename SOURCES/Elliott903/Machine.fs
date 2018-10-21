@@ -666,8 +666,20 @@ module Sim900.Machine
                                     ReleaseIO ()
         | ioOperation.AutIn      -> MessagePut ("Selecting Input Auto")
                                     SelectInput <- Input.AutoIn
-        | ioOperation.Read       -> ignore()
-        | ioOperation.Stop       -> ignore()
+        | ioOperation.Read       -> if (ActiveReader = Stop) 
+                                                then ActiveReader <- MechanicalR
+                                                     let mutable lamp = 0
+                                                     ConnectIO ()
+                                                     lamp <- I2CRead IOU2 Register.GPIOA
+                                                     I2CWrite IOU2 Register.OLATA (lamp &&& 0b10111111)
+                                                     ReleaseIO ()
+                                                else readerLoad ()
+        | ioOperation.Stop       -> ActiveReader <- ReaderDevice.Stop
+                                    let mutable lamp = 0
+                                    ConnectIO ()
+                                    lamp <- I2CRead IOU2 Register.GPIOA
+                                    I2CWrite IOU2 Register.OLATA (lamp ||| 01000000)
+                                    ReleaseIO ()
         | ioOperation.PncOut     -> MessagePut  ("Selecting Output Punch")
                                     let mutable lamp = 0
                                     SelectOutput <- Output.PunchOut
