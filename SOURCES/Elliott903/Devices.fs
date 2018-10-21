@@ -6,79 +6,71 @@ module Sim900.Devices
     open Sim900.Globals
     open Sim900.Bits
     open Sim900.Telecodes
+    open System.Configuration
     
     exception Device of string
 
-
-    let IOLights () =
-        
-        ConnectIO ()
-
-        ReleaseIO ()
-
     let ROOLights () =
+        //This function updates the Reset, On and Off lights.  
+        //It is separate because it is only called when we need to change one of these three
         ConnectPanel ()
         match status with
-        |     machineMode.Dead       -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 )
+        |     machineMode.Dead       -> I2CWrite PanelU1 (Register.OLATA) ( 0b00000000 ) //All lights off
                                         I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
                                         I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
         |     machineMode.SwitchingOff
         |     machineMode.SwitchingOn
-        |     machineMode.Off        -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 )
+        |     machineMode.Off        -> I2CWrite PanelU1 (Register.OLATA) ( 0b00001000 ) //Just the off light
                                         I2CWrite PanelU1 (Register.OLATB) ( 0b00000000 )
                                         I2CWrite PanelU3 (Register.OLATB) ( 0b00000000 )
-        |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 )
+        |     machineMode.Reset      -> I2CWrite PanelU1 (Register.OLATA) ( 0b10100000 ) //On and reset light
         |     machineMode.Stopped    
-        |     machineMode.NotRunning 
         |     machineMode.Jump
         |     machineMode.Restarting 
-        |     machineMode.ObeyNotRunning
-        |     machineMode.ObeyStopped
-        |     machineMode.RepeatObeyNotRunning
-        |     machineMode.RepeatObeyStopped
-        |     machineMode.EnterNotRunning
-        |     machineMode.EnterStopped
-        |     machineMode.RepeatEnterNotRunning
-        |     machineMode.RepeatEnterStopped
+        |     machineMode.Obey
+        |     machineMode.RepeatObey
+        |     machineMode.Enter
+        |     machineMode.RepeatEnter
         |     machineMode.Cycle      
-        |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 )
+        |     machineMode.Running    -> I2CWrite PanelU1 (Register.OLATA) ( 0b00100000 ) //On light
    
         ReleasePanel ()
 
     let DisplayA () =
             ConnectDisplay ()
-            I2CWrite DisplayU1      (Register.OLATB ) (int (AGet())       &&& mask8)
-            I2CWrite DisplayU1      (Register.OLATA ) (int (AGet()) >>> 8 &&& mask8)
-            //The most significant bits of the registers are packed into one byte so we need to keep 6 bits and replace 2
+            I2CWrite DisplayU1      (Register.OLATB ) (int (accumulator)       &&& mask8)
+            I2CWrite DisplayU1      (Register.OLATA ) (int (accumulator) >>> 8 &&& mask8)
+            //The most significant bits of the registers are packed into one byte so we 
+            //need to keep 6 bits and replace 2
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11111100) ||| ((AGet() &&& 0b110000000000000000) >>> 16)
+            shown <- (shown &&& 0b11111100) ||| ((accumulator &&& 0b110000000000000000) >>> 16)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
     let DisplayQ () =
             ConnectDisplay ()
-            I2CWrite DisplayU4      (Register.OLATB ) (int (QGet())       &&& mask8)
-            I2CWrite DisplayU4      (Register.OLATA ) (int (QGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU4      (Register.OLATB ) (int (qRegister)       &&& mask8)
+            I2CWrite DisplayU4      (Register.OLATA ) (int (qRegister) >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11110011) ||| ((QGet() &&& 0b110000000000000000) >>> 14)
+            shown <- (shown &&& 0b11110011) ||| ((qRegister &&& 0b110000000000000000) >>> 14)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
     
     let DisplayB () =
             ConnectDisplay ()
-            I2CWrite DisplayU2      (Register.OLATB ) (int (BGet())       &&& mask8)
-            I2CWrite DisplayU2      (Register.OLATA ) (int (BGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU2      (Register.OLATB ) (memory.[int bRegisterAddr] &&& mask8)
+            I2CWrite DisplayU2      (Register.OLATA ) (memory.[int bRegisterAddr] >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11001111) ||| ((BGet() &&& 0b110000000000000000) >>> 12)
+            shown <- (shown &&& 0b11001111) ||| ((memory.[int bRegisterAddr]  &&& 0b110000000000000000) >>> 12)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
     let DisplayS () =
             ConnectDisplay ()
-            I2CWrite DisplayU5      (Register.OLATB ) (int (OldSGet())       &&& mask8)
-            I2CWrite DisplayU5      (Register.OLATA ) (int (OldSGet()) >>> 8 &&& mask8)
+            I2CWrite DisplayU5      (Register.OLATB ) (oldSCR &&& mask8)
+            I2CWrite DisplayU5      (Register.OLATA ) (oldSCR >>> 8 &&& mask8)
             let mutable shown = I2CRead DisplayU3 (Register.GPIOB)
-            shown <- (shown &&& 0b11001111) ||| ((OldSGet() &&& 0b110000000000000000) >>> 10)
+            shown <- (shown &&& 0b11001111) ||| ((oldSCR &&& 0b110000000000000000) >>> 10)
             I2CWrite DisplayU3      (Register.OLATB ) (int shown)
             ReleaseDisplay ()
 
@@ -90,7 +82,7 @@ module Sim900.Devices
             |Stopped           -> shown <- shown ||| 0b01000000
             |_                 -> ignore ()
 
-            shown <- int (IGet()) &&& mask4 ||| shown 
+            shown <- iRegister &&& mask4 ||| shown 
             I2CWrite DisplayU3      (Register.OLATA ) (shown)
             ReleaseDisplay ()
 
@@ -127,64 +119,36 @@ module Sim900.Devices
                     I2CWrite PanelU1 (Register.OLATB) ( PanelOutput )
 
                     // Display the current Interrupt level
-                    if on() && (LGet () = 3 || (L3Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
+                    if on() && (interruptLevel = 3 || (levelActive.[3] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00000010
                                                           else InterruptDisp <- InterruptDisp &&& 0b11111101
 
-                    if on() && (LGet () = 2 || (L2Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
+                    if on() && (interruptLevel = 2 || (levelActive.[2] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b00010000
                                                           else InterruptDisp <- InterruptDisp &&& 0b11101111
 
-                    if on() && (LGet () = 1 || (L1Get () && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
+                    if on() && (interruptLevel = 1 || (levelActive.[1] && Flash)) then InterruptDisp <- InterruptDisp ||| 0b10000000
                                                           else InterruptDisp <- InterruptDisp &&& 0b01111111
 
                     I2CWrite PanelU3 (Register.OLATB) InterruptDisp
                     ReleasePanel ()
    
 
-    module private PaperTapeReader =
-        let mutable tapeIn: byte[] option = None 
-        let mutable tapeInPos = 0  
+    let mutable tapeIn: byte[] option = None 
+    let mutable tapeInPos = 0  
 
-    open PaperTapeReader    
-            
-    let OpenReaderBinaryString text  = 
-        // take binary format input from command stream
-        tapeIn <- Some (TranslateFromBinary text)                
-        tapeInPos <- 0    
-            
     let OpenReaderBin fileName = 
         // take binary format file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderBinaryString text
-        ActiveReader <- Attached
-
-    let OpenReaderTextString text = 
-        // take text input from command stream
-        tapeIn <- Some (TranslateFromText text)
+        tapeIn <- Some (TranslateFromBinary text)                
         tapeInPos <- 0 
+        ActiveReader <- Attached
         
     let OpenReaderText fileName =
         // use text file for paper tape input
         let text = File.ReadAllText fileName
-        OpenReaderTextString text
+        tapeIn <- Some (TranslateFromText text)
+        tapeInPos <- 0 
         ActiveReader <- Attached
-                 
-    let GetReaderChar () = // get a character from the paper tape reader
-           let ti =
-               match tapeIn with
-               | Some ti   -> ti
-               | _         -> raise (Device "No input attached to tape reader")
-           if  tapeInPos >= ti.Length then let code = byte 0
-                                           ActiveReader <- MechanicalR
-                                           ConnectIO ()
-                                           let mutable lamp = 0
-                                           lamp <- (lamp &&& 11111011) ||| 0b00000001
-                                           I2CWrite IOU2 Register.OLATA lamp
-                                           ReleaseIO ()
-                                           code
-                                      else let code = ti.[tapeInPos]
-                                           tapeInPos <- tapeInPos+1
-                                           code
-
+                     
     let CloseReader () = 
         // Close tape reader - clear buffer and reset character position
         tapeIn <- None 
@@ -197,65 +161,81 @@ module Sim900.Devices
         I2CWrite IOU2 Register.OLATA lamp
         ReleaseIO ()
 
-
-    module private PaperTapePunch =
-
-        let mutable punchStream: StreamWriter option = None
-        let mutable punchOutPos    = 0
-        let mutable punchHoldUp    = false
-
-    open PaperTapePunch
-    open System.Runtime.Remoting
-    open System.Runtime.CompilerServices
-    open Sim900
-    open System.Linq.Expressions
-
+    let mutable punchStream: StreamWriter option = None
+    let mutable punchOutPos    = 0
+    let mutable punchHoldUp    = false
+    
     let mutable handShake = pinValue.High
+
+    let punchLoad () =
+             // We wait for the punch to signal that it is ready
+             while (ActivePunch = PunchDevice.MechanicalPUnloaded && status <> Reset && status <> SwitchingOff) do
+                if (interrupt = Interrupt.PanelInterrupt) then DecodePanelInt ()
+                let mutable i    = 0
+                let mutable lamp = 0
+                handShake <- digitalRead 28 
+                while handShake = pinValue.Low && i < 10 do 
+                     i <- i + 1
+                     punchHoldUp <- true
+                     handShake   <- digitalRead 28
+                if i < 10 then  ActivePunch <- PunchDevice.MechanicalPLoaded
+                                ConnectIO()
+                                lamp <- I2CRead IOU1 Register.GPIOB
+                                I2CWrite IOU1 Register.OLATB (lamp &&& 0b11110111)
+                                ReleaseIO()
+                if i = 10 then  ActivePunch <- PunchDevice.MechanicalPUnloaded
+                                ConnectIO()
+                                lamp <- I2CRead IOU1 Register.GPIOB
+                                I2CWrite IOU1 Register.OLATB (lamp ||| 0b00001000)
+                                ReleaseIO ()
+             punchHoldUp <- true
+             
    
-    let punchByte (char : byte) =
-             let mutable i = 0
+    let punchPTPcharM (code: byte) =
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 28
-             while handShake = pinValue.Low do 
-                  punchHoldUp    <- true
+             let mutable i = 0
+             while (handShake = pinValue.Low && i < 10) do
+                  i <- i + 1
                   handShake <- digitalRead 28
-             punchHoldUp <- false
-             i <-0; while (i < 1000) do i <- i + 1
-             // Then we set up the data on the mcp pins
-             ConnectPunch ()    
-             I2CWrite plotterPort   (Register.OLATA) (int char)
-             ReleasePunch ()
-             i <-0; while (i < 1000) do i <- i + 1
-             // Then we send a commit instruction to the punch
-             digitalWrite 29 pinValue.High
-             // Now we wait for the punch to confirm that it is busy doing our instruction
-             while handShake = pinValue.High do handShake <- digitalRead 28
-             // Then we can stop telling to write as it has started working on our command
-             i <-0; while (i < 1000) do i <- i + 1
-             digitalWrite 29 pinValue.Low
-            
-         
-            
-        
-    let PutPunchChar (code: byte) = // output a character to the punch
-        match (punchStream, ActivePunch) with
-        | (Some (sw), Attached900)  -> sw.Write (UTFOf code)     // output as UTF character
-        | (Some (sw), AttachedBin)  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
-                                       punchOutPos <- (punchOutPos+1)%20
-                                       if punchOutPos = 0 then sw.WriteLine ()
-        | (Some (sw), MechanicalP)  -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
-        | (None, _)          -> punchByte code
+             if (i = 10) then ActivePunch <- PunchDevice.MechanicalPUnloaded
+               else i <- 0; while (i < 1000) do i <- i + 1
+                    // Then we set up the data on the mcp pins
+                    ConnectPunch ()    
+                    I2CWrite plotterPort   (Register.OLATA) (int code )
+                    ReleasePunch ()
+                    i <- 0; while (i < 1000) do i <- i + 1
+                    // Then we send a commit instruction to the punch
+                    digitalWrite 29 pinValue.High
+                    // Now we wait for the punch to confirm that it is busy doing our instruction
+                    while handShake = pinValue.High do handShake <- digitalRead 28
+                    // Then we can stop telling to write as it has started working on our command
+                    i <- 0; while (i < 1000) do i <- i + 1
+                    digitalWrite 29 pinValue.Low
+               
+    let PunchPTPcharA (code: byte) = // output a character to the punch
+        let sw = match punchStream with
+                 | Some (sw) -> sw        
+                 | _         -> null
+        match ActivePunch with
+        |  Attached900  -> sw.Write (UTFOf code)     // output as UTF character
+        |  AttachedBin  -> sw.Write (sprintf "%4d" code)  // output as a number, 20 per line
+                           punchOutPos <- (punchOutPos+1)%20
+                           if punchOutPos = 0 then sw.WriteLine ()
+        | MechanicalPLoaded
+        | MechanicalPUnloaded
+                        -> failwith("TRIED TO WRITE TO STREAM WHEN WE HAVE A MECHANICAL PUNCH")
     
                          
     let ClosePunch () = 
         // close punch output file if open, otherwise does nothing.
         match punchStream with
-        | Some (sw) -> if ActivePunch = AttachedBin then for i=1 to 30 do PutPunchChar 0uy        
+        | Some (sw) -> if ActivePunch = AttachedBin then for i=1 to 30 do PunchPTPcharA 0uy        
                        sw.Close ()
         | _         -> () 
         punchOutPos <- 0
         punchStream <- None
-        ActivePunch <- MechanicalP
+        ActivePunch <- MechanicalPUnloaded
         ConnectIO ()
         let mutable lamp = 0
         lamp <- I2CRead IOU1 Register.GPIOB
@@ -274,53 +254,87 @@ module Sim900.Devices
         ClosePunch () // finalize last use, if any
         punchStream <- Some (new StreamWriter (fileName))
         ActivePunch <- AttachedBin
-        for i=1 to 20 do PutPunchChar 0uy
+        for i=1 to 20 do PunchPTPcharA 0uy
     
     // GENERAL FUNCTIONS
     let TidyUpDevices () =
             CloseReader ()
             ClosePunch ()
 
-    let ReaderInput Z =
-            pRegister <- Z
-            if status <> Reset
-            then try // reset SCR if error signalled
+    let readerLoad() = 
+        let mutable i = 0
+        let mutable lamp = 0
+        readerByte <- -1  
+        digitalWrite 6 pinValue.Low
+        ConnectIO ()
+        lamp <- I2CRead IOU2 Register.GPIOA
+        I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+        ReleaseIO ()
+        System.Threading.Thread.Sleep 500
+        if readerByte >= 0 then ActiveReader <- ReaderDevice.MechanicalR
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+                                ReleaseIO ()
+                           else ActiveReader <- ReaderDevice.Unloaded
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+                                ReleaseIO ()
+        digitalWrite 6 pinValue.High
+
+    let GetReaderChar () = // get a character from the paper tape reader
+           let ti =
+               match tapeIn with
+               | Some ti   -> ti
+               | _         -> raise (Device "No input attached to tape reader")
+           if  tapeInPos >= ti.Length then let code = byte 0
+                                           ActiveReader <- MechanicalR
+                                           ConnectIO ()
+                                           let mutable lamp = 0
+                                           lamp <- (lamp &&& 11111011) ||| 0b00000001
+                                           I2CWrite IOU2 Register.OLATA lamp
+                                           ReleaseIO ()
+                                           code
+                                      else let code = ti.[tapeInPos]
+                                           tapeInPos <- tapeInPos+1
+                                           code
+
+    let readPTRcharA () =
                     let ch = int (GetReaderChar ())
                     accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
-                 with
-                 | e -> sequenceControlRegister <- oldSequenceControlRegister
-                        raise e
-            else  accumulator <- accumulator <<< 7 
-
-    let PunchOutput Z =
-            pRegister <- Z
-            PutPunchChar (byte (accumulator &&& mask8))  
-
-    let readByte char =
-            readerByte <- -1  
-            ConnectIO ()
+                          
+    let readPTRcharM () =
+            readerByte <- -1
+            let mutable i = 0
             let mutable lamp = 0
-            lamp <- I2CRead IOU2 Register.GPIOA
-            I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+            ConnectIO ()
+            I2CWrite IOU2 Register.OLATB 0b00000001
             ReleaseIO ()
             digitalWrite 6 pinValue.Low
-            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
+            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && i < 99999) do
+                i <- i + 1
                 match interrupt with
-                | Interrupt.None           -> ignore ()
+                | Interrupt.NoInt          -> ignore ()
                 | Interrupt.IOInterrupt    -> ClearIOInt ()
-                | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                | Interrupt.PanelInterrupt -> DecodePanelInt ()
                 | _                        -> ignore ()
-            if (operation = Read) then accumulator <- 255
+            if (i = 99999) then accumulator <- 0
+                                readerByte  <- 0
+                                ActiveReader <- ReaderDevice.Unloaded
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+                                I2CWrite IOU2 Register.OLATB 0b00000000
+                                ReleaseIO ()
             if (status = Reset || status = SwitchingOff) then accumulator <- 0
                                                          else accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
             ConnectIO ()
-            I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+            I2CWrite IOU2 Register.OLATB 0b00000000
             ReleaseIO ()
 
- 
-    let readTTYint () =
+    let readTTYchar () =
             let mutable ch:int = 0
-            ttyDemand <- true
             ConnectIO ()
             let mutable lamp = 0
             lamp <- I2CRead IOU1 Register.GPIOA  
@@ -329,36 +343,44 @@ module Sim900.Devices
             let rec getbyte () =
                 try port.ReadByte() 
                 with _ -> match interrupt with
-                          | Interrupt.None           -> getbyte ()
+                          | Interrupt.NoInt          -> getbyte ()
                           | Interrupt.IOInterrupt    -> ClearIOInt ()
                                                         getbyte ()
-                          | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                          | Interrupt.PanelInterrupt -> DecodePanelInt ()
                                                         if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
                           | _ -> 0
             ch <- getbyte ()
-            ttyDemand <- false
             ConnectIO ()
             I2CWrite IOU1 Register.OLATA (lamp &&& 0b10111111)
             ReleaseIO ()
             ch
 
-    let readTTYchar () = char (readTTYint ())
+    let PTRInput Z =
+              pRegister <- Z
+              match ActiveReader with
+              | MechanicalR   -> readPTRcharM ()
+              | Unloaded      -> ignore () //readerStall  ()
+              | Attached      -> readPTRcharA () 
+              | Stop          -> ignore () //readerStall  ()
 
-    let BitCount code =
-           let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
-           let rec Shift residual =
-               if   residual = 0
-               then 0
-               else count.[residual &&& 0xf] + Shift (residual >>> 4)
-           Shift code
-
-    let OddParity code = ((BitCount code) &&& bit1) = bit1  
+    let PTPOutput Z =
+              pRegister <- Z
+              match ActivePunch with
+              | MechanicalPLoaded   -> punchPTPcharM (byte (accumulator &&& mask8))
+                                       if ActivePunch = MechanicalPUnloaded
+                                       then punchLoad ()
+                                            if ActivePunch = MechanicalPLoaded 
+                                            then punchPTPcharM (byte (accumulator &&& mask8))
+              | MechanicalPUnloaded -> punchLoad ()
+                                       if ActivePunch = MechanicalPLoaded 
+                                       then punchPTPcharM (byte (accumulator &&& mask8))
+              | Attached900
+              | AttachedBin         -> PunchPTPcharA (byte (accumulator &&& mask8))
 
     let TTYInput Z =
               pRegister <- Z
               let mutable ch = 0
-              ttyDemand <- true
-              ch <- readTTYint ()
+              ch <- readTTYchar ()
               ch <- (if OddParity ch then bit8 ||| ch else ch)
               accumulator <- (accumulator <<< 7 ||| (ch &&& mask8)) &&& mask18
               DisplayA ()
@@ -368,30 +390,31 @@ module Sim900.Devices
             if (accumulator &&& mask7) = 10 then port.Write (System.String.Concat (char 13))
             port.Write (System.String.Concat( char (accumulator &&& mask7)))
 
+     // The processor can call one of these four functions for IO
+     // Depending on the selector switches and attached status this
+     // code will marshal different routines
+
     let Reader Z = 
-            match SelectInput, ActiveReader with
-            | ReaderIn, MechanicalR      -> readByte Z
-            | ReaderIn, Attached         -> ReaderInput Z
-            | AutoIn,   MechanicalR      -> readByte Z
-            | AutoIn,   Attached         -> ReaderInput Z
-            | TeleprinterIn, _           -> TTYInput Z
+            match SelectInput with
+            | ReaderIn
+            | AutoIn                -> PTRInput Z
+            | TeleprinterIn         -> TTYInput Z
 
     let TTYIn Z =
-            match SelectInput, ActiveReader with
-            | ReaderIn, MechanicalR     -> readByte Z
-            | ReaderIn, Attached        -> ReaderInput Z
-            | AutoIn, _
-            | TeleprinterIn, _          -> TTYInput Z
+            match SelectInput with
+            | ReaderIn              -> PTRInput Z
+            | AutoIn        
+            | TeleprinterIn         -> TTYInput Z
 
     let Punch Z =
             match SelectOutput with
-            | PunchOut        
-            | AutoOut         -> PunchOutput (accumulator &&& mask8)
-            | TeleprinterOut  -> TTYOutput Z
+            | PunchOut      
+            | AutoOut               -> PTPOutput Z
+            | TeleprinterOut        -> TTYOutput Z
 
     let TTYOut Z =
             match SelectOutput with
-            | PunchOut        -> PunchOutput (accumulator &&& mask8)
-            | AutoOut
-            | TeleprinterOut  -> TTYOutput Z
+            | PunchOut              -> PTPOutput Z
+            | AutoOut      
+            | TeleprinterOut        -> TTYOutput Z
  

@@ -8,8 +8,8 @@ module Sim900.Globals
     let mutable qRegister                  = 0       // extension accumulator
     let mutable bRegisterAddr              = 1       // index register
     let mutable scrAddr                    = 0       // sequence control register in memory
-    let mutable sequenceControlRegister    = 0       // 
-    let mutable oldSequenceControlRegister = 0       // copy of SCR before incremented in instruction decode
+    let mutable SCR    = 0       // 
+    let mutable oldSCR = 0       // copy of SCR before incremented in instruction decode
     let mutable iRegister                  = 0       // function code
     let mutable pRegister                  = 0       // peripheral i/o
     let mutable wordGenerator              = 0       // setting of keys on control panel
@@ -21,16 +21,18 @@ module Sim900.Globals
     let mutable InterruptDisp = 0
     let mutable HeartBeat     = 0
     let mutable Flash         = false
+        
+    let mutable CmdButton     = false //This is for our change directory mechanism
 
-  
-    
-    let mutable CmdButton     = false
-    let mutable I1            = false
-    let mutable I1M           = false
-    let mutable I2            = false
-    let mutable I2M           = false
-    let mutable I3            = false
-    let mutable I3M           = false
+    let mutable PG1a = 0
+    let mutable PG1b = 0
+    let mutable PG3a = 0
+    let mutable PG3b = 0
+    let mutable PG4  = 0
+    let mutable IG1a = 0
+    let mutable IG1b = 0 
+    let mutable IG2a = 0
+    let mutable IG2b = 0
 
     exception Syntax of string
 
@@ -53,14 +55,13 @@ module Sim900.Globals
 
     let not1   =  0X3fffe 
 
-    // Convert from 18 to 32 bit arithmetic
+    // Convert from 32 to 18 bit arithmetic
     let Normalize word = if word >= 131072 then (word%131072)-131072 else word
 
     // Address layout
     let moduleShift = 13                         // module number
     let aModuleMask = bit16 ||| bit15 ||| bit14  // 900, 920A,B,M have 16 bit address bus
-    let cModuleMask = bit17 ||| aModuleMask      // 920C has 17 bit address bus
-        
+         
     // Instruction layout
     let mShift      = 17                                  // B modification flag (bit18)
     let fShift      = 13                                  // function (op) code field (bits 17-14)
@@ -75,28 +76,9 @@ module Sim900.Globals
     let AddressField  word = word &&& operandMask
     let FunctionField word = (word &&& fMask) >>> fShift
     let ModifyField   addr = (addr >>> mShift) &&& bit1 
-    let ModuleField   addr = (addr &&& cModuleMask) >>> moduleShift
-
+    
     let memorySize    = 16384
     let memory: int[] = Array.zeroCreate (memorySize)
-    let mutable tapeloaded    = false
-
-
-         // ACCESS REGISTERS
-    let AGet ()     = accumulator 
-    let APut value  = accumulator <- value &&& mask18
-    let QGet ()     = qRegister 
-    //let QPut value  = qRegister   <- value &&& mask18
-    let BGet ()     = memory.[int bRegisterAddr] 
-    //let BPut value  = memory.[int bRegisterAddr] <- value &&& mask18
-    //let SGet ()     = sequenceControlRegister
-    let OldSGet ()  = oldSequenceControlRegister
-    let IGet ()     = iRegister
-    let WGet ()     = wordGenerator
-    let WPut value  = wordGenerator <- value &&& mask18
-
-    let mutable readerholdUp      = true       // true when io blocked
-    let mutable ttyDemand         = false
    
     type machineMode =
        | Dead                    // Emulator ends when status is set to dead
@@ -104,18 +86,13 @@ module Sim900.Globals
        | SwitchingOff            // Machine is moving to Off
        | SwitchingOn             // Machine is moving to Reset
        | Reset                   // Machine is in the Reset state
-       | NotRunning              // Machine is Stopped but can't be restarted because no jump entered
        | Stopped                 // Machine is Stopped but can be restarted 
        | Jump                    // Machine will jump to address set on the word generator
        | Restarting              // Machine is moving to Cycle or Running depending on cycle mode
-       | ObeyNotRunning          // Machine will obey an instruction and return to NotRunning
-       | ObeyStopped             // Machine will obey an instruction and return to Stopped
-       | RepeatObeyNotRunning    // Machine will obey an instruction repeatedly and return to NotRunning
-       | RepeatObeyStopped       // Machine will obey an instruction repeatedly and return to Stopped
-       | EnterNotRunning         // Machine will enter a word and return to NotRunning
-       | EnterStopped            // Machine will enter a word and return to Stopped
-       | RepeatEnterNotRunning   // Machine will repeatedly enter a word and return to NotRunning
-       | RepeatEnterStopped      // Machine will repeatedly enter a word and return to Stopped
+       | Obey                    // Machine will obey an instruction and return to Stopped
+       | RepeatObey              // Machine will obey an instruction repeatedly and return to Stopped
+       | Enter                   // Machine will enter a word and return to Stopped
+       | RepeatEnter             // Machine will repeatedly enter a word and return to Stopped
        | Cycle
        | Running
 
@@ -137,21 +114,17 @@ module Sim900.Globals
        | TTYOut
        | AutOut
 
-
     type Interrupt = 
-        | PanelInterrupt = 1
-        | IOInterrupt    = 2
-        | None           = 0
-
+        | PanelInterrupt
+        | IOInterrupt
+        | I1
+        | I2
+        | I3
+        | NoInt
 
     type pinType  =
        | Input          = 0
        | Output         = 1
-       | PWMOutput      = 2
-       | GPIOClock      = 3
-       | SoftPWMOutput  = 4
-       | SoftToneOutput = 5
-       | PWMToneOutput  = 6
 
     type pinValue =
        | High = 1
@@ -203,7 +176,7 @@ module Sim900.Globals
 
     let mutable status    = machineMode.Off
     let mutable oldstatus = machineMode.Off
-    let mutable interrupt = Interrupt.None   
+    let mutable interrupt = Interrupt.NoInt   
     let mutable operation = ioOperation.NoOp
 
     let on() = match status with
@@ -225,29 +198,26 @@ module Sim900.Globals
     let mutable protect                    = false               // set true if interrupts have to be deferred
     // NB use of five elements in following vectors is laziness to simplify initialization.
     let levelActive      = [|false; true;  false; false; false|] // true if level n is runnable
-
-    let L1Get()     = levelActive.[1]
-    let L2Get()     = levelActive.[2]
-    let L3Get()     = levelActive.[3]
-    let LGet ()     = interruptLevel 
-
     let interruptPending = [|false; false; false; false; false|] // true if interrupt pending 
-                                                                 // on level 1-3
     let interruptTrace   = [|false; false; false; false; false|] // true if trace interrupt set 
-                                                                 // on level 1-3  
+    let interruptManual  = [|false; false; false; false; false|] // true if the switch is set to manual
+    let interruptTrigger = [|false; false; false; false; false|] // true if an interrupt button pressed
 
     type ReaderDevice =
         |Attached
+        |Unloaded
+        |Stop
         |MechanicalR
 
-    let mutable ActiveReader = MechanicalR
+    let mutable ActiveReader = Unloaded
 
     type PunchDevice =
         | Attached900
         | AttachedBin
-        | MechanicalP
+        | MechanicalPLoaded
+        | MechanicalPUnloaded
 
-    let mutable ActivePunch = MechanicalP
+    let mutable ActivePunch = MechanicalPUnloaded
 
     type Input = 
             | ReaderIn
@@ -262,9 +232,7 @@ module Sim900.Globals
     let mutable SelectInput  = AutoIn
     let mutable SelectOutput = AutoOut
 
-    let MessagePut item = // output a simulator message
-        if System.Console.CursorLeft > 0 then printfn ""
-        printfn "SIM900: %s" item
+
 
 
     

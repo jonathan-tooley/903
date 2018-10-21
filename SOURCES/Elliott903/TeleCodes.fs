@@ -12,6 +12,17 @@ module Sim900.Telecodes
     let mutable nonPrinting = true  // if true show non-printing characters
     let mutable addRunout   = false // true if runout to be added to text files
 
+    // All Elliott telecodes use even parity.  For the 903 it is in track 8.
+    let BitCount code =
+        let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
+        let rec Shift residual =
+            if   residual = 0
+            then 0
+            else count.[residual &&& 0xf] + Shift (residual >>> 4)
+        Shift code
+           
+    let OddParity code = ((BitCount code) &&& bit1) = bit1 
+
     module private TelecodeHelper =
 
         // Escape sequences for UTF representations of telecodes
@@ -40,16 +51,7 @@ module Sim900.Telecodes
                             "PQRSTUVWXY"        + "Z[\\]^_`abc"  +  "defghijklm"   + "nopqrstuvw"  + 
                             "xyz{|}‾¬"
 
-        // All Elliott telecodes use even parity.  For the 903 it is in track 8.
-        let BitCount code =
-           let count = [| 0; 1; 1; 2; 1; 2; 2; 3; 1; 2; 2; 3; 2; 3; 3; 4 |]
-           let rec Shift residual =
-               if   residual = 0
-               then 0
-               else count.[residual &&& 0xf] + Shift (residual >>> 4)
-           Shift code
-           
-        let OddParity code = ((BitCount code) &&& bit1) = bit1  
+ 
 
         // Dictionaries to map symbols to internal codes
         let teleCode900Dict = new System.Collections.Generic.Dictionary<char, int> ()
@@ -165,8 +167,6 @@ module Sim900.Telecodes
                       (inp+1, outp+1)
                      
         copy (0, if addRunout then 30 else 0)
-
-
 
     let TranslateFromBinary (text: string) = // no padding for binary
         let chars: byte[] = Array.zeroCreate (text.Length/2) 

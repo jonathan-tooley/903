@@ -1,4 +1,4 @@
-﻿#light
+#light
 
 // Elliott 900 CENTRAL PROCESSING UNIT
 
@@ -81,13 +81,24 @@ module Sim900.Machine
             EnableInitialInstructions ()
             WriteMem 1 0
             WriteMem 0 0
-            oldSequenceControlRegister <- 0
+            oldSCR <- 0
             digitalWrite 6 pinValue.High
+            ConnectIO ()
+            let mutable lamp = 0
+            lamp <- I2CRead IOU1 Register.GPIOB
+            I2CWrite IOU1 Register.OLATA 0b00000000
+            I2CWrite IOU2 Register.OLATB 0b00000000
+            I2CWrite IOU1 Register.OLATB (lamp &&& 0b11110000) 
+            ReleaseIO ()
 
         let turnOn () =
             digitalWrite 24 pinValue.High
             status <- machineMode.Reset
             ROOLights ()
+            ConnectIO ()
+            I2CWrite IOU1 Register.OLATB 0b10000000
+            I2CWrite IOU2 Register.OLATA 0b00010001
+            ReleaseIO ()
 
         let turnOff () =
             digitalWrite 24 pinValue.Low
@@ -99,17 +110,23 @@ module Sim900.Machine
             I2CWrite PanelU3 (Register.OLATB ) 0
             ReleasePanel ()
             ConnectDisplay ()
-            I2CWrite DisplayU1      (Register.OLATB ) 0
-            I2CWrite DisplayU1      (Register.OLATA ) 0
-            I2CWrite DisplayU2      (Register.OLATB ) 0
-            I2CWrite DisplayU2      (Register.OLATA ) 0
-            I2CWrite DisplayU3      (Register.OLATB ) 0
-            I2CWrite DisplayU3      (Register.OLATA ) 0
-            I2CWrite DisplayU4      (Register.OLATB ) 0
-            I2CWrite DisplayU4      (Register.OLATA ) 0
-            I2CWrite DisplayU5      (Register.OLATB ) 0
-            I2CWrite DisplayU5      (Register.OLATA ) 0
+            I2CWrite DisplayU1      Register.OLATB 0
+            I2CWrite DisplayU1      Register.OLATA 0
+            I2CWrite DisplayU2      Register.OLATB 0
+            I2CWrite DisplayU2      Register.OLATA 0
+            I2CWrite DisplayU3      Register.OLATB 0
+            I2CWrite DisplayU3      Register.OLATA 0
+            I2CWrite DisplayU4      Register.OLATB 0
+            I2CWrite DisplayU4      Register.OLATA 0
+            I2CWrite DisplayU5      Register.OLATB 0
+            I2CWrite DisplayU5      Register.OLATA 0
             ReleaseDisplay ()
+            ConnectIO ()
+            I2CWrite IOU1           Register.OLATA 0
+            I2CWrite IOU1           Register.OLATB 0
+            I2CWrite IOU2           Register.OLATA 0
+            I2CWrite IOU2           Register.OLATB 0
+            ReleaseIO ()
  
         let LevelCheck level = 
             if   level < 0 || level > 3 
@@ -127,13 +144,13 @@ module Sim900.Machine
         let SaveSB () = // save S and B register for current interrupt level
             scrAddr <- (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
-            memory.[scrAddr] <- sequenceControlRegister    
+            memory.[scrAddr] <- SCR    
               
         let RestoreSB () = // restore S and B register for current interrupt level
             scrAddr <-  (interruptLevel-1)*2
             bRegisterAddr <- scrAddr+1
-            let SCR = memory.[scrAddr] // includes H bit
-            sequenceControlRegister <- SCR &&& mask17
+            let scr = memory.[scrAddr] // includes H bit
+            SCR <- scr &&& mask17
 
         let DisableInitialInstructions () =
             initialInstructionsEnabled <- false 
@@ -155,8 +172,8 @@ module Sim900.Machine
                     PanelInput <- PanelInput ||| (I2CRead PanelU2 (Register.GPIOA) <<< 2)
                     // Read from U1 bank B the final two bits, 2 and 1
                     PanelInput <- PanelInput ||| (I2CRead PanelU1 (Register.GPIOB) &&& 0x3)
-                    if WGet () <> PanelInput && not (operate = mode.Auto)
-                       then WPut PanelInput
+                    if wordGenerator <> PanelInput && not (operate = mode.Auto)
+                       then wordGenerator <- PanelInput &&& mask18
                     ReleasePanel ()
 
         // INSTRUCTION DECODING          
@@ -198,10 +215,10 @@ module Sim900.Machine
                 then // apply B modification - Q is affected
                      let m = N + memory.[bRegisterAddr]
                      qRegister <- N                                           
-                     let mm = (m+(oldSequenceControlRegister &&& aModuleMask)) &&& mask16
+                     let mm = (m+(oldSCR &&& aModuleMask)) &&& mask16
                      (mm, mm)       
                 else 
-                      let mm = N+(oldSequenceControlRegister &&& aModuleMask)
+                      let mm = N+(oldSCR &&& aModuleMask)
                       (mm, mm)            
             
             // Helper functions for jump instructions
@@ -254,13 +271,13 @@ module Sim900.Machine
                          then ignore ()
                          elif accumulator > 0 
                          then ignore ()
-                         else sequenceControlRegister <- MJump                           
+                         else SCR <- MJump                           
 
                 |  8  -> // jump unconditional
                          // S:=M
                          // Q affected (920A only)
                          // M is always relative
-                         sequenceControlRegister <- MJump
+                         SCR <- MJump
                         
                 |  9  -> // jump if negative
                          // if A<0 then S:=M; 
@@ -270,7 +287,7 @@ module Sim900.Machine
             
                          if   accumulator < bit18 
                          then ignore ()
-                         else sequenceControlRegister <- MJump
+                         else SCR <- MJump
 
                 | 10  -> // count in store
                          // m:=m+1
@@ -279,8 +296,8 @@ module Sim900.Machine
                 | 11  -> // store Sequence Control Register
                          // m[13..1]:=(S+1)[13..1]; Q[17..14]:=(S+1)[17..14]; Q[13..1]:=0
                          // S[16..14] for machines before 920C
-                         qRegister   <- sequenceControlRegister &&& aModuleMask
-                         WriteMem M (sequenceControlRegister &&& operandMask)
+                         qRegister   <- SCR &&& aModuleMask
+                         WriteMem M (SCR &&& operandMask)
 
                 | 12  -> // fixed point multiply 
                          // (A,Q[18..2]):=A*m; Q1:=1 if A<0 otherwise 0
@@ -350,19 +367,19 @@ module Sim900.Machine
                          | 7169  -> // test standardized: 
                                                 // skip next instruction if A > 0.5 or A < -0.5 or A = 0
                                                 if   accumulator = 0 || (accumulator &&& bit17) <> 0 
-                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+                                                then SCR <- (SCR+1) &&& mask17
 
                          | 7170  -> // increment and skip
                                                 // B := B+1; skip next instruction if B[13..1] = 0
                                                 let inc = memory.[bRegisterAddr] + 1
                                                 memory.[int bRegisterAddr] <- inc
                                                 if   inc &&& mask13 = 0 
-                                                then sequenceControlRegister <- (sequenceControlRegister+1) &&& mask17
+                                                then SCR <- (SCR+1) &&& mask17
 
 
                          | 7171  -> // read word generator
                                                 WordSwitch ()
-                                                accumulator <- WGet()
+                                                accumulator <- wordGenerator
 
                          | 7172  -> // A to Q; Q[18..2] := A[17..1]
                                                 qRegister <- (accumulator <<< 1) &&& mask18
@@ -407,7 +424,6 @@ module Sim900.Machine
                 | _   -> failwith "instruction code not in range 0..15 - shouldn't happen"     
     
     open MachineStateHelper
-    open System.Threading
     open System.Threading
 
     let ClearStore () = // clear entire store to zero
@@ -455,21 +471,16 @@ module Sim900.Machine
             else raise (Syntax (sprintf "Cannot open directory %s" d))
             
 
-
-
-
-
-
     let EnterSwitch() = 
                     WordSwitch()
-                    APut (WGet())
+                    accumulator <- wordGenerator
                     DisplayA ()
                     ROOLights ()
 
 
     let ObeySwitch() = 
                     WordSwitch ()
-                    Execute (WGet())
+                    Execute (wordGenerator)
                     DisplayRegisters ()
                     ROOLights ()
                     
@@ -529,58 +540,7 @@ module Sim900.Machine
                         |  0, 1, 5    ->  MessagePut ("Moving to Utilities directory")
                                           System.Environment.CurrentDirectory <- "/home/pi/903/SOURCES/Simulator/bin/Debug/903UTILITIES/"
                         | _, _, _     ->  ignore ()
-
-
-    let panelButtons() =
-                    ConnectPanel ()
-                    PanelInput <- I2CRead PanelU1 (Register.GPIOB)
-                    ReleasePanel ()
-                    // Handle MCP23017 U3 Inputs
-                    PanelInput <- I2CRead PanelU3 (Register.GPIOA); 
-
-                    if PanelInput &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not I1M
-                        then I1M <- true    //Interupt 1:Manual
-                    if PanelInput &&& 0b00000100 = 0b00000000 && on() && operate = mode.Test && I1M
-                        then I1M <- false   //Interrupt 1: Online
-                    
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 1: Trace")
-                    
-                    if PanelInput &&& 0b00010000 = 0b00010000 && on() && operate = mode.Test && not I2M
-                        then I2M <-true     //Interrupt 2: Manual
-                    if PanelInput &&& 0b00010000 = 0b00000000 && on() && operate = mode.Test && I2M
-                        then I2M <-false;       //Interrupt 2: Online
-                                        
-                    if PanelInput &&& 0b00100000 = 0b00100000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 2: Trace")
-                    
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I3M
-                        then MessagePut ("Interrupt 3: Manual"); I3M <- true
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I3M
-                        then MessagePut ("Interrupt 3: Online"); I3M <-false
-                    
-                    if PanelInput &&& 0b10000000 = 0b10000000 && on() && operate = mode.Test
-                        then MessagePut ("Interrupt 3: Trace")
-                    
- 
-                    PanelInput <- I2CRead PanelU3 (Register.GPIOB); 
-
-                    if PanelInput &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not I1 && I1M
-                        then MessagePut ("Interrupt 1: Request"); I1 <- true; ManualInterrupt 1
-                    if PanelInput &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test && I1 
-                        then I1 <- false
-                       
-                                           
-                    if PanelInput &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not I2 && I2M
-                        then MessagePut ("Interrupt 2: Request"); I2 <- true; ManualInterrupt 2
-                    if PanelInput &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test && I2 
-                        then I2 <- false
-
-                       
-                    if PanelInput &&& 0b00000001 = 0b00000001 && on() && operate = mode.Test && not I3 && I3M
-                        then MessagePut ("Interrupt 3: Request"); I3 <- true; ManualInterrupt 3
-                    if PanelInput &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test && I3 
-                        then I3 <- false                       
+                 
 
     let NextInstruction() = 
                 
@@ -600,10 +560,10 @@ module Sim900.Machine
             let oldLevel = interruptLevel // 15 7168 might change the interrupt level
 
             // SCR is incremented after instruction fetch, before decode
-            oldSequenceControlRegister <- sequenceControlRegister
-            sequenceControlRegister <- (oldSequenceControlRegister+1) &&& mask17
+            oldSCR <- SCR
+            SCR <- (oldSCR+1) &&& mask17
             try
-                    Execute (ReadMem oldSequenceControlRegister) 
+                    Execute (ReadMem oldSCR) 
             with
             | exn -> status <- machineMode.Stopped
             
@@ -620,17 +580,12 @@ module Sim900.Machine
             | SwitchingOff          -> MessagePut "Status changed to Switching Off"
             | SwitchingOn           -> MessagePut "Status changed to Switching On"
             | Reset                 -> MessagePut "Status changed to Reset"
-            | NotRunning            -> MessagePut "Status changed to NotRunning"
             | Stopped               -> MessagePut "Status changed to Stopped"
             | Cycle                 -> MessagePut "Status Changed to Cycle"
-            | ObeyNotRunning
-            | ObeyStopped           -> MessagePut "Status Changed to Obey"
-            | RepeatObeyNotRunning
-            | RepeatObeyStopped     -> MessagePut "Status Changed to Obey (Repeat)"
-            | EnterNotRunning
-            | EnterStopped          -> MessagePut "Status Changed to Enter"
-            | RepeatEnterNotRunning
-            | RepeatEnterStopped    -> MessagePut "Status Changed to Enter (Repeat)"    
+            | Obey                  -> MessagePut "Status Changed to Obey"
+            | RepeatObey            -> MessagePut "Status Changed to Obey (Repeat)"
+            | Enter                 -> MessagePut "Status Changed to Enter"
+            | RepeatEnter           -> MessagePut "Status Changed to Enter (Repeat)"    
             | Jump                  -> MessagePut "Status changed to Jump"
             | Restarting            -> MessagePut "Status Changed to Restarting"
             | Running               -> MessagePut "Status Changed to Running"
@@ -678,13 +633,19 @@ module Sim900.Machine
                                     else MessagePut ("File type must be .900 or .BIN or .RLB")
                                     ReleaseIO ()
         | ioOperation.PunchD     -> ClosePunch  ()
-                                    
-
         | ioOperation.Delete     -> fn <- GetFileName ()
                                     Delete fn
-        | ioOperation.Runout     -> while (operation = Runout) do
-                                        punchByte (byte 0)
+        | ioOperation.Runout     -> let mutable lamp = 0
+                                    ConnectIO ()
+                                    lamp <- I2CRead IOU1 Register.GPIOB
+                                    I2CWrite IOU1 Register.OLATB (lamp ||| 0b00000010)
+                                    ReleaseIO()
+                                    while (operation = Runout) do
+                                        punchPTPcharM (byte 0)
                                         ClearIOInt ()
+                                    ConnectIO()
+                                    I2CWrite IOU1 Register.OLATB lamp
+                                    ReleaseIO()
         | ioOperation.RdrIn      -> MessagePut  ("Selecting Input PTR")
                                     let mutable lamp = 0
                                     SelectInput <- Input.ReaderIn
@@ -705,7 +666,20 @@ module Sim900.Machine
                                     ReleaseIO ()
         | ioOperation.AutIn      -> MessagePut ("Selecting Input Auto")
                                     SelectInput <- Input.AutoIn
-
+        | ioOperation.Read       -> if (ActiveReader = Stop) 
+                                                then ActiveReader <- MechanicalR
+                                                     let mutable lamp = 0
+                                                     ConnectIO ()
+                                                     lamp <- I2CRead IOU2 Register.GPIOA
+                                                     I2CWrite IOU2 Register.OLATA (lamp &&& 0b10111111)
+                                                     ReleaseIO ()
+                                                else readerLoad ()
+        | ioOperation.Stop       -> ActiveReader <- ReaderDevice.Stop
+                                    let mutable lamp = 0
+                                    ConnectIO ()
+                                    lamp <- I2CRead IOU2 Register.GPIOA
+                                    I2CWrite IOU2 Register.OLATA (lamp ||| 01000000)
+                                    ReleaseIO ()
         | ioOperation.PncOut     -> MessagePut  ("Selecting Output Punch")
                                     let mutable lamp = 0
                                     SelectOutput <- Output.PunchOut
@@ -726,44 +700,16 @@ module Sim900.Machine
                                     ReleaseIO ()
         | ioOperation.AutOut     -> MessagePut ("Selecting Output Auto")
                                     SelectOutput <- Output.AutoOut                               
-        | ioOperation.Stop       -> match SelectOutput with
-                                    | Output.AutoOut        -> MessagePut  ("Selecting Output TTY")
-                                                               SelectOutput <- Output.TeleprinterOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b00010000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-                                    | Output.TeleprinterOut -> MessagePut  ("Selecting Output PTP")
-                                                               SelectOutput <- Output.PunchOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b01000000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-                                    | Output.PunchOut       -> MessagePut  ("Selecting Output Auto")
-                                                               SelectOutput <- Output.AutoOut
-                                                               ConnectIO ()
-                                                               I2CWrite IOU1 Register.OLATA 0b01010000
-                                                               Thread.Sleep 1000
-                                                               I2CWrite IOU1 Register.OLATA 0b00000000
-                                                               ReleaseIO ()
-
         | ioOperation.NoOp       -> ignore ()
         operation <- ioOperation.NoOp
-
-
 
     let Processor () =
             panelLights()
             ROOLights  ()
             while status <> machineMode.Dead do 
-                //System.Threading.Thread.Sleep 50
                 statusChange ()
                 oldstatus  <- status
                 oldoperate <- operate
-                
-
                 match status with
                 | Dead             -> ignore           () 
                 | Off              -> ignore           ()
@@ -774,13 +720,7 @@ module Sim900.Machine
                                       panelLights      ()
                                       DisplayRegisters ()
                                       RunIOOp          ()
-                | Stopped         ->  panelButtons     ()
-                                      Command          ()
-                                      panelLights      ()
-                                      DisplayRegisters ()
-                                      RunIOOp          ()
-                | NotRunning      ->  panelButtons     ()
-                                      Command          ()
+                | Stopped         ->  Command          ()
                                       panelLights      ()
                                       DisplayRegisters ()
                                       RunIOOp          ()
@@ -790,32 +730,31 @@ module Sim900.Machine
                                       levelActive.[1] <- true    
                                       EnableInitialInstructions () 
                                       WordSwitch ()
-                                      sequenceControlRegister <- (WGet () &&& mask13)
+                                      SCR <- (wordGenerator &&& mask13)
                                       status <- machineMode.Restarting
                 | Restarting      ->  if CycleSwitch   () then status <- machineMode.Cycle
                                                           else status <- machineMode.Running
                                       panelLights      ()
-                | EnterNotRunning ->  status <- machineMode.NotRunning
+                | Enter           ->  status <- machineMode.Stopped
                                       EnterSwitch ()
-                | EnterStopped    ->  status <- machineMode.Stopped
-                                      EnterSwitch ()
-                | RepeatEnterNotRunning
-                | RepeatEnterStopped
+                | RepeatEnter
                                   ->  EnterSwitch ()
-                | ObeyNotRunning  ->  status <- machineMode.NotRunning  
+                | Obey            ->  status <- machineMode.Stopped
                                       ObeySwitch ()
-                | ObeyStopped     ->  status <- machineMode.Stopped
-                                      ObeySwitch ()
-                | RepeatObeyNotRunning 
-                | RepeatObeyStopped
+                | RepeatObey
                                   ->  ObeySwitch ()
                 | Cycle           ->  NextInstruction ()
                                       status <- machineMode.Stopped
                 | Running         ->  NextInstruction ()
                                       if iCount %  100L = 0L then DisplayRegisters ()
                                                                   RunIOOp ()
+
+                if interrupt = Interrupt.PanelInterrupt then DecodePanelInt ()
+                if interrupt = Interrupt.I1 then ManualInterrupt 1; interrupt <- Interrupt.NoInt
+                if interrupt = Interrupt.I2 then ManualInterrupt 2; interrupt <- Interrupt.NoInt
+                if interrupt = Interrupt.I3 then ManualInterrupt 3; interrupt <- Interrupt.NoInt
                 
-                if (interrupt = Interrupt.PanelInterrupt) then ClearPanelInt ()
+
                 
 
 

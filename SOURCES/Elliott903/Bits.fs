@@ -31,7 +31,6 @@ module Sim900.Bits
      extern int wiringPiI2CReadReg8  (int fd, Register reg);
 
    open wiringPi
-   open System.IO.Ports
 
    let wiringPiSetup                    = wiringPiSetup        ()
    let pinMode pin mode                 = pinMode              (pin, mode)
@@ -98,6 +97,12 @@ module Sim900.Bits
        port.Open ()
        port.ReadTimeout     <- 250
 
+   let MessagePut item = // output a simulator message
+        if System.Console.CursorLeft > 0 then printfn ""
+                                              //port.WriteLine("\r\n")
+        printfn "SIM900: %s" item
+        //port.WriteLine (sprintf "SIM900: %s \r\n" item)
+
    let setupPins () =
        pinMode 28 pinType.Input     // Setup pin as an input.  This is for the punch to effect a handshake by reporting when it is busy.
                                     // The Gold lead from the punch connects here.
@@ -110,29 +115,19 @@ module Sim900.Bits
        pinMode 24 pinType.Output    // Pin 24 controls the mains out and the cooling fan
        digitalWrite 24 pinValue.Low // Make sure the fan is off
 
-   let mutable PG1a = 0
-   let mutable PG1b = 0
-   let mutable PG4  = 0
-   let mutable IG1a = 0
-   let mutable IG1b = 0 
-   let mutable IG2a = 0
-   let mutable IG2b = 0
-   
-
-   let panelHandler () =
-        interrupt    <- Interrupt.PanelInterrupt 
- 
-   let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
-
    let ClearPanelInt () =
             ConnectPanel ()
-            PG1a <- (I2CRead PanelU1 (Register.GPIOA))
-            PG1b <- (I2CRead PanelU1 (Register.GPIOB))
+            PG1a <- I2CRead PanelU1 Register.GPIOA
+            PG1b <- I2CRead PanelU1 Register.GPIOB
             PG1b <- PG1b &&& 0b11111100//Filter the word generator keys
-            PG4  <- (I2CRead PanelU4 (Register.GPIO ))
+            PG3a <- I2CRead PanelU3 Register.GPIOA
+            PG3b <- I2CRead PanelU3 Register.GPIOB
+            PG4  <- I2CRead PanelU4 Register.GPIO
             ReleasePanel ()
 
-
+   let DecodePanelInt () =
+            interrupt <- Interrupt.NoInt
+            
             // Control the On, Off and Reset keys
             match (on(), PG1a &&& 0b01010100) with
             |(false, 0x10)  -> status <- machineMode.SwitchingOn
@@ -151,25 +146,19 @@ module Sim900.Bits
             // Control the Enter Switch
             match (status, (PG4 &&& 0b00110000)) with
             | (machineMode.Reset                , 0x20) 
-            | (machineMode.NotRunning           , 0x20) -> status <- machineMode.EnterNotRunning
-            | (machineMode.Stopped              , 0x20) -> status <- machineMode.EnterStopped
+            | (machineMode.Stopped              , 0x20) -> status <- machineMode.Enter
             | (machineMode.Reset                , 0x10)
-            | (machineMode.NotRunning           , 0x10) -> status <- machineMode.RepeatEnterNotRunning
-            | (machineMode.Stopped              , 0x10) -> status <- machineMode.RepeatEnterStopped
-            | (machineMode.RepeatEnterStopped   , 0x00) -> status <- machineMode.Stopped
-            | (machineMode.RepeatEnterNotRunning, 0x00) -> status <- machineMode.NotRunning
+            | (machineMode.Stopped              , 0x10) -> status <- machineMode.RepeatEnter
+            | (machineMode.RepeatEnter          , 0x00) -> status <- machineMode.Stopped
             | _ -> ignore ()
 
             // Control the Obey Switch
             match (status, (PG4 &&& 0b11000000)) with
             | (machineMode.Reset                , 0x80) 
-            | (machineMode.NotRunning           , 0x80) -> status <- machineMode.ObeyNotRunning
-            | (machineMode.Stopped              , 0x80) -> status <- machineMode.ObeyStopped
+            | (machineMode.Stopped              , 0x80) -> status <- machineMode.Obey
             | (machineMode.Reset                , 0x40)
-            | (machineMode.NotRunning           , 0x40) -> status <- machineMode.RepeatObeyNotRunning
-            | (machineMode.Stopped              , 0x40) -> status <- machineMode.RepeatObeyStopped
-            | (machineMode.RepeatObeyStopped    , 0x00) -> status <- machineMode.Stopped
-            | (machineMode.RepeatObeyNotRunning , 0x00) -> status <- machineMode.NotRunning
+            | (machineMode.Stopped              , 0x40) -> status <- machineMode.RepeatObey
+            | (machineMode.RepeatObey           , 0x00) -> status <- machineMode.Stopped
             | _ -> ignore ()
 
             match (status, operate, PG1b &&& 0b01010100) with
@@ -180,8 +169,81 @@ module Sim900.Bits
             | (machineMode.Reset  , mode.Operate, 0x04) 
             | (machineMode.Reset  , mode.Test   , 0x04)    -> status <- machineMode.Jump
             |_     -> ignore()
+
+            if PG3a &&& 0b00001000 = 0b00001000 && on() && operate = mode.Test && not interruptTrace.[1]
+                        then MessagePut ("Interrupt 1: Trace"); interruptTrace.[1] <- true
+
+            if PG3a &&& 0b00100000 = 0b00100000 && on() && operate = mode.Test && not interruptTrace.[2]
+                        then MessagePut ("Interrupt 2: Trace"); interruptTrace.[2] <- true
+
+            if PG3a &&& 0b10000000 = 0b10000000 && on() && operate = mode.Test && not interruptTrace.[3]
+                        then MessagePut ("Interrupt 3: Trace"); interruptTrace.[3] <- true
+
+            if PG3a &&& 0b00000100 = 0b00000100 && on() && operate = mode.Test && not interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Manual"); interruptManual.[1] <- true
+
+            if PG3a &&& 0b00010000 = 0b00010000 && on() && operate = mode.Test && not interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Manual"); interruptManual.[2] <- true
+
+            if PG3a &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test && not interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Manual"); interruptManual.[3] <- true
+
+            if PG3a &&& 0b10000000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[3]
+                        then MessagePut ("Interrupt 3: Online From Trace"); interruptTrace.[3] <-false
+
+            if PG3a &&& 0b01000000 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Online From Manual"); interruptManual.[3] <-false
       
-            interrupt <- Interrupt.None
+            if PG3a &&& 0b00100000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[2]
+                        then MessagePut ("Interrupt 2: Online From Trace"); interruptTrace.[2] <-false
+
+            if PG3a &&& 0b00010000 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Online From Manual"); interruptManual.[2] <-false
+
+            if PG3a &&& 0b00001000 = 0b00000000 
+               && on() && operate = mode.Test && interruptTrace.[1]
+                        then MessagePut ("Interrupt 1: Online From Trace"); interruptTrace.[1] <-false
+
+            if PG3a &&& 0b00000100 = 0b00000000 
+               && on() && operate = mode.Test && interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Online From Manual"); interruptManual.[1] <-false
+
+            if PG3b &&& 0b01000000 = 0b01000000 && on() && operate = mode.Test 
+               && not interruptTrigger.[1] && interruptManual.[1]
+                        then MessagePut ("Interrupt 1: Request") 
+                             interruptTrigger.[1] <- true 
+                             interrupt <- Interrupt.I1
+            if PG3b &&& 0b01000000 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[1] 
+                        then interruptTrigger.[1] <- false
+
+            if PG3b &&& 0b00001000 = 0b000001000 && on() && operate = mode.Test 
+               && not interruptTrigger.[2] && interruptManual.[2]
+                        then MessagePut ("Interrupt 2: Request") 
+                             interruptTrigger.[2] <- true 
+                             interrupt <- Interrupt.I2
+            if PG3b &&& 0b00001000 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[2] 
+                        then interruptTrigger.[2] <- false
+
+            if PG3b &&& 0b00000001 = 0b00000001 && on() && operate = mode.Test 
+               && not interruptTrigger.[3] && interruptManual.[3]
+                        then MessagePut ("Interrupt 3: Request") 
+                             interruptTrigger.[3] <- true; 
+                             interrupt <- Interrupt.I3
+            if PG3b &&& 0b00000001 = 0b00000000 && on() && operate = mode.Test 
+               && interruptTrigger.[3] 
+                        then interruptTrigger.[3] <- false
+
+   let panelHandler () =
+       ClearPanelInt ()
+       interrupt    <- Interrupt.PanelInterrupt 
+  
+   let panelCB : ISRCallback = ISRCallback(fun() -> panelHandler ())
 
    let mutable rbyte = 0 
 
@@ -205,20 +267,20 @@ module Sim900.Bits
        if ((IG1a &&& 0b00001000) = 0b00001000) then operation <- ioOperation.List
        if ((IG2a &&& 0b00001000) = 0b00001000) then operation <- ioOperation.ReaderA
        if ((IG2a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.ReaderD
-       //if ((IG2a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.Read
-       //if ((IG2a &&& 0b10000000) = 0b10000000) then operation <- ioOperation.Stop
-       //if ((IG1b &&& 0b00000100) = 0b00000100) then operation <- ioOperation.Runout
+       if ((IG2a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.Read
+       if ((IG2a &&& 0b10000000) = 0b10000000) then operation <- ioOperation.Stop
+       if ((IG1b &&& 0b00000100) = 0b00000100) then operation <- ioOperation.Runout
        if ((IG1a &&& 0b00000010) = 0b00000010) then operation <- ioOperation.Delete 
        if ((IG1b &&& 0b01000000) = 0b01000000) then operation <- ioOperation.PunchD
        if ((IG1b &&& 0b00010000) = 0b00010000) then operation <- ioOperation.PunchA
-       if ((IG1a &&& 0b00100000) = 0b00100000) then operation <- ioOperation.RdrIn
-       if ((IG1a &&& 0b00010000) = 0b00010000) then operation <- ioOperation.TTYIn
-       if ((IG1b &&& 0b00000001) = 0b00000001) then operation <- ioOperation.TTYOut
-       if ((IG1a &&& 0b10000000) = 0b10000000) then operation <- ioOperation.PncOut
+       if ((IG1a &&& 0b00100000) = 0b00100000 && operation = ioOperation.NoOp) then operation <- ioOperation.RdrIn
+       if ((IG1a &&& 0b00010000) = 0b00010000 && operation = ioOperation.NoOp) then operation <- ioOperation.TTYIn
+       if ((IG1b &&& 0b00000001) = 0b00000001 && operation = ioOperation.NoOp) then operation <- ioOperation.TTYOut
+       if ((IG1a &&& 0b10000000) = 0b10000000 && operation = ioOperation.NoOp) then operation <- ioOperation.PncOut
        if (SelectInput  <> Input.AutoIn   && operation = NoOp) then operation <- ioOperation.AutIn
        if (SelectOutput <> Output.AutoOut && operation = NoOp) then operation <- ioOperation.AutOut
-       printfn "%i | %i | %i | %i\n"  IG1a IG1b IG2a IG2b
-       interrupt <- Interrupt.None
+      
+       interrupt <- Interrupt.NoInt
        
    let IOHandler () =
        ClearIOInt ()
@@ -254,6 +316,8 @@ module Sim900.Bits
        // 3 : Jump push button                                           |  |  |  |  |  | 1|  |  |
        // 2 : WG Switch 2                                                |  |  |  |  |  |  | 1|  |
        // 1 : WG Switch 1                                                |  |  |  |  |  |  |  | 1|
+       //                                     -------------------------  -------------------------
+       //                                       0  1  0  1  0  1  1  1     0  1  0  1  0  1  1  1
 
        // U1 Outputs
        //28 : Reset button indicator          | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
@@ -275,22 +339,22 @@ module Sim900.Bits
        I2CWrite PanelU1 Register.GPINTENB 0b01010100  //Set up stop, restart and jump for interrupt
 
        // U2 Inputs
-       //28 : 512   Bit 10
-       //27 : 256   Bit  9
-       //26 : 128   Bit  8
-       //25 : 64    Bit  7
-       //24 : 32    Bit  6
-       //23 : 16    Bit  5
-       //22 : 8     Bit  4
-       //21 : 4     Bit  3
-       // 8 : /     Bit 18
-       // 7 : 8     Bit 17
-       // 6 : 4     Bit 16
-       // 5 : 2     Bit 15
-       // 4 : 1     Bit 14
-       // 3 : 4096  Bit 13
-       // 2 : 2048  Bit 12
-       // 1 : 1024  Bit 11
+       //28 : WG 512   Bit 10
+       //27 : WG 256   Bit  9
+       //26 : WG 128   Bit  8
+       //25 : WG 64    Bit  7
+       //24 : WG 32    Bit  6
+       //23 : WG 16    Bit  5
+       //22 : WG 8     Bit  4
+       //21 : WG 4     Bit  3
+       // 8 : WG /     Bit 18
+       // 7 : WG 8     Bit 17
+       // 6 : WG 4     Bit 16
+       // 5 : WG 2     Bit 15
+       // 4 : WG 1     Bit 14
+       // 3 : WG 4096  Bit 13
+       // 2 : WG 2048  Bit 12
+       // 1 : WG 1024  Bit 11
 
        // Setup Registers for GPIO U2
        I2CWrite PanelU2 Register.IODIRA  0b11111111 //Bank A is all inputs
@@ -315,6 +379,8 @@ module Sim900.Bits
        //GPB3  IR 2 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
        //GPB2  nc                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPB0  IR 3 SW                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
+       //                                     -------------------------  -------------------------
+       //                                       1  1  1  1  1  1  0  0     0  1  0  0  1  0  0  1
 
        // U3 Outputs
        //GPB7  IR 1 Led                       |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |
@@ -322,13 +388,15 @@ module Sim900.Bits
        //GPB1  IR 3 Led                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
 
        // Setup registers for GPIO U3
-       I2CWrite PanelU3 Register.IODIRA  0b11111100 //Bank A inputs
-       I2CWrite PanelU3 Register.IODIRB  0b01001001 //Bank B inputs
-       I2CWrite PanelU3 Register.GPPUA   0b11111100 //Bank A pull up resistors
-       I2CWrite PanelU3 Register.GPPUB   0b01001001 //Bank B pull up resistors
-       I2CWrite PanelU3 Register.IPOLA   0b11111100 //Bank A polarity
-       I2CWrite PanelU3 Register.IPOLB   0b01001001 //Bank B polarity
-       I2CWrite PanelU3 Register.IOCON17 0b01000100 //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite PanelU3 Register.IODIRA   0b11111100 //Bank A inputs
+       I2CWrite PanelU3 Register.IODIRB   0b01001001 //Bank B inputs
+       I2CWrite PanelU3 Register.GPPUA    0b11111100 //Bank A pull up resistors
+       I2CWrite PanelU3 Register.GPPUB    0b01001001 //Bank B pull up resistors
+       I2CWrite PanelU3 Register.IPOLA    0b11111100 //Bank A polarity
+       I2CWrite PanelU3 Register.IPOLB    0b01001001 //Bank B polarity
+       I2CWrite PanelU3 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
+       I2CWrite PanelU3 Register.GPINTENA 0b11111100 
+       I2CWrite PanelU3 Register.GPINTENB 0b01001001 
 
        // U4 Inputs                           | 7| 6| 5| 4| 3| 2| 1| 0| 
        //GP7 Obey                             | 1|  |  |  |  |  |  |  | 
@@ -339,6 +407,8 @@ module Sim900.Bits
        //GP2 nc                               |  |  |  |  |  |  |  |  | 
        //GP1 Cycle Stop                       |  |  |  |  |  |  | 1|  | 
        //GP0 Order Stop                       |  |  |  |  |  |  |  | 1| 
+       //                                     -------------------------
+       //                                       1  1  1  1  1  0  1  1
 
        // Setup registers for GPIO U4
        I2CWrite PanelU4 Register.IODIR   0b11111011 //Bank A inputs
@@ -398,23 +468,23 @@ module Sim900.Bits
        IOU1 <- I2CSetup 0x20
        IOU2 <- I2CSetup 0x21
 
-       //U1A Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //U1 Inputs:                           |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPA1 Delete Sw                       |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |
        //GPA3 List Sw                         |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA4 Input TTY                       |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA5 Input RDR                       |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
        //GPA7 Output TTY                      | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-       //U1A Outputs:
-       //GPA0 Delete Led                      |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
-       //GPA2 List Led                        |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
-       //GPA6 TTY Demand                      |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-     
-       //U1B Inputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
        //GPB0 Output PCH                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|
        //GPB2 Runout Sw                       |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |
        //GPB4 Punch Attach                    |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |
        //GPB6 Punch Detach                    |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |
-       //U1B Outputs:
+       //                                     -------------------------  -------------------------
+       //                                       1  0  1  1  1  0  1  0     0  1  0  1  0  1  0  1
+
+       //U1 Outputs:                          |A7|A6|A5|A4|A3|A2|A1|A0|  |B7|B6|B5|B4|B3|B2|B1|B0|
+       //GPA0 Delete Led                      |  |  |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |
+       //GPA2 List Led                        |  |  |  |  |  | 1|  |  |  |  |  |  |  |  |  |  |  |
+       //GPA6 TTY Demand                      |  | 1|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |            
        //GPB1 Runout Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |
        //GPB3 Reload Led                      |  |  |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |
        //GPB5 Punch Led                       |  |  |  |  |  |  |  |  |  |  |  | 1|  |  |  |  |  |
@@ -441,7 +511,7 @@ module Sim900.Bits
        I2CWrite IOU1 Register.GPPUA    0b10111010 //Bank A pull up resistors
        I2CWrite IOU1 Register.GPPUB    0b01010101 //Bank B pull up resistors
        I2CWrite IOU1 Register.IPOLA    0b10111010 //Bank A polarity
-       I2CWrite IOU1 Register.IPOLB    0b11111111 //Bank B polarity
+       I2CWrite IOU1 Register.IPOLB    0b01010101 //Bank B polarity
        I2CWrite IOU1 Register.IOCON17  0b01000100 //Set up interrupts to mirror A & B and to be open drain
        I2CWrite IOU1 Register.GPINTENA 0b10111010 //Set up Stop and Runout for interrupt
        I2CWrite IOU1 Register.GPINTENB 0b01010101 //Set up Read and Punch Attach switches for interrupt
