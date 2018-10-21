@@ -1,4 +1,4 @@
-
+﻿
 module Sim900.Bits
 
    open Sim900.Globals
@@ -125,6 +125,9 @@ module Sim900.Bits
             PG4  <- I2CRead PanelU4 Register.GPIO
             ReleasePanel ()
 
+   let DecodePanelInt () =
+            interrupt <- Interrupt.NoInt
+            
             // Control the On, Off and Reset keys
             match (on(), PG1a &&& 0b01010100) with
             |(false, 0x10)  -> status <- machineMode.SwitchingOn
