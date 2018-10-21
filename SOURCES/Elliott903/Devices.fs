@@ -1,4 +1,4 @@
-#light
+﻿#light
 
 module Sim900.Devices
 
@@ -192,26 +192,26 @@ module Sim900.Devices
              
    
     let punchPTPcharM (code: byte) =
-             let mutable i = 0
              // We wait for the punch to signal that it is ready
              handShake <- digitalRead 28
-             while handShake = pinValue.Low do 
-                  punchHoldUp    <- true
+             let mutable i = 0
+             while (handShake = pinValue.Low && i < 10) do
+                  i <- i + 1
                   handShake <- digitalRead 28
-             punchHoldUp <- false
-             i <-0; while (i < 1000) do i <- i + 1
-             // Then we set up the data on the mcp pins
-             ConnectPunch ()    
-             I2CWrite plotterPort   (Register.OLATA) (int code )
-             ReleasePunch ()
-             i <-0; while (i < 1000) do i <- i + 1
-             // Then we send a commit instruction to the punch
-             digitalWrite 29 pinValue.High
-             // Now we wait for the punch to confirm that it is busy doing our instruction
-             while handShake = pinValue.High do handShake <- digitalRead 28
-             // Then we can stop telling to write as it has started working on our command
-             i <-0; while (i < 1000) do i <- i + 1
-             digitalWrite 29 pinValue.Low
+             if (i = 10) then ActivePunch <- PunchDevice.MechanicalPUnloaded
+               else i <- 0; while (i < 1000) do i <- i + 1
+                    // Then we set up the data on the mcp pins
+                    ConnectPunch ()    
+                    I2CWrite plotterPort   (Register.OLATA) (int code )
+                    ReleasePunch ()
+                    i <- 0; while (i < 1000) do i <- i + 1
+                    // Then we send a commit instruction to the punch
+                    digitalWrite 29 pinValue.High
+                    // Now we wait for the punch to confirm that it is busy doing our instruction
+                    while handShake = pinValue.High do handShake <- digitalRead 28
+                    // Then we can stop telling to write as it has started working on our command
+                    i <- 0; while (i < 1000) do i <- i + 1
+                    digitalWrite 29 pinValue.Low
                
     let PunchPTPcharA (code: byte) = // output a character to the punch
         let sw = match punchStream with
@@ -261,6 +261,28 @@ module Sim900.Devices
             CloseReader ()
             ClosePunch ()
 
+    let readerLoad() = 
+        let mutable i = 0
+        let mutable lamp = 0
+        readerByte <- -1  
+        digitalWrite 6 pinValue.Low
+        ConnectIO ()
+        lamp <- I2CRead IOU2 Register.GPIOA
+        I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+        ReleaseIO ()
+        System.Threading.Thread.Sleep 500
+        if readerByte >= 0 then ActiveReader <- ReaderDevice.MechanicalR
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp &&& 0b11101111)
+                                ReleaseIO ()
+                           else ActiveReader <- ReaderDevice.Unloaded
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+                                ReleaseIO ()
+        digitalWrite 6 pinValue.High
+
     let GetReaderChar () = // get a character from the paper tape reader
            let ti =
                match tapeIn with
@@ -283,22 +305,32 @@ module Sim900.Devices
                     accumulator <- (accumulator <<< 7 ||| ch) &&& mask18
                           
     let readPTRcharM () =
-            readerByte <- -1  
+            readerByte <- -1
+            let mutable i = 0
+            let mutable lamp = 0
             ConnectIO ()
             I2CWrite IOU2 Register.OLATB 0b00000001
             ReleaseIO ()
             digitalWrite 6 pinValue.Low
-            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && operation <> Read) do 
+            while ((status <> Reset) && status <> SwitchingOff && readerByte < 0 && i < 99999) do
+                i <- i + 1
                 match interrupt with
-                | Interrupt.NoInt           -> ignore ()
+                | Interrupt.NoInt          -> ignore ()
                 | Interrupt.IOInterrupt    -> ClearIOInt ()
-                | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                | Interrupt.PanelInterrupt -> DecodePanelInt ()
                 | _                        -> ignore ()
-            if (operation = Read) then accumulator <- 255
+            if (i = 99999) then accumulator <- 0
+                                readerByte  <- 0
+                                ActiveReader <- ReaderDevice.Unloaded
+                                ConnectIO ()
+                                lamp <- I2CRead IOU2 Register.GPIOA
+                                I2CWrite IOU2 Register.OLATA (lamp ||| 0b00010000)
+                                I2CWrite IOU2 Register.OLATB 0b00000000
+                                ReleaseIO ()
             if (status = Reset || status = SwitchingOff) then accumulator <- 0
                                                          else accumulator <- (accumulator <<< 7 ||| readerByte) &&& mask18
             ConnectIO ()
-            I2CWrite IOU2 Register.OLATA 0b11101111
+            I2CWrite IOU2 Register.OLATB 0b00000000
             ReleaseIO ()
 
     let readTTYchar () =
@@ -314,7 +346,7 @@ module Sim900.Devices
                           | Interrupt.NoInt          -> getbyte ()
                           | Interrupt.IOInterrupt    -> ClearIOInt ()
                                                         getbyte ()
-                          | Interrupt.PanelInterrupt -> ClearPanelInt ()
+                          | Interrupt.PanelInterrupt -> DecodePanelInt ()
                                                         if not(status = machineMode.Reset || status = machineMode.SwitchingOff) then getbyte () else 0
                           | _ -> 0
             ch <- getbyte ()
@@ -327,16 +359,23 @@ module Sim900.Devices
               pRegister <- Z
               match ActiveReader with
               | MechanicalR   -> readPTRcharM ()
-              | Unloaded      -> ignore () //****
+              | Unloaded      -> ignore () //readerStall  ()
               | Attached      -> readPTRcharA () 
+              | Stop          -> ignore () //readerStall  ()
 
     let PTPOutput Z =
               pRegister <- Z
               match ActivePunch with
-              | MechanicalPLoaded   
-              | MechanicalPUnloaded -> punchPTPcharM (byte (accumulator &&& mask8)) 
-              | Attached900         -> ignore() //****
-              | AttachedBin         -> ignore() //****
+              | MechanicalPLoaded   -> punchPTPcharM (byte (accumulator &&& mask8))
+                                       if ActivePunch = MechanicalPUnloaded
+                                       then punchLoad ()
+                                            if ActivePunch = MechanicalPLoaded 
+                                            then punchPTPcharM (byte (accumulator &&& mask8))
+              | MechanicalPUnloaded -> punchLoad ()
+                                       if ActivePunch = MechanicalPLoaded 
+                                       then punchPTPcharM (byte (accumulator &&& mask8))
+              | Attached900
+              | AttachedBin         -> PunchPTPcharA (byte (accumulator &&& mask8))
 
     let TTYInput Z =
               pRegister <- Z
