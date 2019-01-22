@@ -81,7 +81,7 @@ F 3 "" H 2325 1450 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L LSA:Q_NPN_EBC VT1
+L LSA:Q_NPN VT1
 U 1 1 5B96A271
 P 2950 1450
 F 0 "VT1" H 3150 1500 50  0000 L CNN
@@ -204,7 +204,7 @@ F 3 "" H 2325 2475 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L LSA:Q_NPN_EBC VT2
+L LSA:Q_NPN VT2
 U 1 1 5B96AD6F
 P 2950 2475
 F 0 "VT2" H 3150 2525 50  0000 L CNN
@@ -327,7 +327,7 @@ F 3 "" H 2325 3500 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L LSA:Q_NPN_EBC VT3
+L LSA:Q_NPN VT3
 U 1 1 5B96B3E7
 P 2950 3500
 F 0 "VT3" H 3150 3550 50  0000 L CNN
@@ -383,87 +383,30 @@ Wire Wire Line
 	2975 3175 3050 3175
 Wire Wire Line
 	3050 3175 3050 3300
-$Comp
-L LSA:Conn_01x03 J3
-U 1 1 5B96BA76
-P 3050 4525
-F 0 "J3" H 3050 4725 50  0000 C CNN
-F 1 "Conn_01x03" H 3050 4325 50  0000 C CNN
-F 2 "ELLIOTT:PinHeader_1x03_P2.54mm_Vertical" H 3050 4525 50  0001 C CNN
-F 3 "" H 3050 4525 50  0001 C CNN
-	1    3050 4525
-	1    0    0    -1  
-$EndComp
-$Comp
-L LSA:Conn_01x03 J2
-U 1 1 5B96BB0B
-P 2225 4525
-F 0 "J2" H 2225 4725 50  0000 C CNN
-F 1 "Conn_01x03" H 2225 4325 50  0000 C CNN
-F 2 "ELLIOTT:PinHeader_1x03_P2.54mm_Vertical" H 2225 4525 50  0001 C CNN
-F 3 "" H 2225 4525 50  0001 C CNN
-	1    2225 4525
-	1    0    0    -1  
-$EndComp
-$Comp
-L LSA:Conn_01x06 J1
-U 1 1 5B96BB54
-P 1425 4625
-F 0 "J1" H 1425 4925 50  0000 C CNN
-F 1 "Conn_01x06" H 1425 4225 50  0000 C CNN
-F 2 "ELLIOTT:PinHeader_1x06_P2.54mm_Vertical" H 1425 4625 50  0001 C CNN
-F 3 "" H 1425 4625 50  0001 C CNN
-	1    1425 4625
-	1    0    0    -1  
-$EndComp
-Text GLabel 2700 4425 0    40   Input ~ 0
+Text GLabel 2300 4825 2    40   Input ~ 0
 +6v
-Text GLabel 2700 4525 0    40   Input ~ 0
+Text GLabel 2300 4925 2    40   Input ~ 0
 0v
-Text GLabel 2700 4625 0    40   Input ~ 0
+Text GLabel 2300 5025 2    40   Input ~ 0
 -6v
-Wire Wire Line
-	2700 4425 2850 4425
-Wire Wire Line
-	2850 4525 2700 4525
-Wire Wire Line
-	2700 4625 2850 4625
-Text GLabel 1800 4425 0    40   Input ~ 0
+Text GLabel 2300 4525 2    40   Input ~ 0
 11
-Text GLabel 1800 4525 0    40   Input ~ 0
+Text GLabel 2300 4625 2    40   Input ~ 0
 12
-Text GLabel 1800 4625 0    40   Input ~ 0
+Text GLabel 2300 4725 2    40   Input ~ 0
 13
-Text GLabel 1000 4425 0    40   Input ~ 0
+Text GLabel 1550 4525 0    40   Input ~ 0
 1
-Text GLabel 1000 4525 0    40   Input ~ 0
+Text GLabel 1550 4625 0    40   Input ~ 0
 2
-Text GLabel 1000 4625 0    40   Input ~ 0
+Text GLabel 1550 4725 0    40   Input ~ 0
 3
-Text GLabel 1000 4725 0    40   Input ~ 0
+Text GLabel 1550 4825 0    40   Input ~ 0
 4
-Text GLabel 1000 4825 0    40   Input ~ 0
+Text GLabel 1550 4925 0    40   Input ~ 0
 5
-Text GLabel 1000 4925 0    40   Input ~ 0
+Text GLabel 1550 5025 0    40   Input ~ 0
 6
-Wire Wire Line
-	1000 4425 1225 4425
-Wire Wire Line
-	1000 4525 1225 4525
-Wire Wire Line
-	1000 4625 1225 4625
-Wire Wire Line
-	1000 4725 1225 4725
-Wire Wire Line
-	1000 4825 1225 4825
-Wire Wire Line
-	1000 4925 1225 4925
-Wire Wire Line
-	1800 4425 2025 4425
-Wire Wire Line
-	1800 4525 2025 4525
-Wire Wire Line
-	1800 4625 2025 4625
 Wire Wire Line
 	1650 1450 1775 1450
 Wire Wire Line
@@ -482,4 +425,39 @@ Wire Wire Line
 	1650 3500 1650 3800
 Wire Wire Line
 	2625 3500 2750 3500
+$Comp
+L LSA:LSAConnect J1
+U 1 1 5C320323
+P 1875 4725
+F 0 "J1" H 1925 5142 50  0000 C CNN
+F 1 "LSAConnect" H 1925 5051 50  0000 C CNN
+F 2 "ELLIOTT:LSA" H 1875 4725 50  0001 C CNN
+F 3 "" H 1875 4725 50  0001 C CNN
+	1    1875 4725
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1550 4525 1675 4525
+Wire Wire Line
+	1675 4625 1550 4625
+Wire Wire Line
+	1550 4725 1675 4725
+Wire Wire Line
+	1550 4825 1675 4825
+Wire Wire Line
+	1550 4925 1675 4925
+Wire Wire Line
+	1550 5025 1675 5025
+Wire Wire Line
+	2175 5025 2300 5025
+Wire Wire Line
+	2300 4925 2175 4925
+Wire Wire Line
+	2300 4825 2175 4825
+Wire Wire Line
+	2300 4725 2175 4725
+Wire Wire Line
+	2300 4625 2175 4625
+Wire Wire Line
+	2300 4525 2175 4525
 $EndSCHEMATC
