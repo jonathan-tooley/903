@@ -1,0 +1,1409 @@
+EESchema Schematic File Version 4
+LIBS:PSU-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "LSA 03"
+Date ""
+Rev ""
+Comp ""
+Comment1 "2 Input NAND Gate"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:Fuse F1
+U 1 1 5C68A4E3
+P 1925 1975
+F 0 "F1" V 1728 1975 50  0000 C CNN
+F 1 "Fuse" V 1819 1975 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 1855 1975 50  0001 C CNN
+F 3 "~" H 1925 1975 50  0001 C CNN
+	1    1925 1975
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D_Bridge_+-AA D1
+U 1 1 5C68A5B7
+P 2600 2275
+F 0 "D1" H 2941 2321 50  0000 L CNN
+F 1 "D_Bridge_+-AA" H 2941 2230 50  0000 L CNN
+F 2 "ELLIOTT:Diode_Bridge_Vishay_GBU" H 2600 2275 50  0001 C CNN
+F 3 "~" H 2600 2275 50  0001 C CNN
+	1    2600 2275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2075 1975 2600 1975
+$Comp
+L Device:CP C1
+U 1 1 5C68A6A6
+P 3225 2600
+F 0 "C1" H 3343 2646 50  0000 L CNN
+F 1 "47000u" H 3343 2555 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn" H 3263 2450 50  0001 C CNN
+F 3 "~" H 3225 2600 50  0001 C CNN
+	1    3225 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5C68AA08
+P 4025 2275
+F 0 "R6" V 3818 2275 50  0000 C CNN
+F 1 "100R 0.5W" V 3909 2275 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3955 2275 50  0001 C CNN
+F 3 "~" H 4025 2275 50  0001 C CNN
+	1    4025 2275
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3650 2275 3875 2275
+$Comp
+L Device:CP C4
+U 1 1 5C68AADC
+P 4475 2600
+F 0 "C4" H 4593 2646 50  0000 L CNN
+F 1 "470u" H 4593 2555 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 4513 2450 50  0001 C CNN
+F 3 "~" H 4475 2600 50  0001 C CNN
+	1    4475 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4475 2900 4475 2750
+Wire Wire Line
+	4175 2275 4475 2275
+Wire Wire Line
+	4475 2275 4475 2450
+$Comp
+L LSA:LM7806_TO220 U1
+U 1 1 5C68AD8A
+P 5200 2275
+F 0 "U1" H 5200 2517 50  0000 C CNN
+F 1 "LM7806_TO220" H 5200 2426 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 5200 2500 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 5200 2225 50  0001 C CNN
+	1    5200 2275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 2275 4725 2275
+Connection ~ 4475 2275
+Wire Wire Line
+	4475 2900 5200 2900
+Wire Wire Line
+	5200 2900 5200 2575
+Connection ~ 4475 2900
+$Comp
+L Device:Fuse F4
+U 1 1 5C68AFD3
+P 5775 2275
+F 0 "F4" V 5578 2275 50  0000 C CNN
+F 1 "1A" V 5669 2275 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 5705 2275 50  0001 C CNN
+F 3 "~" H 5775 2275 50  0001 C CNN
+	1    5775 2275
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Fuse F5
+U 1 1 5C68B011
+P 6200 2275
+F 0 "F5" V 6003 2275 50  0000 C CNN
+F 1 "8A" V 6094 2275 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 6130 2275 50  0001 C CNN
+F 3 "~" H 6200 2275 50  0001 C CNN
+	1    6200 2275
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5500 2275 5625 2275
+Wire Wire Line
+	5925 2275 5975 2275
+$Comp
+L LSA:TIP2955 Q4
+U 1 1 5C68B51D
+P 4475 1950
+F 0 "Q4" V 4803 1950 50  0000 C CNN
+F 1 "TIP2955" V 4712 1950 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-218-3_Vertical" H 4675 1875 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/TIP3055-D.PDF" H 4475 1950 50  0001 L CNN
+	1    4475 1950
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	4475 2150 4475 2275
+$Comp
+L Device:R R5
+U 1 1 5C68BB65
+P 4025 1850
+F 0 "R5" V 3818 1850 50  0000 C CNN
+F 1 "100mR 5W" V 3909 1850 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P27.94mm" V 3955 1850 50  0001 C CNN
+F 3 "~" H 4025 1850 50  0001 C CNN
+	1    4025 1850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3875 1850 3650 1850
+Wire Wire Line
+	4175 1850 4275 1850
+Wire Wire Line
+	4675 1850 5975 1850
+Wire Wire Line
+	5975 1850 5975 2275
+Connection ~ 5975 2275
+Wire Wire Line
+	5975 2275 6050 2275
+$Comp
+L Device:R R4
+U 1 1 5C68C449
+P 4025 1500
+F 0 "R4" V 3818 1500 50  0000 C CNN
+F 1 "100mR 5W" V 3909 1500 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P27.94mm" V 3955 1500 50  0001 C CNN
+F 3 "~" H 4025 1500 50  0001 C CNN
+	1    4025 1500
+	0    1    1    0   
+$EndComp
+$Comp
+L LSA:TIP2955 Q3
+U 1 1 5C68C491
+P 4775 1600
+F 0 "Q3" V 5103 1600 50  0000 C CNN
+F 1 "TIP2955" V 5012 1600 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-218-3_Vertical" H 4975 1525 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/TIP3055-D.PDF" H 4775 1600 50  0001 L CNN
+	1    4775 1600
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	3650 1850 3650 2275
+Wire Wire Line
+	3875 1500 3650 1500
+Wire Wire Line
+	3650 1500 3650 1850
+Connection ~ 3650 1850
+Wire Wire Line
+	4175 1500 4575 1500
+Wire Wire Line
+	4775 1800 4775 2150
+Wire Wire Line
+	4775 2150 4475 2150
+Connection ~ 4475 2150
+Wire Wire Line
+	4975 1500 5975 1500
+Wire Wire Line
+	5975 1500 5975 1850
+Connection ~ 5975 1850
+$Comp
+L LSA:TIP2955 Q1
+U 1 1 5C68E3A8
+P 5375 900
+F 0 "Q1" V 5703 900 50  0000 C CNN
+F 1 "TIP2955" V 5612 900 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-218-3_Vertical" H 5575 825 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/TIP3055-D.PDF" H 5375 900 50  0001 L CNN
+	1    5375 900 
+	0    1    -1   0   
+$EndComp
+$Comp
+L LSA:TIP2955 Q2
+U 1 1 5C68E2AA
+P 5075 1250
+F 0 "Q2" V 5403 1250 50  0000 C CNN
+F 1 "TIP2955" V 5312 1250 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-218-3_Vertical" H 5275 1175 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/TIP3055-D.PDF" H 5075 1250 50  0001 L CNN
+	1    5075 1250
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5C68E76A
+P 4025 1150
+F 0 "R3" V 3818 1150 50  0000 C CNN
+F 1 "100mR 5W" V 3909 1150 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P27.94mm" V 3955 1150 50  0001 C CNN
+F 3 "~" H 4025 1150 50  0001 C CNN
+	1    4025 1150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5C68E7B2
+P 4025 800
+F 0 "R2" V 3818 800 50  0000 C CNN
+F 1 "100mR 5W" V 3909 800 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P27.94mm" V 3955 800 50  0001 C CNN
+F 3 "~" H 4025 800 50  0001 C CNN
+	1    4025 800 
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3875 800  3650 800 
+Wire Wire Line
+	3650 800  3650 1150
+Connection ~ 3650 1500
+Wire Wire Line
+	3875 1150 3650 1150
+Connection ~ 3650 1150
+Wire Wire Line
+	3650 1150 3650 1500
+Wire Wire Line
+	4175 1150 4875 1150
+Wire Wire Line
+	4175 800  5175 800 
+Wire Wire Line
+	5575 800  5975 800 
+Wire Wire Line
+	5975 800  5975 1150
+Connection ~ 5975 1500
+Wire Wire Line
+	5275 1150 5975 1150
+Connection ~ 5975 1150
+Wire Wire Line
+	5975 1150 5975 1500
+Wire Wire Line
+	5075 1450 5075 1800
+Wire Wire Line
+	5075 1800 4775 1800
+Connection ~ 4775 1800
+Wire Wire Line
+	5375 1100 5375 1450
+Wire Wire Line
+	5375 1450 5075 1450
+Connection ~ 5075 1450
+$Comp
+L Device:CP C7
+U 1 1 5C691B81
+P 6675 2600
+F 0 "C7" H 6793 2646 50  0000 L CNN
+F 1 "10u" H 6793 2555 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 6713 2450 50  0001 C CNN
+F 3 "~" H 6675 2600 50  0001 C CNN
+	1    6675 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2275 6675 2275
+Wire Wire Line
+	6675 2275 6675 2450
+Wire Wire Line
+	6675 2750 6675 2775
+Wire Wire Line
+	6675 2900 5200 2900
+Connection ~ 5200 2900
+$Comp
+L Device:CP C2
+U 1 1 5C696637
+P 3225 4075
+F 0 "C2" H 3107 4029 50  0000 R CNN
+F 1 "47000u" H 3107 4120 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn" H 3263 3925 50  0001 C CNN
+F 3 "~" H 3225 4075 50  0001 C CNN
+	1    3225 4075
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:CP C5
+U 1 1 5C6966E3
+P 4475 4075
+F 0 "C5" H 4357 4029 50  0000 R CNN
+F 1 "470u" H 4357 4120 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 4513 3925 50  0001 C CNN
+F 3 "~" H 4475 4075 50  0001 C CNN
+	1    4475 4075
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5C6967B1
+P 4025 3700
+F 0 "R7" V 3818 3700 50  0000 C CNN
+F 1 "100R 0.5W" V 3909 3700 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3955 3700 50  0001 C CNN
+F 3 "~" H 4025 3700 50  0001 C CNN
+	1    4025 3700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Fuse F2
+U 1 1 5C69DEB2
+P 1925 2575
+F 0 "F2" H 1865 2529 50  0000 R CNN
+F 1 "Fuse" H 1865 2620 50  0000 R CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 1855 2575 50  0001 C CNN
+F 3 "~" H 1925 2575 50  0001 C CNN
+	1    1925 2575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LSA:FRT5_separated K3
+U 3 1 5C698E0B
+P 3225 1975
+F 0 "K3" H 3366 2021 50  0000 L CNN
+F 1 "~" H 3366 1930 50  0000 L CNN
+F 2 "ELLIOTT:Relay55.13" H 3425 1875 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 3425 2075 50  0001 C CNN
+	3    3225 1975
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3225 2275 2900 2275
+Wire Wire Line
+	3325 1675 3325 1500
+Wire Wire Line
+	3325 1500 3650 1500
+$Comp
+L LSA:FRT5_separated K3
+U 2 1 5C69C61F
+P 3225 3400
+F 0 "K3" H 3366 3446 50  0000 L CNN
+F 1 "~" H 3366 3355 50  0000 L CNN
+F 2 "ELLIOTT:Relay55.13" H 3425 3300 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 3425 3500 50  0001 C CNN
+	2    3225 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3225 2450 3225 2275
+Connection ~ 3225 2275
+Wire Wire Line
+	3225 2750 3225 2900
+Connection ~ 3225 2900
+Wire Wire Line
+	3225 2900 4475 2900
+Wire Wire Line
+	3225 3925 3225 3700
+Connection ~ 3225 3700
+Wire Wire Line
+	3225 4375 3225 4225
+Wire Wire Line
+	4475 4225 4475 4375
+Wire Wire Line
+	4475 4375 3225 4375
+Connection ~ 3225 4375
+$Comp
+L Regulator_Linear:LM7906_TO220 U2
+U 1 1 5C6B980F
+P 5200 3700
+F 0 "U2" H 5225 3450 50  0000 C CNN
+F 1 "LM7906_TO220" H 5200 3550 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 5200 3925 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 5200 3650 50  0001 C CNN
+	1    5200 3700
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	4900 3700 4725 3700
+Wire Wire Line
+	4475 3925 4475 3700
+Connection ~ 4475 3700
+Wire Wire Line
+	4475 3700 4175 3700
+Wire Wire Line
+	5200 4000 5200 4375
+Wire Wire Line
+	5200 4375 4475 4375
+Connection ~ 4475 4375
+Wire Wire Line
+	3325 3100 3325 3000
+Wire Wire Line
+	3325 3000 3650 3000
+Wire Wire Line
+	3650 3000 3650 3700
+Wire Wire Line
+	3650 3700 3875 3700
+$Comp
+L Device:Fuse F6
+U 1 1 5C6C10B5
+P 5775 3700
+F 0 "F6" V 5578 3700 50  0000 C CNN
+F 1 "1A" V 5669 3700 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 5705 3700 50  0001 C CNN
+F 3 "~" H 5775 3700 50  0001 C CNN
+	1    5775 3700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:Fuse F7
+U 1 1 5C6C1169
+P 6200 3700
+F 0 "F7" V 6003 3700 50  0000 C CNN
+F 1 "1A" V 6094 3700 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 6130 3700 50  0001 C CNN
+F 3 "~" H 6200 3700 50  0001 C CNN
+	1    6200 3700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:CP C8
+U 1 1 5C6C121F
+P 6675 4075
+F 0 "C8" H 6793 4121 50  0000 L CNN
+F 1 "10u" H 6793 4030 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 6713 3925 50  0001 C CNN
+F 3 "~" H 6675 4075 50  0001 C CNN
+	1    6675 4075
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5500 3700 5625 3700
+Wire Wire Line
+	5925 3700 6050 3700
+Wire Wire Line
+	6350 3700 6675 3700
+Wire Wire Line
+	6675 3700 6675 3825
+Wire Wire Line
+	6675 4225 6675 4375
+Wire Wire Line
+	6675 4375 5200 4375
+Connection ~ 5200 4375
+$Comp
+L Connector_Generic:Conn_01x03 J2
+U 1 1 5C6C9109
+P 675 3550
+F 0 "J2" H 595 3225 50  0000 C CNN
+F 1 "~" H 595 3316 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13703HBWC_1x03_P7.50mm_Horizontal" H 675 3550 50  0001 C CNN
+F 3 "~" H 675 3550 50  0001 C CNN
+	1    675  3550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:Fuse F3
+U 1 1 5C6C9264
+P 1925 4775
+F 0 "F3" V 1728 4775 50  0000 C CNN
+F 1 "Fuse" V 1819 4775 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 1855 4775 50  0001 C CNN
+F 3 "~" H 1925 4775 50  0001 C CNN
+	1    1925 4775
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1775 4775 1650 4775
+$Comp
+L Device:D_Bridge_+-AA D3
+U 1 1 5C6CB279
+P 2600 5225
+F 0 "D3" H 2941 5271 50  0000 L CNN
+F 1 "D_Bridge_+-AA" H 2941 5180 50  0000 L CNN
+F 2 "ELLIOTT:Diode_Bridge_Vishay_GBU" H 2600 5225 50  0001 C CNN
+F 3 "~" H 2600 5225 50  0001 C CNN
+	1    2600 5225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2075 4775 2600 4775
+Wire Wire Line
+	2600 4775 2600 4925
+Wire Wire Line
+	2600 5525 1750 5525
+$Comp
+L Device:CP C3
+U 1 1 5C6CF769
+P 3225 5525
+F 0 "C3" H 3343 5571 50  0000 L CNN
+F 1 "47000u" H 3343 5480 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn" H 3263 5375 50  0001 C CNN
+F 3 "~" H 3225 5525 50  0001 C CNN
+	1    3225 5525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3225 5225 3225 5375
+Wire Wire Line
+	2300 5225 2300 5825
+Wire Wire Line
+	2300 5825 2875 5825
+Wire Wire Line
+	3225 5825 3225 5675
+$Comp
+L Device:R R8
+U 1 1 5C6D460A
+P 4025 5225
+F 0 "R8" V 3818 5225 50  0000 C CNN
+F 1 "100R 0.5W" V 3909 5225 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 3955 5225 50  0001 C CNN
+F 3 "~" H 4025 5225 50  0001 C CNN
+	1    4025 5225
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3875 5225 3225 5225
+Connection ~ 3225 5225
+$Comp
+L Device:CP C6
+U 1 1 5C6D6FE4
+P 4475 5525
+F 0 "C6" H 4593 5571 50  0000 L CNN
+F 1 "470u" H 4593 5480 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 4513 5375 50  0001 C CNN
+F 3 "~" H 4475 5525 50  0001 C CNN
+	1    4475 5525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4475 5375 4475 5225
+Wire Wire Line
+	4475 5225 4175 5225
+Wire Wire Line
+	4475 5675 4475 5825
+Wire Wire Line
+	4475 5825 3225 5825
+Connection ~ 3225 5825
+$Comp
+L LSA:LM7824_TO220 U3
+U 1 1 5C6E5184
+P 5200 5225
+F 0 "U3" H 5200 5467 50  0000 C CNN
+F 1 "LM7824_TO220" H 5200 5376 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 5200 5450 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 5200 5175 50  0001 C CNN
+	1    5200 5225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 5225 4725 5225
+Connection ~ 4475 5225
+Wire Wire Line
+	4475 5825 5200 5825
+Wire Wire Line
+	5200 5825 5200 5525
+Connection ~ 4475 5825
+$Comp
+L Device:Fuse F8
+U 1 1 5C6EADEF
+P 5775 5225
+F 0 "F8" V 5578 5225 50  0000 C CNN
+F 1 "1A" V 5669 5225 50  0000 C CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 5705 5225 50  0001 C CNN
+F 3 "~" H 5775 5225 50  0001 C CNN
+	1    5775 5225
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5625 5225 5500 5225
+$Comp
+L Device:CP C9
+U 1 1 5C6EDE39
+P 6675 5525
+F 0 "C9" H 6793 5571 50  0000 L CNN
+F 1 "10u" H 6793 5480 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm" H 6713 5375 50  0001 C CNN
+F 3 "~" H 6675 5525 50  0001 C CNN
+	1    6675 5525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6675 5375 6675 5225
+Wire Wire Line
+	6675 5225 6100 5225
+Wire Wire Line
+	5200 5825 6675 5825
+Wire Wire Line
+	6675 5825 6675 5675
+Connection ~ 5200 5825
+$Comp
+L Device:CP C10
+U 1 1 5C6F4C26
+P 7150 5225
+F 0 "C10" H 7268 5271 50  0000 L CNN
+F 1 "1000u" H 7268 5180 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" H 7188 5075 50  0001 C CNN
+F 3 "~" H 7150 5225 50  0001 C CNN
+	1    7150 5225
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LSA:FRT5_separated K1
+U 1 1 5C6F4E1B
+P 7925 5225
+F 0 "K1" V 8217 5225 50  0000 C CNN
+F 1 "~" V 8126 5225 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 8125 5125 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 8125 5325 50  0001 C CNN
+	1    7925 5225
+	0    -1   -1   0   
+$EndComp
+Connection ~ 6675 5225
+Text GLabel 8875 5225 2    50   Input ~ 0
+SKT2X
+Wire Wire Line
+	8875 5225 8425 5225
+$Comp
+L LSA:FRT5_separated K2
+U 1 1 5C6FF2CB
+P 7925 4750
+F 0 "K2" V 8217 4750 50  0000 C CNN
+F 1 "~" V 8126 4750 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 8125 4650 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 8125 4850 50  0001 C CNN
+	1    7925 4750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7625 4750 7400 4750
+Wire Wire Line
+	6675 4750 6675 5225
+$Comp
+L Device:D D6
+U 1 1 5C702D1C
+P 8425 4950
+F 0 "D6" V 8379 5029 50  0000 L CNN
+F 1 "1N4001T" V 8470 5029 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 8425 4950 50  0001 C CNN
+F 3 "~" H 8425 4950 50  0001 C CNN
+	1    8425 4950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8425 5100 8425 5225
+Connection ~ 8425 5225
+Wire Wire Line
+	8425 5225 8225 5225
+Wire Wire Line
+	8425 4800 8425 4750
+Wire Wire Line
+	8425 4750 8225 4750
+$Comp
+L LSA:FRT5_separated K1
+U 2 1 5C709C99
+P 8850 4650
+F 0 "K1" V 8525 4650 50  0000 C CNN
+F 1 "~" V 8616 4650 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 9050 4550 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 9050 4750 50  0001 C CNN
+	2    8850 4650
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	8550 4750 8425 4750
+Connection ~ 8425 4750
+Wire Wire Line
+	6675 5825 8175 5825
+Wire Wire Line
+	9325 5825 9325 4650
+Wire Wire Line
+	9325 4650 9150 4650
+Connection ~ 6675 5825
+$Comp
+L LSA:FRT5_separated K2
+U 3 1 5C711502
+P 8875 4125
+F 0 "K2" V 8550 4125 50  0000 C CNN
+F 1 "~" V 8641 4125 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 9075 4025 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 9075 4225 50  0001 C CNN
+	3    8875 4125
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	8575 4225 8425 4225
+Wire Wire Line
+	8425 4225 8425 4750
+Text GLabel 9475 4125 2    50   Input ~ 0
+SKT2Y
+$Comp
+L Device:D D4
+U 1 1 5C7193CD
+P 7925 4225
+F 0 "D4" H 7925 4441 50  0000 C CNN
+F 1 "1N4001T" H 7925 4350 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 7925 4225 50  0001 C CNN
+F 3 "~" H 7925 4225 50  0001 C CNN
+	1    7925 4225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8075 4225 8425 4225
+Connection ~ 8425 4225
+Wire Wire Line
+	7775 4225 7400 4225
+Wire Wire Line
+	7400 4225 7400 4750
+Connection ~ 7400 4750
+Wire Wire Line
+	7400 4750 6675 4750
+Text GLabel 9475 4650 2    50   Input ~ 0
+SKT2Z
+Wire Wire Line
+	9475 4650 9325 4650
+Connection ~ 9325 4650
+Wire Wire Line
+	9175 4125 9475 4125
+$Comp
+L LSA:FRT5_separated K2
+U 2 1 5C735FD9
+P 6650 6100
+F 0 "K2" V 6475 6100 50  0000 C CNN
+F 1 "~" V 6825 6100 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 6850 6000 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 6850 6200 50  0001 C CNN
+	2    6650 6100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5C7365B2
+P 7400 5550
+F 0 "R10" H 7330 5504 50  0000 R CNN
+F 1 "47" H 7330 5595 50  0000 R CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7330 5550 50  0001 C CNN
+F 3 "~" H 7400 5550 50  0001 C CNN
+	1    7400 5550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6350 6100 6100 6100
+Wire Wire Line
+	6100 6100 6100 5225
+Connection ~ 6100 5225
+Wire Wire Line
+	6100 5225 5925 5225
+Wire Wire Line
+	7300 5225 7400 5225
+Wire Wire Line
+	7000 5225 6675 5225
+Wire Wire Line
+	7400 5400 7400 5225
+Connection ~ 7400 5225
+Wire Wire Line
+	7400 5225 7625 5225
+Wire Wire Line
+	7400 5700 7400 6000
+Wire Wire Line
+	7400 6000 6950 6000
+$Comp
+L LSA:FRT5_separated K3
+U 1 1 5C750BB3
+P 8175 6125
+F 0 "K3" H 8020 6079 50  0000 R CNN
+F 1 "~" H 8020 6170 50  0000 R CNN
+F 2 "ELLIOTT:Relay55.13" H 8375 6025 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 8375 6225 50  0001 C CNN
+	1    8175 6125
+	-1   0    0    1   
+$EndComp
+Connection ~ 8175 5825
+Wire Wire Line
+	8175 5825 8825 5825
+$Comp
+L LSA:FRT5_separated K4
+U 1 1 5C750CDE
+P 8825 6125
+F 0 "K4" H 8670 6079 50  0000 R CNN
+F 1 "~" H 8670 6170 50  0000 R CNN
+F 2 "ELLIOTT:Relay55.13" H 9025 6025 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 9025 6225 50  0001 C CNN
+	1    8825 6125
+	-1   0    0    1   
+$EndComp
+Connection ~ 8825 5825
+Wire Wire Line
+	8825 5825 9325 5825
+$Comp
+L Device:D D5
+U 1 1 5C750D5E
+P 9325 6100
+F 0 "D5" V 9371 6021 50  0000 R CNN
+F 1 "1N4001T" V 9280 6021 50  0000 R CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 9325 6100 50  0001 C CNN
+F 3 "~" H 9325 6100 50  0001 C CNN
+	1    9325 6100
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9325 5950 9325 5825
+Connection ~ 9325 5825
+Wire Wire Line
+	9325 6250 9325 6425
+Wire Wire Line
+	9325 6425 8825 6425
+Wire Wire Line
+	6950 6425 6950 6200
+Connection ~ 8175 6425
+Wire Wire Line
+	8175 6425 6950 6425
+Connection ~ 8825 6425
+Wire Wire Line
+	8825 6425 8175 6425
+$Comp
+L Device:R R1
+U 1 1 5C75B58C
+P 3125 1350
+F 0 "R1" H 3195 1396 50  0000 L CNN
+F 1 "390R" H 3195 1305 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 3055 1350 50  0001 C CNN
+F 3 "~" H 3125 1350 50  0001 C CNN
+	1    3125 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3125 1500 3125 1675
+Wire Wire Line
+	3125 1025 3125 1200
+$Comp
+L power:Earth #PWR0101
+U 1 1 5C7660B1
+P 1325 1225
+F 0 "#PWR0101" H 1325 975 50  0001 C CNN
+F 1 "Earth" H 1325 1075 50  0001 C CNN
+F 2 "" H 1325 1225 50  0001 C CNN
+F 3 "~" H 1325 1225 50  0001 C CNN
+	1    1325 1225
+	1    0    0    -1  
+$EndComp
+Text GLabel 1450 1075 2    50   Input ~ 0
+SKT2A
+Wire Wire Line
+	1450 1075 1325 1075
+Wire Wire Line
+	1325 1075 1325 1225
+Text GLabel 6975 2275 2    50   Input ~ 0
+SKT2G
+Text GLabel 6975 2150 2    50   Input ~ 0
+SKT2H
+Text GLabel 6975 2025 2    50   Input ~ 0
+SKT2J
+Text GLabel 6975 1900 2    50   Input ~ 0
+SKT2K
+Wire Wire Line
+	6975 2275 6675 2275
+Connection ~ 6675 2275
+Text GLabel 6975 2900 2    50   Input ~ 0
+SKT2B
+Text GLabel 6975 3025 2    50   Input ~ 0
+SKT2C
+Text GLabel 6975 3150 2    50   Input ~ 0
+SKT2D
+Text GLabel 6975 3275 2    50   Input ~ 0
+SKT2E
+Text GLabel 6975 3400 2    50   Input ~ 0
+SKT2F
+Text GLabel 6975 2775 2    50   Input ~ 0
+SKT2b_
+Text GLabel 6975 3525 2    50   Input ~ 0
+SKT2c_
+Wire Wire Line
+	6975 2900 6675 2900
+Connection ~ 6675 2900
+Wire Wire Line
+	6675 2900 6675 3025
+Wire Wire Line
+	6675 3025 6975 3025
+Wire Wire Line
+	6975 3150 6675 3150
+Wire Wire Line
+	6675 3150 6675 3025
+Connection ~ 6675 3025
+Wire Wire Line
+	6975 3275 6675 3275
+Wire Wire Line
+	6675 3275 6675 3150
+Connection ~ 6675 3150
+Wire Wire Line
+	6975 3400 6675 3400
+Wire Wire Line
+	6675 3400 6675 3275
+Connection ~ 6675 3275
+Wire Wire Line
+	6975 3525 6675 3525
+Wire Wire Line
+	6675 3525 6675 3400
+Connection ~ 6675 3400
+Wire Wire Line
+	6975 2775 6675 2775
+Connection ~ 6675 2775
+Wire Wire Line
+	6675 2775 6675 2900
+Wire Wire Line
+	6975 2150 6675 2150
+Wire Wire Line
+	6675 2150 6675 2275
+Wire Wire Line
+	6975 2025 6675 2025
+Wire Wire Line
+	6675 2025 6675 2150
+Connection ~ 6675 2150
+Wire Wire Line
+	6975 1900 6675 1900
+Wire Wire Line
+	6675 1900 6675 2025
+Connection ~ 6675 2025
+Text GLabel 6975 3700 2    50   Input ~ 0
+SKT2L
+Text GLabel 6975 3825 2    50   Input ~ 0
+SKT2M
+Wire Wire Line
+	6975 3825 6675 3825
+Connection ~ 6675 3825
+Wire Wire Line
+	6675 3825 6675 3925
+Wire Wire Line
+	6975 3700 6675 3700
+Connection ~ 6675 3700
+Text Notes 8900 5375 0    50   ~ 0
+On
+Text Notes 9475 4250 0    50   ~ 0
+Off
+Text Notes 9475 4800 0    50   ~ 0
+On Off Common
+Text GLabel 9475 5825 2    50   Input ~ 0
+SKT2W
+Text GLabel 9475 6425 2    50   Input ~ 0
+SKT2V
+Wire Wire Line
+	9475 6425 9325 6425
+Connection ~ 9325 6425
+Wire Wire Line
+	9325 5825 9475 5825
+Text Notes 9500 5700 0    50   ~ 0
+24vCommon
+Text Notes 9475 6325 0    50   ~ 0
+24v
+$Comp
+L Device:R R9
+U 1 1 5C80F9CF
+P 7100 1700
+F 0 "R9" V 6893 1700 50  0000 C CNN
+F 1 "10k" V 6984 1700 50  0000 C CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 7030 1700 50  0001 C CNN
+F 3 "~" H 7100 1700 50  0001 C CNN
+	1    7100 1700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6950 1700 6675 1700
+Wire Wire Line
+	6675 1700 6675 1900
+Connection ~ 6675 1900
+$Comp
+L LSA:Q_NPN Q5
+U 1 1 5C8170E4
+P 8100 1700
+F 0 "Q5" H 8291 1746 50  0000 L CNN
+F 1 "BC107" H 8291 1655 50  0000 L CNN
+F 2 "ELLIOTT:TO-92L_Inline" H 8300 1800 50  0001 C CNN
+F 3 "" H 8100 1700 50  0001 C CNN
+	1    8100 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 1700 7850 1700
+Text GLabel 9475 1425 2    50   Input ~ 0
+SKT2T
+Wire Wire Line
+	9475 1425 8200 1425
+Wire Wire Line
+	8200 1425 8200 1500
+$Comp
+L LSA:FRT5_separated K2
+U 4 1 5C826B5D
+P 7550 2175
+F 0 "K2" H 7525 2075 50  0000 R CNN
+F 1 "~" H 7362 2220 50  0000 R CNN
+F 2 "ELLIOTT:Relay55.13" H 7750 2075 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 7750 2275 50  0001 C CNN
+	4    7550 2175
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7850 1875 7850 1700
+Connection ~ 7850 1700
+Wire Wire Line
+	7850 1700 7550 1700
+Wire Wire Line
+	7550 1875 7550 1700
+Connection ~ 7550 1700
+Wire Wire Line
+	7550 1700 7250 1700
+$Comp
+L LSA:FRT5_separated K1
+U 3 1 5C826C74
+P 7850 2175
+F 0 "K1" H 7825 2075 50  0000 R CNN
+F 1 "~" H 7200 2500 50  0000 R CNN
+F 2 "ELLIOTT:Relay55.13" H 8050 2075 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 8050 2275 50  0001 C CNN
+	3    7850 2175
+	-1   0    0    1   
+$EndComp
+NoConn ~ 7950 2475
+NoConn ~ 7450 2475
+Wire Wire Line
+	8200 1900 8200 2775
+Wire Wire Line
+	8200 2775 7750 2775
+Wire Wire Line
+	7650 2775 7650 2475
+Wire Wire Line
+	7750 2475 7750 2775
+Connection ~ 7750 2775
+Wire Wire Line
+	7750 2775 7650 2775
+Text GLabel 9475 2775 2    50   Input ~ 0
+SKT2U
+Wire Wire Line
+	9475 2775 8200 2775
+Connection ~ 8200 2775
+Text Notes 9450 2925 0    50   ~ 0
+Logic 0v
+Text Notes 9450 1575 0    50   ~ 0
+PSC-
+Wire Wire Line
+	2875 2900 3225 2900
+Wire Wire Line
+	2875 4375 3225 4375
+$Comp
+L power:PWR_FLAG #FLG0103
+U 1 1 5C902B5B
+P 4725 2275
+F 0 "#FLG0103" H 4725 2350 50  0001 C CNN
+F 1 "PWR_FLAG" H 4725 2448 50  0000 C CNN
+F 2 "" H 4725 2275 50  0001 C CNN
+F 3 "~" H 4725 2275 50  0001 C CNN
+	1    4725 2275
+	-1   0    0    1   
+$EndComp
+Connection ~ 4725 2275
+Wire Wire Line
+	4725 2275 4475 2275
+$Comp
+L power:PWR_FLAG #FLG0104
+U 1 1 5C90BD6F
+P 4725 3700
+F 0 "#FLG0104" H 4725 3775 50  0001 C CNN
+F 1 "PWR_FLAG" H 4725 3873 50  0000 C CNN
+F 2 "" H 4725 3700 50  0001 C CNN
+F 3 "~" H 4725 3700 50  0001 C CNN
+	1    4725 3700
+	-1   0    0    1   
+$EndComp
+Connection ~ 4725 3700
+Wire Wire Line
+	4725 3700 4475 3700
+NoConn ~ 8575 4025
+NoConn ~ 8550 4550
+Wire Wire Line
+	2900 5225 3225 5225
+$Comp
+L power:PWR_FLAG #FLG0105
+U 1 1 5C92C8A6
+P 2875 5725
+F 0 "#FLG0105" H 2875 5800 50  0001 C CNN
+F 1 "PWR_FLAG" H 2875 5899 50  0000 C CNN
+F 2 "" H 2875 5725 50  0001 C CNN
+F 3 "~" H 2875 5725 50  0001 C CNN
+	1    2875 5725
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2875 5725 2875 5825
+Connection ~ 2875 5825
+Wire Wire Line
+	2875 5825 3225 5825
+$Comp
+L power:PWR_FLAG #FLG0106
+U 1 1 5C935CB6
+P 4725 5225
+F 0 "#FLG0106" H 4725 5300 50  0001 C CNN
+F 1 "PWR_FLAG" H 4725 5398 50  0000 C CNN
+F 2 "" H 4725 5225 50  0001 C CNN
+F 3 "~" H 4725 5225 50  0001 C CNN
+	1    4725 5225
+	-1   0    0    1   
+$EndComp
+Connection ~ 4725 5225
+Wire Wire Line
+	4725 5225 4475 5225
+NoConn ~ 3125 3100
+Text GLabel 8475 700  0    50   Input ~ 0
+SKT2V
+Text GLabel 8475 800  0    50   Input ~ 0
+SKT2W
+Text GLabel 6900 800  0    50   Input ~ 0
+SKT2Y
+Text GLabel 6900 700  0    50   Input ~ 0
+SKT2Z
+Text GLabel 6900 1100 0    50   Input ~ 0
+SKT2U
+Text GLabel 6900 1200 0    50   Input ~ 0
+SKT2T
+Text GLabel 6900 900  0    50   Input ~ 0
+SKT2X
+Text GLabel 3775 6600 0    50   Input ~ 0
+SKT2B
+Text GLabel 3775 6500 0    50   Input ~ 0
+SKT2C
+Text GLabel 3775 6400 0    50   Input ~ 0
+SKT2D
+Text GLabel 3775 6300 0    50   Input ~ 0
+SKT2E
+Text GLabel 3775 6200 0    50   Input ~ 0
+SKT2F
+Text GLabel 5100 6475 0    50   Input ~ 0
+SKT2G
+Text GLabel 1100 3650 2    50   Input ~ 0
+SKT2A
+Text GLabel 6900 1000 0    50   Input ~ 0
+SKT2a_
+Text GLabel 5100 6375 0    50   Input ~ 0
+SKT2H
+Text GLabel 5100 6275 0    50   Input ~ 0
+SKT2J
+Text GLabel 5100 6175 0    50   Input ~ 0
+SKT2K
+Text GLabel 8475 900  0    50   Input ~ 0
+SKT2L
+Text GLabel 8475 1000 0    50   Input ~ 0
+SKT2M
+$Comp
+L power:PWR_FLAG #FLG0107
+U 1 1 5CA71E07
+P 1325 1075
+F 0 "#FLG0107" H 1325 1150 50  0001 C CNN
+F 1 "PWR_FLAG" H 1325 1249 50  0000 C CNN
+F 2 "" H 1325 1075 50  0001 C CNN
+F 3 "~" H 1325 1075 50  0001 C CNN
+	1    1325 1075
+	1    0    0    -1  
+$EndComp
+Connection ~ 1325 1075
+$Comp
+L Transformer:TRANSF6 TR2
+U 1 1 5CA07C19
+P 1375 5075
+F 0 "TR2" H 1375 5557 50  0000 C CNN
+F 1 "24v" H 1375 5466 50  0000 C CNN
+F 2 "ELLIOTT:FL3024Transformer" H 1375 5075 50  0001 C CNN
+F 3 "" H 1375 5075 50  0001 C CNN
+	1    1375 5075
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 5525 1750 5275
+Wire Wire Line
+	1750 4975 1575 4975
+Wire Wire Line
+	1575 5275 1750 5275
+Connection ~ 1750 5275
+Wire Wire Line
+	1750 5275 1750 4975
+Wire Wire Line
+	1575 5075 1650 5075
+Wire Wire Line
+	1650 5075 1650 4775
+Connection ~ 1650 4775
+Wire Wire Line
+	1650 4775 1575 4775
+Wire Wire Line
+	1175 4975 1175 5075
+$Comp
+L Transformer:TRANSF6 TR1
+U 1 1 5CA585FF
+P 1225 2325
+F 0 "TR1" H 1225 2807 50  0000 C CNN
+F 1 "6v" H 1225 2716 50  0000 C CNN
+F 2 "ELLIOTT:FL3024Transformer" H 1225 2325 50  0001 C CNN
+F 3 "" H 1225 2325 50  0001 C CNN
+	1    1225 2325
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1425 1975 1775 1975
+Text GLabel 1100 3450 2    50   Input ~ 0
+L
+Text GLabel 1100 3550 2    50   Input ~ 0
+N
+Wire Wire Line
+	875  3550 1100 3550
+Wire Wire Line
+	875  3450 1100 3450
+Text GLabel 875  2525 0    50   Input ~ 0
+N
+Text GLabel 875  2025 0    50   Input ~ 0
+L
+Text GLabel 950  4775 0    50   Input ~ 0
+L
+Wire Wire Line
+	950  4775 1175 4775
+Text GLabel 950  5275 0    50   Input ~ 0
+N
+Wire Wire Line
+	950  5275 1175 5275
+$Comp
+L Connector_Generic:Conn_01x06 J4
+U 1 1 5CA0FA46
+P 7200 900
+F 0 "J4" H 7200 1225 50  0000 L CNN
+F 1 "~" H 7280 801 50  0000 L CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13706HBWC_1x06_P7.50mm_Horizontal" H 7200 900 50  0001 C CNN
+F 3 "~" H 7200 900 50  0001 C CNN
+	1    7200 900 
+	1    0    0    -1  
+$EndComp
+Text GLabel 3125 1025 1    50   Input ~ 0
+SKT2a_
+Wire Wire Line
+	6900 700  7000 700 
+Wire Wire Line
+	7000 800  6900 800 
+Wire Wire Line
+	6900 1200 7000 1200
+Wire Wire Line
+	7000 1100 6900 1100
+Wire Wire Line
+	6900 1000 7000 1000
+Wire Wire Line
+	7000 900  6900 900 
+Text Notes 7325 1200 0    40   ~ 0
+Power Supply Correct
+Text Notes 7325 1100 0    40   ~ 0
+Logic 0v
+Text Notes 7325 1000 0    40   ~ 0
+Off Lamp
+Text Notes 7325 900  0    40   ~ 0
+On Button
+Text Notes 7325 800  0    40   ~ 0
+Off Button
+Text Notes 7325 700  0    40   ~ 0
+On Off Common
+Text GLabel 8475 1200 0    50   Input ~ 0
+SKT2c_
+Text GLabel 8475 1100 0    50   Input ~ 0
+SKT2b_
+$Comp
+L Connector_Generic:Conn_01x06 J3
+U 1 1 5CB19E82
+P 8825 900
+F 0 "J3" H 8825 1225 50  0000 L CNN
+F 1 "~" H 8905 801 50  0000 L CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13706HBWC_1x06_P7.50mm_Horizontal" H 8825 900 50  0001 C CNN
+F 3 "~" H 8825 900 50  0001 C CNN
+	1    8825 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8475 700  8625 700 
+Wire Wire Line
+	8475 800  8625 800 
+Text Notes 9075 700  0    40   ~ 0
+24v
+Text Notes 9075 800  0    40   ~ 0
+24v Common
+Wire Wire Line
+	8475 1000 8625 1000
+Wire Wire Line
+	8625 900  8475 900 
+Text Notes 9075 900  0    40   ~ 0
+-6v
+Text Notes 9075 1000 0    40   ~ 0
+-6v
+Wire Wire Line
+	8475 1200 8625 1200
+Wire Wire Line
+	8625 1100 8475 1100
+Text Notes 9100 1100 0    40   ~ 0
+0v
+Text Notes 9100 1200 0    40   ~ 0
+0v
+$Comp
+L Connector_Generic:Conn_01x05 J1
+U 1 1 5CB95184
+P 4075 6400
+F 0 "J1" H 4075 6725 50  0000 L CNN
+F 1 "~" H 4155 6351 50  0000 L CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13705HBWC_1x05_P7.50mm_Horizontal" H 4075 6400 50  0001 C CNN
+F 3 "~" H 4075 6400 50  0001 C CNN
+	1    4075 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J5
+U 1 1 5CB95212
+P 5400 6275
+F 0 "J5" H 5400 6475 50  0000 L CNN
+F 1 "~" H 5480 6226 50  0000 L CNN
+F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13704HBWC_1x04_P7.50mm_Horizontal" H 5400 6275 50  0001 C CNN
+F 3 "~" H 5400 6275 50  0001 C CNN
+	1    5400 6275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 3650 875  3650
+Wire Wire Line
+	3775 6200 3875 6200
+Wire Wire Line
+	3875 6300 3775 6300
+Wire Wire Line
+	3775 6400 3875 6400
+Wire Wire Line
+	3875 6500 3775 6500
+Wire Wire Line
+	3775 6600 3875 6600
+Wire Wire Line
+	5100 6475 5200 6475
+Wire Wire Line
+	5200 6375 5100 6375
+Wire Wire Line
+	5100 6275 5200 6275
+Wire Wire Line
+	5200 6175 5100 6175
+Text Notes 4150 6425 0    80   ~ 0
+0v
+Text Notes 5550 6425 0    80   ~ 0
+6v
+Wire Wire Line
+	1425 2025 1425 1975
+Wire Wire Line
+	1775 2575 1425 2575
+Wire Wire Line
+	1425 2575 1425 2525
+Wire Wire Line
+	2075 2575 2600 2575
+Wire Wire Line
+	2300 2275 2300 3700
+Wire Wire Line
+	2300 3700 3225 3700
+Wire Wire Line
+	1425 2225 1425 2275
+Wire Wire Line
+	1425 2275 1625 2275
+Connection ~ 1425 2275
+Wire Wire Line
+	1425 2275 1425 2325
+Text GLabel 1750 2275 2    50   Input ~ 0
+0v
+Text GLabel 2875 2900 0    50   Input ~ 0
+0v
+Text GLabel 2875 4375 0    50   Input ~ 0
+0v
+Wire Wire Line
+	875  2025 1025 2025
+Wire Wire Line
+	1025 2225 1025 2325
+Wire Wire Line
+	875  2525 1025 2525
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 5CBCA718
+P 1625 2275
+F 0 "#FLG0101" H 1625 2350 50  0001 C CNN
+F 1 "PWR_FLAG" H 1625 2448 50  0000 C CNN
+F 2 "" H 1625 2275 50  0001 C CNN
+F 3 "~" H 1625 2275 50  0001 C CNN
+	1    1625 2275
+	-1   0    0    1   
+$EndComp
+Connection ~ 1625 2275
+Wire Wire Line
+	1625 2275 1750 2275
+$EndSCHEMATC

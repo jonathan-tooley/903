@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\Users\v-jtool\OneDrive\Repos\903\KiCad\Real903\LS05\LS05.sch)
-    (date "1/17/2019 4:37:00 PM")
+    (date "3/30/2019 4:59:55 PM")
     (tool "Eeschema (5.0.0)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -112,8 +112,8 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5B96B3E1))
     (comp (ref VT3)
-      (value BC547)
-      (footprint ELLIOTT:TO-92)
+      (value BC548)
+      (footprint ELLIOTT:TO-92L_Inline)
       (libsource (lib LSA) (part Q_NPN) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 5B96B3E7))

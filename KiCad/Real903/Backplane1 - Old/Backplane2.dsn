@@ -1,0 +1,2281 @@
+(pcb "C:\Users\v-jtool\OneDrive\Repos\903\KiCad\Real903\Backplane1\Backplane2.dsn"
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "(5.0.0)")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer In1.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (layer In2.Cu
+      (type signal)
+      (property
+        (index 2)
+      )
+    )
+    (layer In3.Cu
+      (type signal)
+      (property
+        (index 3)
+      )
+    )
+    (layer In4.Cu
+      (type signal)
+      (property
+        (index 4)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 5)
+      )
+    )
+    (boundary
+      (path pcb 0  455225 -422175  29105 -422175  29105 -327061  455225 -327061
+            455225 -422175)
+    )
+    (via "Via[0-5]_800:400_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component ELLIOTT:DIN41612_B_2x32_Horizontal
+      (place J28 33020 -335280 front 270 (PN Conn_02x32))
+      (place J29 48260 -335280 front 270 (PN Conn_02x32))
+      (place J31 78740 -335280 front 270 (PN Conn_02x32))
+      (place J34 109220 -335280 front 270 (PN Conn_02x32))
+      (place J36 138684 -335280 front 270 (PN Conn_02x32))
+      (place J37 152400 -335280 front 270 (PN Conn_02x32))
+      (place J39 182880 -335280 front 270 (PN Conn_02x32))
+      (place J41 213360 -335280 front 270 (PN Conn_02x32))
+      (place J45 274320 -335280 front 270 (PN Conn_02x32))
+      (place J48 320040 -335280 front 270 (PN Conn_02x32))
+      (place J50 350520 -335280 front 270 (PN Conn_02x32))
+      (place J52 381000 -335280 front 270 (PN Conn_02x32))
+      (place J53 396240 -335280 front 270 (PN Conn_02x32))
+      (place J55 426720 -335280 front 270 (PN Conn_02x32))
+    )
+    (component ELLIOTT:DIN41612_B_2x32_Horizontal::1
+      (place J30 63500 -335280 front 270 (PN Conn_02x32))
+      (place J32 93980 -335280 front 270 (PN Conn_02x32))
+      (place J35 124460 -335280 front 270 (PN Conn_02x32))
+      (place J38 167640 -335280 front 270 (PN Conn_02x32))
+      (place J40 198120 -335280 front 270 (PN Conn_02x32))
+      (place J42 228600 -335216 front 270 (PN Conn_02x32))
+      (place J43 243840 -335280 front 270 (PN Conn_02x32))
+      (place J44 259080 -335280 front 270 (PN Conn_02x32))
+      (place J46 289560 -335280 front 270 (PN Conn_02x32))
+      (place J47 304800 -335280 front 270 (PN Conn_02x32))
+      (place J49 335280 -335280 front 270 (PN Conn_02x32))
+      (place J51 365760 -335280 front 270 (PN Conn_02x32))
+      (place J54 411480 -335280 front 270 (PN Conn_02x32))
+      (place J56 441960 -335280 front 270 (PN Conn_02x32))
+    )
+  )
+  (library
+    (image ELLIOTT:DIN41612_B_2x32_Horizontal
+      (outline (path signal 150  -2530 440  -2530 -60))
+      (outline (path signal 150  -2530 -60  -7730 -60))
+      (outline (path signal 150  -7730 -60  -7730 5040))
+      (outline (path signal 150  81270 440  81270 -60))
+      (outline (path signal 150  81270 -60  86470 -60))
+      (outline (path signal 150  86470 -60  86470 5040))
+      (outline (path signal 120  -1350 0  -1950 300))
+      (outline (path signal 120  -1950 300  -1950 -300))
+      (outline (path signal 120  -1950 -300  -1350 0))
+      (outline (path signal 100  -2630 540  -2630 40))
+      (outline (path signal 100  -2630 40  -7630 40))
+      (outline (path signal 100  -7630 40  -7630 5040))
+      (outline (path signal 100  -7630 5040  -4380 5040))
+      (outline (path signal 100  -4380 5040  -4380 12740))
+      (outline (path signal 100  -4380 12740  83120 12740))
+      (outline (path signal 100  83120 12740  83120 5040))
+      (outline (path signal 100  83120 5040  86370 5040))
+      (outline (path signal 100  86370 5040  86370 40))
+      (outline (path signal 100  86370 40  81370 40))
+      (outline (path signal 100  81370 40  81370 540))
+      (outline (path signal 100  81370 540  -2630 540))
+      (outline (path signal 50  -1350 -3890  -1350 -460))
+      (outline (path signal 50  -1350 -460  -8130 -460))
+      (outline (path signal 50  -8130 -460  -8130 5540))
+      (outline (path signal 50  -8130 5540  -4880 5540))
+      (outline (path signal 50  -4880 5540  -4880 13240))
+      (outline (path signal 50  -4880 13240  83620 13240))
+      (outline (path signal 50  83620 13240  83620 5540))
+      (outline (path signal 50  83620 5540  86870 5540))
+      (outline (path signal 50  86870 5540  86870 -460))
+      (outline (path signal 50  86870 -460  80870 -460))
+      (outline (path signal 50  80870 -460  80090 -460))
+      (outline (path signal 50  80090 -460  80090 -3890))
+      (outline (path signal 50  80090 -3890  -1350 -3890))
+      (outline (path signal 80  -4380 5300  83120 5300))
+      (outline (path signal 100  39370 6800  39370 5400))
+      (outline (path signal 100  39170 5900  39370 5400))
+      (outline (path signal 100  39370 5400  39570 5900))
+      (pin Rect[A]Pad_1700x1700_um 1 0 0)
+      (pin Round[A]Pad_1700_um A 0 -2540)
+      (pin Round[A]Pad_1700_um 2 2540 0)
+      (pin Round[A]Pad_1700_um B 2540 -2540)
+      (pin Round[A]Pad_1700_um 3 5080 0)
+      (pin Round[A]Pad_1700_um C 5080 -2540)
+      (pin Round[A]Pad_1700_um 4 7620 0)
+      (pin Round[A]Pad_1700_um D 7620 -2540)
+      (pin Round[A]Pad_1700_um 5 10160 0)
+      (pin Round[A]Pad_1700_um E 10160 -2540)
+      (pin Round[A]Pad_1700_um 6 12700 0)
+      (pin Round[A]Pad_1700_um F 12700 -2540)
+      (pin Round[A]Pad_1700_um 7 15240 0)
+      (pin Round[A]Pad_1700_um H 15240 -2540)
+      (pin Round[A]Pad_1700_um 8 17780 0)
+      (pin Round[A]Pad_1700_um J 17780 -2540)
+      (pin Round[A]Pad_1700_um 9 20320 0)
+      (pin Round[A]Pad_1700_um K 20320 -2540)
+      (pin Round[A]Pad_1700_um 10 22860 0)
+      (pin Round[A]Pad_1700_um L 22860 -2540)
+      (pin Round[A]Pad_1700_um 11 25400 0)
+      (pin Round[A]Pad_1700_um M 25400 -2540)
+      (pin Round[A]Pad_1700_um 12 27940 0)
+      (pin Round[A]Pad_1700_um N 27940 -2540)
+      (pin Round[A]Pad_1700_um 13 30480 0)
+      (pin Round[A]Pad_1700_um P 30480 -2540)
+      (pin Round[A]Pad_1700_um 14 33020 0)
+      (pin Round[A]Pad_1700_um R 33020 -2540)
+      (pin Round[A]Pad_1700_um 15 35560 0)
+      (pin Round[A]Pad_1700_um S 35560 -2540)
+      (pin Round[A]Pad_1700_um 16 38100 0)
+      (pin Round[A]Pad_1700_um T 38100 -2540)
+      (pin Round[A]Pad_1700_um 17 40640 0)
+      (pin Round[A]Pad_1700_um U 40640 -2540)
+      (pin Round[A]Pad_1700_um 18 43180 0)
+      (pin Round[A]Pad_1700_um V 43180 -2540)
+      (pin Round[A]Pad_1700_um 19 45720 0)
+      (pin Round[A]Pad_1700_um W 45720 -2540)
+      (pin Round[A]Pad_1700_um 20 48260 0)
+      (pin Round[A]Pad_1700_um X 48260 -2540)
+      (pin Round[A]Pad_1700_um 21 50800 0)
+      (pin Round[A]Pad_1700_um Y 50800 -2540)
+      (pin Round[A]Pad_1700_um 22 53340 0)
+      (pin Round[A]Pad_1700_um Z 53340 -2540)
+      (pin Round[A]Pad_1700_um 23 55880 0)
+      (pin Round[A]Pad_1700_um AA 55880 -2540)
+      (pin Round[A]Pad_1700_um 24 58420 0)
+      (pin Round[A]Pad_1700_um AB 58420 -2540)
+      (pin Round[A]Pad_1700_um 25 60960 0)
+      (pin Round[A]Pad_1700_um AC 60960 -2540)
+      (pin Round[A]Pad_1700_um 26 63500 0)
+      (pin Round[A]Pad_1700_um AD 63500 -2540)
+      (pin Round[A]Pad_1700_um 27 66040 0)
+      (pin Round[A]Pad_1700_um AE 66040 -2540)
+      (pin Round[A]Pad_1700_um 28 68580 0)
+      (pin Round[A]Pad_1700_um AF 68580 -2540)
+      (pin Round[A]Pad_1700_um 29 71120 0)
+      (pin Round[A]Pad_1700_um AH 71120 -2540)
+      (pin Round[A]Pad_1700_um 30 73660 0)
+      (pin Round[A]Pad_1700_um AJ 73660 -2540)
+      (pin Round[A]Pad_1700_um 31 76200 0)
+      (pin Round[A]Pad_1700_um AK 76200 -2540)
+      (pin Round[A]Pad_1700_um 32 78740 0)
+      (pin Round[A]Pad_1700_um AL 78740 -2540)
+      (keepout "" (circle F.Cu 2800 -5080 2540))
+      (keepout "" (circle In1.Cu 2800 -5080 2540))
+      (keepout "" (circle In2.Cu 2800 -5080 2540))
+      (keepout "" (circle In3.Cu 2800 -5080 2540))
+      (keepout "" (circle In4.Cu 2800 -5080 2540))
+      (keepout "" (circle B.Cu 2800 -5080 2540))
+      (keepout "" (circle F.Cu 2800 83820 2540))
+      (keepout "" (circle In1.Cu 2800 83820 2540))
+      (keepout "" (circle In2.Cu 2800 83820 2540))
+      (keepout "" (circle In3.Cu 2800 83820 2540))
+      (keepout "" (circle In4.Cu 2800 83820 2540))
+      (keepout "" (circle B.Cu 2800 83820 2540))
+    )
+    (image ELLIOTT:DIN41612_B_2x32_Horizontal::1
+      (outline (path signal 100  39370 5400  39570 5900))
+      (outline (path signal 100  39170 5900  39370 5400))
+      (outline (path signal 100  39370 6800  39370 5400))
+      (outline (path signal 80  -4380 5300  83120 5300))
+      (outline (path signal 50  80090 -3890  -1350 -3890))
+      (outline (path signal 50  80090 -460  80090 -3890))
+      (outline (path signal 50  80870 -460  80090 -460))
+      (outline (path signal 50  86870 -460  80870 -460))
+      (outline (path signal 50  86870 5540  86870 -460))
+      (outline (path signal 50  83620 5540  86870 5540))
+      (outline (path signal 50  83620 13240  83620 5540))
+      (outline (path signal 50  -4880 13240  83620 13240))
+      (outline (path signal 50  -4880 5540  -4880 13240))
+      (outline (path signal 50  -8130 5540  -4880 5540))
+      (outline (path signal 50  -8130 -460  -8130 5540))
+      (outline (path signal 50  -1350 -460  -8130 -460))
+      (outline (path signal 50  -1350 -3890  -1350 -460))
+      (outline (path signal 100  81370 540  -2630 540))
+      (outline (path signal 100  81370 40  81370 540))
+      (outline (path signal 100  86370 40  81370 40))
+      (outline (path signal 100  86370 5040  86370 40))
+      (outline (path signal 100  83120 5040  86370 5040))
+      (outline (path signal 100  83120 12740  83120 5040))
+      (outline (path signal 100  -4380 12740  83120 12740))
+      (outline (path signal 100  -4380 5040  -4380 12740))
+      (outline (path signal 100  -7630 5040  -4380 5040))
+      (outline (path signal 100  -7630 40  -7630 5040))
+      (outline (path signal 100  -2630 40  -7630 40))
+      (outline (path signal 100  -2630 540  -2630 40))
+      (outline (path signal 120  -1950 -300  -1350 0))
+      (outline (path signal 120  -1950 300  -1950 -300))
+      (outline (path signal 120  -1350 0  -1950 300))
+      (outline (path signal 150  86470 -60  86470 5040))
+      (outline (path signal 150  81270 -60  86470 -60))
+      (outline (path signal 150  81270 440  81270 -60))
+      (outline (path signal 150  -7730 -60  -7730 5040))
+      (outline (path signal 150  -2530 -60  -7730 -60))
+      (outline (path signal 150  -2530 440  -2530 -60))
+      (pin Round[A]Pad_1700_um AL 78740 -2540)
+      (pin Round[A]Pad_1700_um 32 78740 0)
+      (pin Round[A]Pad_1700_um AK 76200 -2540)
+      (pin Round[A]Pad_1700_um 31 76200 0)
+      (pin Round[A]Pad_1700_um AJ 73660 -2540)
+      (pin Round[A]Pad_1700_um 30 73660 0)
+      (pin Round[A]Pad_1700_um AH 71120 -2540)
+      (pin Round[A]Pad_1700_um 29 71120 0)
+      (pin Round[A]Pad_1700_um AF 68580 -2540)
+      (pin Round[A]Pad_1700_um 28 68580 0)
+      (pin Round[A]Pad_1700_um AE 66040 -2540)
+      (pin Round[A]Pad_1700_um 27 66040 0)
+      (pin Round[A]Pad_1700_um AD 63500 -2540)
+      (pin Round[A]Pad_1700_um 26 63500 0)
+      (pin Round[A]Pad_1700_um AC 60960 -2540)
+      (pin Round[A]Pad_1700_um 25 60960 0)
+      (pin Round[A]Pad_1700_um AB 58420 -2540)
+      (pin Round[A]Pad_1700_um 24 58420 0)
+      (pin Round[A]Pad_1700_um AA 55880 -2540)
+      (pin Round[A]Pad_1700_um 23 55880 0)
+      (pin Round[A]Pad_1700_um Z 53340 -2540)
+      (pin Round[A]Pad_1700_um 22 53340 0)
+      (pin Round[A]Pad_1700_um Y 50800 -2540)
+      (pin Round[A]Pad_1700_um 21 50800 0)
+      (pin Round[A]Pad_1700_um X 48260 -2540)
+      (pin Round[A]Pad_1700_um 20 48260 0)
+      (pin Round[A]Pad_1700_um W 45720 -2540)
+      (pin Round[A]Pad_1700_um 19 45720 0)
+      (pin Round[A]Pad_1700_um V 43180 -2540)
+      (pin Round[A]Pad_1700_um 18 43180 0)
+      (pin Round[A]Pad_1700_um U 40640 -2540)
+      (pin Round[A]Pad_1700_um 17 40640 0)
+      (pin Round[A]Pad_1700_um T 38100 -2540)
+      (pin Round[A]Pad_1700_um 16 38100 0)
+      (pin Round[A]Pad_1700_um S 35560 -2540)
+      (pin Round[A]Pad_1700_um 15 35560 0)
+      (pin Round[A]Pad_1700_um R 33020 -2540)
+      (pin Round[A]Pad_1700_um 14 33020 0)
+      (pin Round[A]Pad_1700_um P 30480 -2540)
+      (pin Round[A]Pad_1700_um 13 30480 0)
+      (pin Round[A]Pad_1700_um N 27940 -2540)
+      (pin Round[A]Pad_1700_um 12 27940 0)
+      (pin Round[A]Pad_1700_um M 25400 -2540)
+      (pin Round[A]Pad_1700_um 11 25400 0)
+      (pin Round[A]Pad_1700_um L 22860 -2540)
+      (pin Round[A]Pad_1700_um 10 22860 0)
+      (pin Round[A]Pad_1700_um K 20320 -2540)
+      (pin Round[A]Pad_1700_um 9 20320 0)
+      (pin Round[A]Pad_1700_um J 17780 -2540)
+      (pin Round[A]Pad_1700_um 8 17780 0)
+      (pin Round[A]Pad_1700_um H 15240 -2540)
+      (pin Round[A]Pad_1700_um 7 15240 0)
+      (pin Round[A]Pad_1700_um F 12700 -2540)
+      (pin Round[A]Pad_1700_um 6 12700 0)
+      (pin Round[A]Pad_1700_um E 10160 -2540)
+      (pin Round[A]Pad_1700_um 5 10160 0)
+      (pin Round[A]Pad_1700_um D 7620 -2540)
+      (pin Round[A]Pad_1700_um 4 7620 0)
+      (pin Round[A]Pad_1700_um C 5080 -2540)
+      (pin Round[A]Pad_1700_um 3 5080 0)
+      (pin Round[A]Pad_1700_um B 2540 -2540)
+      (pin Round[A]Pad_1700_um 2 2540 0)
+      (pin Round[A]Pad_1700_um A 0 -2540)
+      (pin Rect[A]Pad_1700x1700_um 1 0 0)
+      (keepout "" (circle F.Cu 2800 83820 2540))
+      (keepout "" (circle In1.Cu 2800 83820 2540))
+      (keepout "" (circle In2.Cu 2800 83820 2540))
+      (keepout "" (circle In3.Cu 2800 83820 2540))
+      (keepout "" (circle In4.Cu 2800 83820 2540))
+      (keepout "" (circle B.Cu 2800 83820 2540))
+      (keepout "" (circle F.Cu 2800 -5080 2540))
+      (keepout "" (circle In1.Cu 2800 -5080 2540))
+      (keepout "" (circle In2.Cu 2800 -5080 2540))
+      (keepout "" (circle In3.Cu 2800 -5080 2540))
+      (keepout "" (circle In4.Cu 2800 -5080 2540))
+      (keepout "" (circle B.Cu 2800 -5080 2540))
+    )
+    (padstack Round[A]Pad_1700_um
+      (shape (circle F.Cu 1700))
+      (shape (circle In1.Cu 1700))
+      (shape (circle In2.Cu 1700))
+      (shape (circle In3.Cu 1700))
+      (shape (circle In4.Cu 1700))
+      (shape (circle B.Cu 1700))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1700x1700_um
+      (shape (rect F.Cu -850 -850 850 850))
+      (shape (rect In1.Cu -850 -850 850 850))
+      (shape (rect In2.Cu -850 -850 850 850))
+      (shape (rect In3.Cu -850 -850 850 850))
+      (shape (rect In4.Cu -850 -850 850 850))
+      (shape (rect B.Cu -850 -850 850 850))
+      (attach off)
+    )
+    (padstack "Via[0-5]_800:400_um"
+      (shape (circle F.Cu 800))
+      (shape (circle In1.Cu 800))
+      (shape (circle In2.Cu 800))
+      (shape (circle In3.Cu 800))
+      (shape (circle In4.Cu 800))
+      (shape (circle B.Cu 800))
+      (attach off)
+    )
+  )
+  (network
+    (net GND
+      (pins J28-1 J28-A J28-32 J28-AL J29-1 J29-A J29-32 J29-AL J30-AL J30-32 J30-A
+        J30-1 J31-1 J31-A J31-32 J31-AL J32-AL J32-32 J32-A J32-1 J34-1 J34-A J34-32
+        J34-AL J35-AL J35-32 J35-A J35-1 J36-1 J36-A J36-32 J36-AL J37-1 J37-A J37-32
+        J37-AL J38-AL J38-32 J38-A J38-1 J39-1 J39-A J39-32 J39-AL J40-AL J40-32 J40-A
+        J40-1 J41-1 J41-A J41-32 J41-AL J42-AL J42-32 J42-A J42-1 J43-AL J43-32 J43-A
+        J43-1 J44-AL J44-32 J44-A J44-1 J45-1 J45-A J45-32 J45-AL J46-AL J46-32 J46-A
+        J46-1 J47-AL J47-32 J47-A J47-1 J48-1 J48-A J48-32 J48-AL J49-AL J49-32 J49-A
+        J49-1 J50-1 J50-A J50-32 J50-AL J51-AL J51-32 J51-A J51-1 J52-1 J52-A J52-32
+        J52-AL J53-1 J53-A J53-32 J53-AL J54-AL J54-32 J54-A J54-1 J55-1 J55-A J55-32
+        J55-AL J56-AL J56-32 J56-A J56-1)
+    )
+    (net Neg6v
+      (pins J28-31 J28-AK J29-31 J29-AK J30-AK J30-31 J31-31 J31-AK J32-AK J32-31
+        J34-31 J34-AK J35-AK J35-31 J36-31 J36-AK J37-31 J37-AK J38-AK J38-31 J39-31
+        J39-AK J40-AK J40-31 J41-31 J41-AK J42-AK J42-31 J43-AK J43-31 J44-AK J44-31
+        J45-31 J45-AK J46-AK J46-31 J47-AK J47-31 J48-31 J48-AK J49-AK J49-31 J50-31
+        J50-AK J51-AK J51-31 J52-31 J52-AK J53-31 J53-AK J54-AK J54-31 J55-31 J55-AK
+        J56-AK J56-31)
+    )
+    (net "J8-"
+      (pins J49-R)
+    )
+    (net "J7-"
+      (pins J50-R)
+    )
+    (net JTPC
+      (pins J47-24 J47-23)
+    )
+    (net "J6-"
+      (pins J51-R)
+    )
+    (net "J5-"
+      (pins J52-R)
+    )
+    (net 6v
+      (pins J28-2 J28-B J29-2 J29-B J30-B J30-2 J31-2 J31-B J32-B J32-2 J34-2 J34-B
+        J35-B J35-2 J36-2 J36-B J37-2 J37-B J38-B J38-2 J39-2 J39-B J40-B J40-2 J41-2
+        J41-B J42-B J42-2 J43-B J43-2 J44-B J44-2 J45-2 J45-B J46-B J46-2 J47-B J47-2
+        J48-2 J48-B J49-B J49-2 J50-2 J50-B J51-B J51-2 J52-2 J52-B J53-2 J53-B J54-B
+        J54-2 J55-2 J55-B J56-B J56-2)
+    )
+    (net "J9-"
+      (pins J48-R)
+    )
+    (net "J10-"
+      (pins J45-R)
+    )
+    (net "J11-"
+      (pins J44-R)
+    )
+    (net "J12-"
+      (pins J43-R)
+    )
+    (net IP1
+      (pins J28-3 J56-9)
+    )
+    (net SKT4q
+      (pins J28-C)
+    )
+    (net IP2
+      (pins J28-4 J55-9)
+    )
+    (net SKT4r
+      (pins J28-D)
+    )
+    (net IP3
+      (pins J28-5 J54-9)
+    )
+    (net SKT4s
+      (pins J28-E)
+    )
+    (net IP4
+      (pins J28-6 J53-9)
+    )
+    (net SKT4t
+      (pins J28-F)
+    )
+    (net IP5
+      (pins J28-7 J52-9)
+    )
+    (net SKT4u
+      (pins J28-H)
+    )
+    (net IP6
+      (pins J28-8 J51-9)
+    )
+    (net SKT4v
+      (pins J28-J)
+    )
+    (net IP7
+      (pins J28-9 J50-9)
+    )
+    (net SKT4w
+      (pins J28-K)
+    )
+    (net IP8
+      (pins J28-10 J49-9)
+    )
+    (net SKT4x
+      (pins J28-L)
+    )
+    (net IP9
+      (pins J28-11 J48-9)
+    )
+    (net SKT4y
+      (pins J28-M)
+    )
+    (net IP10
+      (pins J28-14 J45-9)
+    )
+    (net SKT4z
+      (pins J28-R)
+    )
+    (net IP11
+      (pins J28-15 J44-9)
+    )
+    (net SKT4AA
+      (pins J28-S)
+    )
+    (net IP12
+      (pins J28-16 J43-9)
+    )
+    (net SKT4BB
+      (pins J28-T)
+    )
+    (net IP13
+      (pins J28-17 J42-9)
+    )
+    (net SKT4CC
+      (pins J28-U)
+    )
+    (net IP14
+      (pins J28-18 J41-9)
+    )
+    (net SKT4DD
+      (pins J28-V)
+    )
+    (net IP15
+      (pins J28-19 J40-9)
+    )
+    (net SKT4EE
+      (pins J28-W)
+    )
+    (net IP16
+      (pins J28-24 J39-9)
+    )
+    (net SKT4FF
+      (pins J28-AB)
+    )
+    (net IP17
+      (pins J28-25 J38-9)
+    )
+    (net SKT4GG
+      (pins J28-AC)
+    )
+    (net IP18
+      (pins J28-26 J37-9)
+    )
+    (net SKT4HH
+      (pins J28-AD)
+    )
+    (net RBT
+      (pins J28-27)
+    )
+    (net RBTm
+      (pins J28-AE)
+    )
+    (net SBT
+      (pins J28-29)
+    )
+    (net SBTm
+      (pins J28-AH)
+    )
+    (net IP'1
+      (pins J29-3 J56-12)
+    )
+    (net SKT10A
+      (pins J29-C)
+    )
+    (net IP'2
+      (pins J29-4 J55-12)
+    )
+    (net SKT10B
+      (pins J29-D)
+    )
+    (net IP'3
+      (pins J29-5 J54-12)
+    )
+    (net SKT10C
+      (pins J29-E)
+    )
+    (net IP'4
+      (pins J29-6 J53-12)
+    )
+    (net SKT10D
+      (pins J29-F)
+    )
+    (net IP'6
+      (pins J29-7 J51-12)
+    )
+    (net SKT10F
+      (pins J29-H)
+    )
+    (net IP'7
+      (pins J29-8 J50-12)
+    )
+    (net SKT10G
+      (pins J29-J)
+    )
+    (net IP'8
+      (pins J29-9 J49-12)
+    )
+    (net SKT10H
+      (pins J29-K)
+    )
+    (net IP'5
+      (pins J29-10 J52-12)
+    )
+    (net SKT10E
+      (pins J29-L)
+    )
+    (net W16
+      (pins J29-12 J39-18)
+    )
+    (net SKT11T
+      (pins J29-N)
+    )
+    (net W14
+      (pins J29-13 J41-18)
+    )
+    (net SKT11R
+      (pins J29-P)
+    )
+    (net W18
+      (pins J29-14 J37-18)
+    )
+    (net SKT11V
+      (pins J29-R)
+    )
+    (net W2
+      (pins J29-15 J55-18)
+    )
+    (net SKT11E
+      (pins J29-S)
+    )
+    (net W3
+      (pins J29-16 J54-18)
+    )
+    (net SKT11D
+      (pins J29-T)
+    )
+    (net W4
+      (pins J29-17 J53-18)
+    )
+    (net SKT11C
+      (pins J29-U)
+    )
+    (net SKT11S
+      (pins J29-V)
+    )
+    (net W15
+      (pins J29-20 J40-18)
+    )
+    (net "RGS-x"
+      (pins J29-21)
+    )
+    (net SKT14z
+      (pins J29-Z)
+    )
+    (net "WGS-x"
+      (pins J29-23)
+    )
+    (net SKT14x
+      (pins J29-AA)
+    )
+    (net INT1
+      (pins J29-27)
+    )
+    (net SKT13A
+      (pins J29-AE)
+    )
+    (net INT2
+      (pins J29-28)
+    )
+    (net SKT13C
+      (pins J29-AF)
+    )
+    (net INT3
+      (pins J29-29)
+    )
+    (net SKT13E
+      (pins J29-AH)
+    )
+    (net "A1-"
+      (pins J29-AJ J31-C J31-Y J56-AB)
+    )
+    (net "Z2-"
+      (pins J30-28)
+    )
+    (net "P5-"
+      (pins J30-AC J32-H J52-W)
+    )
+    (net "P6-"
+      (pins J30-24 J32-J J51-W)
+    )
+    (net "P7-"
+      (pins J30-AA J32-K J50-W)
+    )
+    (net SKT1MM
+      (pins J30-Z)
+    )
+    (net "P8-"
+      (pins J30-22 J32-L J49-W)
+    )
+    (net "P9-"
+      (pins J30-Y J32-M J48-W)
+    )
+    (net SKT13J
+      (pins J30-21)
+    )
+    (net "P10-"
+      (pins J30-X J32-N J45-W)
+    )
+    (net SKT13G
+      (pins J30-20)
+    )
+    (net "P11-"
+      (pins J30-W J32-P J44-W)
+    )
+    (net P12
+      (pins J30-V J43-21)
+    )
+    (net "P13-"
+      (pins J30-18 J42-W)
+    )
+    (net SKT13N
+      (pins J30-U)
+    )
+    (net "P12-"
+      (pins J30-T J43-W)
+    )
+    (net SKT10h
+      (pins J30-15)
+    )
+    (net SKT10V
+      (pins J30-14)
+    )
+    (net SKT1LL
+      (pins J30-P)
+    )
+    (net P13
+      (pins J30-13 J42-21)
+    )
+    (net SKT13R
+      (pins J30-12)
+    )
+    (net "t4-2"
+      (pins J30-M)
+    )
+    (net SZ1
+      (pins J30-J)
+    )
+    (net SKT1PP
+      (pins J30-H)
+    )
+    (net TZ1
+      (pins J30-F)
+    )
+    (net SKT13L
+      (pins J30-E)
+    )
+    (net SKT10W
+      (pins J30-D)
+    )
+    (net SKT10j
+      (pins J30-C)
+    )
+    (net SKT4B
+      (pins J31-3)
+    )
+    (net SKT4C
+      (pins J31-4)
+    )
+    (net "A2-"
+      (pins J31-D J31-Z J55-AB)
+    )
+    (net SKT4D
+      (pins J31-5)
+    )
+    (net "A3-"
+      (pins J31-E J31-AA J54-AB)
+    )
+    (net SKT4E
+      (pins J31-6)
+    )
+    (net "A4-"
+      (pins J31-F J31-AB J53-AB)
+    )
+    (net SKT4F
+      (pins J31-7)
+    )
+    (net "A5-"
+      (pins J31-H J31-AC J52-AB)
+    )
+    (net SKT4G
+      (pins J31-8)
+    )
+    (net "A6-"
+      (pins J31-J J31-AD J51-AB)
+    )
+    (net SKT4H
+      (pins J31-9)
+    )
+    (net "A7-"
+      (pins J31-K J31-AE J50-AB)
+    )
+    (net SKT4J
+      (pins J31-10)
+    )
+    (net "A8-"
+      (pins J31-L J31-AF J49-AB)
+    )
+    (net SKT4K
+      (pins J31-11)
+    )
+    (net "A9-"
+      (pins J31-M J48-AB)
+    )
+    (net SKT4L
+      (pins J31-12)
+    )
+    (net "A10-"
+      (pins J31-N J45-AB)
+    )
+    (net SKT4M
+      (pins J31-13)
+    )
+    (net "A11-"
+      (pins J31-P J44-AB)
+    )
+    (net SKT4N
+      (pins J31-14)
+    )
+    (net "A12-"
+      (pins J31-R J43-AB)
+    )
+    (net SKT4P
+      (pins J31-15)
+    )
+    (net "A13-"
+      (pins J31-S J42-AB)
+    )
+    (net SKT4R
+      (pins J31-16)
+    )
+    (net "A14-"
+      (pins J31-T J41-AB)
+    )
+    (net SKT4S
+      (pins J31-17)
+    )
+    (net "A15-"
+      (pins J31-U J40-AB)
+    )
+    (net SKT4T
+      (pins J31-18)
+    )
+    (net "A16-"
+      (pins J31-V J39-AB)
+    )
+    (net SKT4U
+      (pins J31-19)
+    )
+    (net "A17-"
+      (pins J31-W J38-AB)
+    )
+    (net SKT4V
+      (pins J31-20)
+    )
+    (net "A18-"
+      (pins J31-X J37-AB)
+    )
+    (net SKT10J
+      (pins J31-21)
+    )
+    (net SKT10K
+      (pins J31-22)
+    )
+    (net SKT10L
+      (pins J31-23)
+    )
+    (net SKT10M
+      (pins J31-24)
+    )
+    (net SKT10N
+      (pins J31-25)
+    )
+    (net SKT10P
+      (pins J31-26)
+    )
+    (net SKT10R
+      (pins J31-27)
+    )
+    (net SKT10S
+      (pins J31-28)
+    )
+    (net "RESET2-"
+      (pins J32-X J32-T J46-AH)
+    )
+    (net SKT4PP
+      (pins J32-20)
+    )
+    (net "P4-"
+      (pins J32-W J32-F J53-W)
+    )
+    (net SKT10b
+      (pins J32-19)
+    )
+    (net "P3-"
+      (pins J32-V J32-E J54-W)
+    )
+    (net SKT10U
+      (pins J32-18)
+    )
+    (net "P1-"
+      (pins J32-U J32-C J56-W)
+    )
+    (net SKT10X
+      (pins J32-17)
+    )
+    (net SKT10d
+      (pins J32-16)
+    )
+    (net "P2-"
+      (pins J32-S J32-D J55-W)
+    )
+    (net SKT10Y
+      (pins J32-15)
+    )
+    (net "VTG-"
+      (pins J32-R J47-R)
+    )
+    (net SKT5p
+      (pins J32-14)
+    )
+    (net SKT4g
+      (pins J32-13)
+    )
+    (net SKT4f
+      (pins J32-12)
+    )
+    (net SKT4e
+      (pins J32-11)
+    )
+    (net SKT4d
+      (pins J32-10)
+    )
+    (net SKT4c
+      (pins J32-9)
+    )
+    (net SKT4b
+      (pins J32-8)
+    )
+    (net SKT4a
+      (pins J32-7)
+    )
+    (net SKT4Z
+      (pins J32-6)
+    )
+    (net SKT4Y
+      (pins J32-5)
+    )
+    (net SKT4X
+      (pins J32-4)
+    )
+    (net SKT4W
+      (pins J32-3)
+    )
+    (net II17
+      (pins J34-12 J38-25)
+    )
+    (net II17m
+      (pins J34-N J35-AH J36-AH)
+    )
+    (net II1
+      (pins J34-13 J56-25)
+    )
+    (net II1m
+      (pins J34-P J35-P J36-P)
+    )
+    (net II2
+      (pins J34-14 J55-25)
+    )
+    (net II2m
+      (pins J34-R J35-R J36-R)
+    )
+    (net II3
+      (pins J34-15 J54-25)
+    )
+    (net II3m
+      (pins J34-S J35-S J36-S)
+    )
+    (net II4
+      (pins J34-16 J53-25)
+    )
+    (net II4m
+      (pins J34-T J35-T J36-T)
+    )
+    (net II5
+      (pins J34-17 J52-25)
+    )
+    (net II5m
+      (pins J34-U J35-U J36-U)
+    )
+    (net II6
+      (pins J34-18 J51-25)
+    )
+    (net II6m
+      (pins J34-V J35-V J36-V)
+    )
+    (net II7
+      (pins J34-19 J50-25)
+    )
+    (net II7m
+      (pins J34-W J35-W J36-W)
+    )
+    (net II8
+      (pins J34-20 J49-25)
+    )
+    (net II8m
+      (pins J34-X J35-X J36-X)
+    )
+    (net II9
+      (pins J34-21 J48-25)
+    )
+    (net II9m
+      (pins J34-Y J35-Y J36-Y)
+    )
+    (net II10
+      (pins J34-22 J45-25)
+    )
+    (net II10m
+      (pins J34-Z J35-Z J36-Z)
+    )
+    (net II11
+      (pins J34-23 J44-25)
+    )
+    (net II11m
+      (pins J34-AA J35-AA J36-AA)
+    )
+    (net II12
+      (pins J34-24 J43-25)
+    )
+    (net II12m
+      (pins J34-AB J35-AB J36-AB)
+    )
+    (net II13
+      (pins J34-25 J42-25)
+    )
+    (net II13m
+      (pins J34-AC J35-AC J36-AC)
+    )
+    (net II14
+      (pins J34-26 J41-25)
+    )
+    (net II14m
+      (pins J34-AD J35-AD J36-AD)
+    )
+    (net II15
+      (pins J34-27 J40-25)
+    )
+    (net II15m
+      (pins J34-AE J35-AE J36-AE)
+    )
+    (net II16
+      (pins J34-28 J39-25)
+    )
+    (net II16m
+      (pins J34-AF J35-AF J36-AF)
+    )
+    (net II18
+      (pins J34-30 J37-25)
+    )
+    (net II18m
+      (pins J34-AJ J35-AJ J36-AJ)
+    )
+    (net IIG
+      (pins J35-26 J36-26)
+    )
+    (net IIS
+      (pins J35-15 J36-8)
+    )
+    (net J4
+      (pins J35-14 J53-T)
+    )
+    (net "J4-"
+      (pins J35-13 J36-12 J53-R)
+    )
+    (net "J3-'"
+      (pins J35-12 J36-C)
+    )
+    (net J3'
+      (pins J35-11 J36-11)
+    )
+    (net "J2-'"
+      (pins J35-10 J36-10)
+    )
+    (net J2'
+      (pins J35-9)
+    )
+    (net "J1-'"
+      (pins J35-8)
+    )
+    (net J1'
+      (pins J35-7 J36-7)
+    )
+    (net J5
+      (pins J36-13 J52-T)
+    )
+    (net J6
+      (pins J36-14 J51-T)
+    )
+    (net J7
+      (pins J36-15 J50-T)
+    )
+    (net J8
+      (pins J36-18 J49-T)
+    )
+    (net J9
+      (pins J36-19 J48-T)
+    )
+    (net J10
+      (pins J36-20 J45-T)
+    )
+    (net J11
+      (pins J36-21 J44-T)
+    )
+    (net J12
+      (pins J36-22 J43-T)
+    )
+    (net J13
+      (pins J36-23 J42-T)
+    )
+    (net "J14-"
+      (pins J36-24 J41-R)
+    )
+    (net "J15-"
+      (pins J36-25 J40-R)
+    )
+    (net "J16-"
+      (pins J36-29 J39-R)
+    )
+    (net C18
+      (pins J37-3)
+    )
+    (net C17
+      (pins J37-C J38-3)
+    )
+    (net F17
+      (pins J37-D J38-E J39-5)
+    )
+    (net X1
+      (pins J37-5)
+    )
+    (net F18
+      (pins J37-E J38-5)
+    )
+    (net FTG2
+      (pins J37-6 J38-6 J39-6 J40-6 J41-6 J42-6 J43-6 J44-6 J45-6 J47-3)
+    )
+    (net RTG2
+      (pins J37-7 J38-7 J39-7 J40-7 J41-7 J42-7 J43-7 J44-7 J45-7 J47-5)
+    )
+    (net LTG2
+      (pins J37-H J38-H J39-H J40-H J41-H J42-H J43-H J44-H J45-H J47-8)
+    )
+    (net VTG2
+      (pins J37-8 J38-8 J39-8 J40-8 J41-8 J42-8 J43-8 J44-8 J45-8 J47-13)
+    )
+    (net "OTG2-"
+      (pins J37-10 J38-10 J39-10 J40-10 J41-10 J42-10 J43-10 J44-10 J45-10 J46-AB
+        J46-10)
+    )
+    (net "PTG1-2"
+      (pins J37-L J38-L J39-L J40-L J41-L J42-L J43-L J44-L J45-L J47-9)
+    )
+    (net "PTG2-2"
+      (pins J37-11 J38-11 J39-11 J40-11 J41-11 J42-11 J43-11 J44-11 J45-11 J47-12)
+    )
+    (net SKT1V
+      (pins J37-M)
+    )
+    (net A11
+      (pins J37-12 J44-27)
+    )
+    (net GTJ2
+      (pins J37-13 J38-13 J39-13 J40-13 J41-13 J42-13 J43-13 J44-13 J45-13 J46-14)
+    )
+    (net "OTJ2-"
+      (pins J37-P J38-P J39-P J40-P J41-P J42-P J43-P J44-P J45-P J46-12)
+    )
+    (net JTF2
+      (pins J37-14 J38-14 J39-14 J40-14 J41-14 J42-14 J43-14 J44-14 J45-14 J47-16)
+    )
+    (net MTF2
+      (pins J37-15 J38-15 J39-15 J40-15 J41-15 J42-15 J43-15 J44-15 J45-15 J47-18)
+    )
+    (net "M-TF2"
+      (pins J37-16 J38-16 J39-16 J40-16 J41-16 J42-16 J43-16 J44-16 J45-16 J47-20)
+    )
+    (net GTM2
+      (pins J37-17 J38-17 J39-17 J40-17 J41-17 J42-17 J43-17 J44-17 J45-17 J46-20)
+    )
+    (net SKT2V
+      (pins J37-U)
+    )
+    (net "M18-"
+      (pins J37-V)
+    )
+    (net WTM2
+      (pins J37-19 J38-19 J39-19 J40-19 J41-19 J42-19 J43-19 J44-19 J45-19 J46-18)
+    )
+    (net "0TM2-"
+      (pins J37-20 J38-20 J39-20 J40-20 J41-20 J42-20 J43-20 J44-20 J45-20 J46-16
+        J56-20)
+    )
+    (net SKT1p
+      (pins J37-Z)
+    )
+    (net GTA2
+      (pins J37-23 J38-23 J39-23 J40-23 J41-23 J42-23 J43-23 J44-23 J45-23 J46-24)
+    )
+    (net "OTA2-"
+      (pins J37-AA J38-AA J39-AA J40-AA J41-AA J42-AA J43-AA J44-AA J45-AA J46-26)
+    )
+    (net SKT1HH
+      (pins J37-AC)
+    )
+    (net "OTQ2-"
+      (pins J37-26 J38-26 J39-26 J40-26 J41-26 J42-26 J43-26 J44-26 J45-26)
+    )
+    (net M18
+      (pins J37-AD)
+    )
+    (net GTQ2
+      (pins J37-AE J38-AE J39-AE J40-AE J41-AE J42-AE J43-AE J44-AE J45-AE J46-28)
+    )
+    (net ATF2
+      (pins J37-28 J38-28 J39-28 J40-28 J41-28 J42-28 J43-28 J44-28 J45-28 J47-28)
+    )
+    (net DTF2a
+      (pins J37-29 J38-29 J39-29 J40-29 J41-29)
+    )
+    (net QTF2
+      (pins J37-30 J38-30 J39-30 J40-30 J41-30 J42-30 J43-30 J44-30 J45-30 J47-26)
+    )
+    (net "STORE18-"
+      (pins J37-AJ)
+    )
+    (net "STORE17-"
+      (pins J38-AJ)
+    )
+    (net SKT1GG
+      (pins J38-AC)
+    )
+    (net SKT1n
+      (pins J38-Z)
+    )
+    (net MTI
+      (pins J38-22 J39-22 J40-22 J41-22 J47-X)
+    )
+    (net SKT3u
+      (pins J38-Y)
+    )
+    (net I4
+      (pins J38-21)
+    )
+    (net "OTI-"
+      (pins J38-X J39-X J40-X J41-X)
+    )
+    (net "I4-"
+      (pins J38-W)
+    )
+    (net "M17-"
+      (pins J38-V)
+    )
+    (net W17
+      (pins J38-18)
+    )
+    (net SKT2U
+      (pins J38-U)
+    )
+    (net A10
+      (pins J38-12 J45-27)
+    )
+    (net SKT1U
+      (pins J38-M)
+    )
+    (net F16
+      (pins J38-D J39-E J40-5)
+    )
+    (net /RegistersA/C16
+      (pins J38-C J39-3)
+    )
+    (net /RegistersA/C15
+      (pins J39-C J40-3)
+    )
+    (net "JTG16-"
+      (pins J39-4 J47-T)
+    )
+    (net F15
+      (pins J39-D J40-E J41-5)
+    )
+    (net SKT1T
+      (pins J39-M)
+    )
+    (net A9
+      (pins J39-12 J48-27)
+    )
+    (net SKT2m
+      (pins J39-S)
+    )
+    (net J16
+      (pins J39-T J47-V)
+    )
+    (net SKT2T
+      (pins J39-U)
+    )
+    (net "M16-"
+      (pins J39-V)
+    )
+    (net "I3-"
+      (pins J39-W)
+    )
+    (net I3
+      (pins J39-21)
+    )
+    (net SKT3t
+      (pins J39-Y)
+    )
+    (net SKT1m
+      (pins J39-Z)
+    )
+    (net SKT1FF
+      (pins J39-AC)
+    )
+    (net "STORE16-"
+      (pins J39-AJ)
+    )
+    (net "STORE15-"
+      (pins J40-AJ)
+    )
+    (net SKT1EE
+      (pins J40-AC)
+    )
+    (net SKT1k
+      (pins J40-Z)
+    )
+    (net SKT3s
+      (pins J40-Y)
+    )
+    (net I2
+      (pins J40-21)
+    )
+    (net "I2-"
+      (pins J40-W)
+    )
+    (net "M15-"
+      (pins J40-V)
+    )
+    (net SKT2S
+      (pins J40-U)
+    )
+    (net J15
+      (pins J40-T J47-29)
+    )
+    (net SKT2k
+      (pins J40-S)
+    )
+    (net A8
+      (pins J40-12 J49-27)
+    )
+    (net SKT1S
+      (pins J40-M)
+    )
+    (net F14
+      (pins J40-D J41-E J42-5)
+    )
+    (net "JTG15-"
+      (pins J40-4 J47-AH)
+    )
+    (net /RegistersA/C14
+      (pins J40-C J41-3)
+    )
+    (net /RegistersA/C13
+      (pins J41-C J42-3)
+    )
+    (net "JTG14-"
+      (pins J41-4 J47-AE)
+    )
+    (net F13
+      (pins J41-D J42-E J43-5)
+    )
+    (net SKT1R
+      (pins J41-M)
+    )
+    (net A7
+      (pins J41-12 J50-27)
+    )
+    (net SKT2j
+      (pins J41-S)
+    )
+    (net J14
+      (pins J41-T J47-Z)
+    )
+    (net SKT2R
+      (pins J41-U)
+    )
+    (net "M14-"
+      (pins J41-V)
+    )
+    (net "I1-"
+      (pins J41-W)
+    )
+    (net I1
+      (pins J41-21)
+    )
+    (net SKT3r
+      (pins J41-Y)
+    )
+    (net SKT1j
+      (pins J41-Z)
+    )
+    (net SKT1DD
+      (pins J41-AC)
+    )
+    (net "STORE14-"
+      (pins J41-AJ)
+    )
+    (net "STORE13-"
+      (pins J42-AJ)
+    )
+    (net "DTF1-2"
+      (pins J42-29 J43-29 J44-29 J45-29 J48-29 J49-29)
+    )
+    (net M13
+      (pins J42-AD)
+    )
+    (net SKT1CC
+      (pins J42-AC)
+    )
+    (net SKT1i
+      (pins J42-Z)
+    )
+    (net MTP2
+      (pins J42-22 J43-22 J44-22 J45-22 J47-22)
+    )
+    (net "OTP2-"
+      (pins J42-X J43-X J44-X J45-X J46-22 J48-X J49-X)
+    )
+    (net "M13-"
+      (pins J42-V)
+    )
+    (net SKT11P
+      (pins J42-18)
+    )
+    (net SKT2P
+      (pins J42-U)
+    )
+    (net SKT2i
+      (pins J42-S)
+    )
+    (net "J13-"
+      (pins J42-R)
+    )
+    (net A6
+      (pins J42-12 J51-27)
+    )
+    (net SKT1P
+      (pins J42-M)
+    )
+    (net F12
+      (pins J42-D J43-E J44-5)
+    )
+    (net /RegistersA/C12
+      (pins J42-C J43-3)
+    )
+    (net "STORE12-"
+      (pins J43-AJ)
+    )
+    (net M12
+      (pins J43-AD)
+    )
+    (net SKT1BB
+      (pins J43-AC)
+    )
+    (net SKT1h
+      (pins J43-Z)
+    )
+    (net "M12-"
+      (pins J43-V)
+    )
+    (net SKT11N
+      (pins J43-18)
+    )
+    (net SKT2N
+      (pins J43-U)
+    )
+    (net SKT2h
+      (pins J43-S)
+    )
+    (net A5
+      (pins J43-12 J52-27)
+    )
+    (net SKT1N
+      (pins J43-M)
+    )
+    (net F11
+      (pins J43-D J44-E J45-5)
+    )
+    (net /RegistersA/C11
+      (pins J43-C J44-3)
+    )
+    (net "STORE11-"
+      (pins J44-AJ)
+    )
+    (net M11
+      (pins J44-AD)
+    )
+    (net SKT1AA
+      (pins J44-AC)
+    )
+    (net SKT1g
+      (pins J44-Z)
+    )
+    (net SKT2y
+      (pins J44-Y)
+    )
+    (net "M11-"
+      (pins J44-V)
+    )
+    (net SKT11M
+      (pins J44-18)
+    )
+    (net SKT2M
+      (pins J44-U)
+    )
+    (net SKT2g
+      (pins J44-S)
+    )
+    (net A4
+      (pins J44-12 J53-27)
+    )
+    (net SKT1M
+      (pins J44-M)
+    )
+    (net F10
+      (pins J44-D J45-E J48-5)
+    )
+    (net /RegistersA/C10
+      (pins J44-C J45-3)
+    )
+    (net C9
+      (pins J45-C J48-3)
+    )
+    (net F9
+      (pins J45-D J48-E J49-5)
+    )
+    (net SKT1L
+      (pins J45-M)
+    )
+    (net A3
+      (pins J45-12 J54-27)
+    )
+    (net SKT2f
+      (pins J45-S)
+    )
+    (net SKT2L
+      (pins J45-U)
+    )
+    (net SKT11L
+      (pins J45-18)
+    )
+    (net "M10-"
+      (pins J45-V)
+    )
+    (net SKT2x
+      (pins J45-Y)
+    )
+    (net SKT1f
+      (pins J45-Z)
+    )
+    (net SKT1z
+      (pins J45-AC)
+    )
+    (net "STORE10-"
+      (pins J45-AJ)
+    )
+    (net "OTG1-"
+      (pins J46-29 J46-9 J48-10 J49-10 J50-10 J51-10 J52-10 J53-10 J54-10 J55-10 J56-10)
+    )
+    (net t1
+      (pins J46-AF)
+    )
+    (net "t3-2"
+      (pins J46-AE)
+    )
+    (net GTQ1
+      (pins J46-27 J48-AE J49-AE J50-AE J51-AE J52-AE J53-AE J54-AE J55-AE J56-AE)
+    )
+    (net t4
+      (pins J46-AD)
+    )
+    (net GTQa
+      (pins J46-AC)
+    )
+    (net "OTA1-"
+      (pins J46-25 J48-AA J49-AA J50-AA J51-AA J52-AA J53-AA J54-AA J55-AA J56-AA)
+    )
+    (net GTAa
+      (pins J46-AA)
+    )
+    (net GTA1
+      (pins J46-23 J48-23 J49-23 J50-23 J51-23 J52-23 J53-23 J54-23 J55-23 J56-23)
+    )
+    (net "OTA-'"
+      (pins J46-Z)
+    )
+    (net MTPa
+      (pins J46-Y J47-Y)
+    )
+    (net "OTP1-"
+      (pins J46-21 J50-X J51-X J52-X J53-X J54-X J55-X J56-X)
+    )
+    (net GTMa
+      (pins J46-W)
+    )
+    (net GTM1
+      (pins J46-19 J48-17 J49-17 J50-17 J51-17 J52-17 J53-17 J54-17 J55-17 J56-17)
+    )
+    (net WTMa
+      (pins J46-U)
+    )
+    (net WTM1
+      (pins J46-17 J48-19 J49-19 J50-19 J51-19 J52-19 J53-19 J54-19 J55-19 J56-19)
+    )
+    (net OTMa
+      (pins J46-S)
+    )
+    (net "0TM1-"
+      (pins J46-15 J48-20 J49-20 J50-20 J51-20 J52-20 J53-20 J54-20 J55-20)
+    )
+    (net GTJa
+      (pins J46-P)
+    )
+    (net GTJ1
+      (pins J46-13 J48-13 J49-13 J50-13 J51-13 J52-13 J53-13 J54-13 J55-13 J56-13)
+    )
+    (net "OTJ-"
+      (pins J46-M)
+    )
+    (net "OTJ1-"
+      (pins J46-11 J48-P J49-P J50-P J51-P J52-P J53-P J54-P J55-P J56-P)
+    )
+    (net SFDm
+      (pins J46-F)
+    )
+    (net SFD
+      (pins J46-6)
+    )
+    (net CRSm
+      (pins J46-E)
+    )
+    (net CRS
+      (pins J46-5)
+    )
+    (net "t2-2"
+      (pins J47-AF)
+    )
+    (net ATF1
+      (pins J47-27 J48-28 J49-28 J50-28 J51-28 J52-28 J53-28 J54-28 J55-28 J56-28)
+    )
+    (net t5
+      (pins J47-AD)
+    )
+    (net ATFa
+      (pins J47-AC)
+    )
+    (net QTF1
+      (pins J47-25 J48-30 J49-30 J50-30 J51-30 J52-30 J53-30 J54-30 J55-30 J56-30)
+    )
+    (net QTFa
+      (pins J47-AB)
+    )
+    (net JTPCa
+      (pins J47-AA)
+    )
+    (net MTP1
+      (pins J47-21 J48-22 J49-22 J50-22 J51-22 J52-22 J53-22 J54-22 J55-22 J56-22)
+    )
+    (net "M-TFa"
+      (pins J47-W)
+    )
+    (net "M-TF1"
+      (pins J47-19 J48-16 J49-16 J50-16 J51-16 J52-16 J53-16 J54-16 J55-16 J56-16)
+    )
+    (net MTFa
+      (pins J47-U)
+    )
+    (net MTF1
+      (pins J47-17 J48-15 J49-15 J50-15 J51-15 J52-15 J53-15 J54-15 J55-15 J56-15)
+    )
+    (net JTFa
+      (pins J47-S)
+    )
+    (net JTF1
+      (pins J47-15 J48-14 J49-14 J50-14 J51-14 J52-14 J53-14 J54-14 J55-14 J56-14)
+    )
+    (net VTG1
+      (pins J47-14 J48-8 J49-8 J50-8 J51-8 J52-8 J53-8 J54-8 J55-8 J56-8)
+    )
+    (net VTGa
+      (pins J47-P)
+    )
+    (net "PTG2-a"
+      (pins J47-M)
+    )
+    (net "PTG2-1"
+      (pins J47-11 J48-11 J49-11 J50-11 J51-11 J52-11 J53-11 J54-11 J55-11 J56-11)
+    )
+    (net "PTG1-1"
+      (pins J47-10 J48-L J49-L J50-L J51-L J52-L J53-L J54-L J55-L J56-L)
+    )
+    (net "PTG1-a"
+      (pins J47-K)
+    )
+    (net LTGa
+      (pins J47-H)
+    )
+    (net LTG1
+      (pins J47-7 J48-H J49-H J50-H J51-H J52-H J53-H J54-H J55-H J56-H)
+    )
+    (net RTG1
+      (pins J47-6 J48-7 J49-7 J50-7 J51-7 J52-7 J53-7 J54-7 J55-7 J56-7)
+    )
+    (net RTGa
+      (pins J47-E)
+    )
+    (net FTG1
+      (pins J47-4 J48-6 J49-6 J50-6 J51-6 J52-6 J53-6 J54-6 J55-6 J56-6)
+    )
+    (net FTGa
+      (pins J47-C)
+    )
+    (net /RegistersB/C8
+      (pins J48-C J49-3)
+    )
+    (net F8
+      (pins J48-D J49-E J50-5)
+    )
+    (net SKT1K
+      (pins J48-M)
+    )
+    (net A2
+      (pins J48-12 J55-27)
+    )
+    (net SKT2e
+      (pins J48-S)
+    )
+    (net SKT2K
+      (pins J48-U)
+    )
+    (net SKT11K
+      (pins J48-18)
+    )
+    (net "M9-"
+      (pins J48-V)
+    )
+    (net SKT2w
+      (pins J48-Y)
+    )
+    (net SKT1e
+      (pins J48-Z)
+    )
+    (net SKT1y
+      (pins J48-AC)
+    )
+    (net "OTQ1-"
+      (pins J48-26 J49-26 J50-26 J51-26 J52-26 J53-26 J54-26 J55-26 J56-26)
+    )
+    (net "STORE9-"
+      (pins J48-AJ)
+    )
+    (net "STORE8-"
+      (pins J49-AJ)
+    )
+    (net SKT1x
+      (pins J49-AC)
+    )
+    (net SKT1d
+      (pins J49-Z)
+    )
+    (net SKT2v
+      (pins J49-Y)
+    )
+    (net "M8-"
+      (pins J49-V)
+    )
+    (net SKT11J
+      (pins J49-18)
+    )
+    (net SKT2J
+      (pins J49-U)
+    )
+    (net SKT2d
+      (pins J49-S)
+    )
+    (net SKT1J
+      (pins J49-M)
+    )
+    (net F7
+      (pins J49-D J50-E J51-5)
+    )
+    (net /RegistersB/C7
+      (pins J49-C J50-3)
+    )
+    (net /RegistersB/C6
+      (pins J50-C J51-3)
+    )
+    (net F6
+      (pins J50-D J51-E J52-5)
+    )
+    (net SKT1H
+      (pins J50-M)
+    )
+    (net SKT2c
+      (pins J50-S)
+    )
+    (net SKT2H
+      (pins J50-U)
+    )
+    (net SKT11H
+      (pins J50-18)
+    )
+    (net "M7-"
+      (pins J50-V)
+    )
+    (net SKT2u
+      (pins J50-Y)
+    )
+    (net SKT1c
+      (pins J50-Z)
+    )
+    (net SKT1w
+      (pins J50-AC)
+    )
+    (net "DTF1-1"
+      (pins J50-29 J51-29 J52-29 J53-29 J54-29 J55-29 J56-29)
+    )
+    (net "STORE7-"
+      (pins J50-AJ)
+    )
+    (net "STORE6-"
+      (pins J51-AJ)
+    )
+    (net SKT1v
+      (pins J51-AC)
+    )
+    (net SKT1b
+      (pins J51-Z)
+    )
+    (net SKT2t
+      (pins J51-Y)
+    )
+    (net "M6-"
+      (pins J51-V)
+    )
+    (net SKT11G
+      (pins J51-18)
+    )
+    (net SKT2G
+      (pins J51-U)
+    )
+    (net SKT2b
+      (pins J51-S)
+    )
+    (net SKT1G
+      (pins J51-M)
+    )
+    (net F5
+      (pins J51-D J52-E J53-5)
+    )
+    (net /RegistersB/C5
+      (pins J51-C J52-3)
+    )
+    (net /RegistersB/C4
+      (pins J52-C J53-3)
+    )
+    (net F4
+      (pins J52-D J53-E J54-5)
+    )
+    (net SKT1F
+      (pins J52-M)
+    )
+    (net "KTJ5-"
+      (pins J52-N)
+    )
+    (net SKT2a
+      (pins J52-S)
+    )
+    (net SKT2F
+      (pins J52-U)
+    )
+    (net SKT11F
+      (pins J52-18)
+    )
+    (net "M5-"
+      (pins J52-V)
+    )
+    (net SKT2s
+      (pins J52-Y)
+    )
+    (net SKT1a
+      (pins J52-Z)
+    )
+    (net SKT1u
+      (pins J52-AC)
+    )
+    (net "STORE5-"
+      (pins J52-AJ)
+    )
+    (net /RegistersB/C3
+      (pins J53-C J54-3)
+    )
+    (net F3
+      (pins J53-D J54-E J55-5)
+    )
+    (net SKT1E
+      (pins J53-M)
+    )
+    (net SKT2Z
+      (pins J53-S)
+    )
+    (net SKT2E
+      (pins J53-U)
+    )
+    (net "M4-"
+      (pins J53-V)
+    )
+    (net SKT2r
+      (pins J53-Y)
+    )
+    (net SKT1Z
+      (pins J53-Z)
+    )
+    (net SKT1t
+      (pins J53-AC)
+    )
+    (net "STORE4-"
+      (pins J53-AJ)
+    )
+    (net "STORE3-"
+      (pins J54-AJ)
+    )
+    (net SKT1s
+      (pins J54-AC)
+    )
+    (net SKT1Y
+      (pins J54-Z)
+    )
+    (net SKT2q
+      (pins J54-Y)
+    )
+    (net "M3-"
+      (pins J54-V)
+    )
+    (net SKT2D
+      (pins J54-U)
+    )
+    (net SKT2Y
+      (pins J54-S)
+    )
+    (net "J3-"
+      (pins J54-R)
+    )
+    (net "ETJ3-"
+      (pins J54-N)
+    )
+    (net SKT1D
+      (pins J54-M)
+    )
+    (net F2
+      (pins J54-D J55-E J56-5)
+    )
+    (net /RegistersB/C2
+      (pins J54-C J55-3)
+    )
+    (net /RegistersB/C1
+      (pins J55-C J56-3)
+    )
+    (net F1
+      (pins J55-D J56-E)
+    )
+    (net SKT1C
+      (pins J55-M)
+    )
+    (net "ETJ2-"
+      (pins J55-N)
+    )
+    (net "J2-"
+      (pins J55-R)
+    )
+    (net SKT2X
+      (pins J55-S)
+    )
+    (net SKT2C
+      (pins J55-U)
+    )
+    (net "M2-"
+      (pins J55-V)
+    )
+    (net SKT2p
+      (pins J55-Y)
+    )
+    (net SKT1X
+      (pins J55-Z)
+    )
+    (net SKT1r
+      (pins J55-AC)
+    )
+    (net "STORE2-"
+      (pins J55-AJ)
+    )
+    (net "STORE1-"
+      (pins J56-AJ)
+    )
+    (net SKT1q
+      (pins J56-AC)
+    )
+    (net SKT1W
+      (pins J56-Z)
+    )
+    (net SKT2n
+      (pins J56-Y)
+    )
+    (net "M1-"
+      (pins J56-V)
+    )
+    (net SKT11B
+      (pins J56-18)
+    )
+    (net SKT2B
+      (pins J56-U)
+    )
+    (net SKT2W
+      (pins J56-S)
+    )
+    (net "J1-"
+      (pins J56-R)
+    )
+    (net "KTJ1-"
+      (pins J56-N)
+    )
+    (net SKT1B
+      (pins J56-M)
+    )
+    (net X0
+      (pins J56-D)
+    )
+    (net ITF
+      (pins J56-C)
+    )
+    (class kicad_default "" /RegistersA/C10 /RegistersA/C11 /RegistersA/C12
+      /RegistersA/C13 /RegistersA/C14 /RegistersA/C15 /RegistersA/C16 /RegistersB/C1
+      /RegistersB/C2 /RegistersB/C3 /RegistersB/C4 /RegistersB/C5 /RegistersB/C6
+      /RegistersB/C7 /RegistersB/C8 "0TM1-" "0TM2-" "1TPC-" 6V 6v "A1-" A10
+      "A10-" A11 "A11-" "A12-" "A13-" "A14-" "A15-" "A16-" "A17-" "A18-" A2
+      "A2-" A3 "A3-" A4 "A4-" A5 "A5-" A6 "A6-" A7 "A7-" A8 "A8-" A9 "A9-"
+      ATF1 ATF2 ATFa C17 C18 C9 CRS CRSm "DTF1-1" "DTF1-2" DTF2a "ETJ2-" "ETJ3-"
+      F1 F10 F11 F12 F13 F14 F15 F16 F17 F18 F2 F3 F4 F5 F6 F7 F8 F9 FTG1
+      FTG2 FTGa GND GTA1 GTA2 GTAa GTJ1 GTJ2 GTJa GTM1 GTM2 GTMa GTQ1 GTQ2
+      GTQa I1 "I1-" I2 "I2-" I3 "I3-" I4 "I4-" II1 II10 II10m II11 II11m II12
+      II12m II13 II13m II14 II14m II15 II15m II16 II16m II17 II17m II18 II18m
+      II1m II2 II2m II3 II3m II4 II4m II5 II5m II6 II6m II7 II7m II8 II8m
+      II9 II9m IIG IIS INT1 INT2 INT3 IP'1 IP'2 IP'3 IP'4 IP'5 IP'6 IP'7 IP'8
+      IP1 IP10 IP11 IP12 IP13 IP14 IP15 IP16 IP17 IP18 IP2 IP3 IP4 IP5 IP6
+      IP7 IP8 IP9 ITF J1' "J1-" "J1-'" J10 "J10-" J11 "J11-" J12 "J12-" J13
+      "J13-" J14 "J14-" J15 "J15-" J16 "J16-" J2' "J2-" "J2-'" J3' "J3-" "J3-'"
+      J4 "J4-" J5 "J5-" J6 "J6-" J7 "J7-" J8 "J8-" J9 "J9-" JTF1 JTF2 JTFa
+      "JTG14-" "JTG15-" "JTG16-" JTPC JTPCa "KTJ1-" "KTJ5-" LTG1 LTG2 LTGa
+      "M-TF1" "M-TF2" "M-TFa" "M1-" "M10-" M11 "M11-" M12 "M12-" M13 "M13-"
+      "M14-" "M15-" "M16-" "M17-" M18 "M18-" "M2-" "M3-" "M4-" "M5-" "M6-"
+      "M7-" "M8-" "M9-" MTF1 MTF2 MTFa MTI MTP1 MTP2 MTPa Neg6v "Net-(J23-Pad28)"
+      "Net-(J24-Pad10)" "Net-(J24-Pad11)" "Net-(J24-Pad13)" "Net-(J24-Pad15)"
+      "Net-(J24-Pad16)" "Net-(J24-Pad17)" "Net-(J24-Pad18)" "Net-(J24-Pad21)"
+      "Net-(J24-Pad22)" "Net-(J24-Pad23)" "Net-(J24-Pad24)" "Net-(J24-Pad25)"
+      "Net-(J24-Pad26)" "Net-(J24-Pad28)" "Net-(J24-Pad29)" "Net-(J24-Pad30)"
+      "Net-(J24-Pad4)" "Net-(J24-Pad6)" "Net-(J24-Pad7)" "Net-(J24-Pad9)"
+      "Net-(J24-PadAA)" "Net-(J24-PadAB)" "Net-(J24-PadAC)" "Net-(J24-PadAD)"
+      "Net-(J24-PadAE)" "Net-(J24-PadAF)" "Net-(J24-PadAH)" "Net-(J24-PadAJ)"
+      "Net-(J24-PadC)" "Net-(J24-PadD)" "Net-(J24-PadE)" "Net-(J24-PadF)"
+      "Net-(J24-PadH)" "Net-(J24-PadJ)" "Net-(J24-PadM)" "Net-(J24-PadN)"
+      "Net-(J24-PadR)" "Net-(J24-PadS)" "Net-(J24-PadT)" "Net-(J24-PadU)"
+      "Net-(J24-PadW)" "Net-(J24-PadX)" "Net-(J24-PadZ)" "Net-(J25-Pad10)"
+      "Net-(J25-Pad11)" "Net-(J25-Pad13)" "Net-(J25-Pad15)" "Net-(J25-Pad16)"
+      "Net-(J25-Pad17)" "Net-(J25-Pad18)" "Net-(J25-Pad21)" "Net-(J25-Pad22)"
+      "Net-(J25-Pad23)" "Net-(J25-Pad24)" "Net-(J25-Pad25)" "Net-(J25-Pad26)"
+      "Net-(J25-Pad28)" "Net-(J25-Pad29)" "Net-(J25-Pad30)" "Net-(J25-Pad4)"
+      "Net-(J25-Pad6)" "Net-(J25-Pad7)" "Net-(J25-Pad9)" "Net-(J25-PadAA)"
+      "Net-(J25-PadAB)" "Net-(J25-PadAC)" "Net-(J25-PadAD)" "Net-(J25-PadAE)"
+      "Net-(J25-PadAF)" "Net-(J25-PadAH)" "Net-(J25-PadAJ)" "Net-(J25-PadC)"
+      "Net-(J25-PadD)" "Net-(J25-PadE)" "Net-(J25-PadF)" "Net-(J25-PadH)"
+      "Net-(J25-PadJ)" "Net-(J25-PadM)" "Net-(J25-PadN)" "Net-(J25-PadR)"
+      "Net-(J25-PadS)" "Net-(J25-PadT)" "Net-(J25-PadU)" "Net-(J25-PadW)"
+      "Net-(J25-PadX)" "Net-(J25-PadZ)" "Net-(J28-Pad12)" "Net-(J28-Pad13)"
+      "Net-(J28-Pad20)" "Net-(J28-Pad21)" "Net-(J28-Pad22)" "Net-(J28-Pad23)"
+      "Net-(J28-Pad28)" "Net-(J28-Pad30)" "Net-(J28-PadAA)" "Net-(J28-PadAF)"
+      "Net-(J28-PadAJ)" "Net-(J28-PadN)" "Net-(J28-PadP)" "Net-(J28-PadX)"
+      "Net-(J28-PadY)" "Net-(J28-PadZ)" "Net-(J29-Pad11)" "Net-(J29-Pad18)"
+      "Net-(J29-Pad19)" "Net-(J29-Pad22)" "Net-(J29-Pad24)" "Net-(J29-Pad25)"
+      "Net-(J29-Pad26)" "Net-(J29-Pad30)" "Net-(J29-PadAB)" "Net-(J29-PadAC)"
+      "Net-(J29-PadAD)" "Net-(J29-PadM)" "Net-(J29-PadW)" "Net-(J29-PadX)"
+      "Net-(J29-PadY)" "Net-(J30-Pad10)" "Net-(J30-Pad11)" "Net-(J30-Pad16)"
+      "Net-(J30-Pad17)" "Net-(J30-Pad19)" "Net-(J30-Pad23)" "Net-(J30-Pad25)"
+      "Net-(J30-Pad26)" "Net-(J30-Pad27)" "Net-(J30-Pad29)" "Net-(J30-Pad3)"
+      "Net-(J30-Pad30)" "Net-(J30-Pad4)" "Net-(J30-Pad5)" "Net-(J30-Pad6)"
+      "Net-(J30-Pad7)" "Net-(J30-Pad8)" "Net-(J30-Pad9)" "Net-(J30-PadAB)"
+      "Net-(J30-PadAD)" "Net-(J30-PadAE)" "Net-(J30-PadAF)" "Net-(J30-PadAH)"
+      "Net-(J30-PadAJ)" "Net-(J30-PadK)" "Net-(J30-PadL)" "Net-(J30-PadN)"
+      "Net-(J30-PadR)" "Net-(J30-PadS)" "Net-(J31-Pad29)" "Net-(J31-Pad30)"
+      "Net-(J31-PadAH)" "Net-(J31-PadAJ)" "Net-(J32-Pad21)" "Net-(J32-Pad22)"
+      "Net-(J32-Pad23)" "Net-(J32-Pad24)" "Net-(J32-Pad25)" "Net-(J32-Pad26)"
+      "Net-(J32-Pad27)" "Net-(J32-Pad28)" "Net-(J32-Pad29)" "Net-(J32-Pad30)"
+      "Net-(J32-PadAA)" "Net-(J32-PadAB)" "Net-(J32-PadAC)" "Net-(J32-PadAD)"
+      "Net-(J32-PadAE)" "Net-(J32-PadAF)" "Net-(J32-PadAH)" "Net-(J32-PadAJ)"
+      "Net-(J32-PadY)" "Net-(J32-PadZ)" "Net-(J34-Pad10)" "Net-(J34-Pad11)"
+      "Net-(J34-Pad29)" "Net-(J34-Pad3)" "Net-(J34-Pad4)" "Net-(J34-Pad5)"
+      "Net-(J34-Pad6)" "Net-(J34-Pad7)" "Net-(J34-Pad8)" "Net-(J34-Pad9)"
+      "Net-(J34-PadAH)" "Net-(J34-PadC)" "Net-(J34-PadD)" "Net-(J34-PadE)"
+      "Net-(J34-PadF)" "Net-(J34-PadH)" "Net-(J34-PadJ)" "Net-(J34-PadK)"
+      "Net-(J34-PadL)" "Net-(J34-PadM)" "Net-(J35-Pad16)" "Net-(J35-Pad17)"
+      "Net-(J35-Pad18)" "Net-(J35-Pad19)" "Net-(J35-Pad20)" "Net-(J35-Pad21)"
+      "Net-(J35-Pad22)" "Net-(J35-Pad23)" "Net-(J35-Pad24)" "Net-(J35-Pad25)"
+      "Net-(J35-Pad27)" "Net-(J35-Pad28)" "Net-(J35-Pad29)" "Net-(J35-Pad3)"
+      "Net-(J35-Pad30)" "Net-(J35-Pad4)" "Net-(J35-Pad5)" "Net-(J35-Pad6)"
+      "Net-(J35-PadC)" "Net-(J35-PadD)" "Net-(J35-PadE)" "Net-(J35-PadF)"
+      "Net-(J35-PadH)" "Net-(J35-PadJ)" "Net-(J35-PadK)" "Net-(J35-PadL)"
+      "Net-(J35-PadM)" "Net-(J35-PadN)" "Net-(J36-Pad16)" "Net-(J36-Pad17)"
+      "Net-(J36-Pad27)" "Net-(J36-Pad28)" "Net-(J36-Pad3)" "Net-(J36-Pad30)"
+      "Net-(J36-Pad4)" "Net-(J36-Pad5)" "Net-(J36-Pad6)" "Net-(J36-Pad9)"
+      "Net-(J36-PadD)" "Net-(J36-PadE)" "Net-(J36-PadF)" "Net-(J36-PadH)"
+      "Net-(J36-PadJ)" "Net-(J36-PadK)" "Net-(J36-PadL)" "Net-(J36-PadM)"
+      "Net-(J36-PadN)" "Net-(J37-Pad21)" "Net-(J37-Pad22)" "Net-(J37-Pad24)"
+      "Net-(J37-Pad27)" "Net-(J37-Pad4)" "Net-(J37-PadAF)" "Net-(J37-PadAH)"
+      "Net-(J37-PadF)" "Net-(J37-PadJ)" "Net-(J37-PadK)" "Net-(J37-PadN)"
+      "Net-(J37-PadR)" "Net-(J37-PadS)" "Net-(J37-PadT)" "Net-(J37-PadW)"
+      "Net-(J37-PadX)" "Net-(J37-PadY)" "Net-(J38-Pad24)" "Net-(J38-Pad27)"
+      "Net-(J38-Pad4)" "Net-(J38-PadAD)" "Net-(J38-PadAF)" "Net-(J38-PadAH)"
+      "Net-(J38-PadF)" "Net-(J38-PadJ)" "Net-(J38-PadK)" "Net-(J38-PadN)"
+      "Net-(J38-PadR)" "Net-(J38-PadS)" "Net-(J38-PadT)" "Net-(J39-Pad24)"
+      "Net-(J39-Pad27)" "Net-(J39-PadAD)" "Net-(J39-PadAF)" "Net-(J39-PadAH)"
+      "Net-(J39-PadF)" "Net-(J39-PadJ)" "Net-(J39-PadK)" "Net-(J39-PadN)"
+      "Net-(J40-Pad24)" "Net-(J40-Pad27)" "Net-(J40-PadAD)" "Net-(J40-PadAF)"
+      "Net-(J40-PadAH)" "Net-(J40-PadF)" "Net-(J40-PadJ)" "Net-(J40-PadK)"
+      "Net-(J40-PadN)" "Net-(J41-Pad24)" "Net-(J41-Pad27)" "Net-(J41-PadAD)"
+      "Net-(J41-PadAF)" "Net-(J41-PadAH)" "Net-(J41-PadF)" "Net-(J41-PadJ)"
+      "Net-(J41-PadK)" "Net-(J41-PadN)" "Net-(J42-Pad24)" "Net-(J42-Pad27)"
+      "Net-(J42-Pad4)" "Net-(J42-PadAF)" "Net-(J42-PadAH)" "Net-(J42-PadF)"
+      "Net-(J42-PadJ)" "Net-(J42-PadK)" "Net-(J42-PadN)" "Net-(J42-PadY)"
+      "Net-(J43-Pad24)" "Net-(J43-Pad27)" "Net-(J43-Pad4)" "Net-(J43-PadAF)"
+      "Net-(J43-PadAH)" "Net-(J43-PadF)" "Net-(J43-PadJ)" "Net-(J43-PadK)"
+      "Net-(J43-PadN)" "Net-(J43-PadY)" "Net-(J44-Pad21)" "Net-(J44-Pad24)"
+      "Net-(J44-Pad4)" "Net-(J44-PadAF)" "Net-(J44-PadAH)" "Net-(J44-PadF)"
+      "Net-(J44-PadJ)" "Net-(J44-PadK)" "Net-(J44-PadN)" "Net-(J45-Pad21)"
+      "Net-(J45-Pad24)" "Net-(J45-Pad4)" "Net-(J45-PadAD)" "Net-(J45-PadAF)"
+      "Net-(J45-PadAH)" "Net-(J45-PadF)" "Net-(J45-PadJ)" "Net-(J45-PadK)"
+      "Net-(J45-PadN)" "Net-(J46-Pad3)" "Net-(J46-Pad30)" "Net-(J46-Pad4)"
+      "Net-(J46-Pad7)" "Net-(J46-Pad8)" "Net-(J46-PadAJ)" "Net-(J46-PadC)"
+      "Net-(J46-PadD)" "Net-(J46-PadH)" "Net-(J46-PadJ)" "Net-(J46-PadK)"
+      "Net-(J46-PadL)" "Net-(J46-PadN)" "Net-(J46-PadR)" "Net-(J46-PadT)"
+      "Net-(J46-PadV)" "Net-(J46-PadX)" "Net-(J47-Pad30)" "Net-(J47-PadAJ)"
+      "Net-(J47-PadD)" "Net-(J47-PadF)" "Net-(J47-PadJ)" "Net-(J47-PadL)"
+      "Net-(J47-PadN)" "Net-(J48-Pad21)" "Net-(J48-Pad24)" "Net-(J48-Pad4)"
+      "Net-(J48-PadAD)" "Net-(J48-PadAF)" "Net-(J48-PadAH)" "Net-(J48-PadF)"
+      "Net-(J48-PadJ)" "Net-(J48-PadK)" "Net-(J48-PadN)" "Net-(J49-Pad21)"
+      "Net-(J49-Pad24)" "Net-(J49-Pad4)" "Net-(J49-PadAD)" "Net-(J49-PadAF)"
+      "Net-(J49-PadAH)" "Net-(J49-PadF)" "Net-(J49-PadJ)" "Net-(J49-PadK)"
+      "Net-(J49-PadN)" "Net-(J50-Pad21)" "Net-(J50-Pad24)" "Net-(J50-Pad4)"
+      "Net-(J50-PadAD)" "Net-(J50-PadAF)" "Net-(J50-PadAH)" "Net-(J50-PadF)"
+      "Net-(J50-PadJ)" "Net-(J50-PadK)" "Net-(J50-PadN)" "Net-(J51-Pad21)"
+      "Net-(J51-Pad24)" "Net-(J51-Pad4)" "Net-(J51-PadAD)" "Net-(J51-PadAF)"
+      "Net-(J51-PadAH)" "Net-(J51-PadF)" "Net-(J51-PadJ)" "Net-(J51-PadK)"
+      "Net-(J51-PadN)" "Net-(J52-Pad21)" "Net-(J52-Pad24)" "Net-(J52-Pad4)"
+      "Net-(J52-PadAD)" "Net-(J52-PadAF)" "Net-(J52-PadAH)" "Net-(J52-PadF)"
+      "Net-(J52-PadJ)" "Net-(J52-PadK)" "Net-(J53-Pad21)" "Net-(J53-Pad24)"
+      "Net-(J53-Pad4)" "Net-(J53-PadAD)" "Net-(J53-PadAF)" "Net-(J53-PadAH)"
+      "Net-(J53-PadF)" "Net-(J53-PadJ)" "Net-(J53-PadK)" "Net-(J53-PadN)"
+      "Net-(J54-Pad21)" "Net-(J54-Pad24)" "Net-(J54-Pad4)" "Net-(J54-PadAD)"
+      "Net-(J54-PadAF)" "Net-(J54-PadAH)" "Net-(J54-PadF)" "Net-(J54-PadJ)"
+      "Net-(J54-PadK)" "Net-(J54-PadT)" "Net-(J55-Pad21)" "Net-(J55-Pad24)"
+      "Net-(J55-Pad4)" "Net-(J55-PadAD)" "Net-(J55-PadAF)" "Net-(J55-PadAH)"
+      "Net-(J55-PadF)" "Net-(J55-PadJ)" "Net-(J55-PadK)" "Net-(J55-PadT)"
+      "Net-(J56-Pad21)" "Net-(J56-Pad24)" "Net-(J56-Pad27)" "Net-(J56-Pad4)"
+      "Net-(J56-PadAD)" "Net-(J56-PadAF)" "Net-(J56-PadAH)" "Net-(J56-PadF)"
+      "Net-(J56-PadJ)" "Net-(J56-PadK)" "Net-(J56-PadT)" "Net-(J97-Pad32)"
+      "Net-(J97-PadAA)" "Net-(J97-PadAB)" "Net-(J97-PadAC)" "Net-(J97-PadAD)"
+      "Net-(J97-PadAE)" "Net-(J97-PadAF)" "Net-(J97-PadAH)" "Net-(J97-PadAJ)"
+      "Net-(J97-PadAK)" "Net-(J97-PadAL)" "Net-(J97-PadW)" "Net-(J97-PadX)"
+      "Net-(J97-PadY)" "Net-(J97-PadZ)" "Net-(J98-Pad18)" "Net-(J98-Pad19)"
+      "Net-(J98-Pad20)" "Net-(J98-Pad21)" "Net-(J98-Pad22)" "Net-(J98-Pad23)"
+      "Net-(J98-Pad24)" "Net-(J98-Pad28)" "Net-(J98-PadT)" "Net-(J98-PadU)"
+      "Net-(J98-PadV)" "Net-(J98-PadW)" "Net-(J99-Pad15)" "Net-(J99-Pad16)"
+      "Net-(J99-Pad18)" "Net-(J99-Pad21)" "Net-(J99-Pad24)" "Net-(J99-Pad29)"
+      "Net-(J99-Pad30)" "Net-(J99-Pad4)" "Net-(J99-PadE)" "Net-(J99-PadH)"
+      "Net-(J99-PadL)" "Net-(J99-PadM)" "Net-(J99-PadN)" "Net-(J99-PadU)"
+      "Net-(J99-PadV)" "Net-(J99-PadW)" "Net-(J99-PadY)" "Net-(SKT1-PadA)"
+      "Net-(SKT1-PadJJ)" "Net-(SKT1-PadKK)" "Net-(SKT1-PadNN)" "Net-(SKT10-PadAA)"
+      "Net-(SKT10-PadBB)" "Net-(SKT10-PadCC)" "Net-(SKT10-PadDD)" "Net-(SKT10-PadEE)"
+      "Net-(SKT10-PadFF)" "Net-(SKT10-PadGG)" "Net-(SKT10-PadHH)" "Net-(SKT10-PadJJ)"
+      "Net-(SKT10-PadKK)" "Net-(SKT10-PadLL)" "Net-(SKT10-PadMM)" "Net-(SKT10-PadNN)"
+      "Net-(SKT10-PadPP)" "Net-(SKT10-PadT)" "Net-(SKT10-PadZ)" "Net-(SKT10-Pada)"
+      "Net-(SKT10-Padc)" "Net-(SKT10-Pade)" "Net-(SKT10-Padf)" "Net-(SKT10-Padg)"
+      "Net-(SKT10-Padi)" "Net-(SKT10-Padk)" "Net-(SKT10-Padm)" "Net-(SKT10-Padn)"
+      "Net-(SKT10-Padp)" "Net-(SKT10-Padq)" "Net-(SKT10-Padr)" "Net-(SKT10-Pads)"
+      "Net-(SKT10-Padt)" "Net-(SKT10-Padu)" "Net-(SKT10-Padv)" "Net-(SKT10-Padw)"
+      "Net-(SKT10-Padx)" "Net-(SKT10-Pady)" "Net-(SKT10-Padz)" "Net-(SKT11-PadA)"
+      "Net-(SKT11-PadAA)" "Net-(SKT11-PadBB)" "Net-(SKT11-PadCC)" "Net-(SKT11-PadDD)"
+      "Net-(SKT11-PadEE)" "Net-(SKT11-PadFF)" "Net-(SKT11-PadGG)" "Net-(SKT11-PadHH)"
+      "Net-(SKT11-PadJJ)" "Net-(SKT11-PadKK)" "Net-(SKT11-PadLL)" "Net-(SKT11-PadMM)"
+      "Net-(SKT11-PadNN)" "Net-(SKT11-PadPP)" "Net-(SKT11-PadU)" "Net-(SKT11-PadW)"
+      "Net-(SKT11-PadX)" "Net-(SKT11-PadY)" "Net-(SKT11-PadZ)" "Net-(SKT11-Pada)"
+      "Net-(SKT11-Padb)" "Net-(SKT11-Padc)" "Net-(SKT11-Padd)" "Net-(SKT11-Pade)"
+      "Net-(SKT11-Padf)" "Net-(SKT11-Padg)" "Net-(SKT11-Padh)" "Net-(SKT11-Padi)"
+      "Net-(SKT11-Padj)" "Net-(SKT11-Padk)" "Net-(SKT11-Padm)" "Net-(SKT11-Padn)"
+      "Net-(SKT11-Padp)" "Net-(SKT11-Padq)" "Net-(SKT11-Padr)" "Net-(SKT11-Pads)"
+      "Net-(SKT11-Padt)" "Net-(SKT11-Padu)" "Net-(SKT11-Padv)" "Net-(SKT11-Padw)"
+      "Net-(SKT11-Padx)" "Net-(SKT11-Pady)" "Net-(SKT11-Padz)" "Net-(SKT13-PadAA)"
+      "Net-(SKT13-PadB)" "Net-(SKT13-PadBB)" "Net-(SKT13-PadCC)" "Net-(SKT13-PadD)"
+      "Net-(SKT13-PadDD)" "Net-(SKT13-PadEE)" "Net-(SKT13-PadF)" "Net-(SKT13-PadFF)"
+      "Net-(SKT13-PadGG)" "Net-(SKT13-PadH)" "Net-(SKT13-PadHH)" "Net-(SKT13-PadJJ)"
+      "Net-(SKT13-PadK)" "Net-(SKT13-PadKK)" "Net-(SKT13-PadLL)" "Net-(SKT13-PadM)"
+      "Net-(SKT13-PadMM)" "Net-(SKT13-PadNN)" "Net-(SKT13-PadP)" "Net-(SKT13-PadPP)"
+      "Net-(SKT13-PadS)" "Net-(SKT13-PadT)" "Net-(SKT13-PadU)" "Net-(SKT13-PadV)"
+      "Net-(SKT13-PadW)" "Net-(SKT13-PadX)" "Net-(SKT13-PadY)" "Net-(SKT13-PadZ)"
+      "Net-(SKT13-Pada)" "Net-(SKT13-Padb)" "Net-(SKT13-Padc)" "Net-(SKT13-Padd)"
+      "Net-(SKT13-Pade)" "Net-(SKT13-Padf)" "Net-(SKT13-Padg)" "Net-(SKT13-Padh)"
+      "Net-(SKT13-Padi)" "Net-(SKT13-Padj)" "Net-(SKT13-Padk)" "Net-(SKT13-Padm)"
+      "Net-(SKT13-Padn)" "Net-(SKT13-Padp)" "Net-(SKT13-Padq)" "Net-(SKT13-Padr)"
+      "Net-(SKT13-Pads)" "Net-(SKT13-Padt)" "Net-(SKT13-Padu)" "Net-(SKT13-Padv)"
+      "Net-(SKT13-Padw)" "Net-(SKT13-Padx)" "Net-(SKT13-Pady)" "Net-(SKT13-Padz)"
+      "Net-(SKT14-PadA)" "Net-(SKT14-PadB)" "Net-(SKT14-PadC)" "Net-(SKT14-PadD)"
+      "Net-(SKT14-PadE)" "Net-(SKT14-PadF)" "Net-(SKT14-PadG)" "Net-(SKT14-PadH)"
+      "Net-(SKT14-PadJ)" "Net-(SKT14-PadJJ)" "Net-(SKT14-PadK)" "Net-(SKT14-PadKK)"
+      "Net-(SKT14-PadL)" "Net-(SKT14-PadLL)" "Net-(SKT14-PadM)" "Net-(SKT14-PadMM)"
+      "Net-(SKT14-PadN)" "Net-(SKT14-PadNN)" "Net-(SKT14-PadP)" "Net-(SKT14-PadPP)"
+      "Net-(SKT14-PadR)" "Net-(SKT14-PadS)" "Net-(SKT14-PadT)" "Net-(SKT14-PadU)"
+      "Net-(SKT14-PadV)" "Net-(SKT14-PadW)" "Net-(SKT14-PadX)" "Net-(SKT14-PadY)"
+      "Net-(SKT14-PadZ)" "Net-(SKT14-Pada)" "Net-(SKT14-Padb)" "Net-(SKT14-Padc)"
+      "Net-(SKT14-Padd)" "Net-(SKT14-Pade)" "Net-(SKT14-Padf)" "Net-(SKT14-Padg)"
+      "Net-(SKT14-Padh)" "Net-(SKT14-Padi)" "Net-(SKT14-Padj)" "Net-(SKT14-Padk)"
+      "Net-(SKT14-Padm)" "Net-(SKT14-Padn)" "Net-(SKT14-Padp)" "Net-(SKT14-Padq)"
+      "Net-(SKT14-Padr)" "Net-(SKT14-Pads)" "Net-(SKT14-Padt)" "Net-(SKT14-Padu)"
+      "Net-(SKT14-Padv)" "Net-(SKT14-Padw)" "Net-(SKT14-Pady)" "Net-(SKT2-PadA)"
+      "Net-(SKT2-PadNN)" "Net-(SKT2-PadPP)" "Net-(SKT4-PadA)" "Net-(SKT4-PadAA)"
+      "Net-(SKT4-PadBB)" "Net-(SKT4-PadCC)" "Net-(SKT4-PadDD)" "Net-(SKT4-PadEE)"
+      "Net-(SKT4-PadFF)" "Net-(SKT4-PadGG)" "Net-(SKT4-PadHH)" "Net-(SKT4-PadJJ)"
+      "Net-(SKT4-PadKK)" "Net-(SKT4-PadLL)" "Net-(SKT4-PadMM)" "Net-(SKT4-PadPP)"
+      "Net-(SKT4-Padh)" "Net-(SKT4-Padi)" "Net-(SKT4-Padj)" "Net-(SKT4-Padk)"
+      "Net-(SKT4-Padm)" "Net-(SKT4-Padn)" "Net-(SKT4-Padp)" "Net-(SKT5-PadA)"
+      "Net-(SKT5-PadAA)" "Net-(SKT5-PadB)" "Net-(SKT5-PadBB)" "Net-(SKT5-PadC)"
+      "Net-(SKT5-PadCC)" "Net-(SKT5-PadD)" "Net-(SKT5-PadDD)" "Net-(SKT5-PadE)"
+      "Net-(SKT5-PadEE)" "Net-(SKT5-PadF)" "Net-(SKT5-PadFF)" "Net-(SKT5-PadG)"
+      "Net-(SKT5-PadGG)" "Net-(SKT5-PadH)" "Net-(SKT5-PadHH)" "Net-(SKT5-PadJ)"
+      "Net-(SKT5-PadJJ)" "Net-(SKT5-PadK)" "Net-(SKT5-PadKK)" "Net-(SKT5-PadL)"
+      "Net-(SKT5-PadLL)" "Net-(SKT5-PadM)" "Net-(SKT5-PadMM)" "Net-(SKT5-PadN)"
+      "Net-(SKT5-PadNN)" "Net-(SKT5-PadP)" "Net-(SKT5-PadPP)" "Net-(SKT5-PadR)"
+      "Net-(SKT5-PadS)" "Net-(SKT5-PadT)" "Net-(SKT5-PadU)" "Net-(SKT5-PadV)"
+      "Net-(SKT5-PadW)" "Net-(SKT5-PadX)" "Net-(SKT5-PadY)" "Net-(SKT5-PadZ)"
+      "Net-(SKT5-Pada)" "Net-(SKT5-Padb)" "Net-(SKT5-Padc)" "Net-(SKT5-Padd)"
+      "Net-(SKT5-Pade)" "Net-(SKT5-Padf)" "Net-(SKT5-Padg)" "Net-(SKT5-Padh)"
+      "Net-(SKT5-Padi)" "Net-(SKT5-Padj)" "Net-(SKT5-Padk)" "Net-(SKT5-Padm)"
+      "Net-(SKT5-Padn)" "Net-(SKT5-Padq)" "Net-(SKT5-Padr)" "Net-(SKT5-Pads)"
+      "Net-(SKT5-Padt)" "Net-(SKT5-Padu)" "Net-(SKT5-Padv)" "Net-(SKT5-Padw)"
+      "Net-(SKT5-Padx)" "Net-(SKT5-Pady)" "Net-(SKT5-Padz)" "OTA-'" "OTA1-"
+      "OTA2-" "OTG1-" "OTG2-" "OTI-" "OTJ-" "OTJ1-" "OTJ2-" OTMa "OTP1-" "OTP2-"
+      "OTQ1-" "OTQ2-" "P1-" "P10-" "P11-" P12 "P12-" P13 "P13-" "P2-" "P3-"
+      "P4-" "P5-" "P6-" "P7-" "P8-" "P9-" "PC1-" "PC1-4" "PC2-" "PC3-" "PC4-"
+      "PC5-12" "PTG1-1" "PTG1-2" "PTG1-a" "PTG2-1" "PTG2-2" "PTG2-a" PulseGen
+      QTF1 QTF2 QTFa RBT RBTm "RESET2-" "RGS-x" RTG1 RTG2 RTGa SBT SBTm SFD
+      SFDm SKT10A SKT10B SKT10C SKT10D SKT10E SKT10F SKT10G SKT10H SKT10J
+      SKT10K SKT10L SKT10M SKT10N SKT10P SKT10R SKT10S SKT10U SKT10V SKT10W
+      SKT10X SKT10Y SKT10b SKT10d SKT10h SKT10j SKT11B SKT11C SKT11D SKT11E
+      SKT11F SKT11G SKT11H SKT11J SKT11K SKT11L SKT11M SKT11N SKT11P SKT11R
+      SKT11S SKT11T SKT11V SKT13A SKT13C SKT13E SKT13G SKT13J SKT13L SKT13N
+      SKT13R SKT14x SKT14z SKT1AA SKT1B SKT1BB SKT1C SKT1CC SKT1D SKT1DD SKT1E
+      SKT1EE SKT1F SKT1FF SKT1G SKT1GG SKT1H SKT1HH SKT1J SKT1K SKT1L SKT1LL
+      SKT1M SKT1MM SKT1N SKT1P SKT1PP SKT1R SKT1S SKT1T SKT1U SKT1V SKT1W
+      SKT1X SKT1Y SKT1Z SKT1a SKT1b SKT1c SKT1d SKT1e SKT1f SKT1g SKT1h SKT1i
+      SKT1j SKT1k SKT1m SKT1n SKT1p SKT1q SKT1r SKT1s SKT1t SKT1u SKT1v SKT1w
+      SKT1x SKT1y SKT1z SKT2AA SKT2B SKT2BB SKT2C SKT2CC SKT2D SKT2DD SKT2E
+      SKT2EE SKT2F SKT2FF SKT2G SKT2GG SKT2H SKT2HH SKT2J SKT2JJ SKT2K SKT2KK
+      SKT2L SKT2LL SKT2M SKT2N SKT2P SKT2R SKT2S SKT2T SKT2U SKT2V SKT2W SKT2X
+      SKT2Y SKT2Z SKT2a SKT2b SKT2c SKT2d SKT2e SKT2f SKT2g SKT2h SKT2i SKT2j
+      SKT2k SKT2m SKT2n SKT2p SKT2q SKT2r SKT2s SKT2t SKT2u SKT2v SKT2w SKT2x
+      SKT2y SKT2z SKT3r SKT3s SKT3t SKT3u SKT4AA SKT4B SKT4BB SKT4C SKT4CC
+      SKT4D SKT4DD SKT4E SKT4EE SKT4F SKT4FF SKT4G SKT4GG SKT4H SKT4HH SKT4J
+      SKT4K SKT4L SKT4M SKT4N SKT4P SKT4PP SKT4R SKT4S SKT4T SKT4U SKT4V SKT4W
+      SKT4X SKT4Y SKT4Z SKT4a SKT4b SKT4c SKT4d SKT4e SKT4f SKT4g SKT4q SKT4r
+      SKT4s SKT4t SKT4u SKT4v SKT4w SKT4x SKT4y SKT4z SKT5p "STORE1-" "STORE10-"
+      "STORE11-" "STORE12-" "STORE13-" "STORE14-" "STORE15-" "STORE16-" "STORE17-"
+      "STORE18-" "STORE2-" "STORE3-" "STORE4-" "STORE5-" "STORE6-" "STORE7-"
+      "STORE8-" "STORE9-" SZ1 TZ1 "VTG-" VTG1 VTG2 VTGa W14 W15 W16 W17 W18
+      W2 W3 W4 WFR "WGS-x" WTM1 WTM2 WTMa X0 X1 "Z2-" t1 "t2-2" "t3-2" t4
+      "t4-2" t5
+      (circuit
+        (use_via Via[0-5]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+  )
+  (wiring
+  )
+)
