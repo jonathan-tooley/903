@@ -24,7 +24,7 @@
       (path pcb 0  254000 -279400  10160 -279400  10160 -10160  254000 -10160
             254000 -279400)
     )
-    (via "Via[0-1]_1500:1000_um")
+    (via "Via[0-1]_1500:1000_um" "Via[0-1]_1000:500_um")
     (rule
       (width 1500)
       (clearance 200.1)
@@ -33,33 +33,39 @@
     )
   )
   (placement
+    (component ELLIOTT:Diode_Bridge_Vishay_GBU
+      (place D1 56515 -125158 front 270 (PN "D_Bridge_+-AA"))
+      (place D3 56959.5 -18478.5 front 270 (PN "D_Bridge_+-AA"))
+    )
+    (component "ELLIOTT:Heatsink 712-4241"
+      (place HS16 46736 -145224 front 90 (PN "Heatsink 712-4241"))
+      (place HS15 46545.5 -38671.5 front 90 (PN "Heatsink 712-4241"))
+    )
+    (component ELLIOTT:FL526Transformer
+      (place TR1 16700.5 -201104 front 0 (PN 6v))
+    )
+    (component ELLIOTT:FL3024Transformer
+      (place TR2 34353.5 -45466 front 0 (PN 24v))
+    )
+    (component MountingHole:MountingHole_3.2mm_M3_ISO7380_Pad
+      (place H11 21780.5 -133414 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H10 217424 -163830 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H8 232029 -17399 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H2 108458 -17526 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H1 23495 -17399 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H3 58991.5 -108077 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+      (place H6 239586 -266954 front 0 (PN MountingHole_3.2mm_M3_ISO7380_Pad))
+    )
     (component ELLIOTT:Relay55.13
       (place K1 195783 -67614.8 front 0 (PN ~))
       (place K2 167704 -67564 front 0 (PN ~))
       (place K4 142037 -67564 front 0 (PN ~))
       (place K3 114110 -67564 front 0 (PN ~))
     )
-    (component "ELLIOTT:Heatsink 712-4241"
-      (place HS16 46736 -145224 front 90 (PN "Heatsink 712-4241"))
-    )
-    (component "ELLIOTT:Heatsink 712-4241::1"
-      (place HS15 46545.5 -38671.5 front 90 (PN "Heatsink 712-4241"))
-    )
-    (component MountingHole:MountingHole_2.7mm_M2.5
-      (place H11 21780.5 -133414 front 0 (PN MountingHole_2.7mm_M2.5))
-      (place H8 232029 -17399 front 0 (PN MountingHole_2.7mm_M2.5))
-      (place H2 108458 -17526 front 0 (PN MountingHole_2.7mm_M2.5))
-      (place H1 23495 -17399 front 0 (PN MountingHole_2.7mm_M2.5))
-      (place H3 58991.5 -108077 front 0 (PN MountingHole_2.7mm_M2.5))
-    )
-    (component MountingHole:MountingHole_2.7mm_M2.5::1
-      (place H10 216535 -157036 front 0 (PN MountingHole_2.7mm_M2.5))
-      (place H6 239586 -266954 front 0 (PN MountingHole_2.7mm_M2.5))
-    )
     (component ELLIOTT:Heatsink
-      (place HS3 76708 -168592 front 270 (PN Heatsink))
-      (place HS2 76771.5 -122682 front 270 (PN Heatsink))
-      (place HS1 180912 -22352 front 270 (PN Heatsink))
+      (place HS3 75628.5 -168402 front 270 (PN Heatsink))
+      (place HS2 75692 -122618 front 270 (PN Heatsink))
+      (place HS1 179705 -22288.5 front 270 (PN Heatsink))
     )
     (component ELLIOTT:Heatsink_TO247
       (place HS4 142621 -107315 front 0 (PN Heatsink_TO247))
@@ -90,12 +96,6 @@
     (component Capacitor_THT:CP_Radial_D4.0mm_P1.50mm::1
       (place C8 197548 -217360 front 0 (PN 10u))
     )
-    (component ELLIOTT:Diode_Bridge_Vishay_GBU
-      (place D1 56515 -125158 front 270 (PN "D_Bridge_+-AA"))
-    )
-    (component ELLIOTT:Diode_Bridge_Vishay_GBU::1
-      (place D3 56959.5 -18478.5 front 270 (PN "D_Bridge_+-AA"))
-    )
     (component "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal"
       (place D4 171958 -94805.5 front 0 (PN 1N4001T))
     )
@@ -112,11 +112,11 @@
       (place Q3 137160 -187960 front 0 (PN TIP2955))
     )
     (component "ELLIOTT:TO-92L_Inline"
-      (place Q5 232982 -27559 front 270 (PN BC107))
+      (place Q5 231851 -29565.6 front 180 (PN BC107))
     )
     (component ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
       (place R1 174904 -55727.6 front 180 (PN 390R))
-      (place R10 222631 -79565.5 front 270 (PN 47))
+      (place R10 222910 -75336.4 front 270 (PN 47))
     )
     (component Resistor_THT:R_Axial_Power_L25.0mm_W6.4mm_P27.94mm
       (place R2 169418 -111760 front 0 (PN "100mR 5W"))
@@ -133,9 +133,6 @@
       (place R7 111658 -98602.8 front 90 (PN "100R 0.5W"))
       (place R8 166052 -36512.5 front 180 (PN "100R 0.5W"))
     )
-    (component ELLIOTT:FL3024Transformer
-      (place TR2 34353.5 -45466 front 0 (PN 24v))
-    )
     (component "Package_TO_SOT_THT:TO-220-3_Vertical"
       (place U1 75057 -175450 front 270 (PN LM7806_TO220))
       (place U3 179197 -29273.5 front 270 (PN LM7824_TO220))
@@ -144,10 +141,10 @@
       (place U2 75120.5 -129604 front 270 (PN LM7906_TO220))
     )
     (component Capacitor_THT:CP_Radial_D12.5mm_P5.00mm
-      (place C10 227711 -92900.5 front 270 (PN 1000u))
+      (place C10 232664 -69342 front 270 (PN 1000u))
     )
     (component TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13705HBWC_1x05_P7.50mm_Horizontal
-      (place J1 244475 -203454 front 90 (PN ~))
+      (place J1 115214 -248818 front 90 (PN ~))
     )
     (component TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13703HBWC_1x03_P7.50mm_Horizontal
       (place J2 18351.5 -65976.5 front 90 (PN ~))
@@ -162,7 +159,7 @@
       (place J5 244729 -105474 front 90 (PN ~))
     )
     (component ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal::1
-      (place R9 222631 -66865.5 front 270 (PN 10k))
+      (place R9 222910 -60452 front 270 (PN 10k))
     )
     (component TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal
       (place F1 18796 -152019 front 270 (PN Fuse))
@@ -172,15 +169,95 @@
     )
     (component TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal::1
       (place F3 18986.5 -107632 front 270 (PN Fuse))
-      (place F5 244602 -225044 front 90 (PN 8A))
       (place F6 188214 -271082 front 180 (PN 1A))
       (place F8 220345 -19621.5 front 180 (PN 1A))
     )
-    (component ELLIOTT:FL526Transformer
-      (place TR1 16700.5 -201104 front 0 (PN 6v))
+    (component TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal::2
+      (place F5 227686 -101803 front 180 (PN 8A))
     )
   )
   (library
+    (image ELLIOTT:Diode_Bridge_Vishay_GBU
+      (outline (path signal 50  18950 1850  -3650 1850))
+      (outline (path signal 50  18950 1850  18950 -2550))
+      (outline (path signal 50  -3650 -2550  -3650 1850))
+      (outline (path signal 50  -3650 -2550  18950 -2550))
+      (outline (path signal 100  -3400 1100  18700 1100))
+      (outline (path signal 120  18700 1100  18700 -2300))
+      (outline (path signal 100  18700 -2300  -2500 -2300))
+      (outline (path signal 100  -2500 -2300  -3400 -1300))
+      (outline (path signal 100  -3400 -1300  -3400 1100))
+      (outline (path signal 100  -300 -2300  -300 1100))
+      (outline (path signal 120  -3500 1200  -2000 1200))
+      (outline (path signal 120  2000 1200  3500 1200))
+      (outline (path signal 120  6700 1200  8600 1200))
+      (outline (path signal 120  11700 1200  13700 1200))
+      (outline (path signal 120  16800 1200  18800 1200))
+      (outline (path signal 120  18800 1200  18800 -2400))
+      (outline (path signal 120  18800 -2400  -3500 -2400))
+      (outline (path signal 120  -3500 -2400  -3500 1200))
+      (outline (path signal 120  -300 -2400  -300 -1900))
+      (pin Rect[A]Pad_3200x3200_um 1 0 0)
+      (pin Round[A]Pad_3200_um 4 5080 0)
+      (pin Round[A]Pad_3200_um 3 10160 0)
+      (pin Round[A]Pad_3200_um 2 15240 0)
+    )
+    (image "ELLIOTT:Heatsink 712-4241"
+      (outline (path signal 1200  0 -3000  0 -12500))
+      (outline (path signal 1200  0 -12500  25000 -12500))
+      (outline (path signal 1200  25000 -12500  25000 -3000))
+      (pin Rect[A]Pad_2032x3048_um 1 200 -1400)
+      (pin Rect[A]Pad_2032x3048_um 2 24800 -1400)
+    )
+    (image ELLIOTT:FL526Transformer
+      (outline (path signal 500  0 0  86500 0))
+      (outline (path signal 500  86500 0  86500 -70000))
+      (outline (path signal 500  86500 -70000  0 -70000))
+      (outline (path signal 500  0 -70000  0 0))
+      (pin Oval[A]Pad_3810x2794_um 1 16500 -6500)
+      (pin Oval[A]Pad_3810x2794_um 2 16500 -21500)
+      (pin Oval[A]Pad_3810x2794_um 3 16500 -48500)
+      (pin Oval[A]Pad_3810x2794_um 4 16500 -63500)
+      (pin Oval[A]Pad_3810x2794_um 5 70000 -63500)
+      (pin Oval[A]Pad_3810x2794_um 6 70000 -53500)
+      (pin Oval[A]Pad_3810x2794_um 7 70000 -16500)
+      (pin Oval[A]Pad_3810x2794_um 8 70000 -6500)
+      (pin Round[A]Pad_3500_um 9 5750 -5000)
+      (pin Round[A]Pad_3500_um 10 5750 -65000)
+      (pin Round[A]Pad_3500_um 11 80750 -65000)
+      (pin Round[A]Pad_3500_um 12 80750 -5000)
+    )
+    (image ELLIOTT:FL3024Transformer
+      (outline (path signal 150  0 -57000  0 0))
+      (outline (path signal 150  68000 -57000  0 -57000))
+      (outline (path signal 150  68000 0  68000 -57000))
+      (outline (path signal 150  0 0  68000 0))
+      (pin Oval[A]Pad_3810x2794_um 8 56500 -5500)
+      (pin Oval[A]Pad_3810x2794_um 7 56500 -15500)
+      (pin Oval[A]Pad_3810x2794_um 6 56500 -41500)
+      (pin Oval[A]Pad_3810x2794_um 5 56500 -51500)
+      (pin Oval[A]Pad_3810x2794_um 4 11500 -51500)
+      (pin Oval[A]Pad_3810x2794_um 3 11500 -36500)
+      (pin Oval[A]Pad_3810x2794_um 2 11500 -20500)
+      (pin Oval[A]Pad_3810x2794_um 1 11500 -5500)
+    )
+    (image MountingHole:MountingHole_3.2mm_M3_ISO7380_Pad
+      (outline (path signal 50  3100 0  3022.28 -689.815  2793 -1345.04  2423.68 -1932.82
+            1932.82 -2423.68  1345.04 -2793  689.815 -3022.28  0 -3100  -689.815 -3022.28
+            -1345.04 -2793  -1932.82 -2423.68  -2423.68 -1932.82  -2793 -1345.04
+            -3022.28 -689.815  -3100 0  -3022.28 689.815  -2793 1345.04
+            -2423.68 1932.82  -1932.82 2423.68  -1345.04 2793  -689.815 3022.28
+            0 3100  689.815 3022.28  1345.04 2793  1932.82 2423.68  2423.68 1932.82
+            2793 1345.04  3022.28 689.815  3100 0))
+      (outline (path signal 150  2850 0  2773.18 -657.255  2546.85 -1279.08  2183.23 -1831.94
+            1701.9 -2286.05  1128.83 -2616.92  494.897 -2806.7  -165.713 -2845.18
+            -817.389 -2730.27  -1425 -2468.17  -1955.79 -2073.01  -2381.14 -1566.1
+            -2678.12 -974.757  -2830.73 -330.865  -2830.73 330.865  -2678.12 974.757
+            -2381.14 1566.1  -1955.79 2073.01  -1425 2468.17  -817.389 2730.27
+            -165.713 2845.18  494.897 2806.7  1128.83 2616.92  1701.9 2286.05
+            2183.23 1831.94  2546.85 1279.08  2773.18 657.255  2850 0))
+      (pin Round[A]Pad_5700_um 1 0 0)
+    )
     (image ELLIOTT:Relay55.13
       (outline (path signal 150  17000 4200  17000 -23500))
       (outline (path signal 150  -3800 -23500  17000 -23500))
@@ -197,56 +274,6 @@
       (pin Rect[A]Pad_3810x2794_um 3 13200 0)
       (pin Rect[A]Pad_3810x2794_um 2 6600 0)
       (pin Rect[A]Pad_3810x2794_um 1 0 0)
-    )
-    (image "ELLIOTT:Heatsink 712-4241"
-      (outline (path signal 1200  0 -3000  0 -12500))
-      (outline (path signal 1200  0 -12500  25000 -12500))
-      (outline (path signal 1200  25000 -12500  25000 -3000))
-      (pin Rect[A]Pad_2000x3000_um 1 0 -1400)
-      (pin Rect[A]Pad_2000x3000_um 2 25000 -1400)
-    )
-    (image "ELLIOTT:Heatsink 712-4241::1"
-      (outline (path signal 1200  25000 -12500  25000 -3000))
-      (outline (path signal 1200  0 -12500  25000 -12500))
-      (outline (path signal 1200  0 -3000  0 -12500))
-      (pin Rect[A]Pad_2000x3000_um 2 25000 -1400)
-      (pin Rect[A]Pad_2000x3000_um 1 0 -1400)
-    )
-    (image MountingHole:MountingHole_2.7mm_M2.5
-      (outline (path signal 150  2700 0  2621.54 -646.152  2390.73 -1254.75  2020.98 -1790.43
-            1533.78 -2222.06  957.433 -2524.54  325.449 -2680.31  -325.449 -2680.31
-            -957.433 -2524.54  -1533.78 -2222.06  -2020.98 -1790.43  -2390.73 -1254.75
-            -2621.54 -646.152  -2700 0  -2621.54 646.152  -2390.73 1254.75
-            -2020.98 1790.43  -1533.78 2222.06  -957.433 2524.54  -325.449 2680.31
-            325.449 2680.31  957.433 2524.54  1533.78 2222.06  2020.98 1790.43
-            2390.73 1254.75  2621.54 646.152  2700 0))
-      (outline (path signal 50  2950 0  2870.48 -680.317  2636.22 -1323.96  2259.83 -1896.22
-            1761.62 -2366.26  1168.43 -2708.74  512.262 -2905.18  -171.527 -2945.01
-            -846.07 -2826.07  -1475 -2554.78  -2024.41 -2145.75  -2464.69 -1621.05
-            -2772.09 -1008.96  -2930.05 -342.474  -2930.05 342.474  -2772.09 1008.96
-            -2464.69 1621.05  -2024.41 2145.75  -1475 2554.78  -846.07 2826.07
-            -171.527 2945.01  512.262 2905.18  1168.43 2708.74  1761.62 2366.26
-            2259.83 1896.22  2636.22 1323.96  2870.48 680.317  2950 0))
-      (keepout "" (circle F.Cu 2700))
-      (keepout "" (circle B.Cu 2700))
-    )
-    (image MountingHole:MountingHole_2.7mm_M2.5::1
-      (outline (path signal 50  2950 0  2870.48 -680.317  2636.22 -1323.96  2259.83 -1896.22
-            1761.62 -2366.26  1168.43 -2708.74  512.262 -2905.18  -171.527 -2945.01
-            -846.07 -2826.07  -1475 -2554.78  -2024.41 -2145.75  -2464.69 -1621.05
-            -2772.09 -1008.96  -2930.05 -342.474  -2930.05 342.474  -2772.09 1008.96
-            -2464.69 1621.05  -2024.41 2145.75  -1475 2554.78  -846.07 2826.07
-            -171.527 2945.01  512.262 2905.18  1168.43 2708.74  1761.62 2366.26
-            2259.83 1896.22  2636.22 1323.96  2870.48 680.317  2950 0))
-      (outline (path signal 150  2700 0  2621.54 -646.152  2390.73 -1254.75  2020.98 -1790.43
-            1533.78 -2222.06  957.433 -2524.54  325.449 -2680.31  -325.449 -2680.31
-            -957.433 -2524.54  -1533.78 -2222.06  -2020.98 -1790.43  -2390.73 -1254.75
-            -2621.54 -646.152  -2700 0  -2621.54 646.152  -2390.73 1254.75
-            -2020.98 1790.43  -1533.78 2222.06  -957.433 2524.54  -325.449 2680.31
-            325.449 2680.31  957.433 2524.54  1533.78 2222.06  2020.98 1790.43
-            2390.73 1254.75  2621.54 646.152  2700 0))
-      (keepout "" (circle F.Cu 2700))
-      (keepout "" (circle B.Cu 2700))
     )
     (image ELLIOTT:Heatsink
       (outline (path signal 150  22187.5 6000  25687.5 6000))
@@ -2332,56 +2359,6 @@
       (pin Round[A]Pad_1200_um 2 1500 0)
       (pin Rect[A]Pad_1200x1200_um 1 0 0)
     )
-    (image ELLIOTT:Diode_Bridge_Vishay_GBU
-      (outline (path signal 120  -300 -2400  -300 -1900))
-      (outline (path signal 120  -3500 -2400  -3500 1200))
-      (outline (path signal 120  18800 -2400  -3500 -2400))
-      (outline (path signal 120  18800 1200  18800 -2400))
-      (outline (path signal 120  16800 1200  18800 1200))
-      (outline (path signal 120  11700 1200  13700 1200))
-      (outline (path signal 120  6700 1200  8600 1200))
-      (outline (path signal 120  2000 1200  3500 1200))
-      (outline (path signal 120  -3500 1200  -2000 1200))
-      (outline (path signal 100  -300 -2300  -300 1100))
-      (outline (path signal 100  -3400 -1300  -3400 1100))
-      (outline (path signal 100  -2500 -2300  -3400 -1300))
-      (outline (path signal 100  18700 -2300  -2500 -2300))
-      (outline (path signal 120  18700 1100  18700 -2300))
-      (outline (path signal 100  -3400 1100  18700 1100))
-      (outline (path signal 50  -3650 -2550  18950 -2550))
-      (outline (path signal 50  -3650 -2550  -3650 1850))
-      (outline (path signal 50  18950 1850  18950 -2550))
-      (outline (path signal 50  18950 1850  -3650 1850))
-      (pin Round[A]Pad_3200_um 4 15240 0)
-      (pin Round[A]Pad_3200_um 3 10160 0)
-      (pin Round[A]Pad_3200_um 2 5080 0)
-      (pin Rect[A]Pad_3200x3200_um 1 0 0)
-    )
-    (image ELLIOTT:Diode_Bridge_Vishay_GBU::1
-      (outline (path signal 50  18950 1850  -3650 1850))
-      (outline (path signal 50  18950 1850  18950 -2550))
-      (outline (path signal 50  -3650 -2550  -3650 1850))
-      (outline (path signal 50  -3650 -2550  18950 -2550))
-      (outline (path signal 100  -3400 1100  18700 1100))
-      (outline (path signal 120  18700 1100  18700 -2300))
-      (outline (path signal 100  18700 -2300  -2500 -2300))
-      (outline (path signal 100  -2500 -2300  -3400 -1300))
-      (outline (path signal 100  -3400 -1300  -3400 1100))
-      (outline (path signal 100  -300 -2300  -300 1100))
-      (outline (path signal 120  -3500 1200  -2000 1200))
-      (outline (path signal 120  2000 1200  3500 1200))
-      (outline (path signal 120  6700 1200  8600 1200))
-      (outline (path signal 120  11700 1200  13700 1200))
-      (outline (path signal 120  16800 1200  18800 1200))
-      (outline (path signal 120  18800 1200  18800 -2400))
-      (outline (path signal 120  18800 -2400  -3500 -2400))
-      (outline (path signal 120  -3500 -2400  -3500 1200))
-      (outline (path signal 120  -300 -2400  -300 -1900))
-      (pin Rect[A]Pad_3200x3200_um 1 0 0)
-      (pin Round[A]Pad_3200_um 2 5080 0)
-      (pin Round[A]Pad_3200_um 3 10160 0)
-      (pin Round[A]Pad_3200_um 4 15240 0)
-    )
     (image "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal"
       (outline (path signal 50  8970 1600  -1350 1600))
       (outline (path signal 50  8970 -1600  8970 1600))
@@ -2596,20 +2573,6 @@
       (outline (path signal 50  3590 1500  -1500 1500))
       (pin Round[A]Pad_1600_um 1 0 0)
       (pin Oval[A]Pad_1600x1600_um 2 2540 0)
-    )
-    (image ELLIOTT:FL3024Transformer
-      (outline (path signal 150  0 0  68000 0))
-      (outline (path signal 150  68000 0  68000 -57000))
-      (outline (path signal 150  68000 -57000  0 -57000))
-      (outline (path signal 150  0 -57000  0 0))
-      (pin Round[A]Pad_1524_um 1 11500 -5500)
-      (pin Round[A]Pad_1524_um 2 11500 -20500)
-      (pin Round[A]Pad_1524_um 3 11500 -36500)
-      (pin Round[A]Pad_1524_um 4 11500 -51500)
-      (pin Round[A]Pad_1524_um 5 56500 -51500)
-      (pin Round[A]Pad_1524_um 6 56500 -41500)
-      (pin Round[A]Pad_1524_um 7 56500 -15500)
-      (pin Round[A]Pad_1524_um 8 56500 -5500)
     )
     (image "Package_TO_SOT_THT:TO-220-3_Vertical"
       (outline (path signal 100  -2460 3150  -2460 -1250))
@@ -3524,23 +3487,52 @@
       (pin Round[A]Pad_2500_um 2 7500 0)
       (pin Rect[A]Pad_2500x2500_um 1 0 0)
     )
-    (image ELLIOTT:FL526Transformer
-      (outline (path signal 500  0 0  86500 0))
-      (outline (path signal 500  86500 0  86500 -70000))
-      (outline (path signal 500  86500 -70000  0 -70000))
-      (outline (path signal 500  0 -70000  0 0))
-      (pin Oval[A]Pad_1500x2500_um 1 16500 -6500)
-      (pin Oval[A]Pad_1500x2500_um 2 16500 -21500)
-      (pin Oval[A]Pad_1500x2500_um 3 16500 -48500)
-      (pin Oval[A]Pad_1500x2500_um 4 16500 -63500)
-      (pin Oval[A]Pad_1500x2500_um 5 70000 -63500)
-      (pin Oval[A]Pad_1500x2500_um 6 70000 -48500)
-      (pin Oval[A]Pad_1500x2500_um 7 70000 -21500)
-      (pin Oval[A]Pad_1500x2500_um 8 70000 -6500)
-      (pin Round[A]Pad_3500_um 9 5750 -5000)
-      (pin Round[A]Pad_3500_um 10 5750 -65000)
-      (pin Round[A]Pad_3500_um 11 80750 -65000)
-      (pin Round[A]Pad_3500_um 12 80750 -5000)
+    (image TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal::2
+      (outline (path signal 50  11750 5000  -4250 5000))
+      (outline (path signal 50  11750 -5000  11750 5000))
+      (outline (path signal 50  -4250 -5000  11750 -5000))
+      (outline (path signal 50  -4250 5000  -4250 -5000))
+      (outline (path signal 120  -4050 -4800  -2050 -4800))
+      (outline (path signal 120  -4050 -2560  -4050 -4800))
+      (outline (path signal 120  6320 -976  6226 -1069))
+      (outline (path signal 120  8570 1275  8511 1216))
+      (outline (path signal 120  6490 -1216  6431 -1274))
+      (outline (path signal 120  8775 1069  8681 976))
+      (outline (path signal 100  8455 1138  6363 -955))
+      (outline (path signal 100  8638 955  6546 -1138))
+      (outline (path signal 100  955 1138  -1138 -955))
+      (outline (path signal 100  1138 955  -955 -1138))
+      (outline (path signal 120  11310 4560  11310 -4560))
+      (outline (path signal 120  -3810 4560  -3810 -4560))
+      (outline (path signal 120  -3810 -4560  11310 -4560))
+      (outline (path signal 120  -3810 4560  11310 4560))
+      (outline (path signal 120  -3810 2500  11310 2500))
+      (outline (path signal 100  -3750 2500  11250 2500))
+      (outline (path signal 120  -3810 -2500  11310 -2500))
+      (outline (path signal 100  -3750 -2500  11250 -2500))
+      (outline (path signal 100  -3750 -2500  -3750 4500))
+      (outline (path signal 100  -1750 -4500  -3750 -2500))
+      (outline (path signal 100  11250 -4500  -1750 -4500))
+      (outline (path signal 100  11250 4500  11250 -4500))
+      (outline (path signal 100  -3750 4500  11250 4500))
+      (outline (path signal 120  9180 0  9097.77 -519.149  8859.15 -987.479  8487.48 -1359.15
+            8019.15 -1597.78  7500 -1680  6980.85 -1597.78  6512.52 -1359.15
+            6140.85 -987.479  5902.23 -519.149  5820 0  5902.23 519.149
+            6140.85 987.479  6512.52 1359.15  6980.85 1597.78  7500 1680
+            8019.15 1597.78  8487.48 1359.15  8859.15 987.479  9097.77 519.149
+            9180 0))
+      (outline (path signal 100  9000 0  8918.73 -487.049  8683.71 -921.319  8320.42 -1255.75
+            7868.23 -1454.1  7376.13 -1494.88  6897.46 -1373.66  6484.08 -1103.59
+            6180.79 -713.921  6020.46 -246.892  6020.46 246.892  6180.79 713.921
+            6484.08 1103.59  6897.46 1373.66  7376.13 1494.88  7868.23 1454.1
+            8320.42 1255.75  8683.71 921.319  8918.73 487.049  9000 0))
+      (outline (path signal 100  1500 0  1418.73 -487.049  1183.71 -921.319  820.422 -1255.75
+            368.228 -1454.1  -123.869 -1494.88  -602.543 -1373.66  -1015.92 -1103.59
+            -1319.21 -713.921  -1479.54 -246.892  -1479.54 246.892  -1319.21 713.921
+            -1015.92 1103.59  -602.543 1373.66  -123.869 1494.88  368.228 1454.1
+            820.422 1255.75  1183.71 921.319  1418.73 487.049  1500 0))
+      (pin Round[A]Pad_4000_um 2 7500 0)
+      (pin Rect[A]Pad_4000x4000_um 1 0 0)
     )
     (padstack Round[A]Pad_1200_um
       (shape (circle F.Cu 1200))
@@ -3550,11 +3542,6 @@
     (padstack Round[A]Pad_1400_um
       (shape (circle F.Cu 1400))
       (shape (circle B.Cu 1400))
-      (attach off)
-    )
-    (padstack Round[A]Pad_1524_um
-      (shape (circle F.Cu 1524))
-      (shape (circle B.Cu 1524))
       (attach off)
     )
     (padstack Round[A]Pad_1600_um
@@ -3592,6 +3579,11 @@
       (shape (circle B.Cu 4064))
       (attach off)
     )
+    (padstack Round[A]Pad_5700_um
+      (shape (circle F.Cu 5700))
+      (shape (circle B.Cu 5700))
+      (attach off)
+    )
     (padstack Round[A]Pad_6000_um
       (shape (circle F.Cu 6000))
       (shape (circle B.Cu 6000))
@@ -3600,11 +3592,6 @@
     (padstack Oval[A]Pad_1400x1400_um
       (shape (path F.Cu 1400  0 0  0 0))
       (shape (path B.Cu 1400  0 0  0 0))
-      (attach off)
-    )
-    (padstack Oval[A]Pad_1500x2500_um
-      (shape (path F.Cu 1500  0 -500  0 500))
-      (shape (path B.Cu 1500  0 -500  0 500))
       (attach off)
     )
     (padstack Oval[A]Pad_1600x1600_um
@@ -3632,6 +3619,11 @@
       (shape (path B.Cu 2500  0 -500  0 500))
       (attach off)
     )
+    (padstack Oval[A]Pad_3810x2794_um
+      (shape (path F.Cu 2794  -508 0  508 0))
+      (shape (path B.Cu 2794  -508 0  508 0))
+      (attach off)
+    )
     (padstack RoundRect[A]Pad_1050x1500_263.499_um
       (shape (polygon F.Cu 0  308.256 746.996  352.622 735.108  394.249 715.697  431.874 689.352
             464.352 656.874  490.697 619.25  510.108 577.622  521.996 533.256
@@ -3657,9 +3649,9 @@
             308.256 746.996))
       (attach off)
     )
-    (padstack Rect[A]Pad_2000x3000_um
-      (shape (rect F.Cu -1000 -1500 1000 1500))
-      (shape (rect B.Cu -1000 -1500 1000 1500))
+    (padstack Rect[A]Pad_2032x3048_um
+      (shape (rect F.Cu -1016 -1524 1016 1524))
+      (shape (rect B.Cu -1016 -1524 1016 1524))
       (attach off)
     )
     (padstack Rect[A]Pad_2200x2200_um
@@ -3722,19 +3714,24 @@
       (shape (circle B.Cu 1500))
       (attach off)
     )
+    (padstack "Via[0-1]_1000:500_um"
+      (shape (circle F.Cu 1000))
+      (shape (circle B.Cu 1000))
+      (attach off)
+    )
   )
   (network
     (net "Net-(C1-Pad1)"
-      (pins K3-8 C1-1 D1-1)
+      (pins D1-1 K3-8 C1-1)
     )
     (net "Net-(C2-Pad2)"
-      (pins K3-7 C2-2 D1-2)
+      (pins D1-2 K3-7 C2-2)
     )
     (net "Net-(C3-Pad1)"
-      (pins C3-1 D3-1 R8-2)
+      (pins D3-1 C3-1 R8-2)
     )
     (net SKT2W
-      (pins K1-7 K4-14 K3-14 C3-2 C6-2 C9-2 D3-2 D5-2 U3-2 J3-2 J4-1)
+      (pins D3-2 K1-7 K4-14 K3-14 C3-2 C6-2 C9-2 D5-2 U3-2 J3-2 J4-1)
     )
     (net "Net-(C4-Pad1)"
       (pins C4-1 Q1-1 Q2-1 Q3-1 Q4-1 R6-1 U1-1)
@@ -3764,7 +3761,7 @@
       (pins D3-3 F3-1)
     )
     (net "Net-(D3-Pad4)"
-      (pins D3-4 TR2-5 TR2-7)
+      (pins D3-4 TR2-7 TR2-5)
     )
     (net "Net-(D4-Pad2)"
       (pins K1-4 K2-14 K2-5 D4-2 D6-1)
@@ -3776,7 +3773,7 @@
       (pins K1-14 D6-2 J4-3)
     )
     (net "Net-(F3-Pad2)"
-      (pins TR2-6 TR2-8 F3-2)
+      (pins TR2-8 TR2-6 F3-2)
     )
     (net "Net-(F4-Pad1)"
       (pins Q1-2 Q2-2 Q3-2 Q4-2 F4-1 F5-2)
@@ -3794,10 +3791,10 @@
       (pins U3-3 F8-2)
     )
     (net N
-      (pins TR2-4 J2-2 TR1-4)
+      (pins TR1-4 TR2-4 J2-2)
     )
     (net L
-      (pins TR2-1 J2-3 TR1-1)
+      (pins TR1-1 TR2-1 J2-3)
     )
     (net SKT2Y
       (pins K2-8 J4-2)
@@ -3836,13 +3833,13 @@
       (pins Q4-3 R5-1)
     )
     (net "Net-(TR2-Pad2)"
-      (pins TR2-2 TR2-3)
+      (pins TR2-3 TR2-2)
     )
     (net "Net-(C10-Pad2)"
       (pins K1-13 C10-2 R10-2)
     )
     (net "Net-(F1-Pad2)"
-      (pins F1-2 TR1-8)
+      (pins TR1-8 F1-2)
     )
     (net "Net-(K2-Pad1)"
       (pins K2-1 R10-1)
@@ -3851,20 +3848,20 @@
       (pins TR1-2 TR1-3)
     )
     (net 0v
-      (pins C1-2 C2-1 C4-2 C5-1 C7-2 C8-1 U1-2 U2-1 J1-1 J1-2 J1-3 J1-4 J1-5 J3-6
-        J3-5 TR1-6 TR1-7)
+      (pins TR1-6 TR1-7 C1-2 C2-1 C4-2 C5-1 C7-2 C8-1 U1-2 U2-1 J1-1 J1-2 J1-3 J1-4
+        J1-5 J3-6 J3-5)
     )
     (net "Net-(F2-Pad1)"
-      (pins F2-1 TR1-5)
+      (pins TR1-5 F2-1)
     )
     (class kicad_default "" 0v L N "Net-(C1-Pad1)" "Net-(C10-Pad1)" "Net-(C10-Pad2)"
       "Net-(C2-Pad2)" "Net-(C3-Pad1)" "Net-(C4-Pad1)" "Net-(C5-Pad2)" "Net-(C6-Pad1)"
       "Net-(D1-Pad3)" "Net-(D1-Pad4)" "Net-(D3-Pad3)" "Net-(D3-Pad4)" "Net-(D4-Pad2)"
       "Net-(F1-Pad2)" "Net-(F2-Pad1)" "Net-(F3-Pad2)" "Net-(F4-Pad1)" "Net-(F4-Pad2)"
-      "Net-(F6-Pad1)" "Net-(F6-Pad2)" "Net-(F8-Pad2)" "Net-(K1-Pad8)" "Net-(K2-Pad1)"
-      "Net-(K3-Pad2)" "Net-(K3-Pad4)" "Net-(K3-Pad5)" "Net-(Q1-Pad3)" "Net-(Q2-Pad3)"
-      "Net-(Q3-Pad3)" "Net-(Q4-Pad3)" "Net-(TR1-Pad2)" "Net-(TR2-Pad2)" SKT2G
-      SKT2L SKT2T SKT2U SKT2V SKT2W SKT2X SKT2Y SKT2a_
+      "Net-(F6-Pad1)" "Net-(F6-Pad2)" "Net-(F8-Pad2)" "Net-(K2-Pad1)" "Net-(K3-Pad2)"
+      "Net-(K3-Pad4)" "Net-(K3-Pad5)" "Net-(Q1-Pad3)" "Net-(Q2-Pad3)" "Net-(Q3-Pad3)"
+      "Net-(Q4-Pad3)" "Net-(TR1-Pad2)" "Net-(TR2-Pad2)" SKT2G SKT2L SKT2V
+      SKT2W SKT2X SKT2Y SKT2a_
       (circuit
         (use_via Via[0-1]_1500:1000_um)
       )
@@ -3873,7 +3870,69 @@
         (clearance 200.1)
       )
     )
+    (class Power
+      (circuit
+        (use_via Via[0-1]_1500:1000_um)
+      )
+      (rule
+        (width 3500)
+        (clearance 200.1)
+      )
+    )
+    (class Signal "Net-(K1-Pad8)" SKT2T SKT2U
+      (circuit
+        (use_via Via[0-1]_1000:500_um)
+      )
+      (rule
+        (width 1000)
+        (clearance 200.1)
+      )
+    )
   )
   (wiring
+    (wire (path F.Cu 1500  231242 -108001  238150 -108001  240677 -105474  244729 -105474)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  227686 -101803  224936 -101803)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  224282 -102457  224282 -108052)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  224333 -108001  231242 -108001)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  244729 -90474  244729 -97974)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  244729 -82974  244729 -90474)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  244729 -97974  244729 -105474)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  227831 -104699  238004 -104699  244729 -97974)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  227686 -101803  233400 -101803  244729 -90474)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  227686 -99053.2  243765 -82974)(net SKT2G)(type protect))
+    (wire (path F.Cu 1500  216630 -98247.2  220186 -101803)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  152898 -98247.2  216630 -98247.2)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -108510  152898 -98247.2)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -111760  142635 -108510)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  214325 -101803  220186 -101803)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  192938 -123190  214325 -101803)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  153355 -123190  192938 -123190)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -133910  153355 -123190)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -137160  142635 -133910)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  214528 -107460  220186 -101803)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  214528 -129794  214528 -107460)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  199085 -145237  214528 -129794)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  157934 -145237  199085 -145237)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -160536  157934 -145237)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  220186 -147761  220186 -101803)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  197866 -170081  220186 -147761)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  197866 -172314  197866 -170081)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  157781 -172314  197866 -172314)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  142635 -187460  157781 -172314)(net "Net-(F4-Pad1)")(type protect))
+    (wire (path F.Cu 1500  104780 -217604  114000 -217604)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -217604  104780 -217604)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -251707  86700.5 -241925)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -254604  86700.5 -251707)(net 0v)(type protect))
+    (wire (path F.Cu 1500  115214 -241318  115214 -248818)(net 0v)(type protect))
+    (wire (path F.Cu 1500  115214 -233818  115214 -241318)(net 0v)(type protect))
+    (wire (path F.Cu 1500  115214 -226318  115214 -233818)(net 0v)(type protect))
+    (wire (path F.Cu 1500  115214 -218818  115214 -226318)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -227244  86700.5 -217604)(net 0v)(type protect))
+    (wire (path F.Cu 1500  87625.6 -226318  115214 -226318)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -234610  86700.5 -227244)(net 0v)(type protect))
+    (wire (path F.Cu 1500  87491.6 -233818  115214 -233818)(net 0v)(type protect))
+    (wire (path F.Cu 1500  86700.5 -241925  86700.5 -234610)(net 0v)(type protect))
+    (wire (path F.Cu 1500  87306.8 -241318  115214 -241318)(net 0v)(type protect))
+    (wire (path F.Cu 1500  115214 -248818  89589.1 -248818  86700.5 -251707)(net 0v)(type protect))
   )
 )

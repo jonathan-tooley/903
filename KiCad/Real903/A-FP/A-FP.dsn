@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  246825 -170255  40565 -170255  40565 -26565  246825 -26565
-            246825 -170255)
+      (path pcb 0  254000 -185420  25400 -185420  25400 -25400  254000 -25400
+            254000 -185420)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -34,13 +34,13 @@
   )
   (placement
     (component Capacitor_THT:CP_Radial_D8.0mm_P2.50mm
-      (place C1 220980 -33020 front 0 (PN 6u8))
+      (place C1 228600 -33020 front 0 (PN 6u8))
     )
     (component Capacitor_THT:CP_Radial_D8.0mm_P2.50mm::1
       (place C2 241300 -33020 front 0 (PN 6u8))
     )
     (component ELLIOTT:DIN41612_B_2x32_Horizontal
-      (place J1 177800 -30480 back 0 (PN J1))
+      (place J1 118345 -30861 back 0 (PN J1))
     )
     (component ELLIOTT:LSA
       (place U1 228600 -165100 front 90 (PN LS01))
@@ -764,22 +764,10 @@
       (pins U12-3 U13-13)
     )
     (class kicad_default "" "1TPC-" 6v GND "J1-" "J2-" "J3-" "J4-" JTPC Neg6v
-      "Net-(J1-Pad10)" "Net-(J1-Pad11)" "Net-(J1-Pad13)" "Net-(J1-Pad15)"
-      "Net-(J1-Pad16)" "Net-(J1-Pad17)" "Net-(J1-Pad18)" "Net-(J1-Pad21)"
-      "Net-(J1-Pad22)" "Net-(J1-Pad23)" "Net-(J1-Pad24)" "Net-(J1-Pad25)"
-      "Net-(J1-Pad26)" "Net-(J1-Pad29)" "Net-(J1-Pad30)" "Net-(J1-Pad4)" "Net-(J1-Pad6)"
-      "Net-(J1-Pad7)" "Net-(J1-Pad9)" "Net-(J1-PadAB)" "Net-(J1-PadAC)" "Net-(J1-PadAD)"
-      "Net-(J1-PadAE)" "Net-(J1-PadAF)" "Net-(J1-PadAH)" "Net-(J1-PadAJ)"
-      "Net-(J1-PadC)" "Net-(J1-PadD)" "Net-(J1-PadE)" "Net-(J1-PadF)" "Net-(J1-PadH)"
-      "Net-(J1-PadJ)" "Net-(J1-PadN)" "Net-(J1-PadR)" "Net-(J1-PadU)" "Net-(J1-PadW)"
-      "Net-(J1-PadX)" "Net-(J1-PadZ)" "Net-(U1-Pad3)" "Net-(U1-Pad4)" "Net-(U1-Pad5)"
-      "Net-(U1-Pad6)" "Net-(U10-Pad3)" "Net-(U10-Pad4)" "Net-(U10-Pad5)" "Net-(U10-Pad6)"
-      "Net-(U11-Pad1)" "Net-(U12-Pad11)" "Net-(U12-Pad3)" "Net-(U12-Pad4)"
-      "Net-(U13-Pad11)" "Net-(U13-Pad4)" "Net-(U14-Pad3)" "Net-(U14-Pad4)"
-      "Net-(U14-Pad5)" "Net-(U14-Pad6)" "Net-(U2-Pad13)" "Net-(U2-Pad4)" "Net-(U3-Pad4)"
-      "Net-(U5-Pad3)" "Net-(U5-Pad5)" "Net-(U6-Pad13)" "Net-(U6-Pad4)" "Net-(U7-Pad4)"
-      "Net-(U8-Pad3)" "Net-(U8-Pad4)" "Net-(U9-Pad4)" "PC1-" "PC1-4" "PC2-"
-      "PC3-" "PC4-" PulseGenMargin "WFM-" WFR "{PC1}" "{PC2}" "{PC3}" "{PC4}"
+      "Net-(U1-Pad4)" "Net-(U1-Pad6)" "Net-(U10-Pad4)" "Net-(U10-Pad6)" "Net-(U11-Pad1)"
+      "Net-(U12-Pad11)" "Net-(U12-Pad3)" "Net-(U13-Pad11)" "Net-(U14-Pad4)"
+      "Net-(U14-Pad6)" "Net-(U2-Pad13)" "Net-(U6-Pad13)" "Net-(U8-Pad3)" "PC1-"
+      "PC1-4" "PC2-" "PC3-" "PC4-" "WFM-" WFR "{PC1}" "{PC2}" "{PC3}" "{PC4}"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

@@ -36,6 +36,11 @@ K Voltage Regulator 1A Negative
 F http://www.fairchildsemi.com/ds/LM/LM7905.pdf
 $ENDCMP
 #
+$CMP SW_Push_SPDT
+D Momentary Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
+$ENDCMP
+#
 $CMP TIP2955
 D -15A Ic, -60V Vce, Power PNP Transistor, TO-218
 K power PNP Transistor
