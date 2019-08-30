@@ -9499,10 +9499,10 @@ F 3 "~" H 3925 9625 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LSA:LS_Gen U?
+L LSA:LS_Gen U3
 U 1 1 5DD409E8
 P 5550 9325
-F 0 "U?" H 5650 9740 50  0000 C CNN
+F 0 "U3" H 5650 9740 50  0000 C CNN
 F 1 "LS_Gen" H 5650 9649 50  0000 C CNN
 F 2 "ELLIOTT:LSA" H 5550 9325 50  0001 C CNN
 F 3 "" H 5550 9325 50  0001 C CNN
@@ -9510,10 +9510,10 @@ F 3 "" H 5550 9325 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC11
 U 1 1 5DD409EF
 P 5950 9275
-F 0 "TPLB?" V 5950 9462 50  0000 L CNN
+F 0 "TPLC11" V 5950 9462 50  0000 L CNN
 F 1 "~" V 5995 9463 50  0000 L CNN
 F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 9275 50  0001 C CNN
 F 3 "~" H 6150 9275 50  0001 C CNN
@@ -9521,10 +9521,10 @@ F 3 "~" H 6150 9275 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC12
 U 1 1 5DD409F6
 P 5950 9375
-F 0 "TPLB?" V 5950 9562 50  0000 L CNN
+F 0 "TPLC12" V 5950 9562 50  0000 L CNN
 F 1 "~" V 5995 9563 50  0000 L CNN
 F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 9375 50  0001 C CNN
 F 3 "~" H 6150 9375 50  0001 C CNN
@@ -9532,10 +9532,10 @@ F 3 "~" H 6150 9375 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC13
 U 1 1 5DD409FD
 P 5950 9475
-F 0 "TPLB?" V 5950 9662 50  0000 L CNN
+F 0 "TPLC13" V 5950 9662 50  0000 L CNN
 F 1 "~" V 5995 9663 50  0000 L CNN
 F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 9475 50  0001 C CNN
 F 3 "~" H 6150 9475 50  0001 C CNN
@@ -9543,10 +9543,10 @@ F 3 "~" H 6150 9475 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC1
 U 1 1 5DD40A04
 P 5350 9125
-F 0 "TPLB?" V 5350 9475 50  0000 C CNN
+F 0 "TPLC1" V 5350 9475 50  0000 C CNN
 F 1 "~" V 5395 9313 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9125 50  0001 C CNN
 F 3 "~" H 5550 9125 50  0001 C CNN
@@ -9554,10 +9554,10 @@ F 3 "~" H 5550 9125 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC2
 U 1 1 5DD40A0B
 P 5350 9225
-F 0 "TPLB?" V 5350 9575 50  0000 C CNN
+F 0 "TPLC2" V 5350 9575 50  0000 C CNN
 F 1 "~" V 5395 9413 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9225 50  0001 C CNN
 F 3 "~" H 5550 9225 50  0001 C CNN
@@ -9565,10 +9565,10 @@ F 3 "~" H 5550 9225 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC3
 U 1 1 5DD40A12
 P 5350 9325
-F 0 "TPLB?" V 5350 9675 50  0000 C CNN
+F 0 "TPLC3" V 5350 9675 50  0000 C CNN
 F 1 "~" V 5395 9513 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9325 50  0001 C CNN
 F 3 "~" H 5550 9325 50  0001 C CNN
@@ -9576,10 +9576,10 @@ F 3 "~" H 5550 9325 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC4
 U 1 1 5DD40A19
 P 5350 9425
-F 0 "TPLB?" V 5350 9775 50  0000 C CNN
+F 0 "TPLC4" V 5350 9775 50  0000 C CNN
 F 1 "~" V 5395 9613 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9425 50  0001 C CNN
 F 3 "~" H 5550 9425 50  0001 C CNN
@@ -9587,10 +9587,10 @@ F 3 "~" H 5550 9425 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC5
 U 1 1 5DD40A20
 P 5350 9525
-F 0 "TPLB?" V 5350 9875 50  0000 C CNN
+F 0 "TPLC5" V 5350 9875 50  0000 C CNN
 F 1 "~" V 5395 9713 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9525 50  0001 C CNN
 F 3 "~" H 5550 9525 50  0001 C CNN
@@ -9598,14 +9598,344 @@ F 3 "~" H 5550 9525 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Connector:TestPoint TPLB?
+L Connector:TestPoint TPLC6
 U 1 1 5DD40A27
 P 5350 9625
-F 0 "TPLB?" V 5350 9975 50  0000 C CNN
+F 0 "TPLC6" V 5350 9975 50  0000 C CNN
 F 1 "~" V 5395 9813 50  0000 L CNN
 F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 9625 50  0001 C CNN
 F 3 "~" H 5550 9625 50  0001 C CNN
 	1    5350 9625
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LSA:LS_Gen U4
+U 1 1 5DDD9750
+P 2325 10275
+F 0 "U4" H 2425 10690 50  0000 C CNN
+F 1 "LS_Gen" H 2425 10599 50  0000 C CNN
+F 2 "ELLIOTT:LSA" H 2325 10275 50  0001 C CNN
+F 3 "" H 2325 10275 50  0001 C CNN
+	1    2325 10275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TPLD11
+U 1 1 5DDD9757
+P 2725 10225
+F 0 "TPLD11" V 2725 10412 50  0000 L CNN
+F 1 "~" V 2770 10413 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 2925 10225 50  0001 C CNN
+F 3 "~" H 2925 10225 50  0001 C CNN
+	1    2725 10225
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD12
+U 1 1 5DDD975E
+P 2725 10325
+F 0 "TPLD12" V 2725 10512 50  0000 L CNN
+F 1 "~" V 2770 10513 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 2925 10325 50  0001 C CNN
+F 3 "~" H 2925 10325 50  0001 C CNN
+	1    2725 10325
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLBD13
+U 1 1 5DDD9765
+P 2725 10425
+F 0 "TPLBD13" V 2725 10612 50  0000 L CNN
+F 1 "~" V 2770 10613 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 2925 10425 50  0001 C CNN
+F 3 "~" H 2925 10425 50  0001 C CNN
+	1    2725 10425
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD1
+U 1 1 5DDD976C
+P 2125 10075
+F 0 "TPLD1" V 2125 10425 50  0000 C CNN
+F 1 "~" V 2170 10263 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10075 50  0001 C CNN
+F 3 "~" H 2325 10075 50  0001 C CNN
+	1    2125 10075
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD2
+U 1 1 5DDD9773
+P 2125 10175
+F 0 "TPLD2" V 2125 10525 50  0000 C CNN
+F 1 "~" V 2170 10363 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10175 50  0001 C CNN
+F 3 "~" H 2325 10175 50  0001 C CNN
+	1    2125 10175
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD3
+U 1 1 5DDD977A
+P 2125 10275
+F 0 "TPLD3" V 2125 10625 50  0000 C CNN
+F 1 "~" V 2170 10463 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10275 50  0001 C CNN
+F 3 "~" H 2325 10275 50  0001 C CNN
+	1    2125 10275
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD4
+U 1 1 5DDD9781
+P 2125 10375
+F 0 "TPLD4" V 2125 10725 50  0000 C CNN
+F 1 "~" V 2170 10563 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10375 50  0001 C CNN
+F 3 "~" H 2325 10375 50  0001 C CNN
+	1    2125 10375
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD5
+U 1 1 5DDD9788
+P 2125 10475
+F 0 "TPLD5" V 2125 10825 50  0000 C CNN
+F 1 "~" V 2170 10663 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10475 50  0001 C CNN
+F 3 "~" H 2325 10475 50  0001 C CNN
+	1    2125 10475
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLD6
+U 1 1 5DDD978F
+P 2125 10575
+F 0 "TPLD6" V 2125 10925 50  0000 C CNN
+F 1 "~" V 2170 10763 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 2325 10575 50  0001 C CNN
+F 3 "~" H 2325 10575 50  0001 C CNN
+	1    2125 10575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LSA:LS_Gen U5
+U 1 1 5DE6D1BE
+P 3925 10275
+F 0 "U5" H 4025 10690 50  0000 C CNN
+F 1 "LS_Gen" H 4025 10599 50  0000 C CNN
+F 2 "ELLIOTT:LSA" H 3925 10275 50  0001 C CNN
+F 3 "" H 3925 10275 50  0001 C CNN
+	1    3925 10275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TPLE11
+U 1 1 5DE6D1C5
+P 4325 10225
+F 0 "TPLE11" V 4325 10413 50  0000 L CNN
+F 1 "~" V 4370 10413 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 4525 10225 50  0001 C CNN
+F 3 "~" H 4525 10225 50  0001 C CNN
+	1    4325 10225
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE12
+U 1 1 5DE6D1CC
+P 4325 10325
+F 0 "TPLE12" V 4325 10513 50  0000 L CNN
+F 1 "~" V 4370 10513 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 4525 10325 50  0001 C CNN
+F 3 "~" H 4525 10325 50  0001 C CNN
+	1    4325 10325
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE13
+U 1 1 5DE6D1D3
+P 4325 10425
+F 0 "TPLE13" V 4325 10613 50  0000 L CNN
+F 1 "~" V 4370 10613 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 4525 10425 50  0001 C CNN
+F 3 "~" H 4525 10425 50  0001 C CNN
+	1    4325 10425
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE1
+U 1 1 5DE6D1DA
+P 3725 10075
+F 0 "TPLE1" V 3725 10425 50  0000 C CNN
+F 1 "~" V 3770 10263 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10075 50  0001 C CNN
+F 3 "~" H 3925 10075 50  0001 C CNN
+	1    3725 10075
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE2
+U 1 1 5DE6D1E1
+P 3725 10175
+F 0 "TPLE2" V 3725 10525 50  0000 C CNN
+F 1 "~" V 3770 10363 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10175 50  0001 C CNN
+F 3 "~" H 3925 10175 50  0001 C CNN
+	1    3725 10175
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE3
+U 1 1 5DE6D1E8
+P 3725 10275
+F 0 "TPLE3" V 3725 10625 50  0000 C CNN
+F 1 "~" V 3770 10463 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10275 50  0001 C CNN
+F 3 "~" H 3925 10275 50  0001 C CNN
+	1    3725 10275
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE4
+U 1 1 5DE6D1EF
+P 3725 10375
+F 0 "TPLE4" V 3725 10725 50  0000 C CNN
+F 1 "~" V 3770 10563 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10375 50  0001 C CNN
+F 3 "~" H 3925 10375 50  0001 C CNN
+	1    3725 10375
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE5
+U 1 1 5DE6D1F6
+P 3725 10475
+F 0 "TPLE5" V 3725 10825 50  0000 C CNN
+F 1 "~" V 3770 10663 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10475 50  0001 C CNN
+F 3 "~" H 3925 10475 50  0001 C CNN
+	1    3725 10475
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLE6
+U 1 1 5DE6D1FD
+P 3725 10575
+F 0 "TPLE6" V 3725 10925 50  0000 C CNN
+F 1 "~" V 3770 10763 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 3925 10575 50  0001 C CNN
+F 3 "~" H 3925 10575 50  0001 C CNN
+	1    3725 10575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LSA:LS_Gen U6
+U 1 1 5DF00D9E
+P 5550 10275
+F 0 "U6" H 5650 10690 50  0000 C CNN
+F 1 "LS_Gen" H 5650 10599 50  0000 C CNN
+F 2 "ELLIOTT:LSA" H 5550 10275 50  0001 C CNN
+F 3 "" H 5550 10275 50  0001 C CNN
+	1    5550 10275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TPLC?
+U 1 1 5DF00DA5
+P 5950 10225
+F 0 "TPLC?" V 5950 10412 50  0000 L CNN
+F 1 "~" V 5995 10413 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 10225 50  0001 C CNN
+F 3 "~" H 6150 10225 50  0001 C CNN
+	1    5950 10225
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLC?
+U 1 1 5DF00DAC
+P 5950 10325
+F 0 "TPLC?" V 5950 10512 50  0000 L CNN
+F 1 "~" V 5995 10513 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 10325 50  0001 C CNN
+F 3 "~" H 6150 10325 50  0001 C CNN
+	1    5950 10325
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLBC?
+U 1 1 5DF00DB3
+P 5950 10425
+F 0 "TPLBC?" V 5950 10612 50  0000 L CNN
+F 1 "~" V 5995 10613 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" H 6150 10425 50  0001 C CNN
+F 3 "~" H 6150 10425 50  0001 C CNN
+	1    5950 10425
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF1
+U 1 1 5DF00DBA
+P 5350 10075
+F 0 "TPLF1" V 5350 10425 50  0000 C CNN
+F 1 "~" V 5395 10263 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10075 50  0001 C CNN
+F 3 "~" H 5550 10075 50  0001 C CNN
+	1    5350 10075
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF2
+U 1 1 5DF00DC1
+P 5350 10175
+F 0 "TPLF2" V 5350 10525 50  0000 C CNN
+F 1 "~" V 5395 10363 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10175 50  0001 C CNN
+F 3 "~" H 5550 10175 50  0001 C CNN
+	1    5350 10175
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF3
+U 1 1 5DF00DC8
+P 5350 10275
+F 0 "TPLF3" V 5350 10625 50  0000 C CNN
+F 1 "~" V 5395 10463 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10275 50  0001 C CNN
+F 3 "~" H 5550 10275 50  0001 C CNN
+	1    5350 10275
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF4
+U 1 1 5DF00DCF
+P 5350 10375
+F 0 "TPLF4" V 5350 10725 50  0000 C CNN
+F 1 "~" V 5395 10563 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10375 50  0001 C CNN
+F 3 "~" H 5550 10375 50  0001 C CNN
+	1    5350 10375
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF5
+U 1 1 5DF00DD6
+P 5350 10475
+F 0 "TPLF5" V 5350 10825 50  0000 C CNN
+F 1 "~" V 5395 10663 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10475 50  0001 C CNN
+F 3 "~" H 5550 10475 50  0001 C CNN
+	1    5350 10475
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TPLF6
+U 1 1 5DF00DDD
+P 5350 10575
+F 0 "TPLF6" V 5350 10925 50  0000 C CNN
+F 1 "~" V 5395 10763 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Bridge_Pitch3.81mm_Drill1.3mm" H 5550 10575 50  0001 C CNN
+F 3 "~" H 5550 10575 50  0001 C CNN
+	1    5350 10575
 	0    -1   -1   0   
 $EndComp
 $EndSCHEMATC
