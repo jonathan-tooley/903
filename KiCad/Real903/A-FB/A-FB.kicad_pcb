@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 25)
+    (drawings 26)
     (tracks 472)
     (zones 0)
     (modules 18)
@@ -61,7 +61,7 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFFFFFF)
     (pcbplotparams
-      (layerselection 0x010fc_ffffffff)
+      (layerselection 0x0d0fc_ffffffff)
       (usegerberextensions false)
       (usegerberattributes false)
       (usegerberadvancedattributes false)
@@ -1257,7 +1257,7 @@
     )
   )
 
-  (module ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal (layer F.Cu) (tedit 5B9AA3EA) (tstamp 5D5878F7)
+  (module ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal (layer F.Cu) (tedit 5D6952B4) (tstamp 5D5878F7)
     (at 219.939 95.9866 90)
     (descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
@@ -1265,7 +1265,7 @@
     (fp_text reference R1 (at 3.81 -1.92 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 3.9K (at 3.81 1.92 90) (layer F.Fab)
+    (fp_text value 3.9K (at 3.81 1.92 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 1.89 -0.92) (end 1.89 0.92) (layer F.SilkS) (width 0.12))
@@ -1289,7 +1289,7 @@
     )
   )
 
-  (module ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal (layer F.Cu) (tedit 5B9AA3EA) (tstamp 5D587924)
+  (module ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal (layer F.Cu) (tedit 5D6952BB) (tstamp 5D587924)
     (at 220.37 156.286 90)
     (descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
@@ -1297,7 +1297,7 @@
     (fp_text reference R2 (at 3.81 -1.92 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value 3.9K (at 3.81 1.92 90) (layer F.Fab)
+    (fp_text value 3.9K (at 3.81 1.92 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 8.67 -1.25) (end -1.05 -1.25) (layer F.CrtYd) (width 0.05))
@@ -1321,6 +1321,9 @@
     )
   )
 
+  (gr_text "Board Positions 8, 9 and 34" (at 47 181) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_text P (at 45.72 50.8) (layer F.SilkS) (tstamp 5CBB6887)
     (effects (font (size 2.54 2.54) (thickness 0.3)))
   )

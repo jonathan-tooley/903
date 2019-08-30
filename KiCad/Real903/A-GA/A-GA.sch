@@ -5728,8 +5728,6 @@ Text GLabel 1325 2575 0    50   Input ~ 0
 CA-
 Text GLabel 1325 3075 0    50   Input ~ 0
 S2
-NoConn ~ 1425 1875
-NoConn ~ 1425 1975
 Wire Wire Line
 	9250 1525 9725 1525
 Wire Wire Line
@@ -8689,7 +8687,6 @@ Connection ~ 6500 5200
 Wire Wire Line
 	4100 5700 4500 5700
 Connection ~ 4500 5700
-NoConn ~ 1425 3575
 Text GLabel 1325 1475 0    50   Input ~ 0
 8
 Text GLabel 1325 1575 0    50   Input ~ 0
@@ -9938,4 +9935,61 @@ F 3 "~" H 5550 10575 50  0001 C CNN
 	1    5350 10575
 	0    -1   -1   0   
 $EndComp
+Text GLabel 1325 1875 0    50   Input ~ 0
+12
+Text GLabel 1325 1975 0    50   Input ~ 0
+13
+Text GLabel 1325 3575 0    50   Input ~ 0
+29
+Wire Wire Line
+	1325 3575 1425 3575
+Wire Wire Line
+	1325 1875 1425 1875
+Wire Wire Line
+	1325 1975 1425 1975
+Text GLabel 1000 7225 0    50   Input ~ 0
+12
+Text GLabel 1000 7400 0    50   Input ~ 0
+13
+Text GLabel 1000 7575 0    50   Input ~ 0
+29
+$Comp
+L Connector:TestPoint TPI12
+U 1 1 5D944FDD
+P 1250 7225
+F 0 "TPI12" V 1250 7413 50  0000 L CNN
+F 1 "~" V 1295 7413 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 1450 7225 50  0001 C CNN
+F 3 "~" H 1450 7225 50  0001 C CNN
+	1    1250 7225
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPI13
+U 1 1 5D945587
+P 1250 7400
+F 0 "TPI13" V 1250 7588 50  0000 L CNN
+F 1 "~" V 1295 7588 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 1450 7400 50  0001 C CNN
+F 3 "~" H 1450 7400 50  0001 C CNN
+	1    1250 7400
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TPI29
+U 1 1 5D945B19
+P 1250 7575
+F 0 "TPI29" V 1250 7763 50  0000 L CNN
+F 1 "~" V 1295 7763 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 1450 7575 50  0001 C CNN
+F 3 "~" H 1450 7575 50  0001 C CNN
+	1    1250 7575
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1000 7225 1250 7225
+Wire Wire Line
+	1250 7400 1000 7400
+Wire Wire Line
+	1000 7575 1250 7575
 $EndSCHEMATC
