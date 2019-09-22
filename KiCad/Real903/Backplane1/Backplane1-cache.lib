@@ -1,6 +1,23 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Connector:TestPoint
+#
+DEF Connector:TestPoint TP 0 30 N N 1 F N
+F0 "TP" 0 270 50 H V C CNN
+F1 "Connector:TestPoint" 0 200 50 H V C CNN
+F2 "" 200 0 50 H I C CNN
+F3 "" 200 0 50 H I C CNN
+$FPLIST
+ Pin*
+ Test*
+$ENDFPLIST
+DRAW
+C 0 130 30 0 1 0 N
+X 1 1 0 0 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector_Generic:Conn_01x03
 #
 DEF Connector_Generic:Conn_01x03 J 0 40 Y N 1 F N
@@ -109,17 +126,18 @@ X Pin_8 8 -200 -400 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_01x16
+# Connector_Generic:Conn_01x18
 #
-DEF Connector_Generic:Conn_01x16 J 0 40 Y N 1 F N
-F0 "J" 0 800 50 H V C CNN
-F1 "Connector_Generic:Conn_01x16" 0 -900 50 H V C CNN
+DEF Connector_Generic:Conn_01x18 J 0 40 Y N 1 F N
+F0 "J" 0 900 50 H V C CNN
+F1 "Connector_Generic:Conn_01x18" 0 -1000 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
  Connector*:*_1x??_*
 $ENDFPLIST
 DRAW
+S -50 -895 0 -905 1 1 6 N
 S -50 -795 0 -805 1 1 6 N
 S -50 -695 0 -705 1 1 6 N
 S -50 -595 0 -605 1 1 6 N
@@ -136,23 +154,26 @@ S -50 405 0 395 1 1 6 N
 S -50 505 0 495 1 1 6 N
 S -50 605 0 595 1 1 6 N
 S -50 705 0 695 1 1 6 N
-S -50 750 50 -850 1 1 10 f
-X Pin_1 1 -200 700 150 R 50 50 1 1 P
-X Pin_10 10 -200 -200 150 R 50 50 1 1 P
-X Pin_11 11 -200 -300 150 R 50 50 1 1 P
-X Pin_12 12 -200 -400 150 R 50 50 1 1 P
-X Pin_13 13 -200 -500 150 R 50 50 1 1 P
-X Pin_14 14 -200 -600 150 R 50 50 1 1 P
-X Pin_15 15 -200 -700 150 R 50 50 1 1 P
-X Pin_16 16 -200 -800 150 R 50 50 1 1 P
-X Pin_2 2 -200 600 150 R 50 50 1 1 P
-X Pin_3 3 -200 500 150 R 50 50 1 1 P
-X Pin_4 4 -200 400 150 R 50 50 1 1 P
-X Pin_5 5 -200 300 150 R 50 50 1 1 P
-X Pin_6 6 -200 200 150 R 50 50 1 1 P
-X Pin_7 7 -200 100 150 R 50 50 1 1 P
-X Pin_8 8 -200 0 150 R 50 50 1 1 P
-X Pin_9 9 -200 -100 150 R 50 50 1 1 P
+S -50 805 0 795 1 1 6 N
+S -50 850 50 -950 1 1 10 f
+X Pin_1 1 -200 800 150 R 50 50 1 1 P
+X Pin_10 10 -200 -100 150 R 50 50 1 1 P
+X Pin_11 11 -200 -200 150 R 50 50 1 1 P
+X Pin_12 12 -200 -300 150 R 50 50 1 1 P
+X Pin_13 13 -200 -400 150 R 50 50 1 1 P
+X Pin_14 14 -200 -500 150 R 50 50 1 1 P
+X Pin_15 15 -200 -600 150 R 50 50 1 1 P
+X Pin_16 16 -200 -700 150 R 50 50 1 1 P
+X Pin_17 17 -200 -800 150 R 50 50 1 1 P
+X Pin_18 18 -200 -900 150 R 50 50 1 1 P
+X Pin_2 2 -200 700 150 R 50 50 1 1 P
+X Pin_3 3 -200 600 150 R 50 50 1 1 P
+X Pin_4 4 -200 500 150 R 50 50 1 1 P
+X Pin_5 5 -200 400 150 R 50 50 1 1 P
+X Pin_6 6 -200 300 150 R 50 50 1 1 P
+X Pin_7 7 -200 200 150 R 50 50 1 1 P
+X Pin_8 8 -200 100 150 R 50 50 1 1 P
+X Pin_9 9 -200 0 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -296,6 +317,21 @@ X Pin_W W 300 -300 150 L 50 50 1 1 P
 X Pin_X X 300 -400 150 L 50 50 1 1 P
 X Pin_Y Y 300 -500 150 L 50 50 1 1 P
 X Pin_Z Z 300 -600 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Mechanical:MountingHole
+#
+DEF Mechanical:MountingHole MH 0 40 Y Y 1 F N
+F0 "MH" 0 200 50 H V C CNN
+F1 "Mechanical:MountingHole" 0 125 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ MountingHole*
+$ENDFPLIST
+DRAW
+C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #

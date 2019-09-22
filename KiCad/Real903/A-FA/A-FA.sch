@@ -25,109 +25,109 @@ F 3 "~" H 1300 2350 50  0001 C CNN
 	1    1300 2350
 	1    0    0    -1  
 $EndComp
-Text GLabel 1000 1450 0    50   BiDi ~ 0
+Text GLabel 1000 1450 0    35   BiDi ~ 0
 RTG
-Text GLabel 1700 1050 2    50   BiDi ~ 0
+Text GLabel 1700 1050 2    35   BiDi ~ 0
 Cn-1
-Text GLabel 1000 1550 0    50   BiDi ~ 0
+Text GLabel 1000 1550 0    35   BiDi ~ 0
 VTG
-Text GLabel 1700 1450 2    50   BiDi ~ 0
+Text GLabel 1700 1450 2    35   BiDi ~ 0
 LTG
-Text GLabel 1700 1250 2    50   BiDi ~ 0
+Text GLabel 1700 1250 2    35   BiDi ~ 0
 Fn
-Text GLabel 1700 1850 2    50   BiDi ~ 0
+Text GLabel 1700 1850 2    35   BiDi ~ 0
 {Gn}
-Text GLabel 1000 1050 0    50   BiDi ~ 0
+Text GLabel 1000 1050 0    35   BiDi ~ 0
 Cn
-Text GLabel 1700 1550 2    50   BiDi ~ 0
+Text GLabel 1700 1550 2    35   BiDi ~ 0
 Gn
-Text GLabel 1700 2150 2    50   BiDi ~ 0
-Jn-
-Text GLabel 1700 2250 2    50   BiDi ~ 0
+Text GLabel 1700 2150 2    35   BiDi ~ 0
+~J~n
+Text GLabel 1700 2250 2    35   BiDi ~ 0
 {Jn}
-Text GLabel 1700 2350 2    50   BiDi ~ 0
+Text GLabel 1700 2350 2    35   BiDi ~ 0
 Jn
-Text GLabel 1700 2450 2    50   BiDi ~ 0
+Text GLabel 1700 2450 2    35   BiDi ~ 0
 {Mn}
-Text GLabel 1700 2550 2    50   BiDi ~ 0
-Mn-
-Text GLabel 1700 3350 2    50   BiDi ~ 0
+Text GLabel 1700 2550 2    35   BiDi ~ 0
+~M~n
+Text GLabel 1700 3350 2    35   BiDi ~ 0
 Mn
-Text GLabel 1700 2650 2    50   BiDi ~ 0
-IPn-
-Text GLabel 1700 2850 2    50   BiDi ~ 0
+Text GLabel 1700 2650 2    35   BiDi ~ 0
+~IP~n
+Text GLabel 1700 2850 2    35   BiDi ~ 0
 {IPn}
-Text GLabel 1000 2850 0    50   BiDi ~ 0
+Text GLabel 1000 2850 0    35   BiDi ~ 0
 IPn
-Text GLabel 1700 3150 2    50   BiDi ~ 0
-An-
-Text GLabel 1700 2950 2    50   BiDi ~ 0
+Text GLabel 1700 3150 2    35   BiDi ~ 0
+~A~n
+Text GLabel 1700 2950 2    35   BiDi ~ 0
 {An}
-Text GLabel 1000 3450 0    50   BiDi ~ 0
+Text GLabel 1000 3450 0    35   BiDi ~ 0
 An
-Text GLabel 1700 3250 2    50   BiDi ~ 0
+Text GLabel 1700 3250 2    35   BiDi ~ 0
 {Qn}
-Text GLabel 1000 3250 0    50   BiDi ~ 0
+Text GLabel 1000 3250 0    35   BiDi ~ 0
 IIn
-Text GLabel 1000 3150 0    50   BiDi ~ 0
-STOREnx-
-Text GLabel 1700 3750 2    50   BiDi ~ 0
-STOREn-
-Text GLabel 1700 2750 2    50   BiDi ~ 0
-0TIP-
-Text GLabel 1700 3050 2    50   BiDi ~ 0
-0TA-
-Text GLabel 1000 3050 0    50   BiDi ~ 0
+Text GLabel 1000 3150 0    35   BiDi ~ 0
+~STORE~nx
+Text GLabel 1700 3750 2    35   BiDi ~ 0
+~STORE~n
+Text GLabel 1700 2750 2    35   BiDi ~ 0
+~OTIP
+Text GLabel 1700 3050 2    35   BiDi ~ 0
+~OTA
+Text GLabel 1000 3050 0    35   BiDi ~ 0
 GTA
-Text GLabel 1000 3550 0    50   BiDi ~ 0
+Text GLabel 1000 3550 0    35   BiDi ~ 0
 ATF
-Text GLabel 1000 3650 0    50   BiDi ~ 0
+Text GLabel 1000 3650 0    35   BiDi ~ 0
 DTF
-Text GLabel 1000 3750 0    50   BiDi ~ 0
+Text GLabel 1000 3750 0    35   BiDi ~ 0
 QTF
-Text GLabel 1000 3350 0    50   BiDi ~ 0
-0TQ-
-Text GLabel 1700 3450 2    50   BiDi ~ 0
+Text GLabel 1000 3350 0    35   BiDi ~ 0
+~OTQ
+Text GLabel 1700 3450 2    35   BiDi ~ 0
 GTQ
-Text GLabel 1700 1150 2    50   BiDi ~ 0
+Text GLabel 1700 1150 2    35   BiDi ~ 0
 FnL
-Text GLabel 1000 1350 0    50   BiDi ~ 0
+Text GLabel 1000 1350 0    35   BiDi ~ 0
 FTG
-Text GLabel 1000 1250 0    50   BiDi ~ 0
+Text GLabel 1000 1250 0    35   BiDi ~ 0
 FnR
-Text GLabel 1000 1150 0    50   BiDi ~ 0
-JTG-|NC
-Text GLabel 1000 1650 0    50   BiDi ~ 0
+Text GLabel 1000 1150 0    35   BiDi ~ 0
+~JTG~|NC
+Text GLabel 1000 1650 0    35   BiDi ~ 0
 IPn
-Text GLabel 1700 1750 2    50   BiDi ~ 0
+Text GLabel 1700 1750 2    35   BiDi ~ 0
 PTGa
-Text GLabel 1000 1950 0    50   BiDi ~ 0
+Text GLabel 1000 1950 0    35   BiDi ~ 0
 An-7|IPn
-Text GLabel 1000 1850 0    50   BiDi ~ 0
+Text GLabel 1000 1850 0    35   BiDi ~ 0
 PTGb
-Text GLabel 1000 1750 0    50   BiDi ~ 0
-0TG-
-Text GLabel 1700 1950 2    50   BiDi ~ 0
-Jn-
-Text GLabel 1000 2050 0    50   BiDi ~ 0
+Text GLabel 1000 1750 0    35   BiDi ~ 0
+~OTG
+Text GLabel 1700 1950 2    35   BiDi ~ 0
+~J~n
+Text GLabel 1000 2050 0    35   BiDi ~ 0
 GTJ
-Text GLabel 1700 2050 2    50   BiDi ~ 0
-0TJ-
-Text GLabel 1000 2150 0    50   BiDi ~ 0
+Text GLabel 1700 2050 2    35   BiDi ~ 0
+~OTJ
+Text GLabel 1000 2150 0    35   BiDi ~ 0
 JTF
-Text GLabel 1000 2250 0    50   BiDi ~ 0
+Text GLabel 1000 2250 0    35   BiDi ~ 0
 MTF
-Text GLabel 1000 2350 0    50   BiDi ~ 0
-M-TF
-Text GLabel 1000 2750 0    50   BiDi ~ 0
-0TM-
-Text GLabel 1000 2550 0    50   BiDi ~ 0
+Text GLabel 1000 2350 0    35   BiDi ~ 0
+~M~TF
+Text GLabel 1000 2750 0    35   BiDi ~ 0
+~OTM
+Text GLabel 1000 2550 0    35   BiDi ~ 0
 Wn
-Text GLabel 1000 2650 0    50   BiDi ~ 0
+Text GLabel 1000 2650 0    35   BiDi ~ 0
 WTM
-Text GLabel 1000 2450 0    50   BiDi ~ 0
+Text GLabel 1000 2450 0    35   BiDi ~ 0
 GTM
-Text GLabel 1000 2950 0    50   BiDi ~ 0
+Text GLabel 1000 2950 0    35   BiDi ~ 0
 MTIP
 Text GLabel 1000 3850 0    50   Input ~ 0
 Neg6v
@@ -268,8 +268,8 @@ Wire Wire Line
 	1100 2850 1000 2850
 Wire Wire Line
 	1000 2950 1100 2950
-Text GLabel 1700 3650 2    50   BiDi ~ 0
-Qn-
+Text GLabel 1700 3650 2    35   BiDi ~ 0
+~Q~n
 Wire Wire Line
 	1600 3650 1700 3650
 $Comp
@@ -301,11 +301,11 @@ Wire Wire Line
 	5200 1975 3125 1975
 Wire Wire Line
 	3125 1975 3125 2300
-Text GLabel 2975 2400 0    50   BiDi ~ 0
-0TA-
+Text GLabel 2975 2400 0    35   BiDi ~ 0
+~OTA
 Wire Wire Line
 	2975 2400 3125 2400
-Text GLabel 2975 2700 0    50   BiDi ~ 0
+Text GLabel 2975 2700 0    35   BiDi ~ 0
 GTA
 Wire Wire Line
 	2975 2700 3125 2700
@@ -320,15 +320,15 @@ F 3 "" H 14675 850 50  0001 C CNN
 	3    14675 750 
 	0    1    1    0   
 $EndComp
-Text GLabel 2975 2800 0    50   BiDi ~ 0
+Text GLabel 2975 2800 0    35   BiDi ~ 0
 Gn
 Wire Wire Line
 	2975 2800 3125 2800
-Text GLabel 6175 2600 2    50   BiDi ~ 0
+Text GLabel 6175 2600 2    35   BiDi ~ 0
 An
 Connection ~ 5200 2600
-Text GLabel 6175 2775 2    50   BiDi ~ 0
-An-
+Text GLabel 6175 2775 2    35   BiDi ~ 0
+~A~n
 Connection ~ 4375 2550
 Wire Wire Line
 	4375 2550 4500 2550
@@ -345,7 +345,7 @@ F 3 "~" H 4800 2925 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4650 2925 4375 2925
-Text GLabel 6175 2925 2    50   BiDi ~ 0
+Text GLabel 6175 2925 2    35   BiDi ~ 0
 {An}
 $Comp
 L Device:R R17
@@ -392,7 +392,7 @@ F 3 "" H 11625 2500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	12675 2550 12725 2550
-Text GLabel 14525 2600 2    50   BiDi ~ 0
+Text GLabel 14525 2600 2    35   BiDi ~ 0
 Gn
 Connection ~ 12725 2550
 Wire Wire Line
@@ -410,7 +410,7 @@ F 3 "~" H 13150 2925 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	13000 2925 12725 2925
-Text GLabel 14525 2925 2    50   BiDi ~ 0
+Text GLabel 14525 2925 2    35   BiDi ~ 0
 {Gn}
 Text Notes 11025 1850 0    50   ~ 10
 G Register (Buffer Register)
@@ -466,15 +466,15 @@ F 3 "" H 11725 750 50  0001 C CNN
 	4    11725 750 
 	0    1    1    0   
 $EndComp
-Text GLabel 11325 2200 0    50   BiDi ~ 0
-0TG-
+Text GLabel 11325 2200 0    35   BiDi ~ 0
+~OTG
 Wire Wire Line
 	11325 2200 11425 2200
-Text GLabel 11325 2500 0    50   BiDi ~ 0
+Text GLabel 11325 2500 0    35   BiDi ~ 0
 PTGa
-Text GLabel 11325 2900 0    50   BiDi ~ 0
+Text GLabel 11325 2900 0    35   BiDi ~ 0
 PTGb
-Text GLabel 11325 2600 0    50   BiDi ~ 0
+Text GLabel 11325 2600 0    35   BiDi ~ 0
 IPn
 Wire Wire Line
 	11325 2500 11425 2500
@@ -482,7 +482,7 @@ Wire Wire Line
 	11325 2600 11425 2600
 Wire Wire Line
 	11325 2900 11425 2900
-Text GLabel 11325 3000 0    50   BiDi ~ 0
+Text GLabel 11325 3000 0    35   BiDi ~ 0
 An-7|IPn
 Wire Wire Line
 	11325 3000 11425 3000
@@ -513,19 +513,19 @@ Wire Wire Line
 	9350 1975 7275 1975
 Wire Wire Line
 	7275 1975 7275 2300
-Text GLabel 7125 2400 0    50   BiDi ~ 0
-0TJ-
+Text GLabel 7125 2400 0    35   BiDi ~ 0
+~OTJ
 Wire Wire Line
 	7125 2400 7275 2400
-Text GLabel 7125 2700 0    50   BiDi ~ 0
+Text GLabel 7125 2700 0    35   BiDi ~ 0
 GTJ
 Wire Wire Line
 	7125 2700 7275 2700
-Text GLabel 7125 2800 0    50   BiDi ~ 0
+Text GLabel 7125 2800 0    35   BiDi ~ 0
 Gn
 Wire Wire Line
 	7125 2800 7275 2800
-Text GLabel 10325 2600 2    50   BiDi ~ 0
+Text GLabel 10325 2600 2    35   BiDi ~ 0
 Jn
 Connection ~ 9350 2600
 Text Notes 6825 1850 0    50   ~ 10
@@ -571,10 +571,10 @@ F 3 "~" H 8950 2925 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9100 2925 10325 2925
-Text GLabel 10325 2925 2    50   BiDi ~ 0
+Text GLabel 10325 2925 2    35   BiDi ~ 0
 {Jn}
-Text GLabel 10325 2775 2    50   BiDi ~ 0
-Jn-
+Text GLabel 10325 2775 2    35   BiDi ~ 0
+~J~n
 Wire Wire Line
 	8525 2775 8525 2925
 Wire Wire Line
@@ -620,19 +620,19 @@ Wire Wire Line
 	5200 3650 3125 3650
 Wire Wire Line
 	3125 3650 3125 3975
-Text GLabel 2975 4075 0    50   BiDi ~ 0
-0TQ-
+Text GLabel 2975 4075 0    35   BiDi ~ 0
+~OTQ
 Wire Wire Line
 	2975 4075 3125 4075
-Text GLabel 2975 4375 0    50   BiDi ~ 0
+Text GLabel 2975 4375 0    35   BiDi ~ 0
 GTQ
 Wire Wire Line
 	2975 4375 3125 4375
-Text GLabel 2975 4475 0    50   BiDi ~ 0
+Text GLabel 2975 4475 0    35   BiDi ~ 0
 Gn
 Wire Wire Line
 	2975 4475 3125 4475
-Text GLabel 6175 4275 2    50   BiDi ~ 0
+Text GLabel 6175 4275 2    35   BiDi ~ 0
 Qn
 Connection ~ 5200 4275
 Text Notes 2675 3525 0    50   ~ 10
@@ -667,10 +667,10 @@ F 3 "~" H 4800 4600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4950 4600 6175 4600
-Text GLabel 6175 4600 2    50   BiDi ~ 0
+Text GLabel 6175 4600 2    35   BiDi ~ 0
 {Qn}
-Text GLabel 6175 4450 2    50   BiDi ~ 0
-Qn-
+Text GLabel 6175 4450 2    35   BiDi ~ 0
+~Q~n
 Wire Wire Line
 	4375 4450 4375 4600
 Wire Wire Line
@@ -700,18 +700,18 @@ F 3 "" H 3325 5850 50  0001 C CNN
 	1    3325 5600
 	1    0    0    -1  
 $EndComp
-Text GLabel 2975 6200 0    50   BiDi ~ 0
+Text GLabel 2975 6200 0    35   BiDi ~ 0
 Jn
-Text GLabel 2975 6100 0    50   BiDi ~ 0
+Text GLabel 2975 6100 0    35   BiDi ~ 0
 JTF
 Wire Wire Line
 	2975 6100 3125 6100
 Wire Wire Line
 	2975 6200 3125 6200
-Text GLabel 2975 5700 0    50   BiDi ~ 0
+Text GLabel 2975 5700 0    35   BiDi ~ 0
 MTF
-Text GLabel 2975 5300 0    50   BiDi ~ 0
-M-TF
+Text GLabel 2975 5300 0    35   BiDi ~ 0
+~M~TF
 Wire Wire Line
 	2975 5300 3125 5300
 Wire Wire Line
@@ -749,23 +749,23 @@ F 3 "" H 11400 1000 50  0001 C CNN
 	2    11400 750 
 	0    1    1    0   
 $EndComp
-Text GLabel 2975 7400 0    50   BiDi ~ 0
+Text GLabel 2975 7400 0    35   BiDi ~ 0
 An
 Wire Wire Line
 	2975 7400 3125 7400
-Text GLabel 2975 7300 0    50   BiDi ~ 0
+Text GLabel 2975 7300 0    35   BiDi ~ 0
 ATF
 Wire Wire Line
 	2975 7300 3125 7300
-Text GLabel 2975 6900 0    50   BiDi ~ 0
+Text GLabel 2975 6900 0    35   BiDi ~ 0
 DTF
 Wire Wire Line
 	2975 6900 3125 6900
-Text GLabel 2975 6500 0    50   BiDi ~ 0
+Text GLabel 2975 6500 0    35   BiDi ~ 0
 QTF
 Wire Wire Line
 	2975 6500 3125 6500
-Text GLabel 2975 6600 0    50   BiDi ~ 0
+Text GLabel 2975 6600 0    35   BiDi ~ 0
 Qn
 Wire Wire Line
 	2975 6600 3125 6600
@@ -827,7 +827,7 @@ F 3 "" H 8850 8450 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8475 8500 8575 8500
-Text GLabel 7225 8050 0    50   BiDi ~ 0
+Text GLabel 7225 8050 0    35   BiDi ~ 0
 Cn-1
 Wire Wire Line
 	8575 8400 8650 8400
@@ -850,7 +850,7 @@ Wire Wire Line
 	9425 8725 9500 8725
 Wire Wire Line
 	9425 8825 9500 8825
-Text GLabel 12150 8775 2    50   BiDi ~ 0
+Text GLabel 12150 8775 2    35   BiDi ~ 0
 Cn
 $Comp
 L LSA:LS06 U1
@@ -894,7 +894,7 @@ $EndComp
 Wire Wire Line
 	11125 8300 11275 8300
 NoConn ~ 11275 8400
-Text GLabel 12150 8350 2    50   BiDi ~ 0
+Text GLabel 12150 8350 2    35   BiDi ~ 0
 Fn
 Wire Wire Line
 	12150 8350 11975 8350
@@ -916,7 +916,7 @@ $EndComp
 Text GLabel 5450 5750 2    50   Output ~ 0
 Xn
 Text GLabel 5450 5525 2    50   Output ~ 0
-Xn-
+~X~n
 Wire Wire Line
 	5450 5525 4475 5525
 Wire Wire Line
@@ -931,7 +931,7 @@ Yn
 Wire Wire Line
 	5450 6950 5250 6950
 Text GLabel 5450 6725 2    50   Output ~ 0
-Yn-
+~Y~n
 Wire Wire Line
 	5450 6725 4475 6725
 Wire Wire Line
@@ -956,11 +956,11 @@ Yn
 Wire Wire Line
 	7225 8050 8575 8050
 Text GLabel 6950 8250 0    50   Input ~ 0
-Xn-
+~X~n
 Wire Wire Line
 	6950 8250 7275 8250
 Text GLabel 7175 8350 0    50   Input ~ 0
-Yn-
+~Y~n
 Wire Wire Line
 	7175 8350 7275 8350
 Wire Wire Line
@@ -9580,12 +9580,12 @@ Wire Wire Line
 	1100 5025 1375 5025
 Wire Wire Line
 	1100 4725 1375 4725
-Text GLabel 2975 5800 0    50   BiDi ~ 0
+Text GLabel 2975 5800 0    35   BiDi ~ 0
 Mn
 Wire Wire Line
 	2975 5800 3125 5800
-Text GLabel 2975 5400 0    50   BiDi ~ 0
-Mn-
+Text GLabel 2975 5400 0    35   BiDi ~ 0
+~M~n
 Wire Wire Line
 	2975 5400 3125 5400
 Wire Notes Line
@@ -9625,19 +9625,19 @@ Wire Wire Line
 	9350 3650 7275 3650
 Wire Wire Line
 	7275 3650 7275 3975
-Text GLabel 7125 4075 0    50   BiDi ~ 0
-0TIP-
+Text GLabel 7125 4075 0    35   BiDi ~ 0
+~OTIP
 Wire Wire Line
 	7125 4075 7275 4075
-Text GLabel 7125 4375 0    50   BiDi ~ 0
+Text GLabel 7125 4375 0    35   BiDi ~ 0
 MTIP
 Wire Wire Line
 	7125 4375 7275 4375
-Text GLabel 7125 4475 0    50   BiDi ~ 0
+Text GLabel 7125 4475 0    35   BiDi ~ 0
 Mn
 Wire Wire Line
 	7125 4475 7275 4475
-Text GLabel 10325 4275 2    50   BiDi ~ 0
+Text GLabel 10325 4275 2    35   BiDi ~ 0
 IPn
 Connection ~ 9350 4275
 Text Notes 6825 3525 0    50   ~ 10
@@ -9667,10 +9667,10 @@ F 3 "~" H 8950 4600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9100 4600 10325 4600
-Text GLabel 10325 4600 2    50   BiDi ~ 0
+Text GLabel 10325 4600 2    35   BiDi ~ 0
 {IPn}
-Text GLabel 10325 4450 2    50   BiDi ~ 0
-IPn-
+Text GLabel 10325 4450 2    35   BiDi ~ 0
+~IP~n
 Wire Wire Line
 	8525 4450 8525 4600
 Wire Wire Line
@@ -9751,24 +9751,24 @@ Wire Wire Line
 	11325 4575 11425 4575
 Wire Wire Line
 	11325 4675 11425 4675
-Text GLabel 11325 3875 0    50   BiDi ~ 0
-0TM-
-Text GLabel 14525 4225 2    50   BiDi ~ 0
+Text GLabel 11325 3875 0    35   BiDi ~ 0
+~OTM
+Text GLabel 14525 4225 2    35   BiDi ~ 0
 Mn
-Text GLabel 14525 4600 2    50   BiDi ~ 0
+Text GLabel 14525 4600 2    35   BiDi ~ 0
 {Mn}
-Text GLabel 11325 4175 0    50   BiDi ~ 0
+Text GLabel 11325 4175 0    35   BiDi ~ 0
 Gn
-Text GLabel 11325 4275 0    50   BiDi ~ 0
+Text GLabel 11325 4275 0    35   BiDi ~ 0
 GTM
-Text GLabel 11325 4575 0    50   BiDi ~ 0
+Text GLabel 11325 4575 0    35   BiDi ~ 0
 Wn
-Text GLabel 11325 4675 0    50   BiDi ~ 0
+Text GLabel 11325 4675 0    35   BiDi ~ 0
 WTM
-Text GLabel 13375 4400 2    50   BiDi ~ 0
-STOREn-
-Text GLabel 12975 3825 2    50   BiDi ~ 0
-STOREnx-
+Text GLabel 13375 4400 2    35   BiDi ~ 0
+~STORE~n
+Text GLabel 12975 3825 2    35   BiDi ~ 0
+~STORE~nx
 $Comp
 L LSA:LS02 U6
 U 1 1 5C916990
@@ -9786,7 +9786,7 @@ Wire Wire Line
 	13375 3600 12725 3600
 Wire Wire Line
 	12725 3600 12725 4225
-Text GLabel 14275 3700 2    50   BiDi ~ 0
+Text GLabel 14275 3700 2    35   BiDi ~ 0
 IIn
 Wire Wire Line
 	14275 3700 14075 3700
@@ -9812,8 +9812,8 @@ Wire Wire Line
 	12850 4325 12850 4400
 Wire Wire Line
 	12850 4400 13375 4400
-Text GLabel 14525 4475 2    50   BiDi ~ 0
-Mn-
+Text GLabel 14525 4475 2    35   BiDi ~ 0
+~M~n
 Wire Wire Line
 	14525 4475 12725 4475
 Connection ~ 12725 4475
@@ -9841,8 +9841,8 @@ F 3 "" H 10525 9150 50  0001 C CNN
 	2    10525 9150
 	1    0    0    -1  
 $EndComp
-Text GLabel 11175 9150 2    50   BiDi ~ 0
-Gn-
+Text GLabel 11175 9150 2    35   BiDi ~ 0
+~G~n
 Wire Wire Line
 	11175 9150 11025 9150
 Wire Wire Line
@@ -9856,47 +9856,47 @@ Wire Wire Line
 	7000 9250 7000 9050
 Connection ~ 7000 9050
 NoConn ~ 10325 9050
-Text GLabel 10150 9100 0    50   BiDi ~ 0
+Text GLabel 10150 9100 0    35   BiDi ~ 0
 VTG
 Wire Wire Line
 	10150 9100 10325 9100
-Text GLabel 14525 2775 2    50   BiDi ~ 0
-Gn-
+Text GLabel 14525 2775 2    35   BiDi ~ 0
+~G~n
 Wire Wire Line
 	14525 2775 12725 2775
 Connection ~ 12725 2775
 Wire Wire Line
 	12725 2775 12725 2925
-Text GLabel 8750 5750 2    50   BiDi ~ 0
-Gn-
+Text GLabel 8750 5750 2    35   BiDi ~ 0
+~G~n
 Wire Wire Line
 	8750 5750 8525 5750
-Text GLabel 7175 5300 0    50   BiDi ~ 0
+Text GLabel 7175 5300 0    35   BiDi ~ 0
 FnL
 Wire Wire Line
 	7175 5300 7275 5300
-Text GLabel 7175 5400 0    50   BiDi ~ 0
+Text GLabel 7175 5400 0    35   BiDi ~ 0
 LTG
 Wire Wire Line
 	7175 5400 7275 5400
-Text GLabel 7175 5700 0    50   BiDi ~ 0
+Text GLabel 7175 5700 0    35   BiDi ~ 0
 Fn
 Wire Wire Line
 	7175 5700 7275 5700
-Text GLabel 7175 5800 0    50   BiDi ~ 0
+Text GLabel 7175 5800 0    35   BiDi ~ 0
 FTG
 Wire Wire Line
 	7175 5800 7275 5800
-Text GLabel 7175 6100 0    50   BiDi ~ 0
+Text GLabel 7175 6100 0    35   BiDi ~ 0
 FnR
 Wire Wire Line
 	7175 6100 7275 6100
-Text GLabel 7175 6200 0    50   BiDi ~ 0
+Text GLabel 7175 6200 0    35   BiDi ~ 0
 RTG
 Wire Wire Line
 	7175 6200 7275 6200
-Text GLabel 12725 2325 0    50   BiDi ~ 0
-JTG-|NC
+Text GLabel 12725 2325 0    35   BiDi ~ 0
+~JTG~|NC
 Wire Wire Line
 	12800 2650 12850 2650
 Wire Wire Line
@@ -9915,7 +9915,7 @@ Text Notes 8350 6275 0    50   ~ 0
 Gate Outputs from the Function Unit\n
 Text GLabel 1375 5700 2    50   Input ~ 0
 6v
-Text GLabel 1375 6100 2    50   BiDi ~ 0
+Text GLabel 1375 6100 2    35   BiDi ~ 0
 Wn
 $Comp
 L Device:R R9
@@ -9939,18 +9939,18 @@ F 3 "~" H 1050 6300 50  0001 C CNN
 	1    1050 6300
 	0    1    1    0   
 $EndComp
-Text GLabel 1375 6300 2    50   BiDi ~ 0
-STOREnx-
-Text GLabel 1375 6500 2    50   BiDi ~ 0
-Jn-
-Text GLabel 1375 6700 2    50   BiDi ~ 0
-An-
-Text GLabel 1375 6900 2    50   BiDi ~ 0
+Text GLabel 1375 6300 2    35   BiDi ~ 0
+~STORE~nx
+Text GLabel 1375 6500 2    35   BiDi ~ 0
+~J~n
+Text GLabel 1375 6700 2    35   BiDi ~ 0
+~A~n
+Text GLabel 1375 6900 2    35   BiDi ~ 0
 An
-Text GLabel 1375 7100 2    50   BiDi ~ 0
-IPn-
-Text GLabel 1375 7300 2    50   BiDi ~ 0
-Qn-
+Text GLabel 1375 7100 2    35   BiDi ~ 0
+~IP~n
+Text GLabel 1375 7300 2    35   BiDi ~ 0
+~Q~n
 $Comp
 L Device:R R11
 U 1 1 5CDE5AEC
@@ -10033,11 +10033,11 @@ Wire Wire Line
 Connection ~ 725  6100
 Wire Wire Line
 	725  6100 725  6300
-Text GLabel 1375 7500 2    50   BiDi ~ 0
-Mn-
+Text GLabel 1375 7500 2    35   BiDi ~ 0
+~M~n
 Wire Wire Line
 	1375 7500 1200 7500
-Text GLabel 1375 7700 2    50   BiDi ~ 0
+Text GLabel 1375 7700 2    35   BiDi ~ 0
 Mn
 Wire Wire Line
 	1375 7700 1200 7700
@@ -10053,27 +10053,27 @@ Wire Wire Line
 	9350 3650 9350 4275
 Wire Wire Line
 	5200 3650 5200 4275
-Text GLabel 11775 5625 0    50   BiDi ~ 0
+Text GLabel 11775 5625 0    35   BiDi ~ 0
 An
-Text GLabel 11775 5775 0    50   BiDi ~ 0
+Text GLabel 11775 5775 0    35   BiDi ~ 0
 Gn
-Text GLabel 11775 5925 0    50   BiDi ~ 0
+Text GLabel 11775 5925 0    35   BiDi ~ 0
 Jn
-Text GLabel 11775 6075 0    50   BiDi ~ 0
+Text GLabel 11775 6075 0    35   BiDi ~ 0
 IPn
-Text GLabel 11775 6225 0    50   BiDi ~ 0
+Text GLabel 11775 6225 0    35   BiDi ~ 0
 Mn
-Text GLabel 11775 6375 0    50   BiDi ~ 0
+Text GLabel 11775 6375 0    35   BiDi ~ 0
 Fn
-Text GLabel 11775 6525 0    50   BiDi ~ 0
+Text GLabel 11775 6525 0    35   BiDi ~ 0
 Cn
-Text GLabel 11775 6675 0    50   BiDi ~ 0
+Text GLabel 11775 6675 0    35   BiDi ~ 0
 Qn
-Text GLabel 11775 5325 0    50   BiDi ~ 0
+Text GLabel 11775 5325 0    35   BiDi ~ 0
 Xn
-Text GLabel 11775 5475 0    50   BiDi ~ 0
+Text GLabel 11775 5475 0    35   BiDi ~ 0
 Yn
-Text GLabel 11775 5175 0    50   BiDi ~ 0
+Text GLabel 11775 5175 0    35   BiDi ~ 0
 Cn-1
 $Comp
 L Device:LED D10
@@ -10153,17 +10153,6 @@ F 3 "~" H 13725 5700 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R58
-U 1 1 5C55F2FD
-P 12400 5625
-F 0 "R58" V 12350 5800 50  0000 C CNN
-F 1 "1k" V 12400 5625 50  0000 C CNN
-F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 12330 5625 50  0001 C CNN
-F 3 "~" H 12400 5625 50  0001 C CNN
-	1    12400 5625
-	0    1    1    0   
-$EndComp
-$Comp
 L Device:LED D7
 U 1 1 5C5857DD
 P 13725 5850
@@ -10239,17 +10228,6 @@ F 2 "ELLIOTT:LED_D5.0mm" H 13725 6300 50  0001 C CNN
 F 3 "~" H 13725 6300 50  0001 C CNN
 	1    13725 6300
 	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R54
-U 1 1 5C5F86A5
-P 12400 6225
-F 0 "R54" V 12350 6400 50  0000 C CNN
-F 1 "1k" V 12400 6225 50  0000 C CNN
-F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 12330 6225 50  0001 C CNN
-F 3 "~" H 12400 6225 50  0001 C CNN
-	1    12400 6225
-	0    1    1    0   
 $EndComp
 $Comp
 L Device:LED D3
@@ -10331,16 +10309,9 @@ Wire Wire Line
 Wire Wire Line
 	12700 5475 12700 5325
 Connection ~ 12700 5325
-Wire Wire Line
-	12550 5625 12700 5625
-Wire Wire Line
-	12700 5625 12700 5475
 Connection ~ 12700 5475
 Wire Wire Line
 	12550 5775 12700 5775
-Wire Wire Line
-	12700 5775 12700 5625
-Connection ~ 12700 5625
 Wire Wire Line
 	12550 5925 12700 5925
 Wire Wire Line
@@ -10351,16 +10322,9 @@ Wire Wire Line
 Wire Wire Line
 	12700 6075 12700 5925
 Connection ~ 12700 5925
-Wire Wire Line
-	12550 6225 12700 6225
-Wire Wire Line
-	12700 6225 12700 6075
 Connection ~ 12700 6075
 Wire Wire Line
 	12550 6375 12700 6375
-Wire Wire Line
-	12700 6375 12700 6225
-Connection ~ 12700 6225
 Wire Wire Line
 	12550 6525 12700 6525
 Wire Wire Line
@@ -10371,7 +10335,7 @@ Wire Wire Line
 Wire Wire Line
 	12700 6675 12700 6525
 Connection ~ 12700 6525
-Text GLabel 13075 5175 2    50   BiDi ~ 0
+Text GLabel 13075 5175 2    35   BiDi ~ 0
 6v
 $Comp
 L Connector_Generic:Conn_01x02 J2
@@ -10395,10 +10359,8 @@ Wire Wire Line
 Connection ~ 12075 5175
 Wire Wire Line
 	12075 5175 12250 5175
-Text GLabel 14050 5250 2    50   Input ~ 0
+Text GLabel 14425 5350 3    50   Input ~ 0
 GND
-Wire Wire Line
-	14050 5250 13975 5250
 Wire Wire Line
 	13875 5400 13975 5400
 Wire Wire Line
@@ -10447,9 +10409,6 @@ Wire Wire Line
 	13575 5700 12075 5700
 Wire Wire Line
 	12075 5700 12075 5625
-Connection ~ 12075 5625
-Wire Wire Line
-	12075 5625 12250 5625
 Wire Wire Line
 	13575 5850 12075 5850
 Wire Wire Line
@@ -10497,9 +10456,6 @@ Wire Wire Line
 	13575 6300 12075 6300
 Wire Wire Line
 	12075 6300 12075 6225
-Connection ~ 12075 6225
-Wire Wire Line
-	12075 6225 12250 6225
 Wire Wire Line
 	13575 6450 12075 6450
 Wire Wire Line
@@ -10541,4 +10497,23 @@ Wire Wire Line
 Connection ~ 13975 6600
 Wire Wire Line
 	13975 6600 13975 6450
+Wire Wire Line
+	12700 5475 12700 5775
+Wire Wire Line
+	12700 6075 12700 6375
+$Comp
+L Connector_Generic:Conn_01x02 J3
+U 1 1 5D8BE030
+P 14325 5050
+F 0 "J3" V 14291 4862 50  0000 R CNN
+F 1 "Conn_01x02" V 14200 4862 50  0000 R CNN
+F 2 "ELLIOTT:PinHeader_1x02_P2.54mm_Vertical" H 14325 5050 50  0001 C CNN
+F 3 "~" H 14325 5050 50  0001 C CNN
+	1    14325 5050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13975 5250 14325 5250
+Wire Wire Line
+	14425 5250 14425 5350
 $EndSCHEMATC

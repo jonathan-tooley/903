@@ -332,17 +332,6 @@ F 3 "~" H 4025 3700 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:Fuse F2
-U 1 1 5C69DEB2
-P 1925 2575
-F 0 "F2" H 1865 2529 50  0000 R CNN
-F 1 "Fuse" H 1865 2620 50  0000 R CNN
-F 2 "TerminalBlock_MetzConnect:TerminalBlock_MetzConnect_Type171_RT13702HBWC_1x02_P7.50mm_Horizontal" V 1855 2575 50  0001 C CNN
-F 3 "~" H 1925 2575 50  0001 C CNN
-	1    1925 2575
-	0    -1   -1   0   
-$EndComp
-$Comp
 L LSA:FRT5_separated K3
 U 3 1 5C698E0B
 P 3225 1975
@@ -793,22 +782,6 @@ F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663
 	-1   0    0    1   
 $EndComp
 Connection ~ 8175 5825
-Wire Wire Line
-	8175 5825 8825 5825
-$Comp
-L LSA:FRT5_separated K4
-U 1 1 5C750CDE
-P 8825 6125
-F 0 "K4" H 8670 6079 50  0000 R CNN
-F 1 "~" H 8670 6170 50  0000 R CNN
-F 2 "ELLIOTT:Relay55.13" H 9025 6025 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 9025 6225 50  0001 C CNN
-	1    8825 6125
-	-1   0    0    1   
-$EndComp
-Connection ~ 8825 5825
-Wire Wire Line
-	8825 5825 9325 5825
 $Comp
 L Device:D D5
 U 1 1 5C750D5E
@@ -826,15 +799,10 @@ Connection ~ 9325 5825
 Wire Wire Line
 	9325 6250 9325 6425
 Wire Wire Line
-	9325 6425 8825 6425
-Wire Wire Line
 	6950 6425 6950 6200
 Connection ~ 8175 6425
 Wire Wire Line
 	8175 6425 6950 6425
-Connection ~ 8825 6425
-Wire Wire Line
-	8825 6425 8175 6425
 $Comp
 L Device:R R1
 U 1 1 5C75B58C
@@ -1364,11 +1332,7 @@ Text Notes 5550 6425 0    80   ~ 0
 Wire Wire Line
 	1425 2025 1425 1975
 Wire Wire Line
-	1775 2575 1425 2575
-Wire Wire Line
 	1425 2575 1425 2525
-Wire Wire Line
-	2075 2575 2600 2575
 Wire Wire Line
 	2300 2275 2300 3700
 Wire Wire Line
@@ -1406,4 +1370,31 @@ $EndComp
 Connection ~ 1625 2275
 Wire Wire Line
 	1625 2275 1750 2275
+$Comp
+L LSA:FRT5_separated K3
+U 4 1 5D7369D3
+P 8875 3450
+F 0 "K3" V 9062 3450 50  0000 C CNN
+F 1 "~" V 9062 3450 50  0000 C CNN
+F 2 "ELLIOTT:Relay55.13" H 9075 3350 50  0001 L CNN
+F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 9075 3550 50  0001 C CNN
+	4    8875 3450
+	0    -1   -1   0   
+$EndComp
+NoConn ~ 9175 3450
+NoConn ~ 8575 3550
+Text GLabel 3575 1850 0    50   Input ~ 0
+Lk
+Wire Wire Line
+	3575 1850 3650 1850
+Text GLabel 8400 3350 0    50   Input ~ 0
+Lk
+Wire Wire Line
+	8400 3350 8575 3350
+Wire Wire Line
+	8175 6425 9325 6425
+Wire Wire Line
+	8175 5825 9325 5825
+Wire Wire Line
+	1425 2575 2600 2575
 $EndSCHEMATC
