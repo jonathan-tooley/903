@@ -52,23 +52,23 @@ Wire Wire Line
 Wire Wire Line
 	1925 1850 2225 1850
 $Comp
-L Device:C_Small C1
+L Device:CP_Small C1
 U 1 1 5CE8AB5B
 P 2225 1975
 F 0 "C1" H 2317 2021 50  0000 L CNN
 F 1 "47u" H 2317 1930 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2225 1975 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2225 1975 50  0001 C CNN
 F 3 "~" H 2225 1975 50  0001 C CNN
 	1    2225 1975
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C3
+L Device:CP_Small C3
 U 1 1 5CE8ABA1
 P 2225 2800
 F 0 "C3" H 2317 2846 50  0000 L CNN
 F 1 "47u" H 2317 2755 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2225 2800 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2225 2800 50  0001 C CNN
 F 3 "~" H 2225 2800 50  0001 C CNN
 	1    2225 2800
 	1    0    0    -1  
@@ -295,23 +295,23 @@ Wire Wire Line
 Wire Wire Line
 	1950 3650 2250 3650
 $Comp
-L Device:C_Small C5
+L Device:CP_Small C5
 U 1 1 5D819DE6
 P 2250 3775
 F 0 "C5" H 2342 3821 50  0000 L CNN
 F 1 "47u" H 2342 3730 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2250 3775 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2250 3775 50  0001 C CNN
 F 3 "~" H 2250 3775 50  0001 C CNN
 	1    2250 3775
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C7
+L Device:CP_Small C7
 U 1 1 5D819DEC
 P 2250 4600
 F 0 "C7" H 2342 4646 50  0000 L CNN
 F 1 "47u" H 2342 4555 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2250 4600 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2250 4600 50  0001 C CNN
 F 3 "~" H 2250 4600 50  0001 C CNN
 	1    2250 4600
 	1    0    0    -1  
@@ -475,23 +475,23 @@ Wire Wire Line
 Wire Wire Line
 	1950 5425 2250 5425
 $Comp
-L Device:C_Small C9
+L Device:CP_Small C9
 U 1 1 5D81BAC1
 P 2250 5550
 F 0 "C9" H 2342 5596 50  0000 L CNN
 F 1 "47u" H 2342 5505 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2250 5550 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2250 5550 50  0001 C CNN
 F 3 "~" H 2250 5550 50  0001 C CNN
 	1    2250 5550
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C11
+L Device:CP_Small C11
 U 1 1 5D81BAC7
 P 2250 6375
 F 0 "C11" H 2342 6421 50  0000 L CNN
 F 1 "47u" H 2342 6330 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2250 6375 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2250 6375 50  0001 C CNN
 F 3 "~" H 2250 6375 50  0001 C CNN
 	1    2250 6375
 	1    0    0    -1  
@@ -655,23 +655,23 @@ Wire Wire Line
 Wire Wire Line
 	2000 7275 2300 7275
 $Comp
-L Device:C_Small C13
+L Device:CP_Small C13
 U 1 1 5D81F340
 P 2300 7400
 F 0 "C13" H 2392 7446 50  0000 L CNN
 F 1 "47u" H 2392 7355 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2300 7400 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2300 7400 50  0001 C CNN
 F 3 "~" H 2300 7400 50  0001 C CNN
 	1    2300 7400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C15
+L Device:CP_Small C15
 U 1 1 5D81F346
 P 2300 8225
 F 0 "C15" H 2392 8271 50  0000 L CNN
 F 1 "47u" H 2392 8180 50  0000 L CNN
-F 2 "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm" H 2300 8225 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_Tantal_D5.0mm_P5.00mm" H 2300 8225 50  0001 C CNN
 F 3 "~" H 2300 8225 50  0001 C CNN
 	1    2300 8225
 	1    0    0    -1  

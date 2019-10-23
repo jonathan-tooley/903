@@ -96,13 +96,13 @@ FTG
 Text GLabel 1000 1250 0    35   BiDi ~ 0
 FnR
 Text GLabel 1000 1150 0    35   BiDi ~ 0
-~JTG~
+~JTG~|NC
 Text GLabel 1000 1650 0    35   BiDi ~ 0
 IPn
 Text GLabel 1700 1750 2    35   BiDi ~ 0
 PTGa
 Text GLabel 1000 1950 0    35   BiDi ~ 0
-An-7
+An-7|IPn
 Text GLabel 1000 1850 0    35   BiDi ~ 0
 PTGb
 Text GLabel 1000 1750 0    35   BiDi ~ 0
@@ -483,7 +483,7 @@ Wire Wire Line
 Wire Wire Line
 	11325 2900 11425 2900
 Text GLabel 11325 3000 0    35   BiDi ~ 0
-An-7
+An-7|IPn
 Wire Wire Line
 	11325 3000 11425 3000
 $Comp
@@ -9829,7 +9829,7 @@ RTG
 Wire Wire Line
 	7175 6200 7275 6200
 Text GLabel 12725 2325 0    35   BiDi ~ 0
-~JTG~
+~JTG~|NC
 Wire Wire Line
 	12800 2650 12850 2650
 Wire Wire Line
@@ -9994,24 +9994,4 @@ Wire Wire Line
 	8575 8650 9225 8650
 Wire Wire Line
 	9225 8550 9925 8550
-$Comp
-L Device:R R99
-U 1 1 5D9FBB0B
-P 1050 7900
-F 0 "R99" V 950 7900 50  0000 C CNN
-F 1 "1k" V 1050 7900 50  0000 C CNN
-F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 980 7900 50  0001 C CNN
-F 3 "~" H 1050 7900 50  0001 C CNN
-	1    1050 7900
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	900  7900 725  7900
-Wire Wire Line
-	725  7900 725  7700
-Connection ~ 725  7700
-Text GLabel 1375 7900 2    35   BiDi ~ 0
-Gn
-Wire Wire Line
-	1375 7900 1200 7900
 $EndSCHEMATC
