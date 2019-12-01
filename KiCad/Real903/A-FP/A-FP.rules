@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 2414)
+    (start_pass_no 3607)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -67,7 +67,7 @@
     "PC3-" "J3-" "PC4-" "J4-" "Net-(U1-Pad6)" "Net-(U10-Pad6)" "WFM-" "Net-(U12-Pad11)"
     "Net-(U14-Pad6)" "1TPC-" {PC2} {PC1} WFR {PC3} "PC1-4" {PC4}
     "Net-(U1-Pad4)" "Net-(U2-Pad13)" "Net-(U10-Pad4)" "Net-(U13-Pad11)" "Net-(U6-Pad13)" "Net-(U14-Pad4)" "Net-(U8-Pad3)" "Net-(U11-Pad1)"
-    "Net-(U12-Pad3)"
+    "Net-(U12-Pad3)" PulseGenMargin 2.4vRef
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

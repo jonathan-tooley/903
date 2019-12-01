@@ -1,0 +1,267 @@
+(pcb "C:\Users\v-jtool\OneDrive\Repos\903\KiCad\Real903\LS07 13 34\LS07.dsn"
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "(5.0.0)")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (path pcb 0  168933 -81620.5  117983 -81620.5  117983 -59245.5  168933 -59245.5
+            168933 -81620.5)
+    )
+    (via "Via[0-1]_800:400_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal
+      (place C1 122400 -71600 front 0 (PN C))
+      (place C2 122200 -77400 front 0 (PN C))
+    )
+    (component ELLIOTT:LSA
+      (place J1 123138 -64400.5 front 0 (PN LSAConnect))
+    )
+    (component "ELLIOTT:D_DO-35_SOD27_P7.62mm_Horizontal"
+      (place D1 137096 -76454 front 90 (PN 1N4148))
+      (place D2 139636 -76454 front 90 (PN 1N4148))
+      (place D3 142176 -76454 front 90 (PN 1N4148))
+      (place D4 144716 -76454 front 90 (PN 1N4148))
+      (place D5 147256 -76454 front 90 (PN 1N4148))
+      (place D6 149796 -76454 front 90 (PN 1N4148))
+    )
+    (component ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
+      (place R1 155512 -76835 front 90 (PN 820))
+      (place R2 159194 -76835 front 90 (PN 820))
+      (place R3 162814 -76835 front 90 (PN 2k7))
+      (place R4 166400 -69200 front 270 (PN 2k7))
+    )
+    (component "ELLIOTT:TO-92L_Inline"
+      (place VT1 152400 -62547.5 front 270 (PN BC548))
+      (place VT2 162242 -62484 front 270 (PN BC548))
+    )
+  )
+  (library
+    (image Capacitor_THT:C_Axial_L5.1mm_D3.1mm_P7.50mm_Horizontal
+      (outline (path signal 50  8550 1800  -1050 1800))
+      (outline (path signal 50  8550 -1800  8550 1800))
+      (outline (path signal 50  -1050 -1800  8550 -1800))
+      (outline (path signal 50  -1050 1800  -1050 -1800))
+      (outline (path signal 120  6460 0  6420 0))
+      (outline (path signal 120  1040 0  1080 0))
+      (outline (path signal 120  6420 1670  1080 1670))
+      (outline (path signal 120  6420 -1670  6420 1670))
+      (outline (path signal 120  1080 -1670  6420 -1670))
+      (outline (path signal 120  1080 1670  1080 -1670))
+      (outline (path signal 100  7500 0  6300 0))
+      (outline (path signal 100  0 0  1200 0))
+      (outline (path signal 100  6300 1550  1200 1550))
+      (outline (path signal 100  6300 -1550  6300 1550))
+      (outline (path signal 100  1200 -1550  6300 -1550))
+      (outline (path signal 100  1200 1550  1200 -1550))
+      (pin Oval[A]Pad_1600x1600_um 2 7500 0)
+      (pin Round[A]Pad_1600_um 1 0 0)
+    )
+    (image ELLIOTT:LSA
+      (outline (path signal 150  -5080 -17145  -5080 5080))
+      (outline (path signal 150  45720 -17145  -5080 -17145))
+      (outline (path signal 150  45720 5080  45720 -17145))
+      (outline (path signal 150  -5080 5080  45720 5080))
+      (pin Round[A]Pad_2000_um 13 22860 3175)
+      (pin Round[A]Pad_2000_um 12 20320 3175)
+      (pin Round[A]Pad_2000_um 11 17780 3175)
+      (pin Round[A]Pad_2000_um 6 26670 -15240)
+      (pin Round[A]Pad_2000_um 5 24130 -15240)
+      (pin Round[A]Pad_2000_um 4 21590 -15240)
+      (pin Round[A]Pad_2000_um 3 19050 -15240)
+      (pin Round[A]Pad_2000_um 2 16510 -15240)
+      (pin Round[A]Pad_2000_um 1 13970 -15240)
+      (pin Round[A]Pad_2000_um 23 -3175 -1905)
+      (pin Round[A]Pad_2000_um 22 -3175 635)
+      (pin Round[A]Pad_2000_um 21 -3175 3175)
+    )
+    (image "ELLIOTT:D_DO-35_SOD27_P7.62mm_Horizontal"
+      (outline (path signal 100  2410 1000  2410 -1000))
+      (outline (path signal 100  2510 1000  2510 -1000))
+      (outline (path signal 100  2310 1000  2310 -1000))
+      (outline (path signal 120  1690 1120  1690 -1120))
+      (outline (path signal 120  1690 -1120  5930 -1120))
+      (outline (path signal 120  5930 -1120  5930 1120))
+      (outline (path signal 120  5930 1120  1690 1120))
+      (outline (path signal 120  1040 0  1690 0))
+      (outline (path signal 120  6580 0  5930 0))
+      (outline (path signal 120  2410 1120  2410 -1120))
+      (outline (path signal 120  2530 1120  2530 -1120))
+      (outline (path signal 120  2290 1120  2290 -1120))
+      (outline (path signal 50  -1050 1250  -1050 -1250))
+      (outline (path signal 50  -1050 -1250  8670 -1250))
+      (outline (path signal 50  8670 -1250  8670 1250))
+      (outline (path signal 50  8670 1250  -1050 1250))
+      (pin Rect[A]Pad_1600x1600_um 1 0 0)
+      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
+    )
+    (image ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
+      (outline (path signal 120  1890 920  1890 -920))
+      (outline (path signal 120  1890 -920  5730 -920))
+      (outline (path signal 120  5730 -920  5730 920))
+      (outline (path signal 120  5730 920  1890 920))
+      (outline (path signal 120  940 0  1890 0))
+      (outline (path signal 120  6680 0  5730 0))
+      (outline (path signal 50  -1050 1250  -1050 -1250))
+      (outline (path signal 50  -1050 -1250  8670 -1250))
+      (outline (path signal 50  8670 -1250  8670 1250))
+      (outline (path signal 50  8670 1250  -1050 1250))
+      (pin Round[A]Pad_1400_um 1 0 0)
+      (pin Oval[A]Pad_1400x1400_um 2 7620 0)
+    )
+    (image "ELLIOTT:TO-92L_Inline"
+      (outline (path signal 50  3950 -1850  -1550 -1850))
+      (outline (path signal 50  3950 -1850  3950 2750))
+      (outline (path signal 50  -1550 2750  -1550 -1850))
+      (outline (path signal 50  -1550 2750  3950 2750))
+      (outline (path signal 100  -700 -1600  3050 -1600))
+      (outline (path signal 120  -750 -1700  3100 -1700))
+      (pin Rect[A]Pad_1050x1500_um 3 0 0)
+      (pin RoundRect[A]Pad_1050x1500_263.499_um 1 2540 0)
+      (pin RoundRect[A]Pad_1050x1500_263.499_um 2 1270 0)
+    )
+    (padstack Round[A]Pad_1400_um
+      (shape (circle F.Cu 1400))
+      (shape (circle B.Cu 1400))
+      (attach off)
+    )
+    (padstack Round[A]Pad_1600_um
+      (shape (circle F.Cu 1600))
+      (shape (circle B.Cu 1600))
+      (attach off)
+    )
+    (padstack Round[A]Pad_2000_um
+      (shape (circle F.Cu 2000))
+      (shape (circle B.Cu 2000))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_1400x1400_um
+      (shape (path F.Cu 1400  0 0  0 0))
+      (shape (path B.Cu 1400  0 0  0 0))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_1600x1600_um
+      (shape (path F.Cu 1600  0 0  0 0))
+      (shape (path B.Cu 1600  0 0  0 0))
+      (attach off)
+    )
+    (padstack RoundRect[A]Pad_1050x1500_263.499_um
+      (shape (polygon F.Cu 0  308.256 746.996  352.622 735.108  394.249 715.697  431.874 689.352
+            464.352 656.874  490.697 619.25  510.108 577.622  521.996 533.256
+            525.999 487.5  525.999 -487.5  521.996 -533.256  510.108 -577.622
+            490.697 -619.249  464.352 -656.874  431.874 -689.352  394.25 -715.697
+            352.622 -735.108  308.256 -746.996  262.5 -750.999  -262.5 -750.999
+            -308.256 -746.996  -352.622 -735.108  -394.249 -715.697  -431.874 -689.352
+            -464.352 -656.874  -490.697 -619.25  -510.108 -577.622  -521.996 -533.256
+            -525.999 -487.5  -525.999 487.5  -521.996 533.256  -510.108 577.622
+            -490.697 619.249  -464.352 656.874  -431.874 689.352  -394.25 715.697
+            -352.622 735.108  -308.256 746.996  -262.5 750.999  262.5 750.999
+            308.256 746.996))
+      (shape (polygon B.Cu 0  308.256 746.996  352.622 735.108  394.249 715.697  431.874 689.352
+            464.352 656.874  490.697 619.25  510.108 577.622  521.996 533.256
+            525.999 487.5  525.999 -487.5  521.996 -533.256  510.108 -577.622
+            490.697 -619.249  464.352 -656.874  431.874 -689.352  394.25 -715.697
+            352.622 -735.108  308.256 -746.996  262.5 -750.999  -262.5 -750.999
+            -308.256 -746.996  -352.622 -735.108  -394.249 -715.697  -431.874 -689.352
+            -464.352 -656.874  -490.697 -619.25  -510.108 -577.622  -521.996 -533.256
+            -525.999 -487.5  -525.999 487.5  -521.996 533.256  -510.108 577.622
+            -490.697 619.249  -464.352 656.874  -431.874 689.352  -394.25 715.697
+            -352.622 735.108  -308.256 746.996  -262.5 750.999  262.5 750.999
+            308.256 746.996))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1050x1500_um
+      (shape (rect F.Cu -525 -750 525 750))
+      (shape (rect B.Cu -525 -750 525 750))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1600x1600_um
+      (shape (rect F.Cu -800 -800 800 800))
+      (shape (rect B.Cu -800 -800 800 800))
+      (attach off)
+    )
+    (padstack "Via[0-1]_800:400_um"
+      (shape (circle F.Cu 800))
+      (shape (circle B.Cu 800))
+      (attach off)
+    )
+  )
+  (network
+    (net 1
+      (pins J1-1 D1-1)
+    )
+    (net 2
+      (pins J1-2 D2-1)
+    )
+    (net 4
+      (pins J1-4 D3-1 D4-1)
+    )
+    (net 5
+      (pins J1-5 D5-1)
+    )
+    (net 6
+      (pins J1-6 D6-1)
+    )
+    (net +6v
+      (pins J1-21 R1-1 R2-2 R3-1 R4-2)
+    )
+    (net 0v
+      (pins J1-22 VT1-1 VT2-1)
+    )
+    (net 13
+      (pins J1-13 VT2-3)
+    )
+    (net "Net-(C1-Pad1)"
+      (pins C1-1 R3-2 VT1-2)
+    )
+    (net "Net-(C1-Pad2)"
+      (pins C1-2 D1-2 D2-2 D3-2 R1-2)
+    )
+    (net "Net-(C2-Pad2)"
+      (pins C2-2 D4-2 D5-2 D6-2 R2-1)
+    )
+    (net "Net-(C2-Pad1)"
+      (pins C2-1 R4-1 VT2-2)
+    )
+    (net 11
+      (pins J1-11 VT1-3)
+    )
+    (class kicad_default "" +6v -6v 0v 1 11 12 13 2 3 4 5 6 "Net-(C1-Pad1)"
+      "Net-(C1-Pad2)" "Net-(C2-Pad1)" "Net-(C2-Pad2)" "Net-(D1-Pad2)" "Net-(D10-Pad1)"
+      "Net-(D10-Pad2)" "Net-(D11-Pad1)" "Net-(D11-Pad2)" "Net-(D12-Pad1)"
+      "Net-(D3-Pad2)" "Net-(D7-Pad1)" "Net-(J1-Pad12)" "Net-(J1-Pad23)" "Net-(J1-Pad3)"
+      (circuit
+        (use_via Via[0-1]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+  )
+  (wiring
+  )
+)

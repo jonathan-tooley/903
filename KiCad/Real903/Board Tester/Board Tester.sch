@@ -2,7 +2,7 @@ EESchema Schematic File Version 4
 LIBS:Board Tester-cache
 EELAYER 26 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
@@ -40,10 +40,6 @@ Text GLabel 2550 1275 2    50   Input ~ 0
 +6v
 Text GLabel 1575 700  0    50   Input ~ 0
 GND
-Text GLabel 1575 800  0    50   Input ~ 0
--6v
-Wire Wire Line
-	1575 800  1950 800 
 Wire Wire Line
 	1950 700  1575 700 
 Wire Wire Line
@@ -152,22 +148,6 @@ Wire Wire Line
 	2550 1275 2400 1275
 Text GLabel 1575 600  0    50   Input ~ 0
 +6v
-Text GLabel 2550 4275 2    50   Input ~ 0
-GND
-Text GLabel 1750 4275 0    50   Input ~ 0
-GND
-Wire Wire Line
-	1750 4275 1900 4275
-Wire Wire Line
-	2400 4275 2550 4275
-Text GLabel 2550 4175 2    50   Input ~ 0
--6v
-Wire Wire Line
-	2550 4175 2400 4175
-Text GLabel 1750 4175 0    50   Input ~ 0
--6v
-Wire Wire Line
-	1750 4175 1900 4175
 $Comp
 L Switch:SW_Push_SPDT SW1
 U 1 1 5D94FF6B
@@ -496,7 +476,7 @@ U 1 1 5D95A460
 P 3350 1800
 F 0 "J10" H 3270 1467 50  0000 C CNN
 F 1 "~" H 3270 1466 50  0000 C CNN
-F 2 "" H 3350 1800 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 3350 1800 50  0001 C CNN
 F 3 "~" H 3350 1800 50  0001 C CNN
 	1    3350 1800
 	-1   0    0    1   
@@ -533,7 +513,7 @@ U 1 1 5D96248F
 P 3350 4325
 F 0 "J11" H 3270 3992 50  0000 C CNN
 F 1 "~" H 3270 3991 50  0000 C CNN
-F 2 "" H 3350 4325 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 3350 4325 50  0001 C CNN
 F 3 "~" H 3350 4325 50  0001 C CNN
 	1    3350 4325
 	-1   0    0    1   
@@ -892,7 +872,7 @@ U 1 1 5D9716C2
 P 5675 1800
 F 0 "J12" H 5595 1467 50  0000 C CNN
 F 1 "~" H 5595 1466 50  0000 C CNN
-F 2 "" H 5675 1800 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 5675 1800 50  0001 C CNN
 F 3 "~" H 5675 1800 50  0001 C CNN
 	1    5675 1800
 	-1   0    0    1   
@@ -929,7 +909,7 @@ U 1 1 5D9716D6
 P 5675 4325
 F 0 "J14" H 5595 3992 50  0000 C CNN
 F 1 "~" H 5595 3991 50  0000 C CNN
-F 2 "" H 5675 4325 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 5675 4325 50  0001 C CNN
 F 3 "~" H 5675 4325 50  0001 C CNN
 	1    5675 4325
 	-1   0    0    1   
@@ -1288,7 +1268,7 @@ U 1 1 5D97800E
 P 8000 1800
 F 0 "J13" H 7920 1467 50  0000 C CNN
 F 1 "~" H 7920 1466 50  0000 C CNN
-F 2 "" H 8000 1800 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 8000 1800 50  0001 C CNN
 F 3 "~" H 8000 1800 50  0001 C CNN
 	1    8000 1800
 	-1   0    0    1   
@@ -1325,7 +1305,7 @@ U 1 1 5D978022
 P 8000 4325
 F 0 "J15" H 7920 3992 50  0000 C CNN
 F 1 "~" H 7920 3991 50  0000 C CNN
-F 2 "" H 8000 4325 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-5-5.08_1x05_P5.08mm_Horizontal" H 8000 4325 50  0001 C CNN
 F 3 "~" H 8000 4325 50  0001 C CNN
 	1    8000 4325
 	-1   0    0    1   
@@ -1711,7 +1691,7 @@ U 1 1 5DA86612
 P 2625 5100
 F 0 "J16" V 2545 4712 50  0000 R CNN
 F 1 "~" V 2500 4712 50  0000 R CNN
-F 2 "" H 2625 5100 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-6-5.08_1x06_P5.08mm_Horizontal" H 2625 5100 50  0001 C CNN
 F 3 "~" H 2625 5100 50  0001 C CNN
 	1    2625 5100
 	0    -1   -1   0   
@@ -1742,7 +1722,7 @@ U 1 1 5DAE99AF
 P 4875 5100
 F 0 "J17" V 4795 4712 50  0000 R CNN
 F 1 "~" V 4750 4712 50  0000 R CNN
-F 2 "" H 4875 5100 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-6-5.08_1x06_P5.08mm_Horizontal" H 4875 5100 50  0001 C CNN
 F 3 "~" H 4875 5100 50  0001 C CNN
 	1    4875 5100
 	0    -1   -1   0   
@@ -1767,17 +1747,6 @@ Wire Wire Line
 	4925 6050 4925 6025
 Wire Wire Line
 	4925 6025 5075 6025
-$Comp
-L Connector_Generic:Conn_02x10_Counter_Clockwise J18
-U 1 1 5DBDF681
-P 3750 5350
-F 0 "J18" H 3800 5875 50  0000 C CNN
-F 1 "~" H 3800 5876 50  0000 C CNN
-F 2 "" H 3750 5350 50  0001 C CNN
-F 3 "~" H 3750 5350 50  0001 C CNN
-	1    3750 5350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2925 5300 2925 5850
 Wire Wire Line
@@ -1865,13 +1834,13 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_01x04 J20
 U 1 1 5DF5651A
-P 4250 5050
-F 0 "J20" H 4175 5275 50  0000 L CNN
-F 1 "~" H 4330 4951 50  0000 L CNN
-F 2 "" H 4250 5050 50  0001 C CNN
-F 3 "~" H 4250 5050 50  0001 C CNN
-	1    4250 5050
-	1    0    0    -1  
+P 4250 5150
+F 0 "J20" H 4175 5375 50  0000 L CNN
+F 1 "~" H 4330 5051 50  0000 L CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-4_1x04_P5.00mm_Horizontal" H 4250 5150 50  0001 C CNN
+F 3 "~" H 4250 5150 50  0001 C CNN
+	1    4250 5150
+	1    0    0    1   
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x04 J19
@@ -1879,9 +1848,506 @@ U 1 1 5DF56690
 P 3350 5050
 F 0 "J19" H 3350 5275 50  0000 C CNN
 F 1 "~" H 3430 4951 50  0000 L CNN
-F 2 "" H 3350 5050 50  0001 C CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-4_1x04_P5.00mm_Horizontal" H 3350 5050 50  0001 C CNN
 F 3 "~" H 3350 5050 50  0001 C CNN
 	1    3350 5050
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_02x10_Odd_Even J18
+U 1 1 5DD35D02
+P 3750 5350
+F 0 "J18" H 3800 5875 50  0000 C CNN
+F 1 "~" H 3800 5876 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical" H 3750 5350 50  0001 C CNN
+F 3 "~" H 3750 5350 50  0001 C CNN
+	1    3750 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Q_NPN_EBC Q1
+U 1 1 5DD73AE1
+P 8500 6400
+F 0 "Q1" H 8300 6250 50  0000 L CNN
+F 1 "~" H 8691 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 8700 6500 50  0001 C CNN
+F 3 "~" H 8500 6400 50  0001 C CNN
+	1    8500 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE1
+U 1 1 5DD73AE8
+P 8400 6000
+F 0 "NE1" H 8500 6275 50  0000 R CNN
+F 1 "~" H 8272 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 8400 6100 50  0001 C CNN
+F 3 "~" V 8400 6100 50  0001 C CNN
+	1    8400 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R43
+U 1 1 5DD73AEF
+P 8600 5950
+F 0 "R43" H 8670 5996 50  0000 L CNN
+F 1 "82k" H 8670 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8530 5950 50  0001 C CNN
+F 3 "~" H 8600 5950 50  0001 C CNN
+	1    8600 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8600 6100 8600 6200
+Wire Wire Line
+	8600 6200 8400 6200
+Connection ~ 8600 6200
+Text GLabel 8600 5750 1    50   Input ~ 0
++70v
+Text GLabel 8400 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	8400 5750 8400 5800
+Wire Wire Line
+	8600 5750 8600 5800
+Text GLabel 8600 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	8600 6600 8600 6650
+$Comp
+L Device:Q_NPN_EBC Q2
+U 1 1 5DD73AFF
+P 9025 6400
+F 0 "Q2" H 8825 6250 50  0000 L CNN
+F 1 "~" H 9216 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 9225 6500 50  0001 C CNN
+F 3 "~" H 9025 6400 50  0001 C CNN
+	1    9025 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE2
+U 1 1 5DD73B06
+P 8925 6000
+F 0 "NE2" H 9025 6275 50  0000 R CNN
+F 1 "~" H 8797 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 8925 6100 50  0001 C CNN
+F 3 "~" V 8925 6100 50  0001 C CNN
+	1    8925 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R44
+U 1 1 5DD73B0D
+P 9125 5950
+F 0 "R44" H 9195 5996 50  0000 L CNN
+F 1 "82k" H 9195 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9055 5950 50  0001 C CNN
+F 3 "~" H 9125 5950 50  0001 C CNN
+	1    9125 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9125 6100 9125 6200
+Wire Wire Line
+	9125 6200 8925 6200
+Connection ~ 9125 6200
+Text GLabel 9125 5750 1    50   Input ~ 0
++70v
+Text GLabel 8925 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	8925 5750 8925 5800
+Wire Wire Line
+	9125 5750 9125 5800
+Text GLabel 9125 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	9125 6600 9125 6650
+$Comp
+L Device:Q_NPN_EBC Q3
+U 1 1 5DD73B1D
+P 9550 6400
+F 0 "Q3" H 9350 6250 50  0000 L CNN
+F 1 "~" H 9741 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 9750 6500 50  0001 C CNN
+F 3 "~" H 9550 6400 50  0001 C CNN
+	1    9550 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE3
+U 1 1 5DD73B24
+P 9450 6000
+F 0 "NE3" H 9550 6275 50  0000 R CNN
+F 1 "~" H 9322 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 9450 6100 50  0001 C CNN
+F 3 "~" V 9450 6100 50  0001 C CNN
+	1    9450 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R45
+U 1 1 5DD73B2B
+P 9650 5950
+F 0 "R45" H 9720 5996 50  0000 L CNN
+F 1 "82k" H 9720 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 9580 5950 50  0001 C CNN
+F 3 "~" H 9650 5950 50  0001 C CNN
+	1    9650 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9650 6100 9650 6200
+Wire Wire Line
+	9650 6200 9450 6200
+Connection ~ 9650 6200
+Text GLabel 9650 5750 1    50   Input ~ 0
++70v
+Text GLabel 9450 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	9450 5750 9450 5800
+Wire Wire Line
+	9650 5750 9650 5800
+Text GLabel 9650 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	9650 6600 9650 6650
+$Comp
+L Device:Q_NPN_EBC Q4
+U 1 1 5DD73B3B
+P 10075 6400
+F 0 "Q4" H 9875 6250 50  0000 L CNN
+F 1 "~" H 10266 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 10275 6500 50  0001 C CNN
+F 3 "~" H 10075 6400 50  0001 C CNN
+	1    10075 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE4
+U 1 1 5DD73B42
+P 9975 6000
+F 0 "NE4" H 10075 6275 50  0000 R CNN
+F 1 "~" H 9847 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 9975 6100 50  0001 C CNN
+F 3 "~" V 9975 6100 50  0001 C CNN
+	1    9975 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R46
+U 1 1 5DD73B49
+P 10175 5950
+F 0 "R46" H 10245 5996 50  0000 L CNN
+F 1 "82k" H 10245 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 10105 5950 50  0001 C CNN
+F 3 "~" H 10175 5950 50  0001 C CNN
+	1    10175 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10175 6100 10175 6200
+Wire Wire Line
+	10175 6200 9975 6200
+Connection ~ 10175 6200
+Text GLabel 10175 5750 1    50   Input ~ 0
++70v
+Text GLabel 9975 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	9975 5750 9975 5800
+Wire Wire Line
+	10175 5750 10175 5800
+Text GLabel 10175 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	10175 6600 10175 6650
+$Comp
+L Device:Q_NPN_EBC Q5
+U 1 1 5DD73B59
+P 10600 6400
+F 0 "Q5" H 10400 6250 50  0000 L CNN
+F 1 "~" H 10791 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 10800 6500 50  0001 C CNN
+F 3 "~" H 10600 6400 50  0001 C CNN
+	1    10600 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE5
+U 1 1 5DD73B60
+P 10500 6000
+F 0 "NE5" H 10600 6275 50  0000 R CNN
+F 1 "~" H 10372 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 10500 6100 50  0001 C CNN
+F 3 "~" V 10500 6100 50  0001 C CNN
+	1    10500 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R47
+U 1 1 5DD73B67
+P 10700 5950
+F 0 "R47" H 10770 5996 50  0000 L CNN
+F 1 "82k" H 10770 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 10630 5950 50  0001 C CNN
+F 3 "~" H 10700 5950 50  0001 C CNN
+	1    10700 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10700 6100 10700 6200
+Wire Wire Line
+	10700 6200 10500 6200
+Connection ~ 10700 6200
+Text GLabel 10700 5750 1    50   Input ~ 0
++70v
+Text GLabel 10500 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	10500 5750 10500 5800
+Wire Wire Line
+	10700 5750 10700 5800
+Text GLabel 10700 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	10700 6600 10700 6650
+$Comp
+L Device:Q_NPN_EBC Q6
+U 1 1 5DD73B77
+P 11125 6400
+F 0 "Q6" H 10925 6250 50  0000 L CNN
+F 1 "~" H 11316 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 11325 6500 50  0001 C CNN
+F 3 "~" H 11125 6400 50  0001 C CNN
+	1    11125 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE6
+U 1 1 5DD73B7E
+P 11025 6000
+F 0 "NE6" H 11125 6275 50  0000 R CNN
+F 1 "~" H 10897 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 11025 6100 50  0001 C CNN
+F 3 "~" V 11025 6100 50  0001 C CNN
+	1    11025 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R48
+U 1 1 5DD73B85
+P 11225 5950
+F 0 "R48" H 11295 5996 50  0000 L CNN
+F 1 "82k" H 11295 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 11155 5950 50  0001 C CNN
+F 3 "~" H 11225 5950 50  0001 C CNN
+	1    11225 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11225 6100 11225 6200
+Wire Wire Line
+	11225 6200 11025 6200
+Connection ~ 11225 6200
+Text GLabel 11225 5750 1    50   Input ~ 0
++70v
+Text GLabel 11025 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	11025 5750 11025 5800
+Wire Wire Line
+	11225 5750 11225 5800
+Text GLabel 11225 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	11225 6600 11225 6650
+$Comp
+L Device:Q_NPN_EBC Q7
+U 1 1 5DD73B95
+P 11650 6400
+F 0 "Q7" H 11450 6250 50  0000 L CNN
+F 1 "~" H 11841 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 11850 6500 50  0001 C CNN
+F 3 "~" H 11650 6400 50  0001 C CNN
+	1    11650 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE7
+U 1 1 5DD73B9C
+P 11550 6000
+F 0 "NE7" H 11650 6275 50  0000 R CNN
+F 1 "~" H 11422 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 11550 6100 50  0001 C CNN
+F 3 "~" V 11550 6100 50  0001 C CNN
+	1    11550 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R49
+U 1 1 5DD73BA3
+P 11750 5950
+F 0 "R49" H 11820 5996 50  0000 L CNN
+F 1 "82k" H 11820 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 11680 5950 50  0001 C CNN
+F 3 "~" H 11750 5950 50  0001 C CNN
+	1    11750 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11750 6100 11750 6200
+Wire Wire Line
+	11750 6200 11550 6200
+Connection ~ 11750 6200
+Text GLabel 11750 5750 1    50   Input ~ 0
++70v
+Text GLabel 11550 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	11550 5750 11550 5800
+Wire Wire Line
+	11750 5750 11750 5800
+Text GLabel 11750 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	11750 6600 11750 6650
+$Comp
+L Device:Q_NPN_EBC Q8
+U 1 1 5DD73BB3
+P 12175 6400
+F 0 "Q8" H 11975 6250 50  0000 L CNN
+F 1 "~" H 12366 6355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92" H 12375 6500 50  0001 C CNN
+F 3 "~" H 12175 6400 50  0001 C CNN
+	1    12175 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Lamp_Neon NE8
+U 1 1 5DD73BBA
+P 12075 6000
+F 0 "NE8" H 12175 6275 50  0000 R CNN
+F 1 "~" H 11947 6045 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 12075 6100 50  0001 C CNN
+F 3 "~" V 12075 6100 50  0001 C CNN
+	1    12075 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R50
+U 1 1 5DD73BC1
+P 12275 5950
+F 0 "R50" H 12345 5996 50  0000 L CNN
+F 1 "82k" H 12345 5905 50  0000 L CNN
+F 2 "ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 12205 5950 50  0001 C CNN
+F 3 "~" H 12275 5950 50  0001 C CNN
+	1    12275 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12275 6100 12275 6200
+Wire Wire Line
+	12275 6200 12075 6200
+Connection ~ 12275 6200
+Text GLabel 12275 5750 1    50   Input ~ 0
++70v
+Text GLabel 12075 5750 1    50   Input ~ 0
+-40v
+Wire Wire Line
+	12075 5750 12075 5800
+Wire Wire Line
+	12275 5750 12275 5800
+Text GLabel 12275 6650 3    50   Input ~ 0
+0v
+Wire Wire Line
+	12275 6600 12275 6650
+Text GLabel 6750 5275 2    50   Input ~ 0
++70v
+Text GLabel 6750 5375 2    50   Input ~ 0
+0v
+Text GLabel 6750 5475 2    50   Input ~ 0
+-40v
+$Comp
+L Connector_Generic:Conn_01x08 J21
+U 1 1 5DD73BD4
+P 6950 7300
+F 0 "J21" H 6870 7917 50  0000 C CNN
+F 1 "~" H 6870 7826 50  0000 C CNN
+F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 6950 7300 50  0001 C CNN
+F 3 "~" H 6950 7300 50  0001 C CNN
+	1    6950 7300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 6400 8300 7000
+Wire Wire Line
+	8300 7000 7150 7000
+Wire Wire Line
+	7150 7100 8825 7100
+Wire Wire Line
+	8825 7100 8825 6400
+Wire Wire Line
+	9350 6400 9350 7200
+Wire Wire Line
+	9350 7200 7150 7200
+Wire Wire Line
+	7150 7300 9875 7300
+Wire Wire Line
+	9875 7300 9875 6400
+Wire Wire Line
+	10400 6400 10400 7400
+Wire Wire Line
+	10400 7400 7150 7400
+Wire Wire Line
+	7150 7500 10925 7500
+Wire Wire Line
+	10925 7500 10925 6400
+Wire Wire Line
+	11450 6400 11450 7600
+Wire Wire Line
+	11450 7600 7150 7600
+Wire Wire Line
+	7150 7700 11975 7700
+Wire Wire Line
+	11975 7700 11975 6400
+$Comp
+L Connector_Generic:Conn_01x03 J22
+U 1 1 5DD73BEB
+P 6375 5375
+F 0 "J22" H 6295 5142 50  0000 C CNN
+F 1 "~" H 6295 5141 50  0000 C CNN
+F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 6375 5375 50  0001 C CNN
+F 3 "~" H 6375 5375 50  0001 C CNN
+	1    6375 5375
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6575 5275 6750 5275
+Wire Wire Line
+	6575 5375 6750 5375
+Wire Wire Line
+	6750 5475 6575 5475
+Text GLabel 1575 800  0    50   Input ~ 0
+-6v
+Wire Wire Line
+	1575 800  1950 800 
+Text GLabel 1750 4175 0    50   Input ~ 0
+-6v
+Text GLabel 2550 4175 2    50   Input ~ 0
+-6v
+Wire Wire Line
+	1750 4175 1900 4175
+Wire Wire Line
+	2400 4175 2550 4175
+Text GLabel 2550 4275 2    50   Input ~ 0
+GND
+Text GLabel 1750 4275 0    50   Input ~ 0
+GND
+Wire Wire Line
+	2550 4275 2400 4275
+Wire Wire Line
+	1900 4275 1750 4275
 $EndSCHEMATC

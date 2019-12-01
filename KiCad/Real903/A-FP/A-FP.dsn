@@ -60,12 +60,15 @@
       (place U6 76200 -165100 front 90 (PN LS07))
     )
     (component ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
-      (place R1 200596 -155384 front 0 (PN 3k9))
-      (place R4 111760 -139700 front 270 (PN 3k9))
+      (place R1 159200 -71000 front 270 (PN 3k9))
+      (place R4 97600 -134600 front 270 (PN 3k9))
     )
     (component ELLIOTT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal::1
-      (place R2 140398 -93154.5 front 0 (PN 3k9))
-      (place R3 48260 -154368 front 0 (PN 3k9))
+      (place R2 219800 -134600 front 270 (PN 3k9))
+      (place R3 35000 -73600 front 270 (PN 3k9))
+    )
+    (component ELLIOTT:LSA::2
+      (place U4 137160 -165100 front 90 (PN LS08))
     )
   )
   (library
@@ -619,6 +622,24 @@
       (pin Oval[A]Pad_1400x1400_um 2 7620 0)
       (pin Round[A]Pad_1400_um 1 0 0)
     )
+    (image ELLIOTT:LSA::2
+      (outline (path signal 150  -5080 5080  45720 5080))
+      (outline (path signal 150  45720 5080  45720 -17145))
+      (outline (path signal 150  45720 -17145  -5080 -17145))
+      (outline (path signal 150  -5080 -17145  -5080 5080))
+      (pin Round[A]Pad_2000_um 21 -3175 3175)
+      (pin Round[A]Pad_2000_um 22 -3175 635)
+      (pin Round[A]Pad_2000_um 23 -3175 -1905)
+      (pin Round[A]Pad_2000_um 1 13970 -15240)
+      (pin Round[A]Pad_2000_um 2 16510 -15240)
+      (pin Round[A]Pad_2000_um 3 19050 -15240)
+      (pin Round[A]Pad_2000_um 4 21590 -15240)
+      (pin Round[A]Pad_2000_um 5 24130 -15240)
+      (pin Round[A]Pad_2000_um 6 26670 -15240)
+      (pin Round[A]Pad_2000_um 11 17780 3175)
+      (pin Round[A]Pad_2000_um 12 20320 3175)
+      (pin Round[A]Pad_2000_um 13 22860 3175)
+    )
     (padstack Round[A]Pad_1400_um
       (shape (circle F.Cu 1400))
       (shape (circle B.Cu 1400))
@@ -637,6 +658,11 @@
     (padstack Round[A]Pad_1700_um
       (shape (circle F.Cu 1700))
       (shape (circle B.Cu 1700))
+      (attach off)
+    )
+    (padstack Round[A]Pad_2000_um
+      (shape (circle F.Cu 2000))
+      (shape (circle B.Cu 2000))
       (attach off)
     )
     (padstack Oval[A]Pad_1400x1400_um
@@ -663,15 +689,15 @@
   (network
     (net 6v
       (pins C1-1 J1-2 J1-B U1-21 U3-21 U5-21 U7-21 U8-21 U10-21 U12-21 U14-21 U2-21
-        U6-21 U9-21 U11-21 U13-21)
+        U6-21 U9-21 U11-21 U13-21 U4-21)
     )
     (net GND
       (pins C1-2 C2-1 J1-1 J1-A J1-32 J1-AL U1-22 U3-22 U5-22 U7-22 U8-22 U10-22 U12-22
-        U14-22 U2-22 U6-22 U9-22 U11-22 U13-22)
+        U14-22 U2-22 U6-22 U9-22 U11-22 U13-22 U4-22)
     )
     (net Neg6v
       (pins C2-2 J1-31 J1-AK U1-23 U3-23 U5-23 U7-23 U8-23 U10-23 U12-23 U14-23 U2-23
-        U6-23 U9-23 U11-23 U13-23)
+        U6-23 U9-23 U11-23 U13-23 U4-23)
     )
     (net "J1-"
       (pins J1-3 U8-6)
@@ -763,11 +789,29 @@
     (net "Net-(U12-Pad3)"
       (pins U12-3 U13-13)
     )
-    (class kicad_default "" "1TPC-" 6v GND "J1-" "J2-" "J3-" "J4-" JTPC Neg6v
-      "Net-(U1-Pad4)" "Net-(U1-Pad6)" "Net-(U10-Pad4)" "Net-(U10-Pad6)" "Net-(U11-Pad1)"
-      "Net-(U12-Pad11)" "Net-(U12-Pad3)" "Net-(U13-Pad11)" "Net-(U14-Pad4)"
-      "Net-(U14-Pad6)" "Net-(U2-Pad13)" "Net-(U6-Pad13)" "Net-(U8-Pad3)" "PC1-"
-      "PC1-4" "PC2-" "PC3-" "PC4-" "WFM-" WFR "{PC1}" "{PC2}" "{PC3}" "{PC4}"
+    (net PulseGenMargin
+      (pins J1-12 U4-6)
+    )
+    (net 2.4vRef
+      (pins U2-4 U6-4 U9-4 U13-4 U4-11)
+    )
+    (class kicad_default "" "1TPC-" 2.4vRef 6v GND "J1-" "J2-" "J3-" "J4-"
+      JTPC Neg6v "Net-(J1-Pad10)" "Net-(J1-Pad11)" "Net-(J1-Pad13)" "Net-(J1-Pad15)"
+      "Net-(J1-Pad16)" "Net-(J1-Pad17)" "Net-(J1-Pad18)" "Net-(J1-Pad21)"
+      "Net-(J1-Pad22)" "Net-(J1-Pad23)" "Net-(J1-Pad24)" "Net-(J1-Pad25)"
+      "Net-(J1-Pad26)" "Net-(J1-Pad29)" "Net-(J1-Pad30)" "Net-(J1-Pad4)" "Net-(J1-Pad6)"
+      "Net-(J1-Pad7)" "Net-(J1-Pad9)" "Net-(J1-PadAB)" "Net-(J1-PadAC)" "Net-(J1-PadAD)"
+      "Net-(J1-PadAE)" "Net-(J1-PadAF)" "Net-(J1-PadAH)" "Net-(J1-PadAJ)"
+      "Net-(J1-PadC)" "Net-(J1-PadD)" "Net-(J1-PadE)" "Net-(J1-PadF)" "Net-(J1-PadH)"
+      "Net-(J1-PadJ)" "Net-(J1-PadN)" "Net-(J1-PadR)" "Net-(J1-PadU)" "Net-(J1-PadW)"
+      "Net-(J1-PadX)" "Net-(J1-PadZ)" "Net-(U1-Pad3)" "Net-(U1-Pad4)" "Net-(U1-Pad5)"
+      "Net-(U1-Pad6)" "Net-(U10-Pad3)" "Net-(U10-Pad4)" "Net-(U10-Pad5)" "Net-(U10-Pad6)"
+      "Net-(U11-Pad1)" "Net-(U12-Pad11)" "Net-(U12-Pad3)" "Net-(U12-Pad4)"
+      "Net-(U13-Pad11)" "Net-(U14-Pad3)" "Net-(U14-Pad4)" "Net-(U14-Pad5)"
+      "Net-(U14-Pad6)" "Net-(U2-Pad13)" "Net-(U3-Pad4)" "Net-(U5-Pad3)" "Net-(U5-Pad5)"
+      "Net-(U6-Pad13)" "Net-(U7-Pad4)" "Net-(U8-Pad3)" "Net-(U8-Pad4)" "PC1-"
+      "PC1-4" "PC2-" "PC3-" "PC4-" PulseGenMargin "WFM-" WFR "{PC1}" "{PC2}"
+      "{PC3}" "{PC4}"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

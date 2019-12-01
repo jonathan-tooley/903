@@ -358,8 +358,6 @@ Wire Wire Line
 Connection ~ 14800 1425
 Wire Wire Line
 	14800 1425 14900 1425
-Wire Wire Line
-	725  5700 725  7700
 Text GLabel 2025 1675 2    50   Input ~ 0
 JTPC
 Wire Wire Line
@@ -1350,4 +1348,45 @@ Wire Wire Line
 	4050 1950 4150 1950
 Wire Wire Line
 	4050 2000 4150 2000
+$Comp
+L LSA:LS08 U4
+U 1 1 5DB7AB5C
+P 1425 4700
+F 0 "U4" H 1575 5065 50  0000 C CNN
+F 1 "LS08" H 1575 4974 50  0000 C CNN
+F 2 "ELLIOTT:LSA" H 1425 4700 50  0001 C CNN
+F 3 "" H 1425 4700 50  0001 C CNN
+	1    1425 4700
+	1    0    0    -1  
+$EndComp
+Text GLabel 1175 4700 0    50   Input ~ 0
+PulseGenMargin
+Text GLabel 2025 4700 2    50   Input ~ 0
+2.4vRef
+Wire Wire Line
+	2025 4700 1975 4700
+Text GLabel 7275 550  0    50   Input ~ 0
+2.4vRef
+Wire Wire Line
+	7275 550  8875 550 
+Connection ~ 8875 550 
+Wire Wire Line
+	8875 550  10775 550 
+Connection ~ 10775 550 
+Wire Wire Line
+	10775 550  12200 550 
+Wire Wire Line
+	12200 550  14100 550 
+Connection ~ 12200 550 
+$Comp
+L LSA:LS08 U4
+U 2 1 5DBB8120
+P 9825 900
+F 0 "U4" V 9725 800 50  0000 L CNN
+F 1 "LS08" V 9825 775 50  0000 L CNN
+F 2 "ELLIOTT:LSA" H 9825 900 50  0001 C CNN
+F 3 "" H 9825 900 50  0001 C CNN
+	2    9825 900 
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC

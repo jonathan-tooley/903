@@ -11,8 +11,8 @@
 
   (page A2)
   (layers
-    (0 F.Cu signal)
-    (31 B.Cu signal)
+    (0 F.Cu signal hide)
+    (31 B.Cu signal hide)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -9233,7 +9233,7 @@
   (gr_text "SKT5W\n~JUMP" (at 23.25 188) (layer F.SilkS) (tstamp 5D76B058)
     (effects (font (size 1 1) (thickness 0.25)) (justify left))
   )
-  (gr_text "SKT5C\nPOWER" (at 23.25 183) (layer F.SilkS)
+  (gr_text "SKT5~c~\nPOWER" (at 23.25 183) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.25)) (justify left))
   )
   (gr_text "SKT5D\n~TEST" (at 23.25 177.75) (layer F.SilkS)
