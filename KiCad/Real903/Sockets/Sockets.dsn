@@ -1,0 +1,408 @@
+(pcb "C:\Users\v-jtool\OneDrive\Repos\903\KiCad\Real903\Sockets\Sockets.dsn"
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "(5.0.0)")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (path pcb 0  59926.9 -130521  15904.8 -130521  15904.8 -20558  59926.9 -20558
+            59926.9 -130521)
+    )
+    (via "Via[0-1]_800:400_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component ELLIOTT:MC61
+      (place J1 37846 -61722 front 0 (PN ~))
+    )
+    (component "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock"
+      (place J2 49199.8 -114376 front 270 (PN ~))
+      (place J4 26631.9 -36703 front 90 (PN ~))
+      (place J3 49415.7 -83756.5 front 270 (PN ~))
+    )
+  )
+  (library
+    (image ELLIOTT:MC61
+      (pin Round[A]Pad_1524_um CC -3330 -5920)
+      (pin Round[A]Pad_1524_um FF -6020 3100)
+      (pin Round[A]Pad_1524_um DD -5790 -3530)
+      (pin Round[A]Pad_1524_um EE -6780 -250)
+      (pin Round[A]Pad_1524_um GG -3730 5660)
+      (pin Round[A]Pad_1524_um HH 0 5080)
+      (pin Round[A]Pad_1524_um JJ 2670 2390)
+      (pin Round[A]Pad_1524_um NN -2670 2390)
+      (pin Round[A]Pad_1524_um MM -3430 -1040)
+      (pin Round[A]Pad_1524_um LL 0 -3350)
+      (pin Round[A]Pad_1524_um KK 3430 -1040)
+      (pin Round[A]Pad_1524_um ~t~ -7240 7190)
+      (pin Round[A]Pad_1524_um ~v~ 0 8590)
+      (pin Round[A]Pad_1524_um ~w~ 3730 5660)
+      (pin Round[A]Pad_1524_um ~r~ -10130 1170)
+      (pin Round[A]Pad_1524_um ~q~ -9960 -2240)
+      (pin Round[A]Pad_1524_um ~s~ -9190 4450)
+      (pin Round[A]Pad_1524_um ~u~ -4390 9220)
+      (pin Round[A]Pad_1524_um ~x~ 6020 3100)
+      (pin Round[A]Pad_1524_um ~y~ 6780 -250)
+      (pin Round[A]Pad_1524_um ~z~ 5790 -3530)
+      (pin Round[A]Pad_1524_um BB 0 -6780)
+      (pin Round[A]Pad_1524_um AA 3330 -5920)
+      (pin Round[A]Pad_1524_um ~g~ 9960 -2240)
+      (pin Round[A]Pad_1524_um ~h~ 8660 -5410)
+      (pin Round[A]Pad_1524_um ~i~ 6380 -7980)
+      (pin Round[A]Pad_1524_um ~k~ 0 -10210)
+      (pin Round[A]Pad_1524_um ~j~ 3380 -9630)
+      (pin Round[A]Pad_1524_um ~m~ -3380 -9630)
+      (pin Round[A]Pad_1524_um ~n~ -6380 -7980)
+      (pin Round[A]Pad_1524_um ~p~ -8660 -5410)
+      (pin Round[A]Pad_1524_um ~f~ 10130 1170)
+      (pin Round[A]Pad_1524_um P -6580 -11940)
+      (pin Round[A]Pad_1524_um N -3400 -13180)
+      (pin Round[A]Pad_1524_um T -12980 -4170)
+      (pin Round[A]Pad_1524_um R -9350 -9930)
+      (pin Round[A]Pad_1524_um U -13610 -760)
+      (pin Round[A]Pad_1524_um S -11530 -7290)
+      (pin Round[A]Pad_1524_um V -13390 2570)
+      (pin Round[A]Pad_1524_um ~a~ -1730 11530)
+      (pin Round[A]Pad_1524_um X -10490 8710)
+      (pin Round[A]Pad_1524_um Y -7980 11050)
+      (pin Round[A]Pad_1524_um Z -4980 12100)
+      (pin Round[A]Pad_1524_um ~b~ 1730 11530)
+      (pin Round[A]Pad_1524_um ~c~ 4390 9220)
+      (pin Round[A]Pad_1524_um ~d~ 7240 7190)
+      (pin Round[A]Pad_1524_um ~e~ 9190 4450)
+      (pin Round[A]Pad_1524_um W -12320 5840)
+      (pin Round[A]Pad_1524_um M 0 -13640)
+      (pin Round[A]Pad_1524_um L 3400 -13180)
+      (pin Round[A]Pad_1524_um K 6580 -11940)
+      (pin Round[A]Pad_1524_um H 11530 -7290)
+      (pin Round[A]Pad_1524_um G 12980 -4170)
+      (pin Round[A]Pad_1524_um J 9350 -9930)
+      (pin Round[A]Pad_1524_um F 13610 -760)
+      (pin Round[A]Pad_1524_um E 13390 2570)
+      (pin Round[A]Pad_1524_um D 12320 5840)
+      (pin Round[A]Pad_1524_um C 10490 8710)
+      (pin Round[A]Pad_1524_um B 7980 11050)
+      (pin Round[A]Pad_1524_um A 4980 12700)
+      (pin Round[A]Pad_1524_um PP 0 0)
+    )
+    (image "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock"
+      (outline (path signal 120  -2540 -254  -2032 0))
+      (outline (path signal 120  -2540 254  -2540 -254))
+      (outline (path signal 120  -2032 0  -2540 254))
+      (outline (path signal 120  -1400 -33150  5750 -33150))
+      (outline (path signal 120  5750 -33150  16000 -29950))
+      (outline (path signal 120  16000 -29950  16000 -25950))
+      (outline (path signal 120  16000 -25950  11550 -24050))
+      (outline (path signal 120  11550 -24050  11550 1050))
+      (outline (path signal 120  11550 1050  16000 3100))
+      (outline (path signal 120  16000 3100  16000 7050))
+      (outline (path signal 120  16000 7050  5750 10300))
+      (outline (path signal 120  5750 10300  -1400 10300))
+      (outline (path signal 100  -1270 -26420  3300 -26420))
+      (outline (path signal 100  3300 -26420  4570 -27690))
+      (outline (path signal 100  4570 -27690  4570 -29720))
+      (outline (path signal 100  4570 -29720  3300 -30990))
+      (outline (path signal 100  3300 -30990  -1270 -30990))
+      (outline (path signal 100  -1270 8130  3300 8130))
+      (outline (path signal 100  3300 8130  4570 6860))
+      (outline (path signal 100  4570 6860  4570 4830))
+      (outline (path signal 100  4570 4830  3300 3560))
+      (outline (path signal 100  3300 3560  -1270 3560))
+      (outline (path signal 100  -1270 -33020  5710 -33020))
+      (outline (path signal 100  5710 -33020  15880 -29840))
+      (outline (path signal 100  15880 -29840  15880 -26040))
+      (outline (path signal 100  15880 -26040  11430 -24130))
+      (outline (path signal 100  -1270 -33020  -1270 10160))
+      (outline (path signal 100  -1270 10160  5710 10160))
+      (outline (path signal 100  5710 10160  15880 6980))
+      (outline (path signal 100  15880 6980  15880 3180))
+      (outline (path signal 100  11430 -24130  11430 1140))
+      (outline (path signal 100  15880 3180  11430 1140))
+      (outline (path signal 100  0 0  -1268 -1020))
+      (outline (path signal 100  -1268 1010  0 0))
+      (outline (path signal 50  -1520 -33270  -1520 10410))
+      (outline (path signal 50  -1520 -33270  16120 -33270))
+      (outline (path signal 50  16120 10410  -1520 10410))
+      (outline (path signal 50  16120 10410  16120 -33270))
+      (outline (path signal 120  -1390 -33140  -1390 10280))
+      (pin Round[A]Pad_3050_um (rotate 90) @1 1780 -28700)
+      (pin Round[A]Pad_3050_um (rotate 90) @2 1780 5840)
+      (pin Rect[A]Pad_1520x1520_um (rotate 90) 1 0 0)
+      (pin Round[A]Pad_1520_um (rotate 90) 2 2540 0)
+      (pin Round[A]Pad_1520_um (rotate 90) 3 0 -2540)
+      (pin Round[A]Pad_1520_um (rotate 90) 4 2540 -2540)
+      (pin Round[A]Pad_1520_um (rotate 90) 5 0 -5080)
+      (pin Round[A]Pad_1520_um (rotate 90) 6 2540 -5080)
+      (pin Round[A]Pad_1520_um (rotate 90) 7 0 -7620)
+      (pin Round[A]Pad_1520_um (rotate 90) 8 2540 -7620)
+      (pin Round[A]Pad_1520_um (rotate 90) 9 0 -10160)
+      (pin Round[A]Pad_1520_um (rotate 90) 10 2540 -10160)
+      (pin Round[A]Pad_1520_um (rotate 90) 11 0 -12700)
+      (pin Round[A]Pad_1520_um (rotate 90) 12 2540 -12700)
+      (pin Round[A]Pad_1520_um (rotate 90) 13 0 -15240)
+      (pin Round[A]Pad_1520_um (rotate 90) 14 2540 -15240)
+      (pin Round[A]Pad_1520_um (rotate 90) 15 0 -17780)
+      (pin Round[A]Pad_1520_um (rotate 90) 16 2540 -17780)
+      (pin Round[A]Pad_1520_um (rotate 90) 17 0 -20320)
+      (pin Round[A]Pad_1520_um (rotate 90) 18 2540 -20320)
+      (pin Round[A]Pad_1520_um (rotate 90) 19 0 -22860)
+      (pin Round[A]Pad_1520_um (rotate 90) 20 2540 -22860)
+    )
+    (padstack Round[A]Pad_1520_um
+      (shape (circle F.Cu 1520))
+      (shape (circle B.Cu 1520))
+      (attach off)
+    )
+    (padstack Round[A]Pad_1524_um
+      (shape (circle F.Cu 1524))
+      (shape (circle B.Cu 1524))
+      (attach off)
+    )
+    (padstack Round[A]Pad_3050_um
+      (shape (circle F.Cu 3050))
+      (shape (circle B.Cu 3050))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1520x1520_um
+      (shape (rect F.Cu -760 -760 760 760))
+      (shape (rect B.Cu -760 -760 760 760))
+      (attach off)
+    )
+    (padstack "Via[0-1]_800:400_um"
+      (shape (circle F.Cu 800))
+      (shape (circle B.Cu 800))
+      (attach off)
+    )
+  )
+  (network
+    (net "Net-(J1-PadB)"
+      (pins J1-B J2-1)
+    )
+    (net "Net-(J1-PadC)"
+      (pins J1-C J2-2)
+    )
+    (net "Net-(J1-PadD)"
+      (pins J1-D J2-3)
+    )
+    (net "Net-(J1-PadE)"
+      (pins J1-E J2-4)
+    )
+    (net "Net-(J1-PadF)"
+      (pins J1-F J2-5)
+    )
+    (net "Net-(J1-PadJ)"
+      (pins J1-J J2-8)
+    )
+    (net "Net-(J1-PadG)"
+      (pins J1-G J2-6)
+    )
+    (net "Net-(J1-PadH)"
+      (pins J1-H J2-7)
+    )
+    (net "Net-(J1-PadL)"
+      (pins J1-L J2-10)
+    )
+    (net "Net-(J1-PadM)"
+      (pins J1-M J2-11)
+    )
+    (net "Net-(J1-PadW)"
+      (pins J1-W J2-19)
+    )
+    (net "Net-(J1-PadY)"
+      (pins J1-Y J3-1)
+    )
+    (net "Net-(J1-PadX)"
+      (pins J1-X J2-20)
+    )
+    (net "Net-(J1-PadV)"
+      (pins J1-V J2-18)
+    )
+    (net "Net-(J1-PadS)"
+      (pins J1-S J2-15)
+    )
+    (net "Net-(J1-PadU)"
+      (pins J1-U J2-17)
+    )
+    (net "Net-(J1-PadR)"
+      (pins J1-R J2-14)
+    )
+    (net "Net-(J1-PadT)"
+      (pins J1-T J2-16)
+    )
+    (net "Net-(J1-PadN)"
+      (pins J1-N J2-12)
+    )
+    (net "Net-(J1-PadP)"
+      (pins J1-P J2-13)
+    )
+    (net "Net-(J1-PadPP)"
+      (pins J1-PP J4-1)
+    )
+    (net "Net-(J1-PadK)"
+      (pins J1-K J2-9)
+    )
+    (net "Net-(J1-PadZ)"
+      (pins J1-Z J3-2)
+    )
+    (net "Net-(J1-PadAA)"
+      (pins J1-AA J4-14)
+    )
+    (net "Net-(J1-PadBB)"
+      (pins J1-BB J4-13)
+    )
+    (net "Net-(J1-PadKK)"
+      (pins J1-KK J4-5)
+    )
+    (net "Net-(J1-PadLL)"
+      (pins J1-LL J4-4)
+    )
+    (net "Net-(J1-PadMM)"
+      (pins J1-MM J4-3)
+    )
+    (net "Net-(J1-PadNN)"
+      (pins J1-NN J4-2)
+    )
+    (net "Net-(J1-PadJJ)"
+      (pins J1-JJ J4-6)
+    )
+    (net "Net-(J1-PadHH)"
+      (pins J1-HH J4-7)
+    )
+    (net "Net-(J1-PadGG)"
+      (pins J1-GG J4-8)
+    )
+    (net "Net-(J1-PadEE)"
+      (pins J1-EE J4-10)
+    )
+    (net "Net-(J1-PadDD)"
+      (pins J1-DD J4-11)
+    )
+    (net "Net-(J1-PadFF)"
+      (pins J1-FF J4-9)
+    )
+    (net "Net-(J1-PadCC)"
+      (pins J1-CC J4-12)
+    )
+    (net "Net-(J1-Pad~a~)"
+      (pins J1-~a~ J3-3)
+    )
+    (net "Net-(J1-Pad~b~)"
+      (pins J1-~b~ J3-4)
+    )
+    (net "Net-(J1-Pad~c~)"
+      (pins J1-~c~ J3-5)
+    )
+    (net "Net-(J1-Pad~t~)"
+      (pins J1-~t~ J3-20)
+    )
+    (net "Net-(J1-Pad~v~)"
+      (pins J1-~v~ J4-19)
+    )
+    (net "Net-(J1-Pad~w~)"
+      (pins J1-~w~ J4-18)
+    )
+    (net "Net-(J1-Pad~r~)"
+      (pins J1-~r~ J3-18)
+    )
+    (net "Net-(J1-Pad~q~)"
+      (pins J1-~q~ J3-17)
+    )
+    (net "Net-(J1-Pad~s~)"
+      (pins J1-~s~ J3-19)
+    )
+    (net "Net-(J1-Pad~u~)"
+      (pins J1-~u~ J4-20)
+    )
+    (net "Net-(J1-Pad~x~)"
+      (pins J1-~x~ J4-17)
+    )
+    (net "Net-(J1-Pad~y~)"
+      (pins J1-~y~ J4-16)
+    )
+    (net "Net-(J1-Pad~z~)"
+      (pins J1-~z~ J4-15)
+    )
+    (net "Net-(J1-Pad~g~)"
+      (pins J1-~g~ J3-9)
+    )
+    (net "Net-(J1-Pad~h~)"
+      (pins J1-~h~ J3-10)
+    )
+    (net "Net-(J1-Pad~i~)"
+      (pins J1-~i~ J3-11)
+    )
+    (net "Net-(J1-Pad~k~)"
+      (pins J1-~k~ J3-13)
+    )
+    (net "Net-(J1-Pad~j~)"
+      (pins J1-~j~ J3-12)
+    )
+    (net "Net-(J1-Pad~m~)"
+      (pins J1-~m~ J3-14)
+    )
+    (net "Net-(J1-Pad~n~)"
+      (pins J1-~n~ J3-15)
+    )
+    (net "Net-(J1-Pad~p~)"
+      (pins J1-~p~ J3-16)
+    )
+    (net "Net-(J1-Pad~f~)"
+      (pins J1-~f~ J3-8)
+    )
+    (net "Net-(J1-Pad~d~)"
+      (pins J1-~d~ J3-6)
+    )
+    (net "Net-(J1-Pad~e~)"
+      (pins J1-~e~ J3-7)
+    )
+    (class kicad_default "" "Net-(J1-PadA)" "Net-(J1-PadAA)" "Net-(J1-PadB)"
+      "Net-(J1-PadBB)" "Net-(J1-PadC)" "Net-(J1-PadCC)" "Net-(J1-PadD)" "Net-(J1-PadDD)"
+      "Net-(J1-PadE)" "Net-(J1-PadEE)" "Net-(J1-PadF)" "Net-(J1-PadFF)" "Net-(J1-PadG)"
+      "Net-(J1-PadGG)" "Net-(J1-PadH)" "Net-(J1-PadHH)" "Net-(J1-PadJ)" "Net-(J1-PadJJ)"
+      "Net-(J1-PadK)" "Net-(J1-PadKK)" "Net-(J1-PadL)" "Net-(J1-PadLL)" "Net-(J1-PadM)"
+      "Net-(J1-PadMM)" "Net-(J1-PadN)" "Net-(J1-PadNN)" "Net-(J1-PadP)" "Net-(J1-PadPP)"
+      "Net-(J1-PadR)" "Net-(J1-PadS)" "Net-(J1-PadT)" "Net-(J1-PadU)" "Net-(J1-PadV)"
+      "Net-(J1-PadW)" "Net-(J1-PadX)" "Net-(J1-PadY)" "Net-(J1-PadZ)" "Net-(J1-Padg)"
+      "Net-(J1-Padh)" "Net-(J1-Padi)" "Net-(J1-Padj)" "Net-(J1-Padk)" "Net-(J1-Padm)"
+      "Net-(J1-Padn)" "Net-(J1-Padp)" "Net-(J1-Padq)" "Net-(J1-Padr)" "Net-(J1-Pads)"
+      "Net-(J1-Padt)" "Net-(J1-Padu)" "Net-(J1-Padv)" "Net-(J1-Padw)" "Net-(J1-Padx)"
+      "Net-(J1-Pady)" "Net-(J1-Padz)" "Net-(J1-Pad~a~)" "Net-(J1-Pad~b~)"
+      "Net-(J1-Pad~c~)" "Net-(J1-Pad~d~)" "Net-(J1-Pad~e~)" "Net-(J1-Pad~f~)"
+      "Net-(J1-Pad~g~)" "Net-(J1-Pad~h~)" "Net-(J1-Pad~i~)" "Net-(J1-Pad~j~)"
+      "Net-(J1-Pad~k~)" "Net-(J1-Pad~m~)" "Net-(J1-Pad~n~)" "Net-(J1-Pad~p~)"
+      "Net-(J1-Pad~q~)" "Net-(J1-Pad~r~)" "Net-(J1-Pad~s~)" "Net-(J1-Pad~t~)"
+      "Net-(J1-Pad~u~)" "Net-(J1-Pad~v~)" "Net-(J1-Pad~w~)" "Net-(J1-Pad~x~)"
+      "Net-(J1-Pad~y~)" "Net-(J1-Pad~z~)"
+      (circuit
+        (use_via Via[0-1]_800:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+  )
+  (wiring
+  )
+)

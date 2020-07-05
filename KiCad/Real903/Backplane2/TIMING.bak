@@ -946,7 +946,7 @@ SHO
 Text GLabel 3800 3550 2    40   Output ~ 0
 SKT5H
 Text GLabel 3800 4050 2    40   Output ~ 0
-SKT9-28
+SKT3HH
 Text GLabel 3800 3850 2    40   Output ~ 0
 ~RESET~1
 Text GLabel 3800 3950 2    40   Output ~ 0
@@ -1221,7 +1221,7 @@ $EndComp
 Text GLabel 2900 7000 0    40   Input ~ 0
 SKT14BB
 Text GLabel 2900 7100 0    40   Output ~ 0
-SKT9-28
+SKT3HH
 Text GLabel 2900 7200 0    40   Output ~ 0
 SKT3JJ
 Wire Wire Line

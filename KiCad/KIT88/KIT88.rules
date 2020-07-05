@@ -1,0 +1,163 @@
+
+(rules PCB KIT88
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1211)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 3.2)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.5)
+    )
+  )
+  (rule
+    (width 1270.0)
+    (clear 254.2)
+    (clear 635.0 (type smd_to_turn_gap))
+    (clear 2540.2 (type default_HT))
+    (clear 508.2 (type default_Signal))
+    (clear 63.6 (type smd_smd))
+    (clear 2540.2 (type smd_HT))
+    (clear 508.2 (type smd_Signal))
+    (clear 2540.2 (type "kicad_default"_HT))
+    (clear 508.2 (type "kicad_default"_Signal))
+    (clear 2540.2 (type BigHeater_HT))
+    (clear 508.2 (type BigHeater_Signal))
+    (clear 2540.2 (type HT_HT))
+    (clear 2540.2 (type HT_Heater))
+    (clear 2540.2 (type HT_Signal))
+    (clear 508.2 (type Heater_Signal))
+    (clear 508.2 (type Signal_Signal))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_800:400_um-BigHeater" "Via[0-1]_800:400_um" BigHeater
+  )
+  (via 
+    "Via[0-1]_800:400_um-HT" "Via[0-1]_800:400_um" HT
+  )
+  (via 
+    "Via[0-1]_800:400_um-Heater" "Via[0-1]_800:400_um" Heater
+  )
+  (via 
+    "Via[0-1]_800:400_um-Signal" "Via[0-1]_800:400_um" Signal
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (via_rule
+    BigHeater "Via[0-1]_800:400_um-BigHeater"
+  )
+  (via_rule
+    HT "Via[0-1]_800:400_um-HT"
+  )
+  (via_rule
+    Heater "Via[0-1]_800:400_um-Heater"
+  )
+  (via_rule
+    Signal "Via[0-1]_800:400_um-Signal"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 1270.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    GND 510v "-10v" 225v 365v 290v /TR6 /TR1
+    /TR4 /TR3 /TR5 /BiasV /TR2 /V1Cathode /V2Cathode /V3Cathode
+    /V4Cathode /U7Cathode2 /U8Cathode2 /U7Cathode /U8Cathode /V1Grid /V2Grid /U5Cathode
+    /U6Cathode /V3Grid /V4Grid /U7Grid /U8Grid /V3Anode /V1Anode /V2Anode
+    /V4Anode
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 1270.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class BigHeater
+    /V1H+ "/V1H-" /V2H+ "/V2H-" /V3H+ "/V3H-" /V4H+ "/V4H-"
+    (clearance_class BigHeater)
+    (via_rule BigHeater)
+    (rule
+      (width 2540.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class HT
+    (clearance_class HT)
+    (via_rule HT)
+    (rule
+      (width 2540.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Heater
+    /Stage1Heater+ "/Stage1Heater-" "/V5H-" /V5H+ "/V6H-" /V6H+ "/V7H-" /V7H+
+    "/V8H-" /V8H+
+    (clearance_class Heater)
+    (via_rule Heater)
+    (rule
+      (width 1270.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Signal
+    /Signal3Ra /Signal4Ra /Signal3Lb /Signal4Lb /Signal3R /Signal3L /Signal3Rb /Signal4Rb
+    /Signal4La /Signal3La /FBR /FBL /Signal5Ra /Signal5Lb /Signal2R /Signal2L
+    /Signal5La /Signal1R /Signal1L /Signal5Rb /V7Input /V8Input
+    (clearance_class Signal)
+    (via_rule Signal)
+    (rule
+      (width 508.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

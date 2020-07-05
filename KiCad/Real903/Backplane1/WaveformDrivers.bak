@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 4
+Sheet 2 6
 Title ""
 Date ""
 Rev ""
@@ -27,14 +27,8 @@ F 3 "" H 3900 3475 50  0001 C CNN
 	1    3900 3475
 	1    0    0    -1  
 $EndComp
-Text GLabel 4375 3475 2    40   Input ~ 0
-JTG16-
-Text GLabel 4375 4775 2    40   Input ~ 0
-JTG15-
 Wire Wire Line
 	4200 4775 4375 4775
-Text GLabel 4375 4575 2    40   Input ~ 0
-JTG14-
 Wire Wire Line
 	4375 4575 4200 4575
 Wire Wire Line
@@ -62,14 +56,6 @@ Wire Wire Line
 	4375 3575 4200 3575
 Text GLabel 4375 3775 2    40   Input ~ 0
 ~M~TFa
-Text GLabel 4375 4075 2    40   Input ~ 0
-J14
-Text GLabel 4375 3875 2    40   Input ~ 0
-MTI
-Text GLabel 3525 4775 0    40   Input ~ 0
-J15
-Text GLabel 4375 3675 2    40   Input ~ 0
-J16
 Text GLabel 4375 4275 2    40   Input ~ 0
 QTFa
 Text GLabel 4375 4375 2    40   Input ~ 0
@@ -119,8 +105,6 @@ Wire Wire Line
 Wire Wire Line
 	3700 5075 3525 5075
 Wire Wire Line
-	3525 4775 3700 4775
-Wire Wire Line
 	3525 1975 3700 1975
 Wire Wire Line
 	3700 2075 3525 2075
@@ -141,15 +125,11 @@ Wire Wire Line
 Wire Wire Line
 	4200 3175 4375 3175
 Wire Wire Line
-	4375 3675 4200 3675
-Wire Wire Line
 	4200 3775 4375 3775
 Wire Wire Line
 	4375 3875 4200 3875
 Wire Wire Line
 	4200 3975 4375 3975
-Wire Wire Line
-	4375 4075 4200 4075
 Wire Wire Line
 	4200 4175 4375 4175
 Wire Wire Line
@@ -160,54 +140,6 @@ Wire Wire Line
 	4375 4475 4200 4475
 Wire Wire Line
 	4200 4675 4375 4675
-Text GLabel 3525 3375 0    40   Input ~ 0
-JTF1
-Text GLabel 3525 3475 0    40   Input ~ 0
-JTF2
-Text GLabel 3525 3575 0    40   Input ~ 0
-MTF1
-Text GLabel 3525 3675 0    40   Input ~ 0
-MTF2
-Text GLabel 3525 3775 0    40   Input ~ 0
-~M~TF1
-Text GLabel 3525 3875 0    40   Input ~ 0
-~M~TF2
-Text GLabel 3525 4375 0    40   Input ~ 0
-QTF1
-Text GLabel 3525 4475 0    40   Input ~ 0
-QTF2
-Text GLabel 3525 4575 0    40   Input ~ 0
-ATF1
-Text GLabel 3525 4675 0    40   Input ~ 0
-ATF2
-Text GLabel 3525 2275 0    40   Input ~ 0
-FTG1
-Text GLabel 3525 2175 0    40   Input ~ 0
-FTG2
-Text GLabel 3525 2575 0    40   Input ~ 0
-LTG1
-Text GLabel 3525 2675 0    40   Input ~ 0
-LTG2
-Text GLabel 3525 2475 0    40   Input ~ 0
-RTG1
-Text GLabel 3525 2375 0    40   Input ~ 0
-RTG2
-Text GLabel 3525 3275 0    40   Input ~ 0
-VTG1
-Text GLabel 3525 3175 0    40   Input ~ 0
-VTG2
-Text GLabel 3525 3975 0    40   Input ~ 0
-MTP1
-Text GLabel 3525 4075 0    40   Input ~ 0
-MTP2
-Text GLabel 3525 2875 0    40   Input ~ 0
-~PTG1~1
-Text GLabel 3525 2775 0    40   Input ~ 0
-PTG1-2
-Text GLabel 3525 2975 0    40   Input ~ 0
-~PTG2~1
-Text GLabel 3525 3075 0    40   Input ~ 0
-PTG2-2
 Text GLabel 3525 4175 0    40   Input ~ 0
 JTPC
 Text GLabel 3525 4275 0    40   Input ~ 0
@@ -301,54 +233,10 @@ Wire Wire Line
 	2200 1975 2025 1975
 Wire Wire Line
 	2025 2075 2200 2075
-Text GLabel 2025 4775 0    40   Input ~ 0
-~OTG~1
 Wire Wire Line
 	2025 4775 2200 4775
-Text GLabel 2875 4275 2    40   Input ~ 0
-~OTG~2
 Wire Wire Line
 	2875 4275 2700 4275
-Text GLabel 2025 4475 0    40   Input ~ 0
-~OTA~2
-Text GLabel 2025 4375 0    40   Input ~ 0
-~OTA~1
-Text GLabel 2025 3075 0    40   Input ~ 0
-~OTJ~2
-Text GLabel 2025 2975 0    40   Input ~ 0
-~OTJ~1
-Text GLabel 2025 3475 0    40   Input ~ 0
-~OTM~2
-Text GLabel 2025 3375 0    40   Input ~ 0
-~OTM~1
-Text GLabel 2025 4075 0    40   Input ~ 0
-~OTP~2
-Text GLabel 2025 3975 0    40   Input ~ 0
-~OTP~1
-Text GLabel 2025 2875 0    40   Input ~ 0
-~OTG~2
-Text GLabel 2025 2775 0    40   Input ~ 0
-~OTG~1
-Text GLabel 2025 4175 0    40   Input ~ 0
-GTA1
-Text GLabel 2025 4275 0    40   Input ~ 0
-GTA2
-Text GLabel 2025 3275 0    40   Input ~ 0
-GTJ2
-Text GLabel 2025 3175 0    40   Input ~ 0
-GTJ1
-Text GLabel 2025 3875 0    40   Input ~ 0
-GTM2
-Text GLabel 2025 3775 0    40   Input ~ 0
-GTM1
-Text GLabel 2025 4575 0    40   Input ~ 0
-GTQ1
-Text GLabel 2025 4675 0    40   Input ~ 0
-GTQ2
-Text GLabel 2025 3675 0    40   Input ~ 0
-WTM2
-Text GLabel 2025 3575 0    40   Input ~ 0
-WTM1
 Text GLabel 2025 2375 0    40   Input ~ 0
 CRS
 Text GLabel 2025 2475 0    40   Input ~ 0
@@ -406,8 +294,6 @@ Text GLabel 2875 4775 2    40   Input ~ 0
 ~RESET~2
 Text GLabel 2875 4075 2    40   Input ~ 0
 ~OTA~'
-Text GLabel 2875 2975 2    40   Input ~ 0
-~OTJ
 Text GLabel 2875 3375 2    40   Input ~ 0
 OTMa
 Text GLabel 2875 4575 2    40   Input ~ 0
@@ -626,10 +512,6 @@ Wire Wire Line
 	2150 7050 2300 7050
 Wire Wire Line
 	2300 6950 2150 6950
-Text GLabel 2150 7150 0    40   Input ~ 0
-~OTG~1
-Wire Wire Line
-	2150 7150 2300 7150
 NoConn ~ 2300 7250
 Text GLabel 4375 3275 2    40   Input ~ 0
 ~VTG
@@ -640,4 +522,115 @@ Text GLabel 3600 7150 0    40   Input ~ 0
 Wire Wire Line
 	3600 7150 3800 7150
 NoConn ~ 3800 7250
+Text HLabel 3525 2175 0    40   Input ~ 0
+FTG2
+Text HLabel 3525 3175 0    40   Input ~ 0
+VTG2
+Text HLabel 3525 2275 0    40   Input ~ 0
+FTG1
+Text HLabel 3525 3275 0    40   Input ~ 0
+VTG1
+Text HLabel 4375 4575 2    40   Input ~ 0
+~JTG14~
+Text HLabel 4375 3475 2    40   Input ~ 0
+~JTG16~
+Text HLabel 4375 4775 2    40   Input ~ 0
+~JTG15~
+Text HLabel 3525 2475 0    40   Input ~ 0
+RTG1
+Text HLabel 3525 2575 0    40   Input ~ 0
+LTG1
+Text HLabel 3525 2375 0    40   Input ~ 0
+RTG2
+Text HLabel 3525 2675 0    40   Input ~ 0
+LTG2
+Text HLabel 3525 2775 0    40   Input ~ 0
+PTG1-2
+Text HLabel 3525 2875 0    40   Input ~ 0
+PTG1-1
+Text HLabel 3525 3075 0    40   Input ~ 0
+PTG2-2
+Text HLabel 3525 2975 0    40   Input ~ 0
+PTG2-1
+Text HLabel 2025 2775 0    40   Input ~ 0
+~OTG~1
+Text HLabel 2025 2875 0    40   Input ~ 0
+~OTG~2
+Text HLabel 2025 3275 0    40   Input ~ 0
+GTJ2
+Text HLabel 2025 3175 0    40   Input ~ 0
+GTJ1
+Text HLabel 2025 2975 0    40   Input ~ 0
+~OTJ~1
+Text HLabel 2025 3075 0    40   Input ~ 0
+~OTJ~2
+Text HLabel 3525 3575 0    40   Input ~ 0
+MTF1
+Text HLabel 3525 3675 0    40   Input ~ 0
+MTF2
+Text HLabel 2025 3375 0    40   Input ~ 0
+~OTM~1
+Text HLabel 2025 3475 0    40   Input ~ 0
+~OTM~2
+Text HLabel 2025 3575 0    40   Input ~ 0
+WTM1
+Text HLabel 2025 3675 0    40   Input ~ 0
+WTM2
+Text HLabel 3525 3375 0    40   Input ~ 0
+JTF1
+Text HLabel 3525 3475 0    40   Input ~ 0
+JTF2
+Text HLabel 3525 3775 0    40   Input ~ 0
+~M~TF1
+Text HLabel 3525 3875 0    40   Input ~ 0
+~M~TF2
+Text HLabel 2025 3775 0    40   Input ~ 0
+GTM1
+Text HLabel 2025 3875 0    40   Input ~ 0
+GTM2
+Text GLabel 2875 2975 2    40   Input ~ 0
+~OTJ
+Text HLabel 2025 4175 0    40   Input ~ 0
+GTA1
+Text HLabel 2025 4275 0    40   Input ~ 0
+GTA2
+Text HLabel 2025 4375 0    40   Input ~ 0
+~OTA~1
+Text HLabel 2025 4475 0    40   Input ~ 0
+~OTA~2
+Text HLabel 3525 4475 0    40   Input ~ 0
+QTF2
+Text HLabel 3525 4375 0    40   Input ~ 0
+QTF1
+Text HLabel 3525 4575 0    40   Input ~ 0
+ATF1
+Text HLabel 3525 4675 0    40   Input ~ 0
+ATF2
+Text HLabel 2025 4575 0    40   Input ~ 0
+GTQ1
+Text HLabel 2025 4675 0    40   Input ~ 0
+GTQ2
+Text HLabel 2025 4775 0    40   Input ~ 0
+~OTQ~1
+NoConn ~ 2300 7150
+Text HLabel 3525 3975 0    40   Input ~ 0
+MTP1
+Text HLabel 3525 4075 0    40   Input ~ 0
+MTP2
+Text HLabel 4375 3875 2    40   Input ~ 0
+MTI
+Text HLabel 2875 4275 2    40   Input ~ 0
+~OTQ~2
+Text HLabel 2025 3975 0    40   Input ~ 0
+~OTP~1
+Text HLabel 2025 4075 0    40   Input ~ 0
+~OTP~2
+Text Label 4200 4075 0    40   ~ 0
+J14
+Text Label 4200 3675 0    40   ~ 0
+J16
+Text HLabel 4025 5200 0    40   Input ~ 0
+J[14..16]
+Text Label 3700 4775 2    40   ~ 0
+J15
 $EndSCHEMATC

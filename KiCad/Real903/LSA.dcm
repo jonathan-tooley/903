@@ -5,6 +5,17 @@ D TE Non Latching Relay
 K RS 334-9409
 $ENDCMP
 #
+$CMP Circ61
+D Generic connector, double row, 61 pins, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP ControlPanelSelectors
+D Momentary Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
+$ENDCMP
+#
 $CMP FRT5_separated
 D FORWARD INDUSTRIAL, Miniature Dual Pole Relay, DIP-like package, separate subsymbols
 K relay monostable
@@ -39,6 +50,16 @@ $CMP LM7906_TO220
 D Negative 1A 35V Linear Regulator, Fixed Output 6V, TO-220
 K Voltage Regulator 1A Negative
 F http://www.fairchildsemi.com/ds/LM/LM7905.pdf
+$ENDCMP
+#
+$CMP SPDT_Illuminated
+D Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
+$ENDCMP
+#
+$CMP SPDT_Illuminatedx2
+D Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
 $ENDCMP
 #
 $CMP SW_Push_SPDT

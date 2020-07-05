@@ -1,0 +1,56 @@
+EESchema Schematic File Version 4
+LIBS:Sockets-cache
+EELAYER 26 0
+EELAYER END
+$Descr User 14000 17000
+encoding utf-8
+Sheet 1 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Sheet
+S 1775 14650 4325 775 
+U 5D2CE2EC
+F0 "Part1" 50
+F1 "Part1.sch" 50
+$EndSheet
+$Comp
+L LSA:Circ61 J1
+U 1 1 5F0A4BA4
+P 7275 3675
+F 0 "J1" H 7325 5292 50  0000 C CNN
+F 1 "~" H 7300 5425 50  0000 C CNN
+F 2 "ELLIOTT:MC61" H 7275 3675 50  0001 C CNN
+F 3 "~" H 7275 3675 50  0001 C CNN
+	1    7275 3675
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 J2
+U 1 1 5F024790
+P 6875 3175
+F 0 "J2" H 6795 4292 50  0000 C CNN
+F 1 "~" H 6795 4201 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 6875 3175 50  0001 C CNN
+F 3 "~" H 6875 3175 50  0001 C CNN
+	1    6875 3175
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 J4
+U 1 1 5F0249DF
+P 7775 3075
+F 0 "J4" H 7695 4192 50  0000 C CNN
+F 1 "~" H 7695 4101 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 7775 3075 50  0001 C CNN
+F 3 "~" H 7775 3075 50  0001 C CNN
+	1    7775 3075
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\Users\v-jtool\OneDrive\Repos\903\KiCad\Real903\Backplane2\Backplane2.sch)
-    (date "9/14/2019 4:51:15 PM")
+    (date "4/11/2020 3:03:56 PM")
     (tool "Eeschema (5.0.0)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -2522,7 +2522,7 @@
     (net (code 521) (name SKT14BB)
       (node (ref J202) (pin 1))
       (node (ref J2) (pin 29)))
-    (net (code 522) (name SKT9-28)
+    (net (code 522) (name SKT3HH)
       (node (ref J2) (pin Z))
       (node (ref J202) (pin 2)))
     (net (code 523) (name SKT3JJ)
