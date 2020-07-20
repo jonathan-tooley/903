@@ -5,6 +5,12 @@ D TE Non Latching Relay
 K RS 334-9409
 $ENDCMP
 #
+$CMP Circ19
+D Generic connector, double row, 61 pins, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
 $CMP Circ61
 D Generic connector, double row, 61 pins, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector

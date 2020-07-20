@@ -373,7 +373,7 @@ Text GLabel 12450 2475 2    30   Input ~ 0
 ~ETJ2~-6-27
 Wire Wire Line
 	12450 2475 12350 2475
-Text GLabel 10950 2475 2    30   Input ~ 0
+Text GLabel 10950 2475 2    32   UnSpc ~ 0
 ~ETJ3~-6-28
 Wire Wire Line
 	10950 2475 10850 2475
@@ -392,42 +392,6 @@ Wire Wire Line
 	1850 2575 1950 2575
 Wire Wire Line
 	1250 2875 1350 2875
-Text GLabel 13250 3075 0    40   Input ~ 0
-SKT11B
-Wire Wire Line
-	13250 3075 13350 3075
-Text GLabel 11750 3075 0    40   Input ~ 0
-W2
-Wire Wire Line
-	11750 3075 11850 3075
-Text GLabel 10250 3075 0    40   Input ~ 0
-W3
-Wire Wire Line
-	10250 3075 10350 3075
-Text GLabel 8750 3075 0    40   Input ~ 0
-W4
-Wire Wire Line
-	8750 3075 8850 3075
-Text GLabel 7250 3075 0    40   Input ~ 0
-SKT11F
-Wire Wire Line
-	7250 3075 7350 3075
-Text GLabel 5750 3075 0    40   Input ~ 0
-SKT11G
-Text GLabel 4225 3075 0    40   Input ~ 0
-SKT11H
-Text GLabel 2750 3075 0    40   Input ~ 0
-SKT11J
-Text GLabel 1250 3075 0    40   Input ~ 0
-SKT11K
-Wire Wire Line
-	1250 3075 1350 3075
-Wire Wire Line
-	2750 3075 2850 3075
-Wire Wire Line
-	4225 3075 4350 3075
-Wire Wire Line
-	5750 3075 5850 3075
 Wire Wire Line
 	1950 3275 1850 3275
 Wire Wire Line
@@ -479,42 +443,6 @@ Text GLabel 9450 2675 2    30   Input ~ 0
 ~J~4-23-27
 Wire Wire Line
 	9350 2675 9450 2675
-Text GLabel 1950 2975 2    40   Input ~ 0
-SKT2K
-Text GLabel 3450 2975 2    40   Input ~ 0
-SKT2J
-Text GLabel 4950 2975 2    40   Input ~ 0
-SKT2H
-Text GLabel 6450 2975 2    40   Input ~ 0
-SKT2G
-Text GLabel 7950 2975 2    40   Input ~ 0
-SKT2F
-Text GLabel 9450 2975 2    40   Input ~ 0
-SKT2E
-Text GLabel 10950 2975 2    40   Input ~ 0
-SKT2D
-Text GLabel 12450 2975 2    40   Input ~ 0
-SKT2C
-Text GLabel 13950 2975 2    40   Input ~ 0
-SKT2B
-Wire Wire Line
-	13950 2975 13850 2975
-Wire Wire Line
-	12450 2975 12350 2975
-Wire Wire Line
-	10950 2975 10850 2975
-Wire Wire Line
-	9350 2975 9450 2975
-Wire Wire Line
-	7850 2975 7950 2975
-Wire Wire Line
-	6350 2975 6450 2975
-Wire Wire Line
-	4850 2975 4950 2975
-Wire Wire Line
-	3350 2975 3450 2975
-Wire Wire Line
-	1850 2975 1950 2975
 NoConn ~ 13350 3975
 NoConn ~ 11850 3375
 NoConn ~ 10350 3375
@@ -525,60 +453,6 @@ NoConn ~ 5850 3375
 NoConn ~ 4350 3375
 NoConn ~ 2850 3375
 NoConn ~ 1350 3375
-Text GLabel 1950 3375 2    40   Input ~ 0
-SKT2~w
-Text GLabel 3450 3375 2    40   Input ~ 0
-SKT2~v
-Text GLabel 4950 3375 2    40   Input ~ 0
-SKT2~u
-Text GLabel 6450 3375 2    40   Input ~ 0
-SKT2~t
-Wire Wire Line
-	1850 3375 1950 3375
-Wire Wire Line
-	3350 3375 3450 3375
-Wire Wire Line
-	4850 3375 4950 3375
-Wire Wire Line
-	6350 3375 6450 3375
-Text GLabel 7950 3375 2    40   Input ~ 0
-SKT2~s
-Text GLabel 9450 3375 2    40   Input ~ 0
-SKT2~r
-Text GLabel 10950 3375 2    40   Input ~ 0
-SKT2q
-Wire Wire Line
-	7950 3375 7850 3375
-Wire Wire Line
-	9450 3375 9350 3375
-Wire Wire Line
-	10950 3375 10850 3375
-Text GLabel 12450 3375 2    40   Input ~ 0
-SKT2~p
-Text GLabel 13950 3375 2    40   Input ~ 0
-SKT2~n
-Wire Wire Line
-	13950 3375 13850 3375
-Wire Wire Line
-	12450 3375 12350 3375
-Text GLabel 1950 3075 2    40   Input ~ 0
-M9-
-Text GLabel 3450 3075 2    40   Input ~ 0
-M8-
-Text GLabel 4950 3075 2    40   Input ~ 0
-M7-
-Text GLabel 6450 3075 2    40   Input ~ 0
-M6-
-Text GLabel 7950 3075 2    40   Input ~ 0
-M5-
-Text GLabel 9450 3075 2    40   Input ~ 0
-M4-
-Text GLabel 10950 3075 2    40   Input ~ 0
-M3-
-Text GLabel 12450 3075 2    40   Input ~ 0
-M2-
-Text GLabel 13950 3075 2    40   Input ~ 0
-M1-
 Wire Wire Line
 	13950 3075 13850 3075
 Wire Wire Line
@@ -597,24 +471,24 @@ Wire Wire Line
 	3350 3075 3450 3075
 Wire Wire Line
 	1850 3075 1950 3075
-Text GLabel 1950 3175 2    40   Input ~ 0
-P9-
-Text GLabel 3450 3175 2    40   Input ~ 0
-P8-
-Text GLabel 4950 3175 2    40   Input ~ 0
-P7-
-Text GLabel 6450 3175 2    40   Input ~ 0
-P6-
-Text GLabel 7950 3175 2    40   Input ~ 0
-P5-
-Text GLabel 9450 3175 2    40   Input ~ 0
-P4-
-Text GLabel 10950 3175 2    40   Input ~ 0
-P3-
-Text GLabel 12450 3175 2    40   Input ~ 0
-P2-
-Text GLabel 13950 3175 2    40   Input ~ 0
-P1-
+Text GLabel 1950 3175 2    32   UnSpc ~ 0
+~P~9-30-Y
+Text GLabel 3450 3175 2    32   UnSpc ~ 0
+~P~8-30-22
+Text GLabel 4950 3175 2    32   UnSpc ~ 0
+~P~7-30-AA
+Text GLabel 6450 3175 2    32   UnSpc ~ 0
+~P~6-30-24
+Text GLabel 7950 3175 2    32   UnSpc ~ 0
+~P~5-30-AC
+Text GLabel 9450 3175 2    32   UnSpc ~ 0
+~P~4-32-F
+Text GLabel 10950 3175 2    32   UnSpc ~ 0
+~P~3-32-E
+Text GLabel 12450 3175 2    32   UnSpc ~ 0
+~P~2-32-D
+Text GLabel 13950 3175 2    32   UnSpc ~ 0
+~P~1-32-C
 Wire Wire Line
 	13950 3175 13850 3175
 Wire Wire Line
@@ -652,437 +526,14 @@ NoConn ~ 6350 4175
 NoConn ~ 4850 4175
 NoConn ~ 3350 4175
 NoConn ~ 1850 4175
-NoConn ~ 13850 3875
-NoConn ~ 12350 3875
-NoConn ~ 10850 3875
-NoConn ~ 9350 3875
-NoConn ~ 7850 3875
-NoConn ~ 6350 3875
-NoConn ~ 4850 3875
-NoConn ~ 3350 3875
-NoConn ~ 1850 3875
-Text GLabel 13225 6025 0    40   Input ~ 0
-SKT2B
-Text GLabel 11725 6025 0    40   Input ~ 0
-SKT2C
-Text GLabel 10225 6025 0    40   Input ~ 0
-SKT2D
-Text GLabel 8725 6025 0    40   Input ~ 0
-SKT2E
-Text GLabel 5725 6025 0    40   Input ~ 0
-SKT2G
-Text GLabel 7225 6025 0    40   Input ~ 0
-SKT2F
-Text GLabel 4225 6025 0    40   Input ~ 0
-SKT2H
-Text GLabel 2725 6025 0    40   Input ~ 0
-SKT2J
-Text GLabel 1225 6025 0    40   Input ~ 0
-SKT2K
-Text GLabel 1225 6125 0    40   Input ~ 0
-SKT11K
-Text GLabel 2725 6125 0    40   Input ~ 0
-SKT11J
-Text GLabel 4225 6125 0    40   Input ~ 0
-SKT11H
-Text GLabel 7225 6125 0    40   Input ~ 0
-SKT11F
-Text GLabel 5725 6125 0    40   Input ~ 0
-SKT11G
-Text GLabel 13225 6125 0    40   Input ~ 0
-SKT11B
-$Comp
-L Connector_Generic:Conn_01x03 J248
-U 1 1 6301C5B7
-P 1650 6025
-F 0 "J248" H 1730 6067 50  0000 L CNN
-F 1 "~" H 1730 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 1650 6025 50  0001 C CNN
-F 3 "~" H 1650 6025 50  0001 C CNN
-	1    1650 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J250
-U 1 1 6301C6A9
-P 4650 6025
-F 0 "J250" H 4730 6067 50  0000 L CNN
-F 1 "~" H 4730 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 4650 6025 50  0001 C CNN
-F 3 "~" H 4650 6025 50  0001 C CNN
-	1    4650 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J249
-U 1 1 6301C733
-P 3150 6025
-F 0 "J249" H 3230 6067 50  0000 L CNN
-F 1 "~" H 3230 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 3150 6025 50  0001 C CNN
-F 3 "~" H 3150 6025 50  0001 C CNN
-	1    3150 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J251
-U 1 1 6301CD92
-P 6150 6025
-F 0 "J251" H 6230 6067 50  0000 L CNN
-F 1 "~" H 6230 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 6150 6025 50  0001 C CNN
-F 3 "~" H 6150 6025 50  0001 C CNN
-	1    6150 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J252
-U 1 1 6301CDE2
-P 7650 6025
-F 0 "J252" H 7730 6067 50  0000 L CNN
-F 1 "~" H 7730 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 7650 6025 50  0001 C CNN
-F 3 "~" H 7650 6025 50  0001 C CNN
-	1    7650 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J253
-U 1 1 6301CE3E
-P 9150 6025
-F 0 "J253" H 9230 6067 50  0000 L CNN
-F 1 "~" H 9230 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 9150 6025 50  0001 C CNN
-F 3 "~" H 9150 6025 50  0001 C CNN
-	1    9150 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J254
-U 1 1 6301D492
-P 10625 6025
-F 0 "J254" H 10705 6067 50  0000 L CNN
-F 1 "~" H 10705 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03+1" H 10625 6025 50  0001 C CNN
-F 3 "~" H 10625 6025 50  0001 C CNN
-	1    10625 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J255
-U 1 1 6301D4E6
-P 12150 6025
-F 0 "J255" H 12230 6067 50  0000 L CNN
-F 1 "~" H 12230 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03+1" H 12150 6025 50  0001 C CNN
-F 3 "~" H 12150 6025 50  0001 C CNN
-	1    12150 6025
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x03 J256
-U 1 1 632992FF
-P 13650 6025
-F 0 "J256" H 13650 5800 50  0000 L CNN
-F 1 "~" H 13730 5976 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03+1" H 13650 6025 50  0001 C CNN
-F 3 "~" H 13650 6025 50  0001 C CNN
-	1    13650 6025
-	1    0    0    -1  
-$EndComp
-Text GLabel 1225 6600 0    40   Input ~ 0
-M9-
-Text GLabel 2725 6600 0    40   Input ~ 0
-M8-
-Text GLabel 4225 6600 0    40   Input ~ 0
-M7-
-Text GLabel 5725 6600 0    40   Input ~ 0
-M6-
-Text GLabel 7225 6600 0    40   Input ~ 0
-M5-
-Text GLabel 8725 6600 0    40   Input ~ 0
-M4-
-Text GLabel 10225 6600 0    40   Input ~ 0
-M3-
-Text GLabel 11725 6600 0    40   Input ~ 0
-M2-
-Text GLabel 13225 6600 0    40   Input ~ 0
-M1-
-Wire Wire Line
-	10425 6025 10225 6025
-Text GLabel 1225 6800 0    40   Input ~ 0
-SKT2~w
-Text GLabel 2725 6800 0    40   Input ~ 0
-SKT2~v
-Text GLabel 4225 6800 0    40   Input ~ 0
-SKT2~u
-Text GLabel 5725 6800 0    40   Input ~ 0
-SKT2~t
-Text GLabel 7225 6800 0    40   Input ~ 0
-SKT2~s
-Text GLabel 8725 6800 0    40   Input ~ 0
-SKT2~r
-Text GLabel 10225 6800 0    40   Input ~ 0
-SKT2q
-Text GLabel 11725 6800 0    40   Input ~ 0
-SKT2~p
-Text GLabel 13225 6800 0    40   Input ~ 0
-SKT2~n
-$Comp
-L Connector_Generic:Conn_01x08 J348
-U 1 1 6DBFE2B0
-P 1650 6900
-F 0 "J348" H 1730 6892 50  0000 L CNN
-F 1 "~" H 1730 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 1650 6900 50  0001 C CNN
-F 3 "~" H 1650 6900 50  0001 C CNN
-	1    1650 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J349
-U 1 1 6DBFE476
-P 3150 6900
-F 0 "J349" H 3230 6892 50  0000 L CNN
-F 1 "~" H 3230 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 3150 6900 50  0001 C CNN
-F 3 "~" H 3150 6900 50  0001 C CNN
-	1    3150 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J350
-U 1 1 6DBFE4CA
-P 4650 6900
-F 0 "J350" H 4730 6892 50  0000 L CNN
-F 1 "~" H 4730 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 4650 6900 50  0001 C CNN
-F 3 "~" H 4650 6900 50  0001 C CNN
-	1    4650 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J351
-U 1 1 6DBFEBB8
-P 6150 6900
-F 0 "J351" H 6230 6892 50  0000 L CNN
-F 1 "~" H 6230 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 6150 6900 50  0001 C CNN
-F 3 "~" H 6150 6900 50  0001 C CNN
-	1    6150 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J352
-U 1 1 6DBFEC14
-P 7650 6900
-F 0 "J352" H 7730 6892 50  0000 L CNN
-F 1 "~" H 7730 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 7650 6900 50  0001 C CNN
-F 3 "~" H 7650 6900 50  0001 C CNN
-	1    7650 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J353
-U 1 1 6DBFF038
-P 9150 6900
-F 0 "J353" H 9230 6892 50  0000 L CNN
-F 1 "~" H 9230 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 9150 6900 50  0001 C CNN
-F 3 "~" H 9150 6900 50  0001 C CNN
-	1    9150 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J354
-U 1 1 6DBFF096
-P 10625 6900
-F 0 "J354" H 10705 6892 50  0000 L CNN
-F 1 "~" H 10705 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 10625 6900 50  0001 C CNN
-F 3 "~" H 10625 6900 50  0001 C CNN
-	1    10625 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J355
-U 1 1 6DBFF0F4
-P 12150 6900
-F 0 "J355" H 12230 6892 50  0000 L CNN
-F 1 "~" H 12230 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 12150 6900 50  0001 C CNN
-F 3 "~" H 12150 6900 50  0001 C CNN
-	1    12150 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J356
-U 1 1 6DBFFB30
-P 13650 6900
-F 0 "J356" H 13650 6375 50  0000 L CNN
-F 1 "~" H 13730 6801 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x08" H 13650 6900 50  0001 C CNN
-F 3 "~" H 13650 6900 50  0001 C CNN
-	1    13650 6900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1225 6125 1450 6125
-Wire Wire Line
-	1225 6025 1450 6025
-Wire Wire Line
-	2725 6125 2950 6125
-Wire Wire Line
-	2725 6025 2950 6025
-Wire Wire Line
-	1225 6600 1450 6600
-Wire Wire Line
-	1225 6700 1450 6700
-Wire Wire Line
-	2725 6700 2950 6700
-Wire Wire Line
-	2950 6600 2725 6600
-Wire Wire Line
-	4225 6125 4450 6125
-Wire Wire Line
-	4225 6025 4450 6025
-Wire Wire Line
-	4225 6700 4450 6700
-Wire Wire Line
-	4450 6600 4225 6600
-Wire Wire Line
-	5725 6125 5950 6125
-Wire Wire Line
-	5725 6025 5950 6025
-Wire Wire Line
-	5725 6700 5950 6700
-Wire Wire Line
-	5950 6600 5725 6600
-Wire Wire Line
-	7225 6125 7450 6125
-Wire Wire Line
-	7225 6025 7450 6025
-Wire Wire Line
-	7225 6700 7450 6700
-Wire Wire Line
-	7450 6600 7225 6600
-Wire Wire Line
-	8725 6125 8950 6125
-Wire Wire Line
-	8725 6025 8950 6025
-Wire Wire Line
-	8725 6700 8950 6700
-Wire Wire Line
-	8950 6600 8725 6600
-Wire Wire Line
-	10225 6125 10425 6125
-Wire Wire Line
-	11725 6125 11950 6125
-Wire Wire Line
-	11725 6025 11950 6025
-Wire Wire Line
-	13225 6125 13450 6125
-Wire Wire Line
-	13225 6025 13450 6025
-Wire Wire Line
-	10225 6700 10425 6700
-Wire Wire Line
-	10425 6600 10225 6600
-Wire Wire Line
-	11725 6700 11950 6700
-Wire Wire Line
-	11950 6600 11725 6600
-Wire Wire Line
-	13225 6700 13450 6700
-Wire Wire Line
-	13450 6600 13225 6600
-Wire Wire Line
-	13450 6800 13225 6800
-Wire Wire Line
-	11950 6800 11725 6800
-Wire Wire Line
-	10425 6800 10225 6800
-Wire Wire Line
-	8725 6800 8950 6800
-Wire Wire Line
-	7225 6800 7450 6800
-Wire Wire Line
-	5725 6800 5950 6800
-Wire Wire Line
-	4225 6800 4450 6800
-Wire Wire Line
-	2725 6800 2950 6800
-Wire Wire Line
-	1225 6800 1450 6800
-Text GLabel 1225 6700 0    40   Input ~ 0
-P9-
-Text GLabel 2725 6700 0    40   Input ~ 0
-P8-
-Text GLabel 4225 6700 0    40   Input ~ 0
-P7-
-Text GLabel 5725 6700 0    40   Input ~ 0
-P6-
-Text GLabel 7225 6700 0    40   Input ~ 0
-P5-
-Text GLabel 8725 6700 0    40   Input ~ 0
-P4-
-Text GLabel 8725 6125 0    40   Input ~ 0
-W4
-Text GLabel 10225 6700 0    40   Input ~ 0
-P3-
-Text GLabel 10225 6125 0    40   Input ~ 0
-W3
-Text GLabel 11725 6700 0    40   Input ~ 0
-P2-
-Text GLabel 11725 6125 0    40   Input ~ 0
-W2
-Text GLabel 13225 6700 0    40   Input ~ 0
-P1-
-Text Notes 13925 7300 0    50   ~ 0
-AJ: STORE-
-Text Notes 13925 6800 0    50   ~ 0
- Y: {P REGISTER}
-Text Notes 13925 6700 0    50   ~ 0
- W: P REGISTER-
-Text Notes 13925 6600 0    50   ~ 0
- V: M REGISTER-
-Text Notes 13925 6125 0    50   ~ 0
-18: NUMBER GENERATOR
-Text Notes 13925 6025 0    50   ~ 0
- U: {M REGISTER}
-Text Notes 13950 5925 0    50   ~ 0
- T: J REGISTER
-$Comp
-L Connector:TestPoint TP1
-U 1 1 5D830B32
-P 13800 7550
-F 0 "TP1" V 13754 7737 50  0000 L CNN
-F 1 "Q1-" V 13845 7737 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 14000 7550 50  0001 C CNN
-F 3 "~" H 14000 7550 50  0001 C CNN
-	1    13800 7550
-	0    1    1    0   
-$EndComp
 Text GLabel 13125 1975 0    40   Input ~ 0
 RTG1-57-6
 Text GLabel 14050 1975 2    40   Input ~ 0
 LTG1-57-8
-Text GLabel 13975 4175 2    50   Input ~ 0
-~Q1
+Text GLabel 13975 4175 2    32   UnSpc ~ 0
+~Q~1-7-15
 Wire Wire Line
 	13975 4175 13850 4175
-Text GLabel 13800 7550 0    50   Input ~ 0
-~Q1
-NoConn ~ 13450 7000
-NoConn ~ 11950 7000
-NoConn ~ 10425 7000
-NoConn ~ 8950 7000
-NoConn ~ 7450 7000
-NoConn ~ 5950 7000
-NoConn ~ 4450 7000
-NoConn ~ 2950 7000
-NoConn ~ 1450 7000
 Text HLabel 1675 8900 0    40   Input ~ 0
 ~A~[1..9]
 Text Label 12350 3675 0    40   ~ 0
@@ -1113,15 +564,6 @@ Text Label 1850 1675 0    40   ~ 0
 F8
 Text Label 3350 1675 0    40   ~ 0
 F7
-NoConn ~ 2950 7200
-NoConn ~ 1450 7200
-NoConn ~ 4450 7200
-NoConn ~ 5950 7200
-NoConn ~ 7450 7200
-NoConn ~ 8950 7200
-NoConn ~ 10425 7200
-NoConn ~ 11950 7200
-NoConn ~ 13450 7200
 Text Label 1850 3775 0    40   ~ 0
 #Q9
 Text Label 13850 3775 0    40   ~ 0
@@ -1180,15 +622,6 @@ Text Label 6350 3475 0    40   ~ 0
 #A6
 Text Label 4850 1675 0    40   ~ 0
 F6
-NoConn ~ 5950 6900
-NoConn ~ 4450 6900
-NoConn ~ 2950 6900
-NoConn ~ 1450 6900
-NoConn ~ 7450 6900
-NoConn ~ 8950 6900
-NoConn ~ 10425 6900
-NoConn ~ 11950 6900
-NoConn ~ 13450 6900
 Text Label 13850 2375 0    40   ~ 0
 #G1
 Text Label 12350 2375 0    40   ~ 0
@@ -1317,15 +750,6 @@ Wire Wire Line
 	1125 1575 1350 1575
 Text Label 13850 4275 0    40   ~ 0
 ~STORE~1
-NoConn ~ 13450 7300
-NoConn ~ 11950 7300
-NoConn ~ 10425 7300
-NoConn ~ 8950 7300
-NoConn ~ 7450 7300
-NoConn ~ 5950 7300
-NoConn ~ 4450 7300
-NoConn ~ 2950 7300
-NoConn ~ 1450 7300
 Text Label 12350 4275 0    40   ~ 0
 ~STORE~2
 Text Label 10850 4275 0    40   ~ 0
@@ -1400,15 +824,6 @@ Text Label 10350 3775 2    40   ~ 0
 II3
 Text HLabel 2225 9000 0    40   Input ~ 0
 II[1..9]
-NoConn ~ 1450 7100
-NoConn ~ 2950 7100
-NoConn ~ 4450 7100
-NoConn ~ 5950 7100
-NoConn ~ 7450 7100
-NoConn ~ 8950 7100
-NoConn ~ 10425 7100
-NoConn ~ 13450 7100
-NoConn ~ 11950 7100
 Wire Wire Line
 	1250 1775 1350 1775
 Wire Wire Line
@@ -1924,14 +1339,10 @@ Text HLabel 1950 3275 2    40   Input ~ 0
 ~OTP~2
 Text Label 1850 2875 0    40   ~ 0
 J9
-NoConn ~ 1450 5925
 Text HLabel 2625 9100 0    40   Input ~ 0
 J[1..9]
 Text Label 3350 2875 0    40   ~ 0
 J8
-NoConn ~ 2950 5925
-NoConn ~ 4450 5925
-NoConn ~ 5950 5925
 Text Label 4850 2875 0    40   ~ 0
 J7
 Text Label 6350 2875 0    40   ~ 0
@@ -1940,18 +1351,114 @@ Text Label 7850 2875 0    40   ~ 0
 J5
 Text Label 9350 2875 0    40   ~ 0
 J4
+NoConn ~ 13850 2675
+NoConn ~ 12350 2675
+NoConn ~ 10850 2675
+Text GLabel 10950 2875 2    32   UnSpc ~ 0
+J3-20-H
+Text GLabel 12450 2875 2    32   UnSpc ~ 0
+J2-20-E
+Text GLabel 13950 2875 2    32   UnSpc ~ 0
+J1-20-C
+NoConn ~ 1950 3075
+NoConn ~ 3450 3075
+NoConn ~ 4950 3075
+NoConn ~ 6450 3075
+NoConn ~ 7950 3075
+NoConn ~ 9450 3075
+NoConn ~ 10950 3075
+NoConn ~ 12450 3075
+NoConn ~ 13950 3075
+Wire Wire Line
+	10950 2875 10850 2875
 Text Label 10850 2875 0    40   ~ 0
 J3
+Wire Wire Line
+	12350 2875 12450 2875
+Wire Wire Line
+	13950 2875 13850 2875
 Text Label 12350 2875 0    40   ~ 0
 J2
 Text Label 13850 2875 0    40   ~ 0
 J1
-NoConn ~ 13450 5925
-NoConn ~ 11950 5925
-NoConn ~ 10425 5925
-NoConn ~ 8950 5925
-NoConn ~ 7450 5925
-NoConn ~ 13850 2675
-NoConn ~ 12350 2675
-NoConn ~ 10850 2675
+Text Label 1850 3875 0    40   ~ 0
+M9
+Text HLabel 2625 9200 0    40   UnSpc ~ 0
+M[1..9]
+Text Label 3350 3875 0    40   ~ 0
+M8
+Text Label 4850 3875 0    40   ~ 0
+M7
+Text Label 6350 3875 0    40   ~ 0
+M6
+Text Label 7850 3875 0    40   ~ 0
+M5
+Text Label 9350 3875 0    40   ~ 0
+M4
+Text Label 10850 3875 0    40   ~ 0
+M3
+Text Label 12350 3875 0    40   ~ 0
+M2
+Text Label 13850 3875 0    40   ~ 0
+M1
+Text HLabel 1675 9300 0    40   UnSpc ~ 0
+#M[1..9]
+Text Label 1850 2975 0    40   ~ 0
+#M9
+Text Label 3350 2975 0    40   ~ 0
+#M8
+Text Label 4850 2975 0    40   ~ 0
+#M7
+Text Label 6350 2975 0    40   ~ 0
+#M6
+Text Label 7850 2975 0    40   ~ 0
+#M5
+Text Label 9350 2975 0    40   ~ 0
+#M4
+Text Label 10850 2975 0    40   ~ 0
+#M3
+Text Label 12350 2975 0    40   ~ 0
+#M2
+Text Label 13850 2975 0    40   ~ 0
+#M1
+Text HLabel 2225 9300 0    40   UnSpc ~ 0
+#P[1..9]
+Text Label 1850 3375 0    40   ~ 0
+#P9
+Text Label 3350 3375 0    40   ~ 0
+#P8
+Text Label 4850 3375 0    40   ~ 0
+#P7
+Text Label 6350 3375 0    40   ~ 0
+#P6
+Text Label 7850 3375 0    40   ~ 0
+#P5
+Text Label 9350 3375 0    40   ~ 0
+#P4
+Text Label 10850 3375 0    40   ~ 0
+#P3
+Text Label 12350 3375 0    40   ~ 0
+#P2
+Text Label 13850 3375 0    40   ~ 0
+#P1
+Text Label 1350 3075 2    40   ~ 0
+W9
+Text Label 2850 3075 2    40   ~ 0
+W8
+Text Label 4350 3075 2    40   ~ 0
+W7
+Text Label 5850 3075 2    40   ~ 0
+W6
+Text Label 7350 3075 2    40   ~ 0
+W5
+Text Label 8850 3075 2    40   ~ 0
+W4
+Text Label 10350 3075 2    40   ~ 0
+W3
+Text Label 11850 3075 2    40   ~ 0
+W2
+Text Label 13350 3075 2    40   ~ 0
+W1
+Text HLabel 2625 9300 0    40   UnSpc ~ 0
+W[1..9]
 $EndSCHEMATC

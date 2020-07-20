@@ -767,8 +767,8 @@ Text GLabel 925  3925 0    50   Input ~ 0
 ~RESET~1
 Text GLabel 925  1525 0    50   Input ~ 0
 ~SFD
-Text GLabel 1825 2425 2    50   Input ~ 0
-SFD
+Text GLabel 1825 2425 2    32   UnSpc ~ 0
+SFD-6-R
 Text GLabel 1825 3225 2    50   Input ~ 0
 t2-1
 Text GLabel 1825 2725 2    50   Input ~ 0

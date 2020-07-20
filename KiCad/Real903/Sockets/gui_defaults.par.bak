@@ -8,7 +8,7 @@
       )
     )
     (color_manager
-      not_visible
+      visible
       (bounds
         0 600 1126 143
       )
@@ -22,7 +22,7 @@
     (object_visibility
       not_visible
       (bounds
-        665 318 383 407
+        0 550 383 407
       )
     )
     (display_miscellanious
@@ -94,7 +94,7 @@
     (assign_net_rules
       not_visible
       (bounds
-        100 250 234 382
+        100 250 219 190
       )
     )
     (padstack_info
@@ -159,19 +159,19 @@
     (length_matching 0.1
       0 255 0
     )
-    (traces 0.01
+    (traces 0.4
       255 0 0
       0 0 255
     )
-    (fixed_traces 0.01
+    (fixed_traces 0.4
       255 0 0
       0 0 255
     )
-    (vias 1.0
-      204 0 204
-      204 0 204
+    (vias 0.6
+      200 200 0
+      200 200 0
     )
-    (fixed_vias 1.0
+    (fixed_vias 0.6
       200 200 0
       200 200 0
     )

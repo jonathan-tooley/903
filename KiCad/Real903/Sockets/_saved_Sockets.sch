@@ -817,4 +817,15 @@ Text GLabel 7425 1025 2    32   UnSpc ~ 0
 RESET-32-20
 Text GLabel 2700 5675 0    32   UnSpc ~ 0
 RESET-32-20
+$Comp
+L Connector_Generic:Conn_01x18 JSKT4-2
+U 1 1 5F18F8D6
+P 7625 2525
+F 0 "JSKT4-2" V 7725 2525 50  0000 C CNN
+F 1 "~" H 7545 3551 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 7625 2525 50  0001 C CNN
+F 3 "~" H 7625 2525 50  0001 C CNN
+	1    7625 2525
+	1    0    0    1   
+$EndComp
 $EndSCHEMATC

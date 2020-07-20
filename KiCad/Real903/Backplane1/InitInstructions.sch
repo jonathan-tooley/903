@@ -14,8 +14,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Wire Wire Line
-	5375 4450 5575 4450
 NoConn ~ 5575 4850
 NoConn ~ 5575 4650
 NoConn ~ 5575 4550
@@ -25,8 +23,6 @@ NoConn ~ 5575 2450
 NoConn ~ 5575 2350
 NoConn ~ 5575 2250
 NoConn ~ 5575 2150
-Text GLabel 5375 4450 0    40   Input ~ 0
-IIG
 NoConn ~ 6075 2250
 NoConn ~ 6075 2350
 NoConn ~ 6075 2450
@@ -69,8 +65,6 @@ NoConn ~ 3900 4850
 Wire Wire Line
 	2250 2050 2050 2050
 Wire Wire Line
-	3700 4450 3900 4450
-Wire Wire Line
 	3900 3350 3700 3350
 Wire Wire Line
 	3700 3050 3900 3050
@@ -84,22 +78,20 @@ Wire Wire Line
 	3700 2650 3900 2650
 Wire Wire Line
 	3700 2550 3900 2550
-Text GLabel 3700 3050 0    35   Input ~ 0
+Text GLabel 3700 3050 0    35   UnSpc ~ 0
 ~J~3'-20-7
-Text GLabel 3700 2950 0    35   Input ~ 0
+Text GLabel 3700 2950 0    35   UnSpc ~ 0
 J3'-20-8
-Text GLabel 3700 2750 0    35   Input ~ 0
+Text GLabel 3700 2750 0    35   UnSpc ~ 0
 J2'-20-6
-Text GLabel 3700 2850 0    35   Input ~ 0
+Text GLabel 3700 2850 0    35   UnSpc ~ 0
 ~J~2'-20-5
-Text GLabel 3700 2550 0    35   Input ~ 0
+Text GLabel 3700 2550 0    35   UnSpc ~ 0
 J1'-20-4
-Text GLabel 3700 2650 0    35   Input ~ 0
+Text GLabel 3700 2650 0    35   UnSpc ~ 0
 ~J~1'-20-3
-Text GLabel 3700 3350 0    40   Input ~ 0
+Text GLabel 3700 3350 0    40   UnSpc ~ 0
 IIS-57-15
-Text GLabel 3700 4450 0    40   Input ~ 0
-IIG
 Wire Wire Line
 	2050 1950 2250 1950
 NoConn ~ 2250 4750
@@ -155,29 +147,10 @@ F 3 "" H 2450 3450 50  0001 C CNN
 	1    2450 3450
 	1    0    0    -1  
 $EndComp
-Text GLabel 5375 2750 0    40   Input ~ 0
-~IIG
-Text GLabel 5375 5450 0    40   Input ~ 0
-~IIG
+Text GLabel 5375 2750 0    40   UnSpc ~ 0
+~IIG~
 Wire Wire Line
 	5375 2750 5575 2750
-$Comp
-L Connector_Generic:Conn_01x06 J136
-U 1 1 60C8D23B
-P 5775 5550
-F 0 "J136" H 5855 5496 50  0000 L CNN
-F 1 "~" H 5855 5451 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x06" H 5775 5550 50  0001 C CNN
-F 3 "~" H 5775 5550 50  0001 C CNN
-	1    5775 5550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5575 5450 5375 5450
-NoConn ~ 5575 5550
-NoConn ~ 5575 5650
-NoConn ~ 5575 5750
-NoConn ~ 5575 5850
 Wire Wire Line
 	2750 1950 3900 1950
 Wire Wire Line
@@ -382,7 +355,6 @@ Text Label 3900 3350 2    40   ~ 0
 IIS
 Text Label 5575 2650 2    40   ~ 0
 IIS
-NoConn ~ 5575 5350
 Text Label 5575 3050 2    40   ~ 0
 ~J~4
 Text Label 3900 3150 2    40   ~ 0
@@ -429,4 +401,8 @@ Text Label 3900 2950 2    40   ~ 0
 J3'
 Text Label 5575 2950 2    40   ~ 0
 J3'
+Text Label 5575 4450 2    40   ~ 0
+IIG
+Text Label 3900 4450 2    40   ~ 0
+IIG
 $EndSCHEMATC

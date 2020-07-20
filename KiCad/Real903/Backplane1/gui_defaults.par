@@ -4,7 +4,7 @@
     (board_frame
       visible
       (bounds
-        -8 -8 1232 787
+        -8 -8 1936 1056
       )
     )
     (color_manager
@@ -14,9 +14,9 @@
       )
     )
     (layer_visibility
-      not_visible
+      visible
       (bounds
-        0 450 359 225
+        12 598 359 225
       )
     )
     (object_visibility
@@ -70,7 +70,7 @@
     (clearance_matrix
       not_visible
       (bounds
-        0 150 576 284
+        0 150 676 300
       )
     )
     (via_rules
@@ -82,13 +82,13 @@
     (edit_vias
       not_visible
       (bounds
-        100 150 419 130
+        100 150 419 146
       )
     )
     (edit_net_rules
       not_visible
       (bounds
-        100 200 919 130
+        100 200 919 146
       )
     )
     (assign_net_rules
@@ -141,7 +141,7 @@
     (hilight 0.8
       230 255 255
     )
-    (incompletes 1.0
+    (incompletes 0.8
       255 255 255
     )
     (outline
@@ -171,19 +171,19 @@
       255 0 0
       0 0 255
     )
-    (vias 0.6
+    (vias 1.0
+      255 0 255
+      255 0 255
+      255 0 255
+      255 0 255
+    )
+    (fixed_vias 1.0
       200 200 0
       200 200 0
       200 200 0
       200 200 0
     )
-    (fixed_vias 0.6
-      200 200 0
-      200 200 0
-      200 200 0
-      200 200 0
-    )
-    (pins 0.6
+    (pins 0.38
       150 50 0
       160 80 0
       150 50 0

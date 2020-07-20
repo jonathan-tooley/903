@@ -14,586 +14,904 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 3375 1775 0    40   ~ 0
+Text Label 4475 5325 0    35   ~ 0
 ~A~1
-Text Label 3375 1875 0    40   ~ 0
+Text Label 4475 5425 0    35   ~ 0
 ~A~2
-Text Label 3375 1975 0    40   ~ 0
+Text Label 4475 5525 0    35   ~ 0
 ~A~3
-Text Label 3375 2075 0    40   ~ 0
+Text Label 4475 5625 0    35   ~ 0
 ~A~4
-Text Label 3375 2175 0    40   ~ 0
+Text Label 4475 5725 0    35   ~ 0
 ~A~5
-Text Label 3375 2275 0    40   ~ 0
+Text Label 4475 5825 0    35   ~ 0
 ~A~6
-Text Label 3375 2375 0    40   ~ 0
+Text Label 4475 5925 0    35   ~ 0
 ~A~7
-Text Label 3375 2475 0    40   ~ 0
+Text Label 4475 6025 0    35   ~ 0
 ~A~8
-Text Label 3375 2575 0    40   ~ 0
+Text Label 4475 6125 0    35   ~ 0
 ~A~9
-Text Label 3375 2675 0    40   ~ 0
+Text Label 4475 6225 0    35   ~ 0
 ~A~10
 $Comp
 L Connector_Generic:Conn_01x18 J~A~1
 U 1 1 5F0A5194
-P 3175 2575
-F 0 "J~A~1" H 3095 3500 50  0000 C CNN
-F 1 "~" H 3095 3501 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical_Lock" H 3175 2575 50  0001 C CNN
-F 3 "~" H 3175 2575 50  0001 C CNN
-	1    3175 2575
+P 4275 6125
+F 0 "J~A~1" H 4195 7050 50  0000 C CNN
+F 1 "~" H 4195 7051 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4275 6125 50  0001 C CNN
+F 3 "~" H 4275 6125 50  0001 C CNN
+	1    4275 6125
 	-1   0    0    -1  
 $EndComp
-Text Label 3375 2775 0    40   ~ 0
+Text Label 4475 6325 0    35   ~ 0
 ~A~11
-Text Label 3375 2875 0    40   ~ 0
+Text Label 4475 6425 0    35   ~ 0
 ~A~12
-Text Label 3375 2975 0    40   ~ 0
+Text Label 4475 6525 0    35   ~ 0
 ~A~13
-Text Label 3375 3075 0    40   ~ 0
+Text Label 4475 6625 0    35   ~ 0
 ~A~14
-Text Label 3375 3175 0    40   ~ 0
+Text Label 4475 6725 0    35   ~ 0
 ~A~15
-Text Label 3375 3275 0    40   ~ 0
+Text Label 4475 6825 0    35   ~ 0
 ~A~16
-Text Label 3375 3375 0    40   ~ 0
+Text Label 4475 6925 0    35   ~ 0
 ~A~17
-Text Label 3375 3475 0    40   ~ 0
+Text Label 4475 7025 0    35   ~ 0
 ~A~18
-Text HLabel 3125 3475 0    50   Input ~ 0
+Text HLabel 4225 7025 0    32   UnSpc ~ 0
 ~A~[1..18]
-$Comp
-L Connector_Generic:Conn_02x31_Counter_Clockwise SKT1
-U 1 1 613F1825
-P 5150 3275
-F 0 "SKT1" H 5200 4900 50  0000 C CNN
-F 1 "~" H 5200 4901 50  0000 C CNN
-F 2 "" H 5150 3275 50  0001 C CNN
-F 3 "~" H 5150 3275 50  0001 C CNN
-	1    5150 3275
-	1    0    0    -1  
-$EndComp
-Text HLabel 5275 4825 3    40   Input ~ 0
+Text HLabel 3650 3525 3    32   UnSpc ~ 0
 #Q[1..18]
-NoConn ~ 5450 1775
-Text Label 4950 1875 2    40   ~ 0
+Text Label 2600 1775 0    35   ~ 0
 #G1
-Text Label 4950 1975 2    40   ~ 0
+Text Label 2600 1875 0    35   ~ 0
 #G2
-Text HLabel 5200 4825 3    40   Input ~ 0
+Text HLabel 2425 3525 3    32   UnSpc ~ 0
 #G[1..18]
-Text Label 4950 2075 2    40   ~ 0
+Text Label 2600 1975 0    35   ~ 0
 #G3
-Text Label 4950 2175 2    40   ~ 0
+Text Label 2600 2075 0    35   ~ 0
 #G4
-Text Label 4950 2275 2    40   ~ 0
+Text Label 2600 2175 0    35   ~ 0
 #G5
-Text Label 4950 2375 2    40   ~ 0
+Text Label 2600 2275 0    35   ~ 0
 #G6
-Text Label 4950 2475 2    40   ~ 0
+Text Label 2600 2375 0    35   ~ 0
 #G7
-Text Label 4950 2575 2    40   ~ 0
+Text Label 2600 2475 0    35   ~ 0
 #G8
-NoConn ~ 4950 1775
-Text Label 4950 2675 2    40   ~ 0
+Text Label 2600 2575 0    35   ~ 0
 #G9
-Text Label 4950 2775 2    40   ~ 0
+Text Label 2600 2675 0    35   ~ 0
 #G10
-Text Label 4950 2875 2    40   ~ 0
+Text Label 2600 2775 0    35   ~ 0
 #G11
-Text Label 4950 2975 2    40   ~ 0
+Text Label 2600 2875 0    35   ~ 0
 #G12
-Text Label 4950 3075 2    40   ~ 0
+Text Label 2600 2975 0    35   ~ 0
 #G13
-Text Label 4950 3175 2    40   ~ 0
+Text Label 2600 3075 0    35   ~ 0
 #G14
-Text Label 4950 3275 2    40   ~ 0
+Text Label 2600 3175 0    35   ~ 0
 #G15
-Text Label 4950 3375 2    40   ~ 0
+Text Label 2600 3275 0    35   ~ 0
 #G16
-Text Label 4950 3475 2    40   ~ 0
+Text Label 2600 3375 0    35   ~ 0
 #G17
-Text Label 4950 3575 2    40   ~ 0
+Text Label 2600 3475 0    35   ~ 0
 #G18
-Text HLabel 5125 4825 3    40   Input ~ 0
+Text HLabel 3025 3525 3    32   UnSpc ~ 0
 #A[1..18]
-Text Label 4950 3675 2    40   ~ 0
+Text Label 3200 1775 0    35   ~ 0
 #A1
-Text Label 4950 3775 2    40   ~ 0
+Text Label 3200 1875 0    35   ~ 0
 #A2
-Text Label 4950 3875 2    40   ~ 0
+Text Label 3200 1975 0    35   ~ 0
 #A3
-Text Label 4950 3975 2    40   ~ 0
+Text Label 3200 2075 0    35   ~ 0
 #A4
-Text Label 4950 4075 2    40   ~ 0
+Text Label 3200 2175 0    35   ~ 0
 #A5
-Text Label 4950 4175 2    40   ~ 0
+Text Label 3200 2275 0    35   ~ 0
 #A6
-Text Label 4950 4275 2    40   ~ 0
+Text Label 3200 2375 0    35   ~ 0
 #A7
-Text Label 4950 4375 2    40   ~ 0
+Text Label 3200 2475 0    35   ~ 0
 #A8
-Text Label 4950 4475 2    40   ~ 0
+Text Label 3200 2575 0    35   ~ 0
 #A9
-Text Label 4950 4575 2    40   ~ 0
+Text Label 3200 2675 0    35   ~ 0
 #A10
-Text Label 4950 4675 2    40   ~ 0
+Text Label 3200 2775 0    35   ~ 0
 #A11
-Text Label 4950 4775 2    40   ~ 0
+Text Label 3200 2875 0    35   ~ 0
 #A12
-Text Label 5450 4775 0    40   ~ 0
+Text Label 3200 2975 0    35   ~ 0
 #A13
-Text Label 5450 4675 0    40   ~ 0
+Text Label 3200 3075 0    35   ~ 0
 #A14
-Text Label 5450 4575 0    40   ~ 0
+Text Label 3200 3175 0    35   ~ 0
 #A15
-Text Label 5450 4475 0    40   ~ 0
+Text Label 3200 3275 0    35   ~ 0
 #A16
-Text Label 5450 4375 0    40   ~ 0
+Text Label 3200 3375 0    35   ~ 0
 #A17
-Text Label 5450 4275 0    40   ~ 0
+Text Label 3200 3475 0    35   ~ 0
 #A18
-Text Label 5450 4175 0    40   ~ 0
+Text Label 3825 1775 0    35   ~ 0
 #Q1
-Text Label 5450 4075 0    40   ~ 0
+Text Label 3825 1875 0    35   ~ 0
 #Q2
-Text Label 5450 3975 0    40   ~ 0
+Text Label 3825 1975 0    35   ~ 0
 #Q3
-Text Label 5450 3875 0    40   ~ 0
+Text Label 3825 2075 0    35   ~ 0
 #Q4
-Text Label 5450 3775 0    40   ~ 0
+Text Label 3825 2175 0    35   ~ 0
 #Q5
-Text Label 5450 3675 0    40   ~ 0
+Text Label 3825 2275 0    35   ~ 0
 #Q6
-Text Label 5450 3575 0    40   ~ 0
+Text Label 3825 2375 0    35   ~ 0
 #Q7
-Text Label 5450 3475 0    40   ~ 0
+Text Label 3825 2475 0    35   ~ 0
 #Q8
-Text Label 5450 3375 0    40   ~ 0
+Text Label 3825 2575 0    35   ~ 0
 #Q9
-Text Label 5450 3275 0    40   ~ 0
+Text Label 3825 2675 0    35   ~ 0
 #Q10
-Text Label 5450 3175 0    40   ~ 0
+Text Label 3825 2775 0    35   ~ 0
 #Q11
-Text Label 5450 3075 0    40   ~ 0
+Text Label 3825 2875 0    35   ~ 0
 #Q12
-Text Label 5450 2975 0    40   ~ 0
+Text Label 3825 2975 0    35   ~ 0
 #Q13
-Text Label 5450 2875 0    40   ~ 0
+Text Label 3825 3075 0    35   ~ 0
 #Q14
-Text Label 5450 2775 0    40   ~ 0
+Text Label 3825 3175 0    35   ~ 0
 #Q15
-Text Label 5450 2675 0    40   ~ 0
+Text Label 3825 3275 0    35   ~ 0
 #Q16
-Text Label 5450 2575 0    40   ~ 0
+Text Label 3825 3375 0    35   ~ 0
 #Q17
-Text Label 5450 2475 0    40   ~ 0
+Text Label 3825 3475 0    35   ~ 0
 #Q18
-NoConn ~ 5450 2375
-NoConn ~ 5450 2275
-NoConn ~ 5450 2175
-NoConn ~ 5450 2075
-NoConn ~ 5450 1975
-NoConn ~ 5450 1875
-Text Label 2025 1775 0    40   ~ 0
+Text Label 1750 5325 0    35   ~ 0
 ~STORE~1
-Text Label 2025 1875 0    40   ~ 0
+Text Label 1750 5425 0    35   ~ 0
 ~STORE~2
-Text Label 2025 1975 0    40   ~ 0
+Text Label 1750 5525 0    35   ~ 0
 ~STORE~3
-Text Label 2025 2075 0    40   ~ 0
+Text Label 1750 5625 0    35   ~ 0
 ~STORE~4
-Text Label 2025 2175 0    40   ~ 0
+Text Label 1750 5725 0    35   ~ 0
 ~STORE~5
-Text Label 2025 2275 0    40   ~ 0
+Text Label 1750 5825 0    35   ~ 0
 ~STORE~6
-Text Label 2025 2375 0    40   ~ 0
+Text Label 1750 5925 0    35   ~ 0
 ~STORE~7
-Text Label 2025 2475 0    40   ~ 0
+Text Label 1750 6025 0    35   ~ 0
 ~STORE~8
-Text Label 2025 2575 0    40   ~ 0
+Text Label 1750 6125 0    35   ~ 0
 ~STORE~9
-Text Label 2025 2675 0    40   ~ 0
+Text Label 1750 6225 0    35   ~ 0
 ~STORE~10
 $Comp
 L Connector_Generic:Conn_01x18 J~STORE~1
 U 1 1 5FB94B15
-P 1825 2575
-F 0 "J~STORE~1" H 1745 3500 50  0000 C CNN
-F 1 "~" H 1745 3501 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical_Lock" H 1825 2575 50  0001 C CNN
-F 3 "~" H 1825 2575 50  0001 C CNN
-	1    1825 2575
+P 1550 6125
+F 0 "J~STORE~1" H 1470 7050 50  0000 C CNN
+F 1 "~" H 1470 7051 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1550 6125 50  0001 C CNN
+F 3 "~" H 1550 6125 50  0001 C CNN
+	1    1550 6125
 	-1   0    0    -1  
 $EndComp
-Text Label 2025 2775 0    40   ~ 0
+Text Label 1750 6325 0    35   ~ 0
 ~STORE~11
-Text Label 2025 2875 0    40   ~ 0
+Text Label 1750 6425 0    35   ~ 0
 ~STORE~12
-Text Label 2025 2975 0    40   ~ 0
+Text Label 1750 6525 0    35   ~ 0
 ~STORE~13
-Text Label 2025 3075 0    40   ~ 0
+Text Label 1750 6625 0    35   ~ 0
 ~STORE~14
-Text Label 2025 3175 0    40   ~ 0
+Text Label 1750 6725 0    35   ~ 0
 ~STORE~15
-Text Label 2025 3275 0    40   ~ 0
+Text Label 1750 6825 0    35   ~ 0
 ~STORE~16
-Text Label 2025 3375 0    40   ~ 0
+Text Label 1750 6925 0    35   ~ 0
 ~STORE~17
-Text Label 2025 3475 0    40   ~ 0
+Text Label 1750 7025 0    35   ~ 0
 ~STORE~18
-Text HLabel 1775 3475 0    50   Input ~ 0
+Text HLabel 1500 7025 0    32   UnSpc ~ 0
 ~STORE~[1..18]
-$Comp
-L Connector_Generic:Conn_02x31_Counter_Clockwise SKT3
-U 1 1 5F69069C
-P 7075 3275
-F 0 "SKT3" H 7125 4900 50  0000 C CNN
-F 1 "~" H 7125 4901 50  0000 C CNN
-F 2 "" H 7075 3275 50  0001 C CNN
-F 3 "~" H 7075 3275 50  0001 C CNN
-	1    7075 3275
-	1    0    0    -1  
-$EndComp
-Text HLabel 7050 4825 3    40   Input ~ 0
+Text HLabel 4825 3725 3    32   UnSpc ~ 0
 #I[1..4]
-NoConn ~ 6875 1775
-NoConn ~ 6875 1875
-NoConn ~ 6875 1975
-NoConn ~ 6875 2075
-NoConn ~ 6875 2175
-NoConn ~ 6875 2275
-NoConn ~ 6875 2375
-NoConn ~ 6875 2475
-NoConn ~ 6875 2575
-NoConn ~ 6875 2675
-NoConn ~ 6875 2775
-NoConn ~ 6875 2875
-NoConn ~ 6875 2975
-NoConn ~ 6875 3075
-NoConn ~ 6875 3175
-NoConn ~ 6875 3275
-NoConn ~ 6875 3375
-NoConn ~ 6875 3475
-NoConn ~ 6875 3575
-NoConn ~ 7375 1775
-NoConn ~ 7375 1875
-NoConn ~ 7375 1975
-NoConn ~ 7375 2075
-NoConn ~ 7375 2175
-NoConn ~ 7375 2275
-NoConn ~ 7375 2375
-NoConn ~ 7375 2475
-NoConn ~ 7375 2575
-NoConn ~ 7375 2675
-NoConn ~ 7375 2775
-NoConn ~ 7375 2875
-NoConn ~ 7375 2975
-NoConn ~ 7375 3075
-NoConn ~ 7375 3175
-NoConn ~ 7375 3275
-NoConn ~ 7375 3375
-NoConn ~ 7375 3475
-NoConn ~ 7375 3575
-NoConn ~ 7375 3675
-NoConn ~ 7375 4175
-NoConn ~ 7375 4275
-NoConn ~ 7375 4375
-NoConn ~ 7375 4475
-NoConn ~ 7375 4575
-NoConn ~ 7375 4675
-NoConn ~ 7375 4775
-NoConn ~ 6875 3675
-NoConn ~ 6875 3775
-NoConn ~ 6875 3875
-NoConn ~ 6875 3975
-NoConn ~ 6875 4075
-NoConn ~ 6875 4175
-NoConn ~ 6875 4275
-NoConn ~ 6875 4375
-NoConn ~ 6875 4475
-NoConn ~ 6875 4575
-NoConn ~ 6875 4675
-NoConn ~ 6875 4775
-Text Label 7375 4075 0    40   ~ 0
+Text Label 5000 3375 0    35   ~ 0
 #I1
-Text Label 7375 3975 0    40   ~ 0
+Text Label 5000 3475 0    35   ~ 0
 #I2
-Text Label 7375 3875 0    40   ~ 0
+Text Label 5000 3575 0    35   ~ 0
 #I3
-Text Label 7375 3775 0    40   ~ 0
+Text Label 5000 3675 0    35   ~ 0
 #I4
-$Comp
-L Connector_Generic:Conn_02x31_Counter_Clockwise SKT2
-U 1 1 5F691776
-P 6200 3275
-F 0 "SKT2" H 6250 4900 50  0000 C CNN
-F 1 "~" H 6250 4901 50  0000 C CNN
-F 2 "" H 6200 3275 50  0001 C CNN
-F 3 "~" H 6200 3275 50  0001 C CNN
-	1    6200 3275
-	1    0    0    -1  
-$EndComp
-NoConn ~ 6000 1775
-NoConn ~ 6000 1875
-NoConn ~ 6000 1975
-NoConn ~ 6000 2075
-NoConn ~ 6000 2175
-NoConn ~ 6000 2275
-NoConn ~ 6000 2375
-NoConn ~ 6000 2475
-NoConn ~ 6000 2575
-NoConn ~ 6000 2675
-NoConn ~ 6500 1775
-NoConn ~ 6500 1875
-NoConn ~ 6500 1975
-NoConn ~ 6500 2075
-NoConn ~ 6500 2175
-NoConn ~ 6500 2275
-NoConn ~ 6500 2375
-NoConn ~ 6500 2475
-NoConn ~ 6500 2575
-NoConn ~ 6500 2675
-NoConn ~ 6500 2775
-NoConn ~ 6500 2875
-NoConn ~ 6500 2975
-NoConn ~ 6500 3075
-NoConn ~ 6500 3175
-NoConn ~ 6500 3275
-NoConn ~ 6500 3575
-NoConn ~ 6500 3675
-NoConn ~ 6500 4175
-NoConn ~ 6500 4275
-NoConn ~ 6500 4375
-NoConn ~ 6500 3775
-NoConn ~ 6500 3875
-NoConn ~ 6500 3975
-NoConn ~ 6500 4075
-Text HLabel 6175 4825 3    40   Input ~ 0
+Text HLabel 5400 3725 3    32   UnSpc ~ 0
 #P[1..11]
-Text Label 6500 3375 0    40   ~ 0
+Text Label 5575 2775 0    35   ~ 0
 #P11
-Text Label 6500 3475 0    40   ~ 0
+Text Label 5575 2675 0    35   ~ 0
 #P10
-Text HLabel 6250 4825 3    40   Input ~ 0
+Text HLabel 4775 3725 3    32   UnSpc ~ 0
 #J[1..16]
-Text Label 6000 3675 2    40   ~ 0
+Text Label 5000 1775 0    35   ~ 0
 #J1
-Text Label 6000 4575 2    40   ~ 0
+Text Label 5000 2675 0    35   ~ 0
 #J10
-Text Label 6000 4675 2    40   ~ 0
+Text Label 5000 2775 0    35   ~ 0
 #J11
-Text Label 6000 4775 2    40   ~ 0
+Text Label 5000 2875 0    35   ~ 0
 #J12
-Text Label 6500 4775 0    40   ~ 0
+Text Label 5000 2975 0    35   ~ 0
 #J13
-Text Label 6500 4675 0    40   ~ 0
+Text Label 5000 3075 0    35   ~ 0
 #J14
-Text Label 6500 4575 0    40   ~ 0
+Text Label 5000 3175 0    35   ~ 0
 #J15
-Text Label 6500 4475 0    40   ~ 0
+Text Label 5000 3275 0    35   ~ 0
 #J16
-Text HLabel 6325 4825 3    40   Input ~ 0
+Text HLabel 4250 3725 3    32   UnSpc ~ 0
 #M[1..18]
-Text Label 6000 2775 2    40   ~ 0
+Text Label 4425 2675 0    35   ~ 0
 #M10
-Text Label 6000 2875 2    40   ~ 0
+Text Label 4425 2775 0    35   ~ 0
 #M11
-Text Label 6000 2975 2    40   ~ 0
+Text Label 4425 2875 0    35   ~ 0
 #M12
-Text Label 6000 3075 2    40   ~ 0
+Text Label 4425 2975 0    35   ~ 0
 #M13
-Text Label 6000 3175 2    40   ~ 0
+Text Label 4425 3075 0    35   ~ 0
 #M14
-Text Label 6000 3275 2    40   ~ 0
+Text Label 4425 3175 0    35   ~ 0
 #M15
-Text Label 6000 3375 2    40   ~ 0
+Text Label 4425 3275 0    35   ~ 0
 #M16
-Text Label 6000 3475 2    40   ~ 0
+Text Label 4425 3375 0    35   ~ 0
 #M17
-Text Label 6000 3575 2    40   ~ 0
+Text Label 4425 3475 0    35   ~ 0
 #M18
-$Comp
-L Connector_Generic:Conn_01x40 BP2
-U 1 1 5F2221D6
-P 1825 5650
-F 0 "BP2" H 1975 5650 50  0000 C CNN
-F 1 "~" H 1745 6576 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical_Lock" H 1825 5650 50  0001 C CNN
-F 3 "~" H 1825 5650 50  0001 C CNN
-	1    1825 5650
-	-1   0    0    -1  
-$EndComp
-Text GLabel 2025 3850 2    40   Input ~ 0
+Text GLabel 9925 1875 2    32   UnSpc ~ 0
 X1-57-11
-NoConn ~ 2025 4750
-Text GLabel 2025 5250 2    40   Input ~ 0
+Text GLabel 6575 3075 2    32   UnSpc ~ 0
 C17-5-H
-Text GLabel 2025 5350 2    40   Input ~ 0
+Text GLabel 6575 1975 2    32   UnSpc ~ 0
 C18-5-8
-Text GLabel 2025 5450 2    40   Input ~ 0
+Text GLabel 6575 3175 2    32   UnSpc ~ 0
 F18-5-K
-Text GLabel 2025 3950 2    40   Input ~ 0
+Text GLabel 9925 1975 2    32   UnSpc ~ 0
 X0-57-5
-Text GLabel 2025 4050 2    40   Input ~ 0
+Text GLabel 9925 2075 2    32   UnSpc ~ 0
 FTG1-57-4
-Text GLabel 2025 4150 2    40   Input ~ 0
+Text GLabel 9925 2175 2    32   UnSpc ~ 0
 F1-57-7
-Text GLabel 2025 4550 2    40   Input ~ 0
+Text GLabel 7375 2875 2    32   UnSpc ~ 0
 ITF-8-12
-Text GLabel 2025 4250 2    40   Input ~ 0
+Text GLabel 9925 2275 2    32   UnSpc ~ 0
 RTG1-57-6
-Text GLabel 2025 4350 2    40   Input ~ 0
+Text GLabel 9925 2375 2    32   UnSpc ~ 0
 LTG1-57-8
 $Comp
 L Connector_Generic:Conn_01x18 JIP1
 U 1 1 5FCE848F
-P 4050 2575
-F 0 "JIP1" H 3970 3500 50  0000 C CNN
-F 1 "~" H 3970 3501 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical_Lock" H 4050 2575 50  0001 C CNN
-F 3 "~" H 4050 2575 50  0001 C CNN
-	1    4050 2575
+P 5025 6125
+F 0 "JIP1" H 4945 7050 50  0000 C CNN
+F 1 "~" H 4945 7051 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 5025 6125 50  0001 C CNN
+F 3 "~" H 5025 6125 50  0001 C CNN
+	1    5025 6125
 	-1   0    0    -1  
 $EndComp
-Text HLabel 4000 3475 0    50   Input ~ 0
+Text HLabel 4975 7025 0    32   UnSpc ~ 0
 IP[1..18]
-Text Label 4250 1775 0    40   ~ 0
+Text Label 5225 5325 0    35   ~ 0
 IP1
-Text Label 4250 1875 0    40   ~ 0
+Text Label 5225 5425 0    35   ~ 0
 IP2
-Text Label 4250 1975 0    40   ~ 0
+Text Label 5225 5525 0    35   ~ 0
 IP3
-Text Label 4250 2075 0    40   ~ 0
+Text Label 5225 5625 0    35   ~ 0
 IP4
-Text Label 4250 2175 0    40   ~ 0
+Text Label 5225 5725 0    35   ~ 0
 IP5
-Text Label 4250 2275 0    40   ~ 0
+Text Label 5225 5825 0    35   ~ 0
 IP6
-Text Label 4250 2375 0    40   ~ 0
+Text Label 5225 5925 0    35   ~ 0
 IP7
-Text Label 4250 2475 0    40   ~ 0
+Text Label 5225 6025 0    35   ~ 0
 IP8
-Text Label 4250 2575 0    40   ~ 0
+Text Label 5225 6125 0    35   ~ 0
 IP9
-Text Label 4250 2675 0    40   ~ 0
+Text Label 5225 6225 0    35   ~ 0
 IP10
-Text Label 4250 2775 0    40   ~ 0
+Text Label 5225 6325 0    35   ~ 0
 IP11
-Text Label 4250 2875 0    40   ~ 0
+Text Label 5225 6425 0    35   ~ 0
 IP12
-Text Label 4250 2975 0    40   ~ 0
+Text Label 5225 6525 0    35   ~ 0
 IP13
-Text Label 4250 3075 0    40   ~ 0
+Text Label 5225 6625 0    35   ~ 0
 IP14
-Text Label 4250 3175 0    40   ~ 0
+Text Label 5225 6725 0    35   ~ 0
 IP15
-Text Label 4250 3275 0    40   ~ 0
+Text Label 5225 6825 0    35   ~ 0
 IP16
-Text Label 4250 3375 0    40   ~ 0
+Text Label 5225 6925 0    35   ~ 0
 IP17
-Text Label 4250 3475 0    40   ~ 0
+Text Label 5225 7025 0    35   ~ 0
 IP18
+Text HLabel 1725 3725 3    32   UnSpc ~ 0
+IP'[1..8]
+Text Label 1950 2575 0    35   ~ 0
+IP'1
+Text Label 1950 2675 0    35   ~ 0
+IP'2
+Text Label 1950 2775 0    35   ~ 0
+IP'3
+Text Label 1950 2875 0    35   ~ 0
+IP'4
+Text Label 1950 2975 0    35   ~ 0
+IP'5
+Text Label 1950 3075 0    35   ~ 0
+IP'6
+Text Label 1950 3175 0    35   ~ 0
+IP'7
+Text Label 1950 3275 0    35   ~ 0
+IP'8
+Text GLabel 9925 2475 2    32   UnSpc ~ 0
+~OTG1~-57-M
+Text GLabel 7375 3275 2    32   UnSpc ~ 0
+DTF2a-8-26
+Text GLabel 6575 2575 2    32   UnSpc ~ 0
+DTF1-2-5-23
+Text GLabel 6575 3675 2    32   UnSpc ~ 0
+~KTJ1~-6-21
+Text GLabel 7375 1875 2    32   UnSpc ~ 0
+~ETJ2~-6-27
+Text GLabel 7375 1975 2    32   UnSpc ~ 0
+~ETJ3~-6-28
+Text GLabel 7375 1775 2    32   UnSpc ~ 0
+~KTJ5~-6-22
+Text GLabel 6575 2475 2    32   UnSpc ~ 0
+DTF1-1-5-22
+Text Label 5000 1875 0    35   ~ 0
+#J2
+Text Label 5000 1975 0    35   ~ 0
+#J3
+Text Label 5000 2075 0    35   ~ 0
+#J4
+Text Label 5000 2175 0    35   ~ 0
+#J5
+Text Label 5000 2275 0    35   ~ 0
+#J6
+Text Label 5000 2375 0    35   ~ 0
+#J7
+Text Label 5000 2475 0    35   ~ 0
+#J8
+Text Label 5000 2575 0    35   ~ 0
+#J9
+Text GLabel 6575 2175 2    32   UnSpc ~ 0
+MTI-5-17
+Text GLabel 9100 2775 2    32   UnSpc ~ 0
+I4-22-L
+Text GLabel 9100 2575 2    32   UnSpc ~ 0
+I3-22-J
+Text GLabel 9100 2375 2    32   UnSpc ~ 0
+I2-22-F
+Text GLabel 9100 2175 2    32   UnSpc ~ 0
+I1-22-D
+Text GLabel 7375 2175 2    32   UnSpc ~ 0
+M18-7-9
+Text GLabel 1350 2375 2    32   UnSpc ~ 0
+P13-30-R
+Text GLabel 1950 3375 2    32   UnSpc ~ 0
+P12-30-V
+Text GLabel 9925 1775 2    32   UnSpc ~ 0
+IIS-57-15
+Text GLabel 8200 2975 2    32   UnSpc ~ 0
+~J~1'-20-3
+Text GLabel 8200 3075 2    32   UnSpc ~ 0
+J1'-20-4
+Text GLabel 9100 2075 2    32   UnSpc ~ 0
+~J~15-22-29
+Text GLabel 9100 1975 2    32   UnSpc ~ 0
+~J~14-22-28
+Text GLabel 8200 3175 2    32   UnSpc ~ 0
+~J~2'-20-5
+Text GLabel 8200 3275 2    32   UnSpc ~ 0
+J2'-20-6
+Text GLabel 8200 3475 2    32   UnSpc ~ 0
+J3'-20-8
+Text GLabel 8200 3375 2    32   UnSpc ~ 0
+~J~3'-20-7
+Text GLabel 9100 1875 2    32   UnSpc ~ 0
+~J~16-22-26
+Text GLabel 6575 2275 2    32   UnSpc ~ 0
+~OTI~-5-18
+Text GLabel 9100 3375 2    32   UnSpc ~ 0
+~J~8-24-27
+Text GLabel 9100 3475 2    32   UnSpc ~ 0
+~J~9-25-3
+Text GLabel 9100 3275 2    32   UnSpc ~ 0
+~J~7-24-19
+Text GLabel 9100 3175 2    32   UnSpc ~ 0
+~J~6-24-8
+Text GLabel 9100 3075 2    32   UnSpc ~ 0
+~J~5-24-3
+Text GLabel 9100 2975 2    32   UnSpc ~ 0
+~J~4-23-27
+Text GLabel 7375 2475 2    32   UnSpc ~ 0
+M11-7-21
+Text GLabel 7375 2075 2    32   UnSpc ~ 0
+M13-7-6
+Text GLabel 6575 3475 2    32   UnSpc ~ 0
+M12-6-W
+Text GLabel 9100 3575 2    32   UnSpc ~ 0
+~IIG~
+Text GLabel 8200 3575 2    32   UnSpc ~ 0
+J1-20-C
+Text GLabel 8200 3675 2    32   UnSpc ~ 0
+J2-20-E
+Text GLabel 9100 1775 2    32   UnSpc ~ 0
+J3-20-H
+Text HLabel 2650 7025 0    40   UnSpc ~ 0
+M[1..18]
+Text HLabel 3425 7025 0    40   UnSpc ~ 0
+J[1..16]
 $Comp
-L Connector_Generic:Conn_01x08 JIP'1
-U 1 1 609C5320
-P 900 2075
-F 0 "JIP'1" H 900 2500 50  0000 C CNN
-F 1 "~" H 820 3001 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical_Lock" H 900 2075 50  0001 C CNN
-F 3 "~" H 900 2075 50  0001 C CNN
-	1    900  2075
+L Connector_Generic:Conn_01x18 JM1
+U 1 1 5F0D0E13
+P 2700 6125
+F 0 "JM1" H 2620 7050 50  0000 C CNN
+F 1 "~" H 2620 7051 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 2700 6125 50  0001 C CNN
+F 3 "~" H 2700 6125 50  0001 C CNN
+	1    2700 6125
 	-1   0    0    -1  
 $EndComp
-Text HLabel 850  2475 0    40   Input ~ 0
-IP'[1..8]
-Text Label 1100 1775 0    40   ~ 0
-IP'1
-Text Label 1100 1875 0    40   ~ 0
-IP'2
-Text Label 1100 1975 0    40   ~ 0
-IP'3
-Text Label 1100 2075 0    40   ~ 0
-IP'4
-Text Label 1100 2175 0    40   ~ 0
-IP'5
-Text Label 1100 2275 0    40   ~ 0
-IP'6
-Text Label 1100 2375 0    40   ~ 0
-IP'7
-Text Label 1100 2475 0    40   ~ 0
-IP'8
-Text GLabel 2025 4450 2    40   Input ~ 0
-~OTG1~-57-M
-Text GLabel 2025 4650 2    40   Input ~ 0
-DTF2a-8-26
-Text GLabel 2025 5550 2    40   Input ~ 0
-DTF1-2-5-23
-Text GLabel 2025 4850 2    40   Input ~ 0
-~KTJ1~-6-21
-Text GLabel 2025 4950 2    40   Input ~ 0
-~ETJ2~-6-27
-Text GLabel 2025 5050 2    40   Input ~ 0
-~ETJ3~-6-28
-Text GLabel 2025 5150 2    40   Input ~ 0
-~KTJ5~-6-22
-Text GLabel 2025 5650 2    40   Input ~ 0
-DTF1-1-5-22
-Text Label 6000 3775 2    40   ~ 0
-#J2
-Text Label 6000 3875 2    40   ~ 0
-#J3
-Text Label 6000 3975 2    40   ~ 0
-#J4
-Text Label 6000 4075 2    40   ~ 0
-#J5
-Text Label 6000 4175 2    40   ~ 0
-#J6
-Text Label 6000 4275 2    40   ~ 0
-#J7
-Text Label 6000 4375 2    40   ~ 0
-#J8
-Text Label 6000 4475 2    40   ~ 0
-#J9
-Text GLabel 2025 5750 2    40   Input ~ 0
-MTI-5-17
-Text GLabel 2025 5950 2    50   Input ~ 0
-I4-22-L
-NoConn ~ 2025 5850
-Text GLabel 2025 6050 2    50   Input ~ 0
-I3-22-J
-Text GLabel 2025 6150 2    50   Input ~ 0
-I2-22-F
-Text GLabel 2025 6250 2    50   Input ~ 0
-I1-22-D
-NoConn ~ 2025 6450
-Text GLabel 2025 6350 2    50   Input ~ 0
-M18-7-9
-Text GLabel 2025 6950 2    40   Input ~ 0
-P13-30-R
-Text GLabel 2025 6850 2    40   Input ~ 0
-P12-30-V
-Text GLabel 2025 3750 2    50   Input ~ 0
-IIS-57-15
-Text GLabel 2025 7050 2    40   Input ~ 0
-~J~1'-20-3
-Text GLabel 2025 7150 2    40   Input ~ 0
-J1'-20-4
-Text GLabel 2025 7250 2    40   Input ~ 0
-~J~15-22-29
-Text GLabel 2025 7350 2    40   Input ~ 0
-~J~14-22-28
-Text GLabel 2025 7450 2    40   Input ~ 0
-~J~2'-20-5
-Text GLabel 2025 7550 2    40   Input ~ 0
-J2'-20-6
-Text GLabel 2025 7650 2    40   Input ~ 0
-J3'-20-8
-Text GLabel 2025 6750 2    40   Input ~ 0
-~J~3'-20-7
-Text GLabel 2025 6650 2    40   Input ~ 0
-~J~16-22-26
-Text GLabel 2025 6550 2    40   Input ~ 0
-~OTI~-5-18
+$Comp
+L Connector_Generic:Conn_01x18 JJ1
+U 1 1 5F0D0E83
+P 3475 6125
+F 0 "JJ1" H 3395 7050 50  0000 C CNN
+F 1 "~" H 3395 7051 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3475 6125 50  0001 C CNN
+F 3 "~" H 3475 6125 50  0001 C CNN
+	1    3475 6125
+	-1   0    0    -1  
+$EndComp
+Text Label 2900 5325 0    40   ~ 0
+M1
+Text Label 2900 5425 0    40   ~ 0
+M2
+Text Label 2900 5525 0    40   ~ 0
+M3
+Text Label 2900 5625 0    40   ~ 0
+M4
+Text Label 2900 5725 0    40   ~ 0
+M5
+Text Label 2900 5825 0    40   ~ 0
+M6
+Text Label 2900 5925 0    40   ~ 0
+M7
+Text Label 2900 6025 0    40   ~ 0
+M8
+Text Label 2900 6125 0    40   ~ 0
+M9
+Text Label 2900 6225 0    40   ~ 0
+M10
+Text Label 2900 6325 0    40   ~ 0
+M11
+Text Label 2900 6425 0    40   ~ 0
+M12
+Text Label 2900 6525 0    40   ~ 0
+M13
+Text Label 2900 6625 0    40   ~ 0
+M14
+Text Label 2900 6725 0    40   ~ 0
+M15
+Text Label 2900 6825 0    40   ~ 0
+M16
+Text Label 2900 6925 0    40   ~ 0
+M17
+Text Label 2900 7025 0    40   ~ 0
+M18
+NoConn ~ 3675 6925
+NoConn ~ 3675 7025
+Text Label 3675 6825 0    40   ~ 0
+J16
+Text Label 3675 6725 0    40   ~ 0
+J15
+Text Label 3675 6625 0    40   ~ 0
+J14
+Text Label 3675 6525 0    40   ~ 0
+J13
+Text Label 3675 6425 0    40   ~ 0
+J12
+Text Label 3675 6325 0    40   ~ 0
+J11
+Text Label 3675 6225 0    40   ~ 0
+J10
+Text Label 3675 6125 0    40   ~ 0
+J9
+Text Label 3675 6025 0    40   ~ 0
+J8
+Text Label 3675 5925 0    40   ~ 0
+J7
+Text Label 3675 5825 0    40   ~ 0
+J6
+Text Label 3675 5725 0    40   ~ 0
+J5
+Text Label 3675 5625 0    40   ~ 0
+J4
+Text Label 3675 5525 0    40   ~ 0
+J3
+Text Label 3675 5425 0    40   ~ 0
+J2
+Text Label 3675 5325 0    40   ~ 0
+J1
+Text GLabel 6575 3575 2    32   UnSpc ~ 0
+~M~13-6-18
+Text GLabel 7375 2275 2    32   UnSpc ~ 0
+~M~18-7-11
+Text GLabel 6575 3375 2    32   UnSpc ~ 0
+~M~12-6-Y
+Text Label 4425 1775 0    40   ~ 0
+#M1
+Text Label 4425 1875 0    40   ~ 0
+#M2
+Text Label 4425 1975 0    40   ~ 0
+#M3
+Text Label 4425 2075 0    40   ~ 0
+#M4
+Text Label 4425 2175 0    40   ~ 0
+#M5
+Text Label 4425 2275 0    40   ~ 0
+#M6
+Text Label 4425 2375 0    40   ~ 0
+#M7
+Text Label 4425 2475 0    40   ~ 0
+#M8
+Text Label 4425 2575 0    40   ~ 0
+#M9
+Text GLabel 9100 2875 2    32   UnSpc ~ 0
+~I~4-22-M
+Text GLabel 9100 2675 2    32   UnSpc ~ 0
+~I~3-22-K
+Text GLabel 9100 2475 2    32   UnSpc ~ 0
+~I~2-22-H
+Text GLabel 9100 2275 2    32   UnSpc ~ 0
+~I~1-22-E
+Text GLabel 1950 3475 2    32   UnSpc ~ 0
+~P~13-30-18
+Text GLabel 1950 3575 2    32   UnSpc ~ 0
+~P~12-30-T
+Text GLabel 1950 3675 2    32   UnSpc ~ 0
+~P~11-30-W
+Text GLabel 1350 2875 2    32   UnSpc ~ 0
+~P~10-30-X
+Text GLabel 1350 2675 2    32   UnSpc ~ 0
+~P~9-30-Y
+Text GLabel 1350 2775 2    32   UnSpc ~ 0
+~P~8-30-22
+Text GLabel 1350 2475 2    32   UnSpc ~ 0
+~P~7-30-AA
+Text GLabel 1350 2575 2    32   UnSpc ~ 0
+~P~6-30-24
+Text GLabel 1350 2275 2    32   UnSpc ~ 0
+~P~5-30-AC
+Text GLabel 1350 1875 2    32   UnSpc ~ 0
+~P~4-32-F
+Text GLabel 1350 1975 2    32   UnSpc ~ 0
+~P~3-32-E
+Text GLabel 1350 2075 2    32   UnSpc ~ 0
+~P~2-32-D
+Text GLabel 1350 2175 2    32   UnSpc ~ 0
+~P~1-32-C
+Text Label 5575 2575 0    40   ~ 0
+#P9
+Text Label 5575 2475 0    40   ~ 0
+#P8
+Text Label 5575 2375 0    40   ~ 0
+#P7
+Text Label 5575 2275 0    40   ~ 0
+#P6
+Text Label 5575 2175 0    40   ~ 0
+#P5
+Text Label 5575 2075 0    40   ~ 0
+#P4
+Text Label 5575 1975 0    40   ~ 0
+#P3
+Text Label 5575 1875 0    40   ~ 0
+#P2
+Text Label 5575 1775 0    40   ~ 0
+#P1
+Text GLabel 7375 2375 2    32   UnSpc ~ 0
+~Q~1-7-15
+$Comp
+L Connector_Generic:Conn_01x20 JW1
+U 1 1 5F2E7A81
+P 1750 2675
+F 0 "JW1" H 1675 3700 50  0000 C CNN
+F 1 "~" H 1670 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1750 2675 50  0001 C CNN
+F 3 "~" H 1750 2675 50  0001 C CNN
+	1    1750 2675
+	-1   0    0    -1  
+$EndComp
+Text HLabel 1775 3725 3    30   UnSpc ~ 0
+W[1..18]
+Text Label 4425 3575 0    40   ~ 0
+W1
+Text Label 1950 1775 0    40   ~ 0
+W2
+Text Label 1950 1875 0    40   ~ 0
+W3
+Text Label 1950 1975 0    40   ~ 0
+W4
+Text Label 5575 2875 0    40   ~ 0
+W5
+Text Label 5575 2975 0    40   ~ 0
+W6
+Text Label 5575 3075 0    40   ~ 0
+W7
+Text Label 5575 3175 0    40   ~ 0
+W8
+Text Label 5575 3275 0    40   ~ 0
+W9
+Text Label 5575 3375 0    40   ~ 0
+W10
+Text Label 5575 3475 0    40   ~ 0
+W11
+Text Label 5575 3575 0    40   ~ 0
+W12
+Text Label 5575 3675 0    40   ~ 0
+W13
+Text Label 1950 2075 0    40   ~ 0
+W14
+Text Label 1950 2175 0    40   ~ 0
+W15
+Text Label 1950 2275 0    40   ~ 0
+W16
+Text Label 1950 2375 0    40   ~ 0
+W17
+Text Label 1950 2475 0    40   ~ 0
+W18
+Text GLabel 6575 2775 2    32   UnSpc ~ 0
+t4-5-26
+Text GLabel 7375 2975 2    32   UnSpc ~ 0
+WTMa-8-21
+Text GLabel 7375 3075 2    32   UnSpc ~ 0
+GTMa-8-23
+Text GLabel 7375 3175 2    32   UnSpc ~ 0
+GTQa-8-24
+Text GLabel 7375 3375 2    32   UnSpc ~ 0
+GTAa-8-27
+Text GLabel 6575 1875 2    32   UnSpc ~ 0
+~OTA~'-5-7
+Text GLabel 6575 2075 2    32   UnSpc ~ 0
+~OTJ~'-5-11
+Text GLabel 6575 1775 2    32   UnSpc ~ 0
+~RESET~2-2-Y
+Text GLabel 8200 2475 2    32   UnSpc ~ 0
+OTMa-9-23
+Text GLabel 6575 2975 2    32   UnSpc ~ 0
+t3-2-5-29
+Text GLabel 8200 2375 2    32   UnSpc ~ 0
+MTPa-9-22
+Text GLabel 6575 2875 2    32   UnSpc ~ 0
+t1-5-27
+Text GLabel 7375 3475 2    32   UnSpc ~ 0
+GTJa-8-28
+Text GLabel 7375 2575 2    32   UnSpc ~ 0
+CRS-7-AF
+Text GLabel 6575 3275 2    32   UnSpc ~ 0
+SFD-6-R
+Text GLabel 7375 3675 2    32   UnSpc ~ 0
+CRSm-11-AC
+Text GLabel 8200 2875 2    32   UnSpc ~ 0
+SFDm-19-V
+Text GLabel 7375 2775 2    32   UnSpc ~ 0
+VTGa-8-7
+Text GLabel 8200 2075 2    32   UnSpc ~ 0
+~M~TFa-9-13
+Text GLabel 8200 1875 2    32   UnSpc ~ 0
+JTPCa-9-7
+Text GLabel 8200 2775 2    32   UnSpc ~ 0
+QTFa-9-30
+Text GLabel 8200 2275 2    32   UnSpc ~ 0
+ATFa-9-21
+Text GLabel 6575 2675 2    32   UnSpc ~ 0
+t5-5-25
+Text GLabel 6575 2375 2    32   UnSpc ~ 0
+t2-2-5-20
+Text GLabel 8200 1975 2    32   UnSpc ~ 0
+PTG2-a-9-12
+Text GLabel 8200 2675 2    32   UnSpc ~ 0
+LTGa-9-25
+Text GLabel 8200 2575 2    32   UnSpc ~ 0
+JTFa-9-24
+Text GLabel 7375 3575 2    32   UnSpc ~ 0
+MTFa-8-30
+Text GLabel 7375 2675 2    32   UnSpc ~ 0
+FTGa-8-6
+Wire Notes Line
+	3950 4925 3950 7350
+Wire Notes Line
+	3950 7350 1100 7350
+Wire Notes Line
+	1100 7350 1100 4925
+Wire Notes Line
+	1100 4925 3950 4925
+Text Notes 1375 5000 2    32   ~ 0
+To Store
+$Comp
+L Connector_Generic:Conn_01x18 JSKT1-1
+U 1 1 5F137331
+P 2400 2575
+F 0 "JSKT1-1" H 2325 3500 50  0000 C CNN
+F 1 "~" H 2320 3501 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 2400 2575 50  0001 C CNN
+F 3 "~" H 2400 2575 50  0001 C CNN
+	1    2400 2575
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x18 JSKT1-2
+U 1 1 5F137B91
+P 3000 2575
+F 0 "JSKT1-2" H 2925 3500 50  0000 C CNN
+F 1 "~" H 2920 3501 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3000 2575 50  0001 C CNN
+F 3 "~" H 3000 2575 50  0001 C CNN
+	1    3000 2575
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x18 JSKT1-3
+U 1 1 5F1390DC
+P 3625 2575
+F 0 "JSKT1-3" H 3550 3500 50  0000 C CNN
+F 1 "~" H 3545 3501 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3625 2575 50  0001 C CNN
+F 3 "~" H 3625 2575 50  0001 C CNN
+	1    3625 2575
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 JSKT2-1
+U 1 1 5F1399D3
+P 4225 2675
+F 0 "JSKT2-1" H 4150 3700 50  0000 C CNN
+F 1 "~" H 4145 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4225 2675 50  0001 C CNN
+F 3 "~" H 4225 2675 50  0001 C CNN
+	1    4225 2675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 JSKT2-2
+U 1 1 5F13A925
+P 4800 2675
+F 0 "JSKT2-2" H 4725 3700 50  0000 C CNN
+F 1 "~" H 4720 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4800 2675 50  0001 C CNN
+F 3 "~" H 4800 2675 50  0001 C CNN
+	1    4800 2675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 JSKT2-3
+U 1 1 5F13C385
+P 5375 2675
+F 0 "JSKT2-3" H 5300 3700 50  0000 C CNN
+F 1 "~" H 5295 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 5375 2675 50  0001 C CNN
+F 3 "~" H 5375 2675 50  0001 C CNN
+	1    5375 2675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP2-1
+U 1 1 5F13C8FC
+P 6375 2675
+F 0 "JBP1-BP2-1" H 6300 3700 50  0000 C CNN
+F 1 "~" H 6295 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 6375 2675 50  0001 C CNN
+F 3 "~" H 6375 2675 50  0001 C CNN
+	1    6375 2675
+	-1   0    0    -1  
+$EndComp
+Text GLabel 1350 1775 2    32   UnSpc ~ 0
+~VTG~-32-R
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP2-2
+U 1 1 5F1422AE
+P 7175 2675
+F 0 "JBP1-BP2-2" H 7100 3700 50  0000 C CNN
+F 1 "~" H 7095 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 7175 2675 50  0001 C CNN
+F 3 "~" H 7175 2675 50  0001 C CNN
+	1    7175 2675
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP2-3
+U 1 1 5F14684B
+P 8000 2675
+F 0 "JBP1-BP2-3" H 7925 3700 50  0000 C CNN
+F 1 "~" H 7920 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 8000 2675 50  0001 C CNN
+F 3 "~" H 8000 2675 50  0001 C CNN
+	1    8000 2675
+	-1   0    0    -1  
+$EndComp
+Text GLabel 8200 2175 2    32   UnSpc ~ 0
+RTGa-9-14
+Text GLabel 8200 1775 2    32   UnSpc ~ 0
+PTG1-a-9-6
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP2-4
+U 1 1 5F14A654
+P 8900 2675
+F 0 "JBP1-BP2-4" H 8825 3700 50  0000 C CNN
+F 1 "~" H 8820 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 8900 2675 50  0001 C CNN
+F 3 "~" H 8900 2675 50  0001 C CNN
+	1    8900 2675
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 9100 3675
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP2-5
+U 1 1 5F14E504
+P 9725 2675
+F 0 "JBP1-BP2-5" H 9650 3700 50  0000 C CNN
+F 1 "~" H 9645 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 9725 2675 50  0001 C CNN
+F 3 "~" H 9725 2675 50  0001 C CNN
+	1    9725 2675
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 9925 2575
+NoConn ~ 9925 2675
+NoConn ~ 9925 2775
+NoConn ~ 9925 2875
+NoConn ~ 9925 2975
+NoConn ~ 9925 3075
+NoConn ~ 9925 3175
+NoConn ~ 9925 3275
+NoConn ~ 9925 3375
+NoConn ~ 9925 3475
+NoConn ~ 9925 3575
+NoConn ~ 9925 3675
+$Comp
+L Connector_Generic:Conn_01x20 JBP1-BP3-1
+U 1 1 5F14EC7A
+P 1150 2675
+F 0 "JBP1-BP3-1" H 1075 3700 50  0000 C CNN
+F 1 "~" H 1070 3601 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1150 2675 50  0001 C CNN
+F 3 "~" H 1150 2675 50  0001 C CNN
+	1    1150 2675
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 4425 3675
+NoConn ~ 1350 3675
+NoConn ~ 1350 3575
+NoConn ~ 1350 3475
+NoConn ~ 1350 3375
+NoConn ~ 1350 3275
+NoConn ~ 1350 3175
+NoConn ~ 1350 3075
+NoConn ~ 1350 2975
 $EndSCHEMATC
