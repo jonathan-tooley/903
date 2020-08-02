@@ -63,7 +63,7 @@ Text Label 4475 7025 0    35   ~ 0
 ~A~18
 Text HLabel 4225 7025 0    32   UnSpc ~ 0
 ~A~[1..18]
-Text HLabel 3650 3725 3    32   UnSpc ~ 0
+Text HLabel 3650 3525 3    32   UnSpc ~ 0
 #Q[1..18]
 Text Label 2600 1775 0    35   ~ 0
 #G1
@@ -591,32 +591,6 @@ Text GLabel 9100 2475 2    32   UnSpc ~ 0
 ~I~2-22-H
 Text GLabel 9100 2275 2    32   UnSpc ~ 0
 ~I~1-22-E
-Text GLabel 1950 3475 2    32   UnSpc ~ 0
-~P~13-30-18
-Text GLabel 1950 3575 2    32   UnSpc ~ 0
-~P~12-30-T
-Text GLabel 1950 3675 2    32   UnSpc ~ 0
-~P~11-30-W
-Text GLabel 1350 2875 2    32   UnSpc ~ 0
-~P~10-30-X
-Text GLabel 1350 2675 2    32   UnSpc ~ 0
-~P~9-30-Y
-Text GLabel 1350 2775 2    32   UnSpc ~ 0
-~P~8-30-22
-Text GLabel 1350 2475 2    32   UnSpc ~ 0
-~P~7-30-AA
-Text GLabel 1350 2575 2    32   UnSpc ~ 0
-~P~6-30-24
-Text GLabel 1350 2275 2    32   UnSpc ~ 0
-~P~5-30-AC
-Text GLabel 1350 1875 2    32   UnSpc ~ 0
-~P~4-32-F
-Text GLabel 1350 1975 2    32   UnSpc ~ 0
-~P~3-32-E
-Text GLabel 1350 2075 2    32   UnSpc ~ 0
-~P~2-32-D
-Text GLabel 1350 2175 2    32   UnSpc ~ 0
-~P~1-32-C
 Text Label 5575 2575 0    40   ~ 0
 #P9
 Text Label 5575 2475 0    40   ~ 0
@@ -638,10 +612,10 @@ Text Label 5575 1775 0    40   ~ 0
 Text GLabel 7375 2375 2    32   UnSpc ~ 0
 ~Q~1-7-15
 $Comp
-L Connector_Generic:Conn_01x20 JW1
+L Connector_Generic:Conn_01x20 JBP1-BP3-2
 U 1 1 5F2E7A81
 P 1750 2675
-F 0 "JW1" H 1675 3700 50  0000 C CNN
+F 0 "JBP1-BP3-2" H 1675 3700 50  0000 C CNN
 F 1 "~" H 1670 3601 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1750 2675 50  0001 C CNN
 F 3 "~" H 1750 2675 50  0001 C CNN
@@ -650,11 +624,11 @@ F 3 "~" H 1750 2675 50  0001 C CNN
 $EndComp
 Text HLabel 1775 3725 3    30   UnSpc ~ 0
 W[1..18]
-Text Label 4425 3575 0    40   ~ 0
+Text Label 4425 3675 0    40   ~ 0
 W1
-Text Label 1950 1775 0    40   ~ 0
+Text Label 1950 1775 0    35   ~ 0
 W2
-Text Label 1950 1875 0    40   ~ 0
+Text Label 1950 1875 0    35   ~ 0
 W3
 Text Label 1950 1975 0    40   ~ 0
 W4
@@ -676,15 +650,13 @@ Text Label 5575 3575 0    40   ~ 0
 W12
 Text Label 5575 3675 0    40   ~ 0
 W13
-Text Label 1950 2075 0    40   ~ 0
+Text Label 1950 2075 0    35   ~ 0
 W14
-Text Label 1950 2175 0    40   ~ 0
+Text Label 1950 2175 0    35   ~ 0
 W15
-Text Label 1950 2275 0    40   ~ 0
+Text Label 1950 2275 0    35   ~ 0
 W16
-Text Label 1950 2375 0    40   ~ 0
-W17
-Text Label 1950 2475 0    40   ~ 0
+Text Label 1950 2475 0    35   ~ 0
 W18
 Text GLabel 6575 2775 2    32   UnSpc ~ 0
 t4-5-26
@@ -777,14 +749,14 @@ F 3 "~" H 3000 2575 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x20 JSKT1-3
+L Connector_Generic:Conn_01x18 JSKT1-3
 U 1 1 5F1390DC
-P 3625 2675
-F 0 "JSKT1-3" H 3550 3700 50  0000 C CNN
-F 1 "~" H 3545 3601 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3625 2675 50  0001 C CNN
-F 3 "~" H 3625 2675 50  0001 C CNN
-	1    3625 2675
+P 3625 2575
+F 0 "JSKT1-3" H 3550 3500 50  0000 C CNN
+F 1 "~" H 3545 3501 50  0000 C CNN
+F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3625 2575 50  0001 C CNN
+F 3 "~" H 3625 2575 50  0001 C CNN
+	1    3625 2575
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -870,7 +842,6 @@ F 3 "~" H 8900 2675 50  0001 C CNN
 	1    8900 2675
 	-1   0    0    -1  
 $EndComp
-NoConn ~ 9100 3675
 $Comp
 L Connector_Generic:Conn_01x20 JBP1-BP2-5
 U 1 1 5F14E504
@@ -882,7 +853,6 @@ F 3 "~" H 9725 2675 50  0001 C CNN
 	1    9725 2675
 	-1   0    0    -1  
 $EndComp
-NoConn ~ 9925 2575
 NoConn ~ 9925 2675
 NoConn ~ 9925 2775
 NoConn ~ 9925 2875
@@ -905,11 +875,6 @@ F 3 "~" H 1150 2675 50  0001 C CNN
 	1    1150 2675
 	-1   0    0    -1  
 $EndComp
-NoConn ~ 4425 3675
-NoConn ~ 3825 3575
-NoConn ~ 3825 3675
-NoConn ~ 3200 3675
-NoConn ~ 3200 3575
 NoConn ~ 1350 3675
 NoConn ~ 1350 3575
 NoConn ~ 1350 3475
@@ -918,4 +883,38 @@ NoConn ~ 1350 3275
 NoConn ~ 1350 3175
 NoConn ~ 1350 3075
 NoConn ~ 1350 2975
+NoConn ~ 4425 3575
+Text HLabel 1175 3725 3    30   Input ~ 0
+~P~[1..13]
+Text Label 1350 1875 0    35   ~ 0
+~P~4
+Text Label 1350 1975 0    35   ~ 0
+~P~3
+Text Label 1350 2075 0    35   ~ 0
+~P~2
+Text Label 1350 2175 0    35   ~ 0
+~P~1
+Text Label 1350 2275 0    35   ~ 0
+~P~5
+Text Label 1350 2575 0    35   ~ 0
+~P~6
+Text Label 1350 2475 0    35   ~ 0
+~P~7
+Text Label 1350 2775 0    35   ~ 0
+~P~8
+Text Label 1350 2675 0    35   ~ 0
+~P~9
+Text Label 1350 2875 0    35   ~ 0
+~P~10
+Text Label 1950 3675 0    35   ~ 0
+~P~11
+Text Label 1950 3575 0    35   ~ 0
+~P~12
+Text Label 1950 3475 0    35   ~ 0
+~P~13
+NoConn ~ 1950 2375
+Text Label 9100 3675 0    32   ~ 0
+W17
+Text GLabel 9925 2575 2    32   UnSpc ~ 0
+JTPC-23-L
 $EndSCHEMATC

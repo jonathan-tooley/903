@@ -34,41 +34,62 @@
   )
   (placement
     (component ELLIOTT:MC61
-      (place JSKT1 50000 -45000 front 0 (PN Circ61))
-      (place JSKT3 150000 -45000 front 0 (PN Circ61))
+      (place JSKT1 48844.3 -63529.3 front 0 (PN Circ61))
+      (place JSKT3 148844 -63529.3 front 0 (PN Circ61))
     )
     (component ELLIOTT:MC61::1
-      (place JSKT2 100000 -45000 front 0 (PN Circ61))
-      (place JSKT4 250000 -45000 front 0 (PN Circ61))
+      (place JSKT2 98844.3 -63529.3 front 0 (PN Circ61))
+      (place JSKT4 248844 -63529.3 front 0 (PN Circ61))
     )
     (component ELLIOTT:MC41
-      (place JSKT5 350000 -45000 front 0 (PN Circ41))
+      (place JSKT5 348844 -63529.3 front 0 (PN Circ41))
     )
     (component ELLIOTT:MC19
-      (place JSKT6 150000 -100000 front 0 (PN Circ19))
+      (place JSKT6 148844 -118529 front 0 (PN Circ19))
     )
     (component ELLIOTT:MC32
-      (place JSKT7 50000 -100000 front 0 (PN Circ32))
+      (place JSKT7 48844.3 -118529 front 0 (PN Circ32))
     )
     (component ELLIOTT:MC32::1
-      (place JSKT10 100000 -100000 front 0 (PN Circ32))
+      (place JSKT10 98844.3 -118529 front 0 (PN Circ32))
     )
     (component ELLIOTT:MC41::1
-      (place JSKT11 350000 -100000 front 0 (PN Circ41))
+      (place JSKT11 348844 -118529 front 0 (PN Circ41))
     )
     (component ELLIOTT:MC19::1
-      (place JSKT13 250000 -100000 front 0 (PN Circ19))
+      (place JSKT13 248844 -118529 front 0 (PN Circ19))
     )
     (component "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock"
-      (place "JSKT1-1" 29616.4 -150127 front 0 (PN ~))
-      (place "JSKT1-2" 31280.1 -201358 front 0 (PN ~))
-      (place "JSKT2-3" 109068 -200889 front 0 (PN ~))
-      (place "JSKT4-1" 239941 -148819 front 0 (PN ~))
+      (place "JSKT1-1" 60540.9 -37515.8 back 270 (PN ~))
+      (place "JSKT1-2" 33972.5 -152286 back 90 (PN ~))
+      (place "JSKT2-3" 88734.9 -192621 back 90 (PN ~))
+      (place "JSKT4-1" 258280 -38138.1 back 270 (PN ~))
+      (place "JSKT1-4" 32664.4 -229349 back 90 (PN ~))
+      (place "JSKT10-1" 138913 -230670 back 90 (PN ~))
+      (place "JSKT3-1" 182855 -83096.1 back 90 (PN ~))
+      (place "JSKT4-2" 239255 -184061 back 90 (PN ~))
     )
     (component "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock::1"
-      (place "JSKT1-3" 59067.7 -149898 front 0 (PN ~))
-      (place "JSKT2-1" 88785.7 -200800 front 0 (PN ~))
-      (place "JSKT2-2" 109068 -149847 front 0 (PN ~))
+      (place "JSKT1-3" 33324.8 -191973 back 90 (PN ~))
+      (place "JSKT2-1" 112027 -37846 back 270 (PN ~))
+      (place "JSKT2-2" 89065.1 -152286 back 90 (PN ~))
+      (place "JSKT11-1" 336004 -183731 back 90 (PN ~))
+      (place "JSKT2-4" 87096.6 -229349 back 90 (PN ~))
+      (place "JSKT3-2" 361252 -39154.1 back 270 (PN ~))
+      (place "JSKT4-3" 287464 -183401 back 90 (PN ~))
+    )
+    (component Connector_PinSocket_2.00mm:PinSocket_1x02_P2.00mm_Horizontal
+      (place J1 145796 -30924.5 back 90 (PN ~))
+    )
+    (component Connector_PinSocket_2.00mm:PinSocket_1x03_P2.00mm_Horizontal
+      (place J2 186131 -33248.6 back 90 (PN ~))
+      (place J4 200241 -33578.8 back 90 (PN ~))
+    )
+    (component Connector_PinSocket_2.00mm:PinSocket_1x03_P2.00mm_Horizontal::1
+      (place J3 169405 -33248.6 back 90 (PN ~))
+    )
+    (component Connector_PinSocket_2.00mm:PinSocket_1x02_P2.00mm_Horizontal::1
+      (place J5 131369 -31280.1 back 90 (PN ~))
     )
   )
   (library
@@ -682,6 +703,208 @@
       (pin Round[A]Pad_3050_um (rotate 90) @1 1780 5840)
       (pin Round[A]Pad_3050_um (rotate 90) @2 1780 -28700)
     )
+    (image Connector_PinSocket_2.00mm:PinSocket_1x02_P2.00mm_Horizontal
+      (outline (path signal 100  -7620 1000  -1970 1000))
+      (outline (path signal 100  -1970 1000  -1270 300))
+      (outline (path signal 100  -1270 300  -1270 -3000))
+      (outline (path signal 100  -1270 -3000  -7620 -3000))
+      (outline (path signal 100  -7620 -3000  -7620 1000))
+      (outline (path signal 100  0 300  -1270 300))
+      (outline (path signal 100  -1270 -300  0 -300))
+      (outline (path signal 100  0 -300  0 300))
+      (outline (path signal 100  0 -1700  -1270 -1700))
+      (outline (path signal 100  -1270 -2300  0 -2300))
+      (outline (path signal 100  0 -2300  0 -1700))
+      (outline (path signal 120  -7680 940  -1210 940))
+      (outline (path signal 120  -7680 825.882  -1210 825.882))
+      (outline (path signal 120  -7680 711.764  -1210 711.764))
+      (outline (path signal 120  -7680 597.646  -1210 597.646))
+      (outline (path signal 120  -7680 483.528  -1210 483.528))
+      (outline (path signal 120  -7680 369.41  -1210 369.41))
+      (outline (path signal 120  -7680 255.292  -1210 255.292))
+      (outline (path signal 120  -7680 141.174  -1210 141.174))
+      (outline (path signal 120  -7680 27.056  -1210 27.056))
+      (outline (path signal 120  -7680 -87.062  -1210 -87.062))
+      (outline (path signal 120  -7680 -201.18  -1210 -201.18))
+      (outline (path signal 120  -7680 -315.298  -1210 -315.298))
+      (outline (path signal 120  -7680 -429.416  -1210 -429.416))
+      (outline (path signal 120  -7680 -543.534  -1210 -543.534))
+      (outline (path signal 120  -7680 -657.652  -1210 -657.652))
+      (outline (path signal 120  -7680 -771.77  -1210 -771.77))
+      (outline (path signal 120  -7680 -885.888  -1210 -885.888))
+      (outline (path signal 120  -1210 360  -935 360))
+      (outline (path signal 120  -1210 -360  -935 -360))
+      (outline (path signal 120  -1210 -1640  -862.917 -1640))
+      (outline (path signal 120  -1210 -2360  -862.917 -2360))
+      (outline (path signal 120  -7680 -1000  -1210 -1000))
+      (outline (path signal 120  -7680 1060  -1210 1060))
+      (outline (path signal 120  -1210 1060  -1210 -3060))
+      (outline (path signal 120  -7680 -3060  -1210 -3060))
+      (outline (path signal 120  -7680 1060  -7680 -3060))
+      (outline (path signal 120  935 1060  935 0))
+      (outline (path signal 120  0 1060  935 1060))
+      (outline (path signal 50  1500 1500  -8150 1500))
+      (outline (path signal 50  -8150 1500  -8150 -3500))
+      (outline (path signal 50  -8150 -3500  1500 -3500))
+      (outline (path signal 50  1500 -3500  1500 1500))
+      (pin Rect[A]Pad_1350x1350_um 1 0 0)
+      (pin Oval[A]Pad_1350x1350_um 2 0 -2000)
+    )
+    (image Connector_PinSocket_2.00mm:PinSocket_1x03_P2.00mm_Horizontal
+      (outline (path signal 100  -7620 1000  -1970 1000))
+      (outline (path signal 100  -1970 1000  -1270 300))
+      (outline (path signal 100  -1270 300  -1270 -5000))
+      (outline (path signal 100  -1270 -5000  -7620 -5000))
+      (outline (path signal 100  -7620 -5000  -7620 1000))
+      (outline (path signal 100  0 300  -1270 300))
+      (outline (path signal 100  -1270 -300  0 -300))
+      (outline (path signal 100  0 -300  0 300))
+      (outline (path signal 100  0 -1700  -1270 -1700))
+      (outline (path signal 100  -1270 -2300  0 -2300))
+      (outline (path signal 100  0 -2300  0 -1700))
+      (outline (path signal 100  0 -3700  -1270 -3700))
+      (outline (path signal 100  -1270 -4300  0 -4300))
+      (outline (path signal 100  0 -4300  0 -3700))
+      (outline (path signal 120  -7680 940  -1210 940))
+      (outline (path signal 120  -7680 825.882  -1210 825.882))
+      (outline (path signal 120  -7680 711.764  -1210 711.764))
+      (outline (path signal 120  -7680 597.646  -1210 597.646))
+      (outline (path signal 120  -7680 483.528  -1210 483.528))
+      (outline (path signal 120  -7680 369.41  -1210 369.41))
+      (outline (path signal 120  -7680 255.292  -1210 255.292))
+      (outline (path signal 120  -7680 141.174  -1210 141.174))
+      (outline (path signal 120  -7680 27.056  -1210 27.056))
+      (outline (path signal 120  -7680 -87.062  -1210 -87.062))
+      (outline (path signal 120  -7680 -201.18  -1210 -201.18))
+      (outline (path signal 120  -7680 -315.298  -1210 -315.298))
+      (outline (path signal 120  -7680 -429.416  -1210 -429.416))
+      (outline (path signal 120  -7680 -543.534  -1210 -543.534))
+      (outline (path signal 120  -7680 -657.652  -1210 -657.652))
+      (outline (path signal 120  -7680 -771.77  -1210 -771.77))
+      (outline (path signal 120  -7680 -885.888  -1210 -885.888))
+      (outline (path signal 120  -1210 360  -935 360))
+      (outline (path signal 120  -1210 -360  -935 -360))
+      (outline (path signal 120  -1210 -1640  -862.917 -1640))
+      (outline (path signal 120  -1210 -2360  -862.917 -2360))
+      (outline (path signal 120  -1210 -3640  -862.917 -3640))
+      (outline (path signal 120  -1210 -4360  -862.917 -4360))
+      (outline (path signal 120  -7680 -1000  -1210 -1000))
+      (outline (path signal 120  -7680 -3000  -1210 -3000))
+      (outline (path signal 120  -7680 1060  -1210 1060))
+      (outline (path signal 120  -1210 1060  -1210 -5060))
+      (outline (path signal 120  -7680 -5060  -1210 -5060))
+      (outline (path signal 120  -7680 1060  -7680 -5060))
+      (outline (path signal 120  935 1060  935 0))
+      (outline (path signal 120  0 1060  935 1060))
+      (outline (path signal 50  1500 1500  -8150 1500))
+      (outline (path signal 50  -8150 1500  -8150 -5500))
+      (outline (path signal 50  -8150 -5500  1500 -5500))
+      (outline (path signal 50  1500 -5500  1500 1500))
+      (pin Rect[A]Pad_1350x1350_um 1 0 0)
+      (pin Oval[A]Pad_1350x1350_um 2 0 -2000)
+      (pin Oval[A]Pad_1350x1350_um 3 0 -4000)
+    )
+    (image Connector_PinSocket_2.00mm:PinSocket_1x03_P2.00mm_Horizontal::1
+      (outline (path signal 50  1500 -5500  1500 1500))
+      (outline (path signal 50  -8150 -5500  1500 -5500))
+      (outline (path signal 50  -8150 1500  -8150 -5500))
+      (outline (path signal 50  1500 1500  -8150 1500))
+      (outline (path signal 120  0 1060  935 1060))
+      (outline (path signal 120  935 1060  935 0))
+      (outline (path signal 120  -7680 1060  -7680 -5060))
+      (outline (path signal 120  -7680 -5060  -1210 -5060))
+      (outline (path signal 120  -1210 1060  -1210 -5060))
+      (outline (path signal 120  -7680 1060  -1210 1060))
+      (outline (path signal 120  -7680 -3000  -1210 -3000))
+      (outline (path signal 120  -7680 -1000  -1210 -1000))
+      (outline (path signal 120  -1210 -4360  -862.917 -4360))
+      (outline (path signal 120  -1210 -3640  -862.917 -3640))
+      (outline (path signal 120  -1210 -2360  -862.917 -2360))
+      (outline (path signal 120  -1210 -1640  -862.917 -1640))
+      (outline (path signal 120  -1210 -360  -935 -360))
+      (outline (path signal 120  -1210 360  -935 360))
+      (outline (path signal 120  -7680 -885.888  -1210 -885.888))
+      (outline (path signal 120  -7680 -771.77  -1210 -771.77))
+      (outline (path signal 120  -7680 -657.652  -1210 -657.652))
+      (outline (path signal 120  -7680 -543.534  -1210 -543.534))
+      (outline (path signal 120  -7680 -429.416  -1210 -429.416))
+      (outline (path signal 120  -7680 -315.298  -1210 -315.298))
+      (outline (path signal 120  -7680 -201.18  -1210 -201.18))
+      (outline (path signal 120  -7680 -87.062  -1210 -87.062))
+      (outline (path signal 120  -7680 27.056  -1210 27.056))
+      (outline (path signal 120  -7680 141.174  -1210 141.174))
+      (outline (path signal 120  -7680 255.292  -1210 255.292))
+      (outline (path signal 120  -7680 369.41  -1210 369.41))
+      (outline (path signal 120  -7680 483.528  -1210 483.528))
+      (outline (path signal 120  -7680 597.646  -1210 597.646))
+      (outline (path signal 120  -7680 711.764  -1210 711.764))
+      (outline (path signal 120  -7680 825.882  -1210 825.882))
+      (outline (path signal 120  -7680 940  -1210 940))
+      (outline (path signal 100  0 -4300  0 -3700))
+      (outline (path signal 100  -1270 -4300  0 -4300))
+      (outline (path signal 100  0 -3700  -1270 -3700))
+      (outline (path signal 100  0 -2300  0 -1700))
+      (outline (path signal 100  -1270 -2300  0 -2300))
+      (outline (path signal 100  0 -1700  -1270 -1700))
+      (outline (path signal 100  0 -300  0 300))
+      (outline (path signal 100  -1270 -300  0 -300))
+      (outline (path signal 100  0 300  -1270 300))
+      (outline (path signal 100  -7620 -5000  -7620 1000))
+      (outline (path signal 100  -1270 -5000  -7620 -5000))
+      (outline (path signal 100  -1270 300  -1270 -5000))
+      (outline (path signal 100  -1970 1000  -1270 300))
+      (outline (path signal 100  -7620 1000  -1970 1000))
+      (pin Oval[A]Pad_1350x1350_um 3 0 -4000)
+      (pin Oval[A]Pad_1350x1350_um 2 0 -2000)
+      (pin Rect[A]Pad_1350x1350_um 1 0 0)
+    )
+    (image Connector_PinSocket_2.00mm:PinSocket_1x02_P2.00mm_Horizontal::1
+      (outline (path signal 50  1500 -3500  1500 1500))
+      (outline (path signal 50  -8150 -3500  1500 -3500))
+      (outline (path signal 50  -8150 1500  -8150 -3500))
+      (outline (path signal 50  1500 1500  -8150 1500))
+      (outline (path signal 120  0 1060  935 1060))
+      (outline (path signal 120  935 1060  935 0))
+      (outline (path signal 120  -7680 1060  -7680 -3060))
+      (outline (path signal 120  -7680 -3060  -1210 -3060))
+      (outline (path signal 120  -1210 1060  -1210 -3060))
+      (outline (path signal 120  -7680 1060  -1210 1060))
+      (outline (path signal 120  -7680 -1000  -1210 -1000))
+      (outline (path signal 120  -1210 -2360  -862.917 -2360))
+      (outline (path signal 120  -1210 -1640  -862.917 -1640))
+      (outline (path signal 120  -1210 -360  -935 -360))
+      (outline (path signal 120  -1210 360  -935 360))
+      (outline (path signal 120  -7680 -885.888  -1210 -885.888))
+      (outline (path signal 120  -7680 -771.77  -1210 -771.77))
+      (outline (path signal 120  -7680 -657.652  -1210 -657.652))
+      (outline (path signal 120  -7680 -543.534  -1210 -543.534))
+      (outline (path signal 120  -7680 -429.416  -1210 -429.416))
+      (outline (path signal 120  -7680 -315.298  -1210 -315.298))
+      (outline (path signal 120  -7680 -201.18  -1210 -201.18))
+      (outline (path signal 120  -7680 -87.062  -1210 -87.062))
+      (outline (path signal 120  -7680 27.056  -1210 27.056))
+      (outline (path signal 120  -7680 141.174  -1210 141.174))
+      (outline (path signal 120  -7680 255.292  -1210 255.292))
+      (outline (path signal 120  -7680 369.41  -1210 369.41))
+      (outline (path signal 120  -7680 483.528  -1210 483.528))
+      (outline (path signal 120  -7680 597.646  -1210 597.646))
+      (outline (path signal 120  -7680 711.764  -1210 711.764))
+      (outline (path signal 120  -7680 825.882  -1210 825.882))
+      (outline (path signal 120  -7680 940  -1210 940))
+      (outline (path signal 100  0 -2300  0 -1700))
+      (outline (path signal 100  -1270 -2300  0 -2300))
+      (outline (path signal 100  0 -1700  -1270 -1700))
+      (outline (path signal 100  0 -300  0 300))
+      (outline (path signal 100  -1270 -300  0 -300))
+      (outline (path signal 100  0 300  -1270 300))
+      (outline (path signal 100  -7620 -3000  -7620 1000))
+      (outline (path signal 100  -1270 -3000  -7620 -3000))
+      (outline (path signal 100  -1270 300  -1270 -3000))
+      (outline (path signal 100  -1970 1000  -1270 300))
+      (outline (path signal 100  -7620 1000  -1970 1000))
+      (pin Oval[A]Pad_1350x1350_um 2 0 -2000)
+      (pin Rect[A]Pad_1350x1350_um 1 0 0)
+    )
     (padstack Round[A]Pad_1520_um
       (shape (circle F.Cu 1520))
       (shape (circle B.Cu 1520))
@@ -697,9 +920,19 @@
       (shape (circle B.Cu 3050))
       (attach off)
     )
+    (padstack Oval[A]Pad_1350x1350_um
+      (shape (path F.Cu 1350  0 0  0 0))
+      (shape (path B.Cu 1350  0 0  0 0))
+      (attach off)
+    )
     (padstack Oval[A]Pad_3000x6000_um
       (shape (path F.Cu 3000  0 -1500  0 1500))
       (shape (path B.Cu 3000  0 -1500  0 1500))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1350x1350_um
+      (shape (rect F.Cu -675 -675 675 675))
+      (shape (rect B.Cu -675 -675 675 675))
       (attach off)
     )
     (padstack Rect[A]Pad_1520x1520_um
@@ -715,7 +948,8 @@
   )
   (network
     (net /GND
-      (pins JSKT1-A JSKT2-A JSKT3-A JSKT4-LL JSKT5-A JSKT6-A)
+      (pins JSKT1-A JSKT2-A JSKT3-A JSKT4-LL JSKT5-A JSKT6-A JSKT7-A JSKT10-T JSKT11-A
+        J5-1)
     )
     (net "Net-(JSKT1-1-Pad1)"
       (pins JSKT1-B "JSKT1-1"-1)
@@ -880,11 +1114,12 @@
       (pins JSKT1-CC "JSKT1-3"-13)
     )
     (net /+6v
-      (pins JSKT2-NN JSKT3-MM JSKT4-~p~ JSKT6-N JSKT6-M JSKT6-L)
+      (pins JSKT4-~p~ JSKT5-s JSKT6-N JSKT6-M JSKT6-L JSKT11-t J2-1 J3-1 J4-1)
     )
     (net /0v
-      (pins JSKT2-MM JSKT3-PP JSKT4-A JSKT6-G JSKT6-F JSKT6-E JSKT6-D JSKT13-B JSKT13-D
-        JSKT13-F JSKT13-H JSKT13-K JSKT13-M JSKT13-P JSKT13-S JSKT13-U)
+      (pins JSKT2-MM JSKT4-A JSKT5-r JSKT5-q JSKT6-G JSKT6-F JSKT6-E JSKT6-D JSKT7-G
+        JSKT10-e JSKT11-e JSKT13-B JSKT13-D JSKT13-F JSKT13-H JSKT13-K JSKT13-M JSKT13-P
+        JSKT13-S JSKT13-U J2-2 J3-2 J4-2)
     )
     (net "Net-(JSKT2-3-Pad6)"
       (pins JSKT2-~t~ "JSKT2-3"-6)
@@ -1022,7 +1257,7 @@
       (pins JSKT2-B "JSKT2-1"-1)
     )
     (net "/-6v"
-      (pins JSKT2-PP JSKT3-NN JSKT6-R JSKT6-P)
+      (pins JSKT5-t JSKT6-R JSKT6-P JSKT7-D JSKT7-C JSKT7-B J2-3 J3-3 J4-3)
     )
     (net /#I4
       (pins JSKT3-~u~ "JSKT2-2"-20)
@@ -1105,114 +1340,542 @@
     (net /On
       (pins JSKT5-B JSKT6-J)
     )
-    (class kicad_default "" "#ACTIVE1-1-Y" "#INT1-3-F" "#STOP-2-E" /#FD /#I1
-      /#I2 /#I3 /#I4 /#PC1 /#PC10 /#PC11 /#PC12 /#PC2 /#PC3 /#PC4 /#PC5 /#PC6
-      /#PC7 /#PC8 /#PC9 /+5vDisplay /+6v "/-6v" /0v /0vDisplay "/Auto-Start"
-      /GND /Off "/Off-Light" /On "/On-Light" "/On-Off-Common" /PSC /W1 /W10
-      /W11 /W12 /W13 /W5 /W6 /W7 /W8 /W9 "BT-30-U" "JUMP-1-M" "LW-30-13" "Net-(J1-PadA)"
-      "Net-(J1-PadAA)" "Net-(J1-PadB)" "Net-(J1-PadBB)" "Net-(J1-PadC)" "Net-(J1-PadCC)"
-      "Net-(J1-PadD)" "Net-(J1-PadDD)" "Net-(J1-PadE)" "Net-(J1-PadEE)" "Net-(J1-PadF)"
-      "Net-(J1-PadFF)" "Net-(J1-PadG)" "Net-(J1-PadGG)" "Net-(J1-PadH)" "Net-(J1-PadHH)"
-      "Net-(J1-PadJ)" "Net-(J1-PadJJ)" "Net-(J1-PadK)" "Net-(J1-PadKK)" "Net-(J1-PadL)"
-      "Net-(J1-PadLL)" "Net-(J1-PadM)" "Net-(J1-PadMM)" "Net-(J1-PadN)" "Net-(J1-PadNN)"
-      "Net-(J1-PadP)" "Net-(J1-PadPP)" "Net-(J1-PadR)" "Net-(J1-PadS)" "Net-(J1-PadT)"
-      "Net-(J1-PadU)" "Net-(J1-PadV)" "Net-(J1-PadW)" "Net-(J1-PadX)" "Net-(J1-PadY)"
-      "Net-(J1-PadZ)" "Net-(J1-Pad~a~)" "Net-(J1-Pad~b~)" "Net-(J1-Pad~c~)"
-      "Net-(J1-Pad~d~)" "Net-(J1-Pad~e~)" "Net-(J1-Pad~f~)" "Net-(J1-Pad~g~)"
-      "Net-(J1-Pad~h~)" "Net-(J1-Pad~i~)" "Net-(J1-Pad~j~)" "Net-(J1-Pad~k~)"
-      "Net-(J1-Pad~m~)" "Net-(J1-Pad~n~)" "Net-(J1-Pad~p~)" "Net-(J1-Pad~q~)"
-      "Net-(J1-Pad~r~)" "Net-(J1-Pad~s~)" "Net-(J1-Pad~t~)" "Net-(J1-Pad~u~)"
-      "Net-(J1-Pad~v~)" "Net-(J1-Pad~w~)" "Net-(J1-Pad~x~)" "Net-(J1-Pad~y~)"
-      "Net-(J1-Pad~z~)" "Net-(JSKT1-1-Pad1)" "Net-(JSKT1-1-Pad10)" "Net-(JSKT1-1-Pad11)"
-      "Net-(JSKT1-1-Pad12)" "Net-(JSKT1-1-Pad13)" "Net-(JSKT1-1-Pad14)" "Net-(JSKT1-1-Pad15)"
-      "Net-(JSKT1-1-Pad16)" "Net-(JSKT1-1-Pad17)" "Net-(JSKT1-1-Pad18)" "Net-(JSKT1-1-Pad2)"
-      "Net-(JSKT1-1-Pad3)" "Net-(JSKT1-1-Pad4)" "Net-(JSKT1-1-Pad5)" "Net-(JSKT1-1-Pad6)"
-      "Net-(JSKT1-1-Pad7)" "Net-(JSKT1-1-Pad8)" "Net-(JSKT1-1-Pad9)" "Net-(JSKT1-2-Pad1)"
-      "Net-(JSKT1-2-Pad10)" "Net-(JSKT1-2-Pad11)" "Net-(JSKT1-2-Pad12)" "Net-(JSKT1-2-Pad13)"
-      "Net-(JSKT1-2-Pad14)" "Net-(JSKT1-2-Pad15)" "Net-(JSKT1-2-Pad16)" "Net-(JSKT1-2-Pad17)"
-      "Net-(JSKT1-2-Pad18)" "Net-(JSKT1-2-Pad2)" "Net-(JSKT1-2-Pad3)" "Net-(JSKT1-2-Pad4)"
-      "Net-(JSKT1-2-Pad5)" "Net-(JSKT1-2-Pad6)" "Net-(JSKT1-2-Pad7)" "Net-(JSKT1-2-Pad8)"
-      "Net-(JSKT1-2-Pad9)" "Net-(JSKT1-3-Pad1)" "Net-(JSKT1-3-Pad10)" "Net-(JSKT1-3-Pad11)"
-      "Net-(JSKT1-3-Pad12)" "Net-(JSKT1-3-Pad13)" "Net-(JSKT1-3-Pad14)" "Net-(JSKT1-3-Pad15)"
-      "Net-(JSKT1-3-Pad16)" "Net-(JSKT1-3-Pad17)" "Net-(JSKT1-3-Pad18)" "Net-(JSKT1-3-Pad2)"
-      "Net-(JSKT1-3-Pad3)" "Net-(JSKT1-3-Pad4)" "Net-(JSKT1-3-Pad5)" "Net-(JSKT1-3-Pad6)"
-      "Net-(JSKT1-3-Pad7)" "Net-(JSKT1-3-Pad8)" "Net-(JSKT1-3-Pad9)" "Net-(JSKT1-PadJJ)"
-      "Net-(JSKT1-PadKK)" "Net-(JSKT1-PadLL)" "Net-(JSKT1-PadMM)" "Net-(JSKT1-PadNN)"
-      "Net-(JSKT1-PadPP)" "Net-(JSKT10-PadA)" "Net-(JSKT10-PadB)" "Net-(JSKT10-PadC)"
-      "Net-(JSKT10-PadD)" "Net-(JSKT10-PadE)" "Net-(JSKT10-PadF)" "Net-(JSKT10-PadG)"
-      "Net-(JSKT10-PadH)" "Net-(JSKT10-PadJ)" "Net-(JSKT10-PadK)" "Net-(JSKT10-PadL)"
-      "Net-(JSKT10-PadM)" "Net-(JSKT10-PadN)" "Net-(JSKT10-PadP)" "Net-(JSKT10-PadR)"
-      "Net-(JSKT10-PadS)" "Net-(JSKT10-PadT)" "Net-(JSKT10-PadU)" "Net-(JSKT10-PadV)"
-      "Net-(JSKT10-PadW)" "Net-(JSKT10-PadX)" "Net-(JSKT10-PadY)" "Net-(JSKT10-PadZ)"
-      "Net-(JSKT10-Pada)" "Net-(JSKT10-Padb)" "Net-(JSKT10-Padc)" "Net-(JSKT10-Padd)"
-      "Net-(JSKT10-Pade)" "Net-(JSKT10-Padf)" "Net-(JSKT10-Padg)" "Net-(JSKT10-Padh)"
-      "Net-(JSKT10-Padj)" "Net-(JSKT11-PadA)" "Net-(JSKT11-PadB)" "Net-(JSKT11-PadC)"
-      "Net-(JSKT11-PadD)" "Net-(JSKT11-PadE)" "Net-(JSKT11-PadF)" "Net-(JSKT11-PadG)"
-      "Net-(JSKT11-PadH)" "Net-(JSKT11-PadJ)" "Net-(JSKT11-PadK)" "Net-(JSKT11-PadL)"
-      "Net-(JSKT11-PadM)" "Net-(JSKT11-PadN)" "Net-(JSKT11-PadP)" "Net-(JSKT11-PadR)"
-      "Net-(JSKT11-PadS)" "Net-(JSKT11-PadT)" "Net-(JSKT11-PadU)" "Net-(JSKT11-PadV)"
-      "Net-(JSKT11-PadW)" "Net-(JSKT11-PadX)" "Net-(JSKT11-PadY)" "Net-(JSKT11-PadZ)"
-      "Net-(JSKT11-Pada)" "Net-(JSKT11-Padb)" "Net-(JSKT11-Padc)" "Net-(JSKT11-Padd)"
-      "Net-(JSKT11-Pade)" "Net-(JSKT11-Padf)" "Net-(JSKT11-Padg)" "Net-(JSKT11-Padh)"
-      "Net-(JSKT11-Padi)" "Net-(JSKT11-Padj)" "Net-(JSKT11-Padk)" "Net-(JSKT11-Padm)"
-      "Net-(JSKT11-Padn)" "Net-(JSKT11-Padp)" "Net-(JSKT11-Padq)" "Net-(JSKT11-Padr)"
-      "Net-(JSKT11-Pads)" "Net-(JSKT11-Padt)" "Net-(JSKT13-PadT)" "Net-(JSKT13-PadV)"
-      "Net-(JSKT2-1-Pad1)" "Net-(JSKT2-1-Pad10)" "Net-(JSKT2-1-Pad11)" "Net-(JSKT2-1-Pad12)"
-      "Net-(JSKT2-1-Pad13)" "Net-(JSKT2-1-Pad14)" "Net-(JSKT2-1-Pad15)" "Net-(JSKT2-1-Pad16)"
-      "Net-(JSKT2-1-Pad17)" "Net-(JSKT2-1-Pad18)" "Net-(JSKT2-1-Pad19)" "Net-(JSKT2-1-Pad2)"
-      "Net-(JSKT2-1-Pad3)" "Net-(JSKT2-1-Pad4)" "Net-(JSKT2-1-Pad5)" "Net-(JSKT2-1-Pad6)"
-      "Net-(JSKT2-1-Pad7)" "Net-(JSKT2-1-Pad8)" "Net-(JSKT2-1-Pad9)" "Net-(JSKT2-2-Pad1)"
-      "Net-(JSKT2-2-Pad10)" "Net-(JSKT2-2-Pad11)" "Net-(JSKT2-2-Pad12)" "Net-(JSKT2-2-Pad13)"
-      "Net-(JSKT2-2-Pad14)" "Net-(JSKT2-2-Pad15)" "Net-(JSKT2-2-Pad16)" "Net-(JSKT2-2-Pad2)"
-      "Net-(JSKT2-2-Pad3)" "Net-(JSKT2-2-Pad4)" "Net-(JSKT2-2-Pad5)" "Net-(JSKT2-2-Pad6)"
-      "Net-(JSKT2-2-Pad7)" "Net-(JSKT2-2-Pad8)" "Net-(JSKT2-2-Pad9)" "Net-(JSKT2-3-Pad1)"
-      "Net-(JSKT2-3-Pad10)" "Net-(JSKT2-3-Pad11)" "Net-(JSKT2-3-Pad2)" "Net-(JSKT2-3-Pad3)"
-      "Net-(JSKT2-3-Pad4)" "Net-(JSKT2-3-Pad5)" "Net-(JSKT2-3-Pad6)" "Net-(JSKT2-3-Pad7)"
-      "Net-(JSKT2-3-Pad8)" "Net-(JSKT2-3-Pad9)" "Net-(JSKT3-PadAA)" "Net-(JSKT3-PadB)"
-      "Net-(JSKT3-PadBB)" "Net-(JSKT3-PadC)" "Net-(JSKT3-PadCC)" "Net-(JSKT3-PadD)"
-      "Net-(JSKT3-PadDD)" "Net-(JSKT3-PadE)" "Net-(JSKT3-PadEE)" "Net-(JSKT3-PadF)"
-      "Net-(JSKT3-PadFF)" "Net-(JSKT3-PadG)" "Net-(JSKT3-PadGG)" "Net-(JSKT3-PadH)"
-      "Net-(JSKT3-PadHH)" "Net-(JSKT3-PadJ)" "Net-(JSKT3-PadJJ)" "Net-(JSKT3-PadK)"
-      "Net-(JSKT3-PadKK)" "Net-(JSKT3-PadL)" "Net-(JSKT3-PadLL)" "Net-(JSKT3-PadM)"
-      "Net-(JSKT3-PadN)" "Net-(JSKT3-PadP)" "Net-(JSKT3-PadR)" "Net-(JSKT3-PadS)"
-      "Net-(JSKT3-PadT)" "Net-(JSKT3-PadU)" "Net-(JSKT3-PadV)" "Net-(JSKT3-PadW)"
-      "Net-(JSKT3-PadX)" "Net-(JSKT3-PadY)" "Net-(JSKT3-PadZ)" "Net-(JSKT3-Pad~a~)"
-      "Net-(JSKT3-Pad~b~)" "Net-(JSKT3-Pad~c~)" "Net-(JSKT3-Pad~d~)" "Net-(JSKT3-Pad~e~)"
-      "Net-(JSKT3-Pad~f~)" "Net-(JSKT3-Pad~g~)" "Net-(JSKT3-Pad~h~)" "Net-(JSKT3-Pad~i~)"
-      "Net-(JSKT3-Pad~j~)" "Net-(JSKT3-Pad~k~)" "Net-(JSKT3-Pad~m~)" "Net-(JSKT3-Pad~n~)"
-      "Net-(JSKT3-Pad~p~)" "Net-(JSKT3-Pad~v~)" "Net-(JSKT3-Pad~w~)" "Net-(JSKT3-Pad~x~)"
-      "Net-(JSKT3-Pad~y~)" "Net-(JSKT3-Pad~z~)" "Net-(JSKT4-1-Pad1)" "Net-(JSKT4-1-Pad10)"
-      "Net-(JSKT4-1-Pad11)" "Net-(JSKT4-1-Pad12)" "Net-(JSKT4-1-Pad13)" "Net-(JSKT4-1-Pad14)"
-      "Net-(JSKT4-1-Pad15)" "Net-(JSKT4-1-Pad16)" "Net-(JSKT4-1-Pad17)" "Net-(JSKT4-1-Pad18)"
-      "Net-(JSKT4-1-Pad2)" "Net-(JSKT4-1-Pad3)" "Net-(JSKT4-1-Pad4)" "Net-(JSKT4-1-Pad5)"
-      "Net-(JSKT4-1-Pad6)" "Net-(JSKT4-1-Pad7)" "Net-(JSKT4-1-Pad8)" "Net-(JSKT4-1-Pad9)"
-      "Net-(JSKT4-PadAA)" "Net-(JSKT4-PadBB)" "Net-(JSKT4-PadCC)" "Net-(JSKT4-PadDD)"
-      "Net-(JSKT4-PadEE)" "Net-(JSKT4-PadFF)" "Net-(JSKT4-PadGG)" "Net-(JSKT4-PadHH)"
-      "Net-(JSKT4-PadJJ)" "Net-(JSKT4-PadKK)" "Net-(JSKT4-PadMM)" "Net-(JSKT4-PadNN)"
-      "Net-(JSKT4-PadPP)" "Net-(JSKT4-PadW)" "Net-(JSKT4-PadX)" "Net-(JSKT4-PadY)"
-      "Net-(JSKT4-PadZ)" "Net-(JSKT4-Pad~a~)" "Net-(JSKT4-Pad~b~)" "Net-(JSKT4-Pad~c~)"
-      "Net-(JSKT4-Pad~d~)" "Net-(JSKT4-Pad~e~)" "Net-(JSKT4-Pad~f~)" "Net-(JSKT4-Pad~g~)"
-      "Net-(JSKT4-Pad~h~)" "Net-(JSKT4-Pad~i~)" "Net-(JSKT4-Pad~j~)" "Net-(JSKT4-Pad~k~)"
-      "Net-(JSKT4-Pad~m~)" "Net-(JSKT4-Pad~n~)" "Net-(JSKT4-Pad~q~)" "Net-(JSKT4-Pad~r~)"
-      "Net-(JSKT4-Pad~s~)" "Net-(JSKT4-Pad~t~)" "Net-(JSKT4-Pad~u~)" "Net-(JSKT4-Pad~v~)"
-      "Net-(JSKT4-Pad~w~)" "Net-(JSKT4-Pad~x~)" "Net-(JSKT4-Pad~y~)" "Net-(JSKT4-Pad~z~)"
-      "Net-(JSKT5-PadF)" "Net-(JSKT5-PadG)" "Net-(JSKT5-PadJ)" "Net-(JSKT5-PadK)"
-      "Net-(JSKT5-PadN)" "Net-(JSKT5-PadS)" "Net-(JSKT5-PadZ)" "Net-(JSKT5-Pada)"
-      "Net-(JSKT5-Padb)" "Net-(JSKT5-Padc)" "Net-(JSKT5-Padd)" "Net-(JSKT5-Pade)"
-      "Net-(JSKT5-Padf)" "Net-(JSKT5-Padg)" "Net-(JSKT5-Padh)" "Net-(JSKT5-Padi)"
-      "Net-(JSKT5-Padj)" "Net-(JSKT5-Padk)" "Net-(JSKT5-Padm)" "Net-(JSKT5-Padn)"
-      "Net-(JSKT5-Padp)" "Net-(JSKT5-Padq)" "Net-(JSKT5-Padr)" "Net-(JSKT5-Pads)"
-      "Net-(JSKT5-Padt)" "Net-(JSKT7-PadA)" "Net-(JSKT7-PadB)" "Net-(JSKT7-PadC)"
-      "Net-(JSKT7-PadD)" "Net-(JSKT7-PadE)" "Net-(JSKT7-PadF)" "Net-(JSKT7-PadG)"
-      "Net-(JSKT7-PadH)" "Net-(JSKT7-PadJ)" "Net-(JSKT7-PadK)" "Net-(JSKT7-PadL)"
-      "Net-(JSKT7-PadM)" "Net-(JSKT7-PadN)" "Net-(JSKT7-PadP)" "Net-(JSKT7-PadR)"
-      "Net-(JSKT7-PadS)" "Net-(JSKT7-PadT)" "Net-(JSKT7-PadU)" "Net-(JSKT7-PadV)"
-      "Net-(JSKT7-PadW)" "Net-(JSKT7-PadX)" "Net-(JSKT7-PadY)" "Net-(JSKT7-PadZ)"
-      "Net-(JSKT7-Pada)" "Net-(JSKT7-Padb)" "Net-(JSKT7-Padc)" "Net-(JSKT7-Padd)"
-      "Net-(JSKT7-Pade)" "Net-(JSKT7-Padf)" "Net-(JSKT7-Padg)" "Net-(JSKT7-Padh)"
-      "Net-(JSKT7-Padj)" "PI1-29-AE" "PI2-29-AF" "PI3-29-AH" "PR-30-E" "RESET-2-U"
-      "RESTART-1-C" "SIP-30-21" "SOP-30-20" "~JUMP~-1-11" "~RESTART~-1-3"
-      "~STOP~-1-25" "~TEST~-1-5"
+    (net "#STR-30-H"
+      (pins JSKT1-PP "JSKT1-4"-20)
+    )
+    (net "#Y-57-Z"
+      (pins JSKT1-KK "JSKT2-4"-8)
+    )
+    (net "#SOP-30-P"
+      (pins JSKT1-LL "JSKT1-4"-17)
+    )
+    (net "#SIP-30-Z"
+      (pins JSKT1-MM "JSKT1-4"-18)
+    )
+    (net "#STP-30-L"
+      (pins JSKT1-NN "JSKT1-4"-19)
+    )
+    (net "#X-57-D"
+      (pins JSKT1-JJ "JSKT2-4"-7)
+    )
+    (net /#PC4
+      (pins JSKT2-CC "JSKT2-4"-12)
+    )
+    (net /#PC7
+      (pins JSKT2-FF "JSKT2-4"-15)
+    )
+    (net /#PC5
+      (pins JSKT2-DD "JSKT2-4"-13)
+    )
+    (net /#PC6
+      (pins JSKT2-EE "JSKT2-4"-14)
+    )
+    (net /#PC8
+      (pins JSKT2-GG "JSKT2-4"-16)
+    )
+    (net /#PC9
+      (pins JSKT2-HH "JSKT2-4"-17)
+    )
+    (net /#PC10
+      (pins JSKT2-JJ "JSKT2-4"-18)
+    )
+    (net /+5vDisplay
+      (pins JSKT2-NN JSKT3-MM JSKT6-V)
+    )
+    (net /#PC12
+      (pins JSKT2-LL "JSKT2-4"-20)
+    )
+    (net /#PC11
+      (pins JSKT2-KK "JSKT2-4"-19)
+    )
+    (net /#PC1
+      (pins JSKT2-~z~ "JSKT2-4"-9)
+    )
+    (net /#PC3
+      (pins JSKT2-BB "JSKT2-4"-11)
+    )
+    (net /#PC2
+      (pins JSKT2-AA "JSKT2-4"-10)
+    )
+    (net /0vDisplay
+      (pins JSKT3-PP JSKT6-U)
+    )
+    (net "#AA2-21-X"
+      (pins JSKT3-AA "JSKT3-1"-19)
+    )
+    (net "#AA3-21-AA"
+      (pins JSKT3-BB "JSKT3-1"-20)
+    )
+    (net "#AA1-21-M"
+      (pins JSKT3-~z~ "JSKT3-1"-18)
+    )
+    (net "#AA3'-21-AF"
+      (pins JSKT3-~x~ "JSKT3-1"-17)
+    )
+    (net "#FD-6-S"
+      (pins JSKT3-~q~ "JSKT2-4"-6)
+    )
+    (net "#AA2'-21-U"
+      (pins JSKT3-~w~ "JSKT3-1"-16)
+    )
+    (net "#AA1'-21-K"
+      (pins JSKT3-~v~ "JSKT3-1"-15)
+    )
+    (net "#NOTRDY-2-AC"
+      (pins JSKT3-KK "JSKT3-1"-14)
+    )
+    (net "#STOP-2-T"
+      (pins JSKT3-JJ "JSKT3-1"-13)
+    )
+    (net "#RESET-2-Z"
+      (pins JSKT3-HH "JSKT3-1"-12)
+    )
+    (net "#CD-6-V"
+      (pins JSKT3-GG "JSKT2-4"-2)
+    )
+    (net "#CB-7-V"
+      (pins JSKT3-EE "JSKT2-4"-5)
+    )
+    (net "#CA-7-Z"
+      (pins JSKT3-DD "JSKT2-4"-4)
+    )
+    (net "#C-6-N"
+      (pins JSKT3-FF "JSKT2-4"-3)
+    )
+    (net "Net-(JSKT4-3-Pad13)"
+      (pins JSKT4-CC "JSKT4-3"-13)
+    )
+    (net "Net-(JSKT4-3-Pad16)"
+      (pins JSKT4-FF "JSKT4-3"-16)
+    )
+    (net "Net-(JSKT4-3-Pad14)"
+      (pins JSKT4-DD "JSKT4-3"-14)
+    )
+    (net "Net-(JSKT4-3-Pad15)"
+      (pins JSKT4-EE "JSKT4-3"-15)
+    )
+    (net "Net-(JSKT4-3-Pad17)"
+      (pins JSKT4-GG "JSKT4-3"-17)
+    )
+    (net "Net-(JSKT4-3-Pad18)"
+      (pins JSKT4-HH "JSKT4-3"-18)
+    )
+    (net "Net-(JSKT4-3-Pad4)"
+      (pins JSKT4-~t~ "JSKT4-3"-4)
+    )
+    (net "Net-(JSKT4-3-Pad6)"
+      (pins JSKT4-~v~ "JSKT4-3"-6)
+    )
+    (net "Net-(JSKT4-3-Pad7)"
+      (pins JSKT4-~w~ "JSKT4-3"-7)
+    )
+    (net "Net-(JSKT4-3-Pad2)"
+      (pins JSKT4-~r~ "JSKT4-3"-2)
+    )
+    (net "Net-(JSKT4-3-Pad1)"
+      (pins JSKT4-~q~ "JSKT4-3"-1)
+    )
+    (net "Net-(JSKT4-3-Pad3)"
+      (pins JSKT4-~s~ "JSKT4-3"-3)
+    )
+    (net "Net-(JSKT4-3-Pad5)"
+      (pins JSKT4-~u~ "JSKT4-3"-5)
+    )
+    (net "Net-(JSKT4-3-Pad8)"
+      (pins JSKT4-~x~ "JSKT4-3"-8)
+    )
+    (net "Net-(JSKT4-3-Pad9)"
+      (pins JSKT4-~y~ "JSKT4-3"-9)
+    )
+    (net "Net-(JSKT4-3-Pad10)"
+      (pins JSKT4-~z~ "JSKT4-3"-10)
+    )
+    (net "Net-(JSKT4-3-Pad12)"
+      (pins JSKT4-BB "JSKT4-3"-12)
+    )
+    (net "Net-(JSKT4-3-Pad11)"
+      (pins JSKT4-AA "JSKT4-3"-11)
+    )
+    (net "Net-(JSKT4-2-Pad11)"
+      (pins JSKT4-~g~ "JSKT4-2"-11)
+    )
+    (net "Net-(JSKT4-2-Pad10)"
+      (pins JSKT4-~f~ "JSKT4-2"-10)
+    )
+    (net "Net-(JSKT4-2-Pad5)"
+      (pins JSKT4-~a~ "JSKT4-2"-5)
+    )
+    (net "Net-(JSKT4-2-Pad2)"
+      (pins JSKT4-X "JSKT4-2"-2)
+    )
+    (net "Net-(JSKT4-2-Pad3)"
+      (pins JSKT4-Y "JSKT4-2"-3)
+    )
+    (net "Net-(JSKT4-2-Pad4)"
+      (pins JSKT4-Z "JSKT4-2"-4)
+    )
+    (net "Net-(JSKT4-2-Pad6)"
+      (pins JSKT4-~b~ "JSKT4-2"-6)
+    )
+    (net "Net-(JSKT4-2-Pad7)"
+      (pins JSKT4-~c~ "JSKT4-2"-7)
+    )
+    (net "Net-(JSKT4-2-Pad8)"
+      (pins JSKT4-~d~ "JSKT4-2"-8)
+    )
+    (net "Net-(JSKT4-2-Pad9)"
+      (pins JSKT4-~e~ "JSKT4-2"-9)
+    )
+    (net "Net-(JSKT4-2-Pad1)"
+      (pins JSKT4-W "JSKT4-2"-1)
+    )
+    (net "RESET-32-20"
+      (pins JSKT4-PP "JSKT1-4"-8)
+    )
+    (net "AUDIO-32-14"
+      (pins JSKT5-p "JSKT4-2"-13)
+    )
+    (net "AUTO-1-L"
+      (pins JSKT5-k "JSKT3-1"-11)
+    )
+    (net "~SMN~-4-7"
+      (pins JSKT5-i "JSKT3-1"-10)
+    )
+    (net "#INT3-3-AD"
+      (pins JSKT5-h "JSKT3-1"-9)
+    )
+    (net "#ACTIVE3-1-S"
+      (pins JSKT5-g "JSKT3-1"-8)
+    )
+    (net "~OS~-1-19"
+      (pins JSKT5-f "JSKT3-1"-7)
+    )
+    (net "~CS~-1-H"
+      (pins JSKT5-e "JSKT3-1"-6)
+    )
+    (net "~TCS~-1-AB"
+      (pins JSKT5-d "JSKT3-1"-5)
+    )
+    (net "~CINS~-1-8"
+      (pins JSKT5-c "JSKT3-1"-4)
+    )
+    (net "CINS-1-J"
+      (pins JSKT5-b "JSKT3-1"-3)
+    )
+    (net "#INT2-3-W"
+      (pins JSKT5-a "JSKT3-1"-2)
+    )
+    (net "#ACTIVE2-1-V"
+      (pins JSKT5-Z "JSKT3-1"-1)
+    )
+    (net "#INT1-3-F"
+      (pins JSKT5-Y "JSKT3-2"-20)
+    )
+    (net "#ACTIVE1-1-Y"
+      (pins JSKT5-X "JSKT3-2"-13)
+    )
+    (net "~JUMP~-1-11"
+      (pins JSKT5-W "JSKT3-2"-14)
+    )
+    (net "JUMP-1-M"
+      (pins JSKT5-V "JSKT3-2"-15)
+    )
+    (net "~RESTART~-1-3"
+      (pins JSKT5-U "JSKT3-2"-16)
+    )
+    (net "RESTART-1-C"
+      (pins JSKT5-T "JSKT3-2"-17)
+    )
+    (net "#STOP-2-E"
+      (pins JSKT5-R "JSKT3-2"-18)
+    )
+    (net "~STOP~-1-25"
+      (pins JSKT5-P "JSKT3-2"-19)
+    )
+    (net "RESET-2-U"
+      (pins JSKT5-H "JSKT3-2"-11)
+    )
+    (net "~TEST~-1-5"
+      (pins JSKT5-D "JSKT3-2"-12)
+    )
+    (net "/Auto-Start"
+      (pins JSKT6-B JSKT11-r JSKT11-s)
+    )
+    (net "MARGIN-25-12"
+      (pins JSKT7-L "JSKT2-4"-1)
+    )
+    (net "MARGIN-4-3"
+      (pins JSKT7-K "JSKT3-2"-10)
+    )
+    (net "MARGIN-30-10"
+      (pins JSKT7-J "JSKT10-1"-19)
+    )
+    (net "Net-(JSKT10-1-Pad1)"
+      (pins JSKT10-A "JSKT10-1"-1)
+    )
+    (net "Net-(JSKT10-1-Pad2)"
+      (pins JSKT10-B "JSKT10-1"-2)
+    )
+    (net "Net-(JSKT10-1-Pad3)"
+      (pins JSKT10-C "JSKT10-1"-3)
+    )
+    (net "Net-(JSKT10-1-Pad4)"
+      (pins JSKT10-D "JSKT10-1"-4)
+    )
+    (net "Net-(JSKT10-1-Pad5)"
+      (pins JSKT10-E "JSKT10-1"-5)
+    )
+    (net "Net-(JSKT10-1-Pad6)"
+      (pins JSKT10-F "JSKT10-1"-6)
+    )
+    (net "Net-(JSKT10-1-Pad7)"
+      (pins JSKT10-G "JSKT10-1"-7)
+    )
+    (net "Net-(JSKT10-1-Pad8)"
+      (pins JSKT10-H "JSKT10-1"-8)
+    )
+    (net "Net-(JSKT10-1-Pad9)"
+      (pins JSKT10-J "JSKT10-1"-9)
+    )
+    (net "Net-(JSKT10-1-Pad10)"
+      (pins JSKT10-K "JSKT10-1"-10)
+    )
+    (net "Net-(JSKT10-1-Pad11)"
+      (pins JSKT10-L "JSKT10-1"-11)
+    )
+    (net "Net-(JSKT10-1-Pad12)"
+      (pins JSKT10-M "JSKT10-1"-12)
+    )
+    (net "Net-(JSKT10-1-Pad13)"
+      (pins JSKT10-N "JSKT10-1"-13)
+    )
+    (net "Net-(JSKT10-1-Pad14)"
+      (pins JSKT10-P "JSKT10-1"-14)
+    )
+    (net "Net-(JSKT10-1-Pad15)"
+      (pins JSKT10-R "JSKT10-1"-15)
+    )
+    (net "Net-(JSKT10-1-Pad16)"
+      (pins JSKT10-S "JSKT10-1"-16)
+    )
+    (net "P3-32-18"
+      (pins JSKT10-U "JSKT10-1"-18 "JSKT11-1"-10)
+    )
+    (net "STR-30-14"
+      (pins JSKT10-V "JSKT1-4"-1)
+    )
+    (net "RTR-30-D"
+      (pins JSKT10-W "JSKT1-4"-2)
+    )
+    (net "P1-32-17"
+      (pins JSKT10-X "JSKT1-4"-3)
+    )
+    (net "P2-32-15"
+      (pins JSKT10-Y "JSKT1-4"-4)
+    )
+    (net /AUT
+      (pins JSKT10-Z JSKT11-Z)
+    )
+    (net "/PUNCH-INT"
+      (pins JSKT10-a JSKT13-T)
+    )
+    (net "P4-32-19"
+      (pins JSKT10-b "JSKT10-1"-17 "JSKT11-1"-9)
+    )
+    (net "/RDR-INT"
+      (pins JSKT10-c JSKT13-V)
+    )
+    (net "RESET-31-16"
+      (pins JSKT10-d "JSKT1-4"-7)
+    )
+    (net STP_30_15
+      (pins JSKT10-h "JSKT1-4"-5)
+    )
+    (net "RTP-30-C"
+      (pins JSKT10-j "JSKT1-4"-6)
+    )
+    (net /W1
+      (pins JSKT11-B "JSKT2-1"-20)
+    )
+    (net /~W~2
+      (pins JSKT11-C "JSKT11-1"-1)
+    )
+    (net /~W~3
+      (pins JSKT11-D "JSKT11-1"-2)
+    )
+    (net /~W~4
+      (pins JSKT11-E "JSKT11-1"-3)
+    )
+    (net /W5
+      (pins JSKT11-F "JSKT2-3"-12)
+    )
+    (net /W6
+      (pins JSKT11-G "JSKT2-3"-13)
+    )
+    (net /W7
+      (pins JSKT11-H "JSKT2-3"-14)
+    )
+    (net /W8
+      (pins JSKT11-J "JSKT2-3"-15)
+    )
+    (net /W9
+      (pins JSKT11-K "JSKT2-3"-16)
+    )
+    (net /W10
+      (pins JSKT11-L "JSKT2-3"-17)
+    )
+    (net /W11
+      (pins JSKT11-M "JSKT2-3"-18)
+    )
+    (net /W12
+      (pins JSKT11-N "JSKT2-3"-19)
+    )
+    (net /W13
+      (pins JSKT11-P "JSKT2-3"-20)
+    )
+    (net /~W~14
+      (pins JSKT11-R "JSKT11-1"-4)
+    )
+    (net /~W~15
+      (pins JSKT11-S "JSKT11-1"-5)
+    )
+    (net /~W~16
+      (pins JSKT11-T "JSKT11-1"-6)
+    )
+    (net /~W~17
+      (pins JSKT11-U "JSKT11-1"-17)
+    )
+    (net /~W~18
+      (pins JSKT11-V "JSKT11-1"-7)
+    )
+    (net "INT1-3-9"
+      (pins JSKT11-W "JSKT3-2"-1)
+    )
+    (net "INT2-3-10"
+      (pins JSKT11-X "JSKT11-1"-20)
+    )
+    (net "INT3-3-11"
+      (pins JSKT11-Y "JSKT11-1"-19)
+    )
+    (net "ONG-1-7"
+      (pins JSKT11-f "JSKT3-2"-2)
+    )
+    (net "~ONG~-1-F"
+      (pins JSKT11-g "JSKT3-2"-3)
+    )
+    (net "ENG-1-6"
+      (pins JSKT11-h "JSKT3-2"-4)
+    )
+    (net "~ENG~-1-4"
+      (pins JSKT11-i "JSKT3-2"-5)
+    )
+    (net "RESET-1-24"
+      (pins JSKT11-j "JSKT3-2"-6)
+    )
+    (net "PS1-3-E"
+      (pins JSKT11-m "JSKT3-2"-7)
+    )
+    (net "PS2-3-L"
+      (pins JSKT11-n "JSKT3-2"-8)
+    )
+    (net "PS3-3-S"
+      (pins JSKT11-p "JSKT3-2"-9)
+    )
+    (net /W17
+      (pins JSKT11-q "JSKT11-1"-18)
+    )
+    (net "PI1-29-AE"
+      (pins JSKT13-A "JSKT1-4"-16)
+    )
+    (net "PI2-29-AF"
+      (pins JSKT13-C "JSKT1-4"-15)
+    )
+    (net "PI3-29-AH"
+      (pins JSKT13-E "JSKT1-4"-14)
+    )
+    (net "SOP-30-20"
+      (pins JSKT13-G "JSKT1-4"-13)
+    )
+    (net "SIP-30-21"
+      (pins JSKT13-J "JSKT1-4"-12)
+    )
+    (net "PR-30-E"
+      (pins JSKT13-L "JSKT1-4"-9)
+    )
+    (net "BT-30-U"
+      (pins JSKT13-N "JSKT1-4"-10)
+    )
+    (net "LW-30-13"
+      (pins JSKT13-R "JSKT1-4"-11)
+    )
+    (net /+24v
+      (pins JSKT10-f J1-1)
+    )
+    (net "/-24v"
+      (pins JSKT10-g J1-2)
+    )
+    (net /VREF
+      (pins JSKT7-F J5-2)
+    )
+    (class kicad_default "" "#AA1'-21-K" "#AA1-21-M" "#AA2'-21-U" "#AA2-21-X"
+      "#AA3'-21-AF" "#AA3-21-AA" "#ACTIVE1-1-Y" "#ACTIVE2-1-V" "#ACTIVE3-1-S"
+      "#C-6-N" "#CA-7-Z" "#CB-7-V" "#CD-6-V" "#FD-6-S" "#INT1-3-F" "#INT2-3-W"
+      "#INT3-3-AD" "#NOTRDY-2-AC" "#RESET-2-Z" "#SIP-30-Z" "#SOP-30-P" "#STOP-2-E"
+      "#STOP-2-T" "#STP-30-L" "#STR-30-H" "#X-57-D" "#Y-57-Z" /#I1 /#I2 /#I3
+      /#I4 /#PC1 /#PC10 /#PC11 /#PC12 /#PC2 /#PC3 /#PC4 /#PC5 /#PC6 /#PC7
+      /#PC8 /#PC9 /+24v /+5vDisplay /+6v "/-24v" "/-6v" /0v /0vDisplay /AUT
+      "/Auto-Start" /GND /Off "/Off-Light" /On "/On-Light" "/On-Off-Common"
+      "/PUNCH-INT" "/RDR-INT" /VREF /W1 /W10 /W11 /W12 /W13 /W17 /W5 /W6 /W7
+      /W8 /W9 /~W~14 /~W~15 /~W~16 /~W~17 /~W~18 /~W~2 /~W~3 /~W~4 "AUDIO-32-14"
+      "AUTO-1-L" "BT-30-U" "CINS-1-J" "ENG-1-6" "INT1-3-9" "INT2-3-10" "INT3-3-11"
+      "JUMP-1-M" "LW-30-13" "MARGIN-25-12" "MARGIN-30-10" "MARGIN-4-3" "Net-(JSKT1-1-Pad1)"
+      "Net-(JSKT1-1-Pad10)" "Net-(JSKT1-1-Pad11)" "Net-(JSKT1-1-Pad12)" "Net-(JSKT1-1-Pad13)"
+      "Net-(JSKT1-1-Pad14)" "Net-(JSKT1-1-Pad15)" "Net-(JSKT1-1-Pad16)" "Net-(JSKT1-1-Pad17)"
+      "Net-(JSKT1-1-Pad18)" "Net-(JSKT1-1-Pad2)" "Net-(JSKT1-1-Pad3)" "Net-(JSKT1-1-Pad4)"
+      "Net-(JSKT1-1-Pad5)" "Net-(JSKT1-1-Pad6)" "Net-(JSKT1-1-Pad7)" "Net-(JSKT1-1-Pad8)"
+      "Net-(JSKT1-1-Pad9)" "Net-(JSKT1-2-Pad1)" "Net-(JSKT1-2-Pad10)" "Net-(JSKT1-2-Pad11)"
+      "Net-(JSKT1-2-Pad12)" "Net-(JSKT1-2-Pad13)" "Net-(JSKT1-2-Pad14)" "Net-(JSKT1-2-Pad15)"
+      "Net-(JSKT1-2-Pad16)" "Net-(JSKT1-2-Pad17)" "Net-(JSKT1-2-Pad18)" "Net-(JSKT1-2-Pad2)"
+      "Net-(JSKT1-2-Pad3)" "Net-(JSKT1-2-Pad4)" "Net-(JSKT1-2-Pad5)" "Net-(JSKT1-2-Pad6)"
+      "Net-(JSKT1-2-Pad7)" "Net-(JSKT1-2-Pad8)" "Net-(JSKT1-2-Pad9)" "Net-(JSKT1-3-Pad1)"
+      "Net-(JSKT1-3-Pad10)" "Net-(JSKT1-3-Pad11)" "Net-(JSKT1-3-Pad12)" "Net-(JSKT1-3-Pad13)"
+      "Net-(JSKT1-3-Pad14)" "Net-(JSKT1-3-Pad15)" "Net-(JSKT1-3-Pad16)" "Net-(JSKT1-3-Pad17)"
+      "Net-(JSKT1-3-Pad18)" "Net-(JSKT1-3-Pad2)" "Net-(JSKT1-3-Pad3)" "Net-(JSKT1-3-Pad4)"
+      "Net-(JSKT1-3-Pad5)" "Net-(JSKT1-3-Pad6)" "Net-(JSKT1-3-Pad7)" "Net-(JSKT1-3-Pad8)"
+      "Net-(JSKT1-3-Pad9)" "Net-(JSKT10-1-Pad1)" "Net-(JSKT10-1-Pad10)" "Net-(JSKT10-1-Pad11)"
+      "Net-(JSKT10-1-Pad12)" "Net-(JSKT10-1-Pad13)" "Net-(JSKT10-1-Pad14)"
+      "Net-(JSKT10-1-Pad15)" "Net-(JSKT10-1-Pad16)" "Net-(JSKT10-1-Pad2)"
+      "Net-(JSKT10-1-Pad3)" "Net-(JSKT10-1-Pad4)" "Net-(JSKT10-1-Pad5)" "Net-(JSKT10-1-Pad6)"
+      "Net-(JSKT10-1-Pad7)" "Net-(JSKT10-1-Pad8)" "Net-(JSKT10-1-Pad9)" "Net-(JSKT2-1-Pad1)"
+      "Net-(JSKT2-1-Pad10)" "Net-(JSKT2-1-Pad11)" "Net-(JSKT2-1-Pad12)" "Net-(JSKT2-1-Pad13)"
+      "Net-(JSKT2-1-Pad14)" "Net-(JSKT2-1-Pad15)" "Net-(JSKT2-1-Pad16)" "Net-(JSKT2-1-Pad17)"
+      "Net-(JSKT2-1-Pad18)" "Net-(JSKT2-1-Pad2)" "Net-(JSKT2-1-Pad3)" "Net-(JSKT2-1-Pad4)"
+      "Net-(JSKT2-1-Pad5)" "Net-(JSKT2-1-Pad6)" "Net-(JSKT2-1-Pad7)" "Net-(JSKT2-1-Pad8)"
+      "Net-(JSKT2-1-Pad9)" "Net-(JSKT2-2-Pad1)" "Net-(JSKT2-2-Pad10)" "Net-(JSKT2-2-Pad11)"
+      "Net-(JSKT2-2-Pad12)" "Net-(JSKT2-2-Pad13)" "Net-(JSKT2-2-Pad14)" "Net-(JSKT2-2-Pad15)"
+      "Net-(JSKT2-2-Pad16)" "Net-(JSKT2-2-Pad2)" "Net-(JSKT2-2-Pad3)" "Net-(JSKT2-2-Pad4)"
+      "Net-(JSKT2-2-Pad5)" "Net-(JSKT2-2-Pad6)" "Net-(JSKT2-2-Pad7)" "Net-(JSKT2-2-Pad8)"
+      "Net-(JSKT2-2-Pad9)" "Net-(JSKT2-3-Pad1)" "Net-(JSKT2-3-Pad10)" "Net-(JSKT2-3-Pad11)"
+      "Net-(JSKT2-3-Pad2)" "Net-(JSKT2-3-Pad3)" "Net-(JSKT2-3-Pad4)" "Net-(JSKT2-3-Pad5)"
+      "Net-(JSKT2-3-Pad6)" "Net-(JSKT2-3-Pad7)" "Net-(JSKT2-3-Pad8)" "Net-(JSKT2-3-Pad9)"
+      "Net-(JSKT4-1-Pad1)" "Net-(JSKT4-1-Pad10)" "Net-(JSKT4-1-Pad11)" "Net-(JSKT4-1-Pad12)"
+      "Net-(JSKT4-1-Pad13)" "Net-(JSKT4-1-Pad14)" "Net-(JSKT4-1-Pad15)" "Net-(JSKT4-1-Pad16)"
+      "Net-(JSKT4-1-Pad17)" "Net-(JSKT4-1-Pad18)" "Net-(JSKT4-1-Pad2)" "Net-(JSKT4-1-Pad3)"
+      "Net-(JSKT4-1-Pad4)" "Net-(JSKT4-1-Pad5)" "Net-(JSKT4-1-Pad6)" "Net-(JSKT4-1-Pad7)"
+      "Net-(JSKT4-1-Pad8)" "Net-(JSKT4-1-Pad9)" "Net-(JSKT4-2-Pad1)" "Net-(JSKT4-2-Pad10)"
+      "Net-(JSKT4-2-Pad11)" "Net-(JSKT4-2-Pad2)" "Net-(JSKT4-2-Pad3)" "Net-(JSKT4-2-Pad4)"
+      "Net-(JSKT4-2-Pad5)" "Net-(JSKT4-2-Pad6)" "Net-(JSKT4-2-Pad7)" "Net-(JSKT4-2-Pad8)"
+      "Net-(JSKT4-2-Pad9)" "Net-(JSKT4-3-Pad1)" "Net-(JSKT4-3-Pad10)" "Net-(JSKT4-3-Pad11)"
+      "Net-(JSKT4-3-Pad12)" "Net-(JSKT4-3-Pad13)" "Net-(JSKT4-3-Pad14)" "Net-(JSKT4-3-Pad15)"
+      "Net-(JSKT4-3-Pad16)" "Net-(JSKT4-3-Pad17)" "Net-(JSKT4-3-Pad18)" "Net-(JSKT4-3-Pad2)"
+      "Net-(JSKT4-3-Pad3)" "Net-(JSKT4-3-Pad4)" "Net-(JSKT4-3-Pad5)" "Net-(JSKT4-3-Pad6)"
+      "Net-(JSKT4-3-Pad7)" "Net-(JSKT4-3-Pad8)" "Net-(JSKT4-3-Pad9)" "ONG-1-7"
+      "P1-32-17" "P2-32-15" "P3-32-18" "P4-32-19" "PI1-29-AE" "PI2-29-AF"
+      "PI3-29-AH" "PR-30-E" "PS1-3-E" "PS2-3-L" "PS3-3-S" "RESET-1-24" "RESET-2-U"
+      "RESET-31-16" "RESET-32-20" "RESTART-1-C" "RTP-30-C" "RTR-30-D" "SIP-30-21"
+      "SOP-30-20" STP_30_15 "STR-30-14" "~CINS~-1-8" "~CS~-1-H" "~ENG~-1-4"
+      "~JUMP~-1-11" "~ONG~-1-F" "~OS~-1-19" "~RESTART~-1-3" "~SMN~-4-7" "~STOP~-1-25"
+      "~TCS~-1-AB" "~TEST~-1-5"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

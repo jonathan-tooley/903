@@ -104,10 +104,8 @@ Wire Wire Line
 	4375 4475 4200 4475
 Wire Wire Line
 	4200 4675 4375 4675
-Text GLabel 3525 4175 0    40   Input ~ 0
-JTPC
-Text GLabel 3525 4275 0    40   Input ~ 0
-JTPC
+Text GLabel 3525 4275 0    40   UnSpc ~ 0
+JTPC-23-L
 Wire Wire Line
 	3525 2175 3700 2175
 Wire Wire Line
@@ -154,9 +152,7 @@ Wire Wire Line
 Wire Wire Line
 	3700 4075 3525 4075
 Wire Wire Line
-	3525 4175 3700 4175
-Wire Wire Line
-	3700 4275 3525 4275
+	3700 4275 3625 4275
 Wire Wire Line
 	3525 4375 3700 4375
 Wire Wire Line
@@ -450,4 +446,11 @@ Text Label 3325 5075 2    40   ~ 0
 GND
 Text Label 4200 5075 0    40   ~ 0
 GND
+Wire Wire Line
+	3700 4175 3625 4175
+Wire Wire Line
+	3625 4175 3625 4275
+Connection ~ 3625 4275
+Wire Wire Line
+	3625 4275 3525 4275
 $EndSCHEMATC

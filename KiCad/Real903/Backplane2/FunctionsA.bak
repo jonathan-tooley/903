@@ -2,11 +2,11 @@ EESchema Schematic File Version 4
 LIBS:Backplane2-cache
 EELAYER 26 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr A3 16535 11693
 encoding utf-8
-Sheet 3 6
-Title ""
-Date ""
+Sheet 3 7
+Title "Backplane 2"
+Date "2020-07-20"
 Rev ""
 Comp ""
 Comment1 ""
@@ -15,97 +15,9 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	1125 4225 925  4225
-Wire Wire Line
-	1825 4225 1625 4225
-Wire Wire Line
-	2925 4225 3125 4225
-Wire Wire Line
-	3825 4225 3625 4225
-Wire Wire Line
-	5050 4225 4850 4225
-Wire Wire Line
-	5750 4225 5550 4225
-Text GLabel 5750 4225 2    40   Input ~ 0
-Neg6v
-Text GLabel 4850 4225 0    40   Input ~ 0
-Neg6v
-Text GLabel 3825 4225 2    40   Input ~ 0
-Neg6v
-Text GLabel 2925 4225 0    40   Input ~ 0
-Neg6v
-Text GLabel 1825 4225 2    40   Input ~ 0
-Neg6v
-Text GLabel 925  4225 0    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	3125 1325 2925 1325
-Wire Wire Line
 	1125 1325 925  1325
 Wire Wire Line
-	1825 1325 1625 1325
-Wire Wire Line
-	3825 1325 3625 1325
-Wire Wire Line
-	5050 1325 4850 1325
-Wire Wire Line
-	5750 1325 5550 1325
-Text GLabel 4850 1325 0    40   Input ~ 0
-6v
-Text GLabel 2925 1325 0    40   Input ~ 0
-6v
-Text GLabel 1825 1325 2    40   Input ~ 0
-6v
-Text GLabel 925  1325 0    40   Input ~ 0
-6v
-Wire Wire Line
-	1825 1225 1625 1225
-Wire Wire Line
-	3825 1225 3625 1225
-Wire Wire Line
-	5750 1225 5550 1225
-Text GLabel 5750 1225 2    40   Input ~ 0
-GND
-Text GLabel 3825 1225 2    40   Input ~ 0
-GND
-Text GLabel 1825 1225 2    40   Input ~ 0
-GND
-Wire Wire Line
-	1825 4325 1625 4325
-Wire Wire Line
-	5550 4325 5750 4325
-Wire Wire Line
-	3625 4325 3825 4325
-Wire Wire Line
-	2925 1225 3125 1225
-Wire Wire Line
-	4850 4325 5050 4325
-Text GLabel 4850 4325 0    40   Input ~ 0
-GND
-Wire Wire Line
-	4850 1225 5050 1225
-Text GLabel 4850 1225 0    40   Input ~ 0
-GND
-Text GLabel 2925 1225 0    40   Input ~ 0
-GND
-Wire Wire Line
-	2925 4325 3125 4325
-Text GLabel 2925 4325 0    40   Input ~ 0
-GND
-Text GLabel 5750 4325 2    40   Input ~ 0
-GND
-Text GLabel 3825 4325 2    40   Input ~ 0
-GND
-Text GLabel 1825 4325 2    40   Input ~ 0
-GND
-Wire Wire Line
-	1125 4325 925  4325
-Wire Wire Line
 	925  1225 1125 1225
-Text GLabel 925  1225 0    40   Input ~ 0
-GND
-Text GLabel 925  4325 0    40   Input ~ 0
-GND
 $Comp
 L LSA:Conn_02x32 J12
 U 1 1 5D6F0264
@@ -139,46 +51,6 @@ F 3 "" H 1325 2725 50  0001 C CNN
 	1    1325 2725
 	1    0    0    -1  
 $EndComp
-Text GLabel 1825 1925 2    40   Input ~ 0
-WFPm
-Wire Wire Line
-	1825 1925 1625 1925
-Text GLabel 1825 1625 2    40   Input ~ 0
-AA3m
-Text GLabel 925  1625 0    40   Input ~ 0
-AA3m
-Wire Wire Line
-	7050 4225 6850 4225
-Wire Wire Line
-	7750 4225 7550 4225
-Text GLabel 7750 4225 2    40   Input ~ 0
-Neg6v
-Text GLabel 6850 4225 0    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	7050 1325 6850 1325
-Wire Wire Line
-	7750 1325 7550 1325
-Text GLabel 7750 1325 2    40   Input ~ 0
-6v
-Text GLabel 6850 1325 0    40   Input ~ 0
-6v
-Wire Wire Line
-	7750 1225 7550 1225
-Text GLabel 7750 1225 2    40   Input ~ 0
-GND
-Wire Wire Line
-	7550 4325 7750 4325
-Wire Wire Line
-	6850 4325 7050 4325
-Text GLabel 6850 4325 0    40   Input ~ 0
-GND
-Wire Wire Line
-	6850 1225 7050 1225
-Text GLabel 6850 1225 0    40   Input ~ 0
-GND
-Text GLabel 7750 4325 2    40   Input ~ 0
-GND
 $Comp
 L LSA:Conn_02x32 J13
 U 1 1 5D6F028D
@@ -191,174 +63,13 @@ F 3 "" H 7250 2725 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9025 4250 8825 4250
-Wire Wire Line
-	9725 4250 9525 4250
-Text GLabel 9725 4250 2    40   Input ~ 0
-Neg6v
-Text GLabel 8825 4250 0    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	9025 1350 8825 1350
-Wire Wire Line
-	9725 1350 9525 1350
-Text GLabel 9725 1350 2    40   Input ~ 0
-6v
-Text GLabel 8825 1350 0    40   Input ~ 0
-6v
-Wire Wire Line
-	9725 1250 9525 1250
-Text GLabel 9725 1250 2    40   Input ~ 0
-GND
-Wire Wire Line
-	9525 4350 9725 4350
-Wire Wire Line
-	8825 4350 9025 4350
-Text GLabel 8825 4350 0    40   Input ~ 0
-GND
-Wire Wire Line
-	8825 1250 9025 1250
-Text GLabel 8825 1250 0    40   Input ~ 0
-GND
-Text GLabel 9725 4350 2    40   Input ~ 0
-GND
-$Comp
-L LSA:Conn_02x32 J14
-U 1 1 5D6F02A4
-P 9225 2750
-F 0 "J14" H 9275 4467 50  0000 C CNN
-F 1 "~" H 9275 4376 50  0000 C CNN
-F 2 "ELLIOTT:DIN41612_B_2x32_Vertical" H 9225 2750 50  0001 C CNN
-F 3 "" H 9225 2750 50  0001 C CNN
-	1    9225 2750
-	1    0    0    -1  
-$EndComp
-Text GLabel 1825 1425 2    40   Input ~ 0
-AA1m
-Text GLabel 1825 1525 2    40   Input ~ 0
-AA2m
-Wire Wire Line
-	1825 1425 1625 1425
-Wire Wire Line
-	1625 1525 1825 1525
-Wire Wire Line
-	1825 1625 1625 1625
-Text GLabel 925  1425 0    40   Input ~ 0
-AA1m
-Text GLabel 925  1525 0    40   Input ~ 0
-AA2m
-Wire Wire Line
 	925  1425 1125 1425
 Wire Wire Line
 	1125 1525 925  1525
 Wire Wire Line
 	925  1625 1125 1625
-Text GLabel 2925 1625 0    40   Input ~ 0
-AA3m
-Text GLabel 2925 1425 0    40   Input ~ 0
-AA1m
-Text GLabel 2925 1525 0    40   Input ~ 0
-AA2m
-Wire Wire Line
-	2925 1425 3125 1425
-Wire Wire Line
-	3125 1525 2925 1525
-Wire Wire Line
-	2925 1625 3125 1625
-Text GLabel 4850 1625 0    40   Input ~ 0
-AA3m
-Text GLabel 4850 1425 0    40   Input ~ 0
-AA1m
-Text GLabel 4850 1525 0    40   Input ~ 0
-AA2m
-Wire Wire Line
-	4850 1425 5050 1425
-Wire Wire Line
-	5050 1525 4850 1525
-Wire Wire Line
-	4850 1625 5050 1625
-Text GLabel 6850 1625 0    40   Input ~ 0
-AA3m
-Text GLabel 6850 1425 0    40   Input ~ 0
-AA1m
-Text GLabel 6850 1525 0    40   Input ~ 0
-AA2m
-Wire Wire Line
-	6850 1425 7050 1425
-Wire Wire Line
-	7050 1525 6850 1525
-Wire Wire Line
-	6850 1625 7050 1625
-Text GLabel 8825 1650 0    40   Input ~ 0
-AA3m
-Text GLabel 8825 1450 0    40   Input ~ 0
-AA1m
-Text GLabel 8825 1550 0    40   Input ~ 0
-AA2m
-Wire Wire Line
-	8825 1450 9025 1450
-Wire Wire Line
-	9025 1550 8825 1550
-Wire Wire Line
-	8825 1650 9025 1650
-Text GLabel 3825 1325 2    40   Input ~ 0
-6v
-Text GLabel 3825 1625 2    40   Input ~ 0
-AA3m
-Text GLabel 3825 1425 2    40   Input ~ 0
-AA1m
-Text GLabel 3825 1525 2    40   Input ~ 0
-AA2m
-Wire Wire Line
-	3825 1425 3625 1425
-Wire Wire Line
-	3625 1525 3825 1525
-Wire Wire Line
-	3825 1625 3625 1625
-Text GLabel 5750 1325 2    40   Input ~ 0
-6v
-Text GLabel 5750 1625 2    40   Input ~ 0
-AA3m
-Text GLabel 5750 1425 2    40   Input ~ 0
-AA1m
-Text GLabel 5750 1525 2    40   Input ~ 0
-AA2m
-Wire Wire Line
-	5750 1425 5550 1425
-Wire Wire Line
-	5550 1525 5750 1525
-Wire Wire Line
-	5750 1625 5550 1625
-Text GLabel 7750 1625 2    40   Input ~ 0
-AA3m
-Text GLabel 7750 1425 2    40   Input ~ 0
-AA1m
-Text GLabel 7750 1525 2    40   Input ~ 0
-AA2m
-Wire Wire Line
-	7750 1425 7550 1425
-Wire Wire Line
-	7550 1525 7750 1525
-Wire Wire Line
-	7750 1625 7550 1625
-Text GLabel 9725 1650 2    40   Input ~ 0
-AA3m
-Text GLabel 9725 1450 2    40   Input ~ 0
-AA1m
-Text GLabel 9725 1550 2    40   Input ~ 0
-AA2m
-Wire Wire Line
-	9725 1450 9525 1450
-Wire Wire Line
-	9525 1550 9725 1550
-Wire Wire Line
-	9725 1650 9525 1650
 NoConn ~ 1625 1725
 NoConn ~ 1625 1825
-Text GLabel 3825 1925 2    40   Input ~ 0
-WFPm
-Wire Wire Line
-	3825 1925 3625 1925
 NoConn ~ 1625 2025
 NoConn ~ 1625 2125
 NoConn ~ 1625 2225
@@ -420,40 +131,14 @@ NoConn ~ 1625 3725
 NoConn ~ 1625 3925
 NoConn ~ 1625 4025
 NoConn ~ 1625 4125
-Text GLabel 1825 3825 2    40   Input ~ 0
-GTAm
-Wire Wire Line
-	1825 3825 1625 3825
-Text GLabel 925  3825 0    40   Input ~ 0
-GTAm
 Wire Wire Line
 	925  3825 1125 3825
-Text GLabel 2925 3825 0    40   Input ~ 0
-GTAm
-Wire Wire Line
-	2925 3825 3125 3825
-Text GLabel 925  1825 0    40   Input ~ 0
-DA
-Wire Wire Line
-	925  1825 1125 1825
-Text GLabel 925  1925 0    40   Input ~ 0
-DE
-Wire Wire Line
-	925  1925 1125 1925
-Text GLabel 925  3525 0    40   Input ~ 0
-S2b
 Text GLabel 925  3125 0    40   Input ~ 0
 CA2
-Text GLabel 925  3425 0    40   Input ~ 0
-S3b
-Text GLabel 925  3625 0    40   Input ~ 0
-S1c
 Text GLabel 925  2925 0    40   Input ~ 0
 CB
 Text GLabel 925  3025 0    40   Input ~ 0
 ~CA~2
-Text GLabel 925  3725 0    40   Input ~ 0
-S0c
 NoConn ~ 1125 1725
 NoConn ~ 1125 2025
 NoConn ~ 1125 2125
@@ -475,58 +160,16 @@ Wire Wire Line
 	1125 3025 925  3025
 Wire Wire Line
 	925  3125 1125 3125
-Wire Wire Line
-	1125 3425 925  3425
-Wire Wire Line
-	925  3525 1125 3525
-Wire Wire Line
-	1125 3625 925  3625
-Wire Wire Line
-	925  3725 1125 3725
-Text GLabel 2925 1825 0    40   Input ~ 0
-DC
-Text GLabel 4850 1825 0    40   Input ~ 0
-DC
-Text GLabel 2925 1925 0    40   Input ~ 0
-DE
 Text GLabel 2925 2025 0    40   Input ~ 0
 CE
-Text GLabel 2925 3325 0    40   Input ~ 0
-S4b
-Text GLabel 2925 3725 0    40   Input ~ 0
-S0c
-Text GLabel 2925 3425 0    40   Input ~ 0
-S3b
 Text GLabel 2925 2525 0    40   Input ~ 0
 ~CA~2
 Text GLabel 2925 2925 0    40   Input ~ 0
 CA2
-Text GLabel 2925 3525 0    40   Input ~ 0
-S2c
-Text GLabel 2925 3225 0    40   Input ~ 0
-~S4~d
-Text GLabel 2925 3625 0    40   Input ~ 0
-S1c
-Wire Wire Line
-	2925 3725 3125 3725
-Wire Wire Line
-	3125 3625 2925 3625
-Wire Wire Line
-	2925 3525 3125 3525
-Wire Wire Line
-	3125 3425 2925 3425
-Wire Wire Line
-	2925 3325 3125 3325
-Wire Wire Line
-	2925 1825 3125 1825
-Wire Wire Line
-	3125 1925 2925 1925
 Wire Wire Line
 	2925 2025 3125 2025
 Wire Wire Line
 	2925 2925 3125 2925
-Wire Wire Line
-	3125 3225 2925 3225
 NoConn ~ 3125 2125
 NoConn ~ 3125 2225
 NoConn ~ 3125 2425
@@ -535,10 +178,6 @@ NoConn ~ 3125 2725
 NoConn ~ 3125 2825
 NoConn ~ 3125 3025
 NoConn ~ 3125 3125
-Text GLabel 3825 1725 2    40   Input ~ 0
-FTGm
-Text GLabel 2925 1725 0    40   Input ~ 0
-FTGm
 Text GLabel 3825 1825 2    40   Input ~ 0
 JTPCm
 Text GLabel 3825 2025 2    40   Input ~ 0
@@ -552,8 +191,6 @@ Text GLabel 3825 2325 2    40   Input ~ 0
 Text GLabel 2925 2325 0    40   Input ~ 0
 1TFm
 Wire Wire Line
-	2925 1725 3125 1725
-Wire Wire Line
 	3125 2325 2925 2325
 Wire Wire Line
 	3625 2325 3825 2325
@@ -565,14 +202,12 @@ Wire Wire Line
 	3825 2025 3625 2025
 Wire Wire Line
 	3625 1825 3825 1825
-Wire Wire Line
-	3825 1725 3625 1725
-Text GLabel 3825 2525 2    40   Input ~ 0
-SBTm
+Text GLabel 3825 2525 2    32   UnSpc ~ 0
+SBTm-11-R
 Text GLabel 3825 2725 2    40   Input ~ 0
 TM13m
-Text GLabel 3825 2825 2    40   Input ~ 0
-RBTm
+Text GLabel 3825 2825 2    32   UnSpc ~ 0
+RBTm-11-U
 Text GLabel 3825 2925 2    40   Input ~ 0
 OTMm
 Text GLabel 3825 3025 2    40   Input ~ 0
@@ -583,12 +218,10 @@ Text GLabel 3825 3425 2    40   Input ~ 0
 GTMm
 Text GLabel 3825 3525 2    40   Input ~ 0
 JTFm
-Text GLabel 3825 3625 2    40   Input ~ 0
-CRSm
+Text GLabel 3825 3625 2    32   UnSpc ~ 0
+CRSm-11-AC
 Text GLabel 3825 3725 2    40   Input ~ 0
 1TPCm
-Text GLabel 3825 3825 2    40   Input ~ 0
-GTAm
 Text GLabel 3825 3925 2    40   Input ~ 0
 GTJm
 Text GLabel 2925 3925 0    40   Input ~ 0
@@ -616,8 +249,6 @@ Wire Wire Line
 Wire Wire Line
 	3625 4125 3825 4125
 Wire Wire Line
-	3825 3825 3625 3825
-Wire Wire Line
 	3625 3725 3825 3725
 Wire Wire Line
 	3825 3625 3625 3625
@@ -637,10 +268,6 @@ Wire Wire Line
 	3625 2725 3825 2725
 Wire Wire Line
 	3825 2525 3625 2525
-Text GLabel 5750 1725 2    40   Input ~ 0
-FTGm
-Text GLabel 4850 1725 0    40   Input ~ 0
-FTGm
 Text GLabel 5750 1825 2    40   Input ~ 0
 JTPCm
 Text GLabel 5750 1925 2    40   Input ~ 0
@@ -661,10 +288,6 @@ Text GLabel 5750 2525 2    40   Input ~ 0
 RTGm
 Text GLabel 4850 2525 0    40   Input ~ 0
 RTGm
-Text GLabel 5750 2725 2    40   Input ~ 0
-TM12M13m
-Wire Wire Line
-	5750 2725 5550 2725
 Wire Wire Line
 	5550 2525 5750 2525
 Wire Wire Line
@@ -677,12 +300,6 @@ Wire Wire Line
 	5550 1925 5750 1925
 Wire Wire Line
 	5750 1825 5550 1825
-Wire Wire Line
-	5550 1725 5750 1725
-Wire Wire Line
-	5050 1725 4850 1725
-Wire Wire Line
-	4850 1825 5050 1825
 Wire Wire Line
 	5050 2225 4850 2225
 Wire Wire Line
@@ -705,10 +322,6 @@ Text GLabel 5750 3625 2    40   Input ~ 0
 CRSm
 Text GLabel 5750 3725 2    40   Input ~ 0
 1TPCm
-Text GLabel 5750 3825 2    40   Input ~ 0
-GTAm
-Text GLabel 4850 3825 0    40   Input ~ 0
-GTAm
 Text GLabel 5750 3925 2    40   Input ~ 0
 GTJm
 Text GLabel 4850 3925 0    40   Input ~ 0
@@ -721,24 +334,10 @@ Text GLabel 5750 4125 2    40   Input ~ 0
 MTFm
 Text GLabel 4850 4125 0    40   Input ~ 0
 MTFm
-Text GLabel 4850 3625 0    40   Input ~ 0
-S1c
 Text GLabel 4850 3025 0    40   Input ~ 0
 ~CA~2
-Text GLabel 4850 3225 0    40   Input ~ 0
-~S4~d
 Text GLabel 4850 3125 0    40   Input ~ 0
 CA2
-Text GLabel 4850 3525 0    40   Input ~ 0
-S2c
-Text GLabel 4850 3425 0    40   Input ~ 0
-S3b
-Text GLabel 4850 3325 0    40   Input ~ 0
-S4b
-Text GLabel 4850 3725 0    40   Input ~ 0
-S0c
-Text GLabel 4850 1925 0    40   Input ~ 0
-DE
 Text GLabel 4850 2025 0    40   Input ~ 0
 CD
 NoConn ~ 5050 2125
@@ -751,27 +350,11 @@ NoConn ~ 5550 2625
 NoConn ~ 5550 2025
 NoConn ~ 5550 2125
 Wire Wire Line
-	4850 1925 5050 1925
-Wire Wire Line
 	5050 2025 4850 2025
 Wire Wire Line
 	4850 3025 5050 3025
 Wire Wire Line
 	5050 3125 4850 3125
-Wire Wire Line
-	4850 3225 5050 3225
-Wire Wire Line
-	5050 3325 4850 3325
-Wire Wire Line
-	4850 3425 5050 3425
-Wire Wire Line
-	5050 3525 4850 3525
-Wire Wire Line
-	4850 3625 5050 3625
-Wire Wire Line
-	5050 3725 4850 3725
-Wire Wire Line
-	4850 3825 5050 3825
 Wire Wire Line
 	5050 3925 4850 3925
 Wire Wire Line
@@ -782,8 +365,6 @@ Wire Wire Line
 	5750 4025 5550 4025
 Wire Wire Line
 	5550 3925 5750 3925
-Wire Wire Line
-	5750 3825 5550 3825
 Wire Wire Line
 	5550 3725 5750 3725
 Wire Wire Line
@@ -799,14 +380,6 @@ Wire Wire Line
 Wire Wire Line
 	5550 3025 5750 3025
 NoConn ~ 5550 3325
-Text GLabel 7750 1725 2    40   Input ~ 0
-FTGm
-Wire Wire Line
-	7550 1725 7750 1725
-Text GLabel 6850 1725 0    40   Input ~ 0
-FTGm
-Wire Wire Line
-	7050 1725 6850 1725
 Text GLabel 7750 1825 2    40   Input ~ 0
 JTPCm
 Wire Wire Line
@@ -879,8 +452,6 @@ Text GLabel 7750 3625 2    40   Input ~ 0
 CRSm
 Text GLabel 7750 3725 2    40   Input ~ 0
 1TPCm
-Text GLabel 7750 3825 2    40   Input ~ 0
-GTAm
 Text GLabel 7750 3925 2    40   Input ~ 0
 GTJm
 Text GLabel 7750 4025 2    40   Input ~ 0
@@ -889,8 +460,6 @@ Wire Wire Line
 	7750 4025 7550 4025
 Wire Wire Line
 	7550 3925 7750 3925
-Wire Wire Line
-	7750 3825 7550 3825
 Wire Wire Line
 	7550 3725 7750 3725
 Wire Wire Line
@@ -905,8 +474,6 @@ Text GLabel 7750 4125 2    40   Input ~ 0
 MTFm
 Wire Wire Line
 	7550 4125 7750 4125
-Text GLabel 6850 3825 0    40   Input ~ 0
-GTAm
 Text GLabel 6850 3925 0    40   Input ~ 0
 GTJm
 Text GLabel 6850 4025 0    40   Input ~ 0
@@ -914,51 +481,19 @@ QTFm
 Text GLabel 6850 4125 0    40   Input ~ 0
 MTFm
 Wire Wire Line
-	6850 3825 7050 3825
-Wire Wire Line
 	7050 3925 6850 3925
 Wire Wire Line
 	6850 4025 7050 4025
 Wire Wire Line
 	7050 4125 6850 4125
-Text GLabel 6850 3225 0    40   Input ~ 0
-~S4~c
-Text GLabel 6850 3725 0    40   Input ~ 0
-S0c
-Text GLabel 6850 3425 0    40   Input ~ 0
-S3b
-Text GLabel 6850 3325 0    40   Input ~ 0
-S4b
-Text GLabel 6850 3625 0    40   Input ~ 0
-S1c
 Text GLabel 6850 3025 0    40   Input ~ 0
 ~CA~2
 Text GLabel 6850 3125 0    40   Input ~ 0
 CA2
-Text GLabel 6850 3525 0    40   Input ~ 0
-S2c
-Text GLabel 6850 1925 0    40   Input ~ 0
-DE
-Text GLabel 6850 1825 0    40   Input ~ 0
-DB
-Wire Wire Line
-	6850 1825 7050 1825
-Wire Wire Line
-	7050 1925 6850 1925
 Wire Wire Line
 	6850 3025 7050 3025
 Wire Wire Line
 	7050 3125 6850 3125
-Wire Wire Line
-	7050 3325 6850 3325
-Wire Wire Line
-	6850 3425 7050 3425
-Wire Wire Line
-	7050 3525 6850 3525
-Wire Wire Line
-	6850 3625 7050 3625
-Wire Wire Line
-	7050 3725 6850 3725
 Wire Wire Line
 	7550 3025 7750 3025
 Wire Wire Line
@@ -969,8 +504,6 @@ Wire Wire Line
 	7750 2725 7550 2725
 Wire Wire Line
 	7550 2625 7750 2625
-Wire Wire Line
-	6850 3225 7050 3225
 NoConn ~ 7050 2025
 NoConn ~ 7050 2125
 NoConn ~ 7050 2625
@@ -980,203 +513,409 @@ NoConn ~ 7050 2925
 NoConn ~ 7550 3125
 Wire Wire Line
 	7550 3325 7750 3325
-Text GLabel 9725 3850 2    40   Input ~ 0
-GTAm
-Text GLabel 9725 3950 2    40   Input ~ 0
+Text GLabel 9725 3925 2    40   Input ~ 0
 GTJm
-Text GLabel 9725 4050 2    40   Input ~ 0
+Text GLabel 9725 4025 2    40   Input ~ 0
 QTFm
 Wire Wire Line
-	9725 4050 9525 4050
+	9725 4025 9525 4025
 Wire Wire Line
-	9525 3950 9725 3950
-Wire Wire Line
-	9725 3850 9525 3850
-Text GLabel 9725 4150 2    40   Input ~ 0
+	9525 3925 9725 3925
+Text GLabel 9725 4125 2    40   Input ~ 0
 MTFm
 Wire Wire Line
-	9525 4150 9725 4150
-Text GLabel 8825 3850 0    40   Input ~ 0
-GTAm
-Text GLabel 8825 3950 0    40   Input ~ 0
+	9525 4125 9725 4125
+Text GLabel 8825 3925 0    40   Input ~ 0
 GTJm
-Text GLabel 8825 4050 0    40   Input ~ 0
+Text GLabel 8825 4025 0    40   Input ~ 0
 QTFm
-Text GLabel 8825 4150 0    40   Input ~ 0
+Text GLabel 8825 4125 0    40   Input ~ 0
 MTFm
 Wire Wire Line
-	8825 3850 9025 3850
+	9025 3925 8825 3925
 Wire Wire Line
-	9025 3950 8825 3950
+	8825 4025 9025 4025
 Wire Wire Line
-	8825 4050 9025 4050
-Wire Wire Line
-	9025 4150 8825 4150
-Text GLabel 9725 3750 2    40   Input ~ 0
+	9025 4125 8825 4125
+Text GLabel 9725 3725 2    40   Input ~ 0
 1TPCm
 Wire Wire Line
-	9725 3750 9525 3750
-Text GLabel 9725 3550 2    40   Input ~ 0
+	9725 3725 9525 3725
+Text GLabel 9725 3525 2    40   Input ~ 0
 GTQm
-Text GLabel 9725 3450 2    40   Input ~ 0
+Text GLabel 9725 3425 2    40   Input ~ 0
 TXQ1m
 Wire Wire Line
-	9725 3450 9525 3450
+	9725 3425 9525 3425
 Wire Wire Line
-	9525 3550 9725 3550
-NoConn ~ 9525 3650
-Text GLabel 9725 3350 2    40   Input ~ 0
+	9525 3525 9725 3525
+NoConn ~ 9525 3625
+Text GLabel 9725 3325 2    40   Input ~ 0
 OTMm
-Text GLabel 9725 3250 2    40   Input ~ 0
+Text GLabel 9725 3225 2    40   Input ~ 0
 ATFm
-NoConn ~ 9525 3150
-Text GLabel 9725 3050 2    40   Input ~ 0
+NoConn ~ 9525 3125
+Text GLabel 9725 3025 2    40   Input ~ 0
 TPCOm
-Text GLabel 9725 2950 2    40   Input ~ 0
+Text GLabel 9725 2925 2    40   Input ~ 0
 OTXm
-Text GLabel 9725 2850 2    40   Input ~ 0
+Text GLabel 9725 2825 2    40   Input ~ 0
 KTJm
-Text GLabel 9725 2650 2    40   Input ~ 0
+Text GLabel 9725 2625 2    40   Input ~ 0
 OTJm
-Text GLabel 9725 2550 2    40   Input ~ 0
+Text GLabel 9725 2525 2    40   Input ~ 0
 RTGm
-Text GLabel 9725 2450 2    40   Input ~ 0
+Text GLabel 9725 2425 2    40   Input ~ 0
 MTFm
-Text GLabel 9725 2350 2    40   Input ~ 0
+Text GLabel 9725 2325 2    40   Input ~ 0
 1TFm
-Text GLabel 9725 2250 2    40   Input ~ 0
+Text GLabel 9725 2225 2    40   Input ~ 0
 YTXm
-Text GLabel 9725 2150 2    40   Input ~ 0
+Text GLabel 9725 2125 2    40   Input ~ 0
 READm
-Text GLabel 9725 2050 2    40   Input ~ 0
+Text GLabel 9725 2025 2    40   Input ~ 0
 WRITEm
-Text GLabel 9725 1950 2    40   Input ~ 0
+Text GLabel 9725 1925 2    40   Input ~ 0
 XTFm
-Text GLabel 9725 1850 2    40   Input ~ 0
+Text GLabel 9725 1825 2    40   Input ~ 0
 JTPCm
-Text GLabel 9725 1750 2    40   Input ~ 0
-FTGm
-Text GLabel 8825 1750 0    40   Input ~ 0
-FTGm
-Text GLabel 8825 2250 0    40   Input ~ 0
+Text GLabel 8825 2225 0    40   Input ~ 0
 YTXm
-Text GLabel 8825 2350 0    40   Input ~ 0
+Text GLabel 8825 2325 0    40   Input ~ 0
 1TFm
-Text GLabel 8825 2450 0    40   Input ~ 0
+Text GLabel 8825 2425 0    40   Input ~ 0
 MTFm
-Text GLabel 8825 2550 0    40   Input ~ 0
+Text GLabel 8825 2525 0    40   Input ~ 0
 RTGm
-Text GLabel 8825 3650 0    40   Input ~ 0
-S1b
-Text GLabel 8825 3350 0    40   Input ~ 0
-S4a
-Text GLabel 8825 3250 0    40   Input ~ 0
-~S4~c
-Text GLabel 8825 3750 0    40   Input ~ 0
-S0b
-Text GLabel 8825 3150 0    40   Input ~ 0
+Text GLabel 8825 3125 0    40   Input ~ 0
 CA1
-Text GLabel 8825 2950 0    40   Input ~ 0
+Text GLabel 8825 2925 0    40   Input ~ 0
 CB
-Text GLabel 8825 3450 0    40   Input ~ 0
-S3b
-Text GLabel 8825 2650 0    40   Input ~ 0
+Text GLabel 8825 2625 0    40   Input ~ 0
 CC
-Text GLabel 8825 3550 0    40   Input ~ 0
-S2b
-Text GLabel 8825 1950 0    40   Input ~ 0
-DE
-Text GLabel 8825 1850 0    40   Input ~ 0
-DD
 Wire Wire Line
-	8825 1750 9025 1750
+	9725 1825 9525 1825
 Wire Wire Line
-	8825 1850 9025 1850
+	9525 1925 9725 1925
 Wire Wire Line
-	9525 1750 9725 1750
+	9725 2025 9525 2025
+NoConn ~ 9025 2025
+NoConn ~ 9025 2125
 Wire Wire Line
-	9725 1850 9525 1850
+	9025 2225 8825 2225
 Wire Wire Line
-	9525 1950 9725 1950
+	8825 2325 9025 2325
 Wire Wire Line
-	9725 2050 9525 2050
+	9525 2125 9725 2125
 Wire Wire Line
-	9025 1950 8825 1950
-NoConn ~ 9025 2050
-NoConn ~ 9025 2150
+	9725 2225 9525 2225
 Wire Wire Line
-	9025 2250 8825 2250
+	9525 2325 9725 2325
 Wire Wire Line
-	8825 2350 9025 2350
+	9725 2425 9525 2425
 Wire Wire Line
-	9525 2150 9725 2150
+	9525 2525 9725 2525
 Wire Wire Line
-	9725 2250 9525 2250
+	9725 2625 9525 2625
 Wire Wire Line
-	9525 2350 9725 2350
+	9525 2825 9725 2825
 Wire Wire Line
-	9725 2450 9525 2450
+	9725 2925 9525 2925
 Wire Wire Line
-	9525 2550 9725 2550
+	9525 3025 9725 3025
 Wire Wire Line
-	9725 2650 9525 2650
+	9525 3225 9725 3225
 Wire Wire Line
-	9525 2850 9725 2850
+	9725 3325 9525 3325
 Wire Wire Line
-	9725 2950 9525 2950
+	8825 2425 9025 2425
 Wire Wire Line
-	9525 3050 9725 3050
+	9025 2525 8825 2525
 Wire Wire Line
-	9525 3250 9725 3250
+	8825 2625 9025 2625
 Wire Wire Line
-	9725 3350 9525 3350
+	9025 2925 8825 2925
 Wire Wire Line
-	8825 2450 9025 2450
-Wire Wire Line
-	9025 2550 8825 2550
-Wire Wire Line
-	8825 2650 9025 2650
-Wire Wire Line
-	9025 2950 8825 2950
-Wire Wire Line
-	8825 3150 9025 3150
-Wire Wire Line
-	9025 3250 8825 3250
-Wire Wire Line
-	8825 3350 9025 3350
-Wire Wire Line
-	9025 3450 8825 3450
-Wire Wire Line
-	8825 3550 9025 3550
-Wire Wire Line
-	9025 3650 8825 3650
-Wire Wire Line
-	8825 3750 9025 3750
-NoConn ~ 9525 2750
-NoConn ~ 9025 2750
-NoConn ~ 9025 2850
-NoConn ~ 9025 3050
+	8825 3125 9025 3125
+NoConn ~ 9525 2725
+NoConn ~ 9025 2725
+NoConn ~ 9025 2825
+NoConn ~ 9025 3025
 Text GLabel 3825 3125 2    40   Input ~ 0
 WFSm
 Wire Wire Line
 	3825 3125 3625 3125
+Wire Wire Line
+	1625 1225 3125 1225
+Text Label 2350 1225 2    40   ~ 0
+GND
+Wire Wire Line
+	3625 1225 5050 1225
+Wire Wire Line
+	5550 1225 7050 1225
+Wire Wire Line
+	7550 1225 9025 1225
+Text Label 4350 1225 2    40   ~ 0
+GND
+Text Label 6350 1225 2    40   ~ 0
+GND
+Text Label 8425 1225 2    40   ~ 0
+GND
+Text Label 9525 1225 0    40   ~ 0
+GND
+Text Label 2350 3825 2    40   ~ 0
+GTAm
+Text HLabel 925  3825 0    40   Input ~ 0
+GTAm
+Wire Wire Line
+	1625 3825 3125 3825
+Wire Wire Line
+	3625 3825 5050 3825
+Wire Wire Line
+	5550 3825 7050 3825
+Wire Wire Line
+	7550 3825 9025 3825
+Text Label 9525 3825 0    40   ~ 0
+GTAm
+Text Label 4350 3825 2    40   ~ 0
+GTAm
+Text Label 6325 3825 2    40   ~ 0
+GTAm
+Text Label 8300 3825 2    40   ~ 0
+GTAm
+Text Label 9525 4325 0    40   ~ 0
+GND
+Text HLabel 925  1225 0    40   UnSpc ~ 0
+GND
+Text HLabel 925  1325 0    40   UnSpc ~ 0
+6v
+Wire Wire Line
+	1625 1325 3125 1325
+Wire Wire Line
+	3625 1325 5050 1325
+Wire Wire Line
+	5550 1325 7050 1325
+Wire Wire Line
+	7550 1325 9025 1325
+Text Label 2350 1325 2    40   ~ 0
+6v
+Text Label 4350 1325 2    40   ~ 0
+6v
+Text Label 6350 1325 2    40   ~ 0
+6v
+Text Label 8425 1325 2    40   ~ 0
+6v
+Text Label 9525 1325 0    40   ~ 0
+6v
+Text HLabel 925  1425 0    40   UnSpc ~ 0
+AA1m
+Text Label 2350 1425 2    40   ~ 0
+AA1m
+Wire Wire Line
+	3625 1425 5050 1425
+Wire Wire Line
+	1625 1425 3125 1425
+Text Label 4350 1425 2    40   ~ 0
+AA1m
+Wire Wire Line
+	5550 1425 7050 1425
+Wire Wire Line
+	7550 1425 9025 1425
+Text Label 6350 1425 2    40   ~ 0
+AA1m
+Text Label 8425 1425 2    40   ~ 0
+AA1m
+Text Label 9525 1425 0    40   ~ 0
+AA1m
+Text HLabel 925  1525 0    40   UnSpc ~ 0
+AA2m
+Text HLabel 925  1625 0    40   UnSpc ~ 0
+AA3m
+Wire Wire Line
+	1625 1525 3125 1525
+Wire Wire Line
+	3625 1525 5050 1525
+Wire Wire Line
+	5550 1525 7050 1525
+Wire Wire Line
+	5550 1625 7050 1625
+Wire Wire Line
+	7550 1525 9025 1525
+Wire Wire Line
+	7550 1625 9025 1625
+Text Label 9525 1525 0    40   ~ 0
+AA2m
+Text Label 9525 1625 0    40   ~ 0
+AA3m
 $Comp
-L Connector_Generic:Conn_01x02 J111
-U 1 1 5E326536
-P 3425 4825
-F 0 "J111" H 3345 4592 50  0000 C CNN
-F 1 "~" H 3505 4726 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 3425 4825 50  0001 C CNN
-F 3 "~" H 3425 4825 50  0001 C CNN
-	1    3425 4825
-	-1   0    0    1   
+L LSA:Conn_02x32 J14
+U 1 1 5D6F02A4
+P 9225 2725
+F 0 "J14" H 9275 4442 50  0000 C CNN
+F 1 "~" H 9275 4351 50  0000 C CNN
+F 2 "ELLIOTT:DIN41612_B_2x32_Vertical" H 9225 2725 50  0001 C CNN
+F 3 "" H 9225 2725 50  0001 C CNN
+	1    9225 2725
+	1    0    0    -1  
 $EndComp
-Text GLabel 3825 4825 2    40   Input ~ 0
-RBTm
-Text GLabel 3825 4725 2    40   Input ~ 0
-SBTm
+Text Label 8425 1525 2    40   ~ 0
+AA2m
+Text Label 8425 1625 2    40   ~ 0
+AA3m
+Text Label 6350 1525 2    40   ~ 0
+AA2m
+Text Label 6350 1625 2    40   ~ 0
+AA3m
+Text Label 4350 1525 2    40   ~ 0
+AA2m
 Wire Wire Line
-	3825 4725 3625 4725
+	3625 1625 5050 1625
+Text Label 4350 1625 2    40   ~ 0
+AA3m
 Wire Wire Line
-	3825 4825 3625 4825
+	1625 1625 3125 1625
+Text Label 2350 1525 2    40   ~ 0
+AA2m
+Text Label 2350 1625 2    40   ~ 0
+AA3m
+Wire Wire Line
+	1625 4325 3125 4325
+Wire Wire Line
+	3625 4325 5050 4325
+Wire Wire Line
+	5550 4325 7050 4325
+Wire Wire Line
+	7550 4325 9025 4325
+Text Label 8300 4325 2    40   ~ 0
+GND
+Text Label 6325 4325 2    40   ~ 0
+GND
+Text Label 4350 4325 2    40   ~ 0
+GND
+Text Label 2350 4325 2    40   ~ 0
+GND
+Text Label 1125 4325 2    40   ~ 0
+GND
+Text HLabel 1125 4225 0    40   UnSpc ~ 0
+-6v
+Wire Wire Line
+	1625 4225 3125 4225
+Text Label 2350 4225 2    40   ~ 0
+-6v
+Wire Wire Line
+	3625 4225 5050 4225
+Text Label 4350 4225 2    40   ~ 0
+-6v
+Wire Wire Line
+	5550 4225 7050 4225
+Wire Wire Line
+	7550 4225 9025 4225
+Text Label 6325 4225 2    40   ~ 0
+-6v
+Text Label 8300 4225 2    40   ~ 0
+-6v
+Text Label 9525 4225 0    40   ~ 0
+-6v
+Text HLabel 5550 2725 2    40   Input ~ 0
+TM12M13m
+Text Label 1125 1825 2    40   ~ 0
+D1
+Text Label 1125 1925 2    40   ~ 0
+D5
+Text HLabel 3375 4375 3    40   UnSpc ~ 0
+D[1..8]
+Text Label 3125 1825 2    40   ~ 0
+D3
+Text Label 3125 1925 2    40   ~ 0
+D5
+Text Label 5050 1825 2    40   ~ 0
+D3
+Text Label 5050 1925 2    40   ~ 0
+D5
+Text Label 7050 1825 2    40   ~ 0
+D2
+Text Label 7050 1925 2    40   ~ 0
+D5
+Text Label 9025 1825 2    40   ~ 0
+D4
+Text Label 9025 1925 2    40   ~ 0
+D5
+Text HLabel 9275 4375 3    40   UnSpc ~ 0
+S[1..17]
+Text Label 9025 3725 2    40   ~ 0
+S2
+Text Label 9025 3625 2    40   ~ 0
+S5
+Text Label 9025 3525 2    40   ~ 0
+S8
+Text Label 9025 3425 2    40   ~ 0
+S11
+Text Label 9025 3325 2    40   ~ 0
+S12
+Text Label 9025 3225 2    40   ~ 0
+S16
+Text Label 7050 3725 2    40   ~ 0
+S3
+Text Label 7050 3625 2    40   ~ 0
+S6
+Text Label 7050 3525 2    40   ~ 0
+S9
+Text Label 7050 3425 2    40   ~ 0
+S11
+Text Label 7050 3325 2    40   ~ 0
+S13
+Text Label 7050 3225 2    40   ~ 0
+S16
+Text Label 5050 3725 2    40   ~ 0
+S3
+Text Label 5050 3625 2    40   ~ 0
+S6
+Text Label 5050 3525 2    40   ~ 0
+S9
+Text Label 5050 3425 2    40   ~ 0
+S11
+Text Label 5050 3325 2    40   ~ 0
+S13
+Text Label 5050 3225 2    40   ~ 0
+S17
+Text Label 3125 3725 2    40   ~ 0
+S3
+Text Label 3125 3625 2    40   ~ 0
+S6
+Text Label 3125 3525 2    40   ~ 0
+S9
+Text Label 3125 3425 2    40   ~ 0
+S11
+Text Label 3125 3325 2    40   ~ 0
+S13
+Text Label 3125 3225 2    40   ~ 0
+S17
+Text Label 1125 3725 2    40   ~ 0
+S3
+Text Label 1125 3625 2    40   ~ 0
+S6
+Text Label 1125 3525 2    40   ~ 0
+S8
+Text Label 1125 3425 2    40   ~ 0
+S11
+Text Label 3625 1925 0    40   ~ 0
+WFPm
+Text HLabel 1625 1925 2    40   Input ~ 0
+WFPm
+Text HLabel 3125 1725 0    40   UnSpc ~ 0
+FTGm
+Wire Wire Line
+	3625 1725 5050 1725
+Text Label 4350 1725 2    40   ~ 0
+FTGm
+Wire Wire Line
+	5550 1725 7050 1725
+Text Label 6350 1725 2    40   ~ 0
+FTGm
+Wire Wire Line
+	7550 1725 9025 1725
+Text Label 8425 1725 2    40   ~ 0
+FTGm
+Text Label 9525 1725 0    40   ~ 0
+FTGm
 $EndSCHEMATC

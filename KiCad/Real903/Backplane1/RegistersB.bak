@@ -165,7 +165,7 @@ NoConn ~ 12350 1875
 NoConn ~ 12350 2175
 NoConn ~ 13850 1875
 NoConn ~ 13850 2175
-Text GLabel 13950 1775 2    40   Input ~ 0
+Text GLabel 13950 1775 2    32   UnSpc ~ 0
 F1-57-7
 Wire Wire Line
 	13850 1775 13950 1775
@@ -350,11 +350,11 @@ Wire Wire Line
 	12450 4475 12350 4475
 Wire Wire Line
 	11850 4475 11750 4475
-Text GLabel 13950 1575 2    40   Input ~ 0
+Text GLabel 13950 1575 2    32   UnSpc ~ 0
 ITF-8-12
 Wire Wire Line
 	13950 1575 13850 1575
-Text GLabel 13950 1675 2    40   Input ~ 0
+Text GLabel 13950 1675 2    32   UnSpc ~ 0
 X0-57-5
 Wire Wire Line
 	13950 1675 13850 1675
@@ -367,9 +367,9 @@ Wire Wire Line
 	1250 2375 1350 2375
 Wire Wire Line
 	1250 2275 1350 2275
-Text GLabel 13950 2475 2    30   Input ~ 0
+Text GLabel 13950 2475 2    32   UnSpc ~ 0
 ~KTJ1~-6-21
-Text GLabel 12450 2475 2    30   Input ~ 0
+Text GLabel 12450 2475 2    32   UnSpc ~ 0
 ~ETJ2~-6-27
 Wire Wire Line
 	12450 2475 12350 2475
@@ -378,7 +378,7 @@ Text GLabel 10950 2475 2    32   UnSpc ~ 0
 Wire Wire Line
 	10950 2475 10850 2475
 NoConn ~ 9350 2475
-Text GLabel 7950 2475 2    30   Input ~ 0
+Text GLabel 7950 2475 2    32   UnSpc ~ 0
 ~KTJ5~-6-22
 Wire Wire Line
 	7950 2475 7850 2475
@@ -402,7 +402,7 @@ Wire Wire Line
 	1250 4075 1350 4075
 Text GLabel 1100 4175 0    40   Input ~ 0
 DTF1-2-5-23
-Text GLabel 4100 4175 0    40   Input ~ 0
+Text GLabel 4100 4175 0    32   UnSpc ~ 0
 DTF1-1-5-22
 Wire Wire Line
 	1250 4275 1350 4275
@@ -427,7 +427,7 @@ Text GLabel 4950 2675 2    30   Input ~ 0
 ~J~7-24-19
 Text GLabel 6450 2675 2    30   Input ~ 0
 ~J~6-24-8
-Text GLabel 7950 2675 2    30   Input ~ 0
+Text GLabel 7950 2675 2    32   UnSpc ~ 0
 ~J~5-24-3
 Wire Wire Line
 	1850 2675 1950 2675
@@ -439,7 +439,7 @@ Wire Wire Line
 	6450 2675 6350 2675
 Wire Wire Line
 	7950 2675 7850 2675
-Text GLabel 9450 2675 2    30   Input ~ 0
+Text GLabel 9450 2675 2    32   UnSpc ~ 0
 ~J~4-23-27
 Wire Wire Line
 	9350 2675 9450 2675
@@ -471,42 +471,6 @@ Wire Wire Line
 	3350 3075 3450 3075
 Wire Wire Line
 	1850 3075 1950 3075
-Text GLabel 1950 3175 2    32   UnSpc ~ 0
-~P~9-30-Y
-Text GLabel 3450 3175 2    32   UnSpc ~ 0
-~P~8-30-22
-Text GLabel 4950 3175 2    32   UnSpc ~ 0
-~P~7-30-AA
-Text GLabel 6450 3175 2    32   UnSpc ~ 0
-~P~6-30-24
-Text GLabel 7950 3175 2    32   UnSpc ~ 0
-~P~5-30-AC
-Text GLabel 9450 3175 2    32   UnSpc ~ 0
-~P~4-32-F
-Text GLabel 10950 3175 2    32   UnSpc ~ 0
-~P~3-32-E
-Text GLabel 12450 3175 2    32   UnSpc ~ 0
-~P~2-32-D
-Text GLabel 13950 3175 2    32   UnSpc ~ 0
-~P~1-32-C
-Wire Wire Line
-	13950 3175 13850 3175
-Wire Wire Line
-	12450 3175 12350 3175
-Wire Wire Line
-	10950 3175 10850 3175
-Wire Wire Line
-	9350 3175 9450 3175
-Wire Wire Line
-	7850 3175 7950 3175
-Wire Wire Line
-	6350 3175 6450 3175
-Wire Wire Line
-	4850 3175 4950 3175
-Wire Wire Line
-	3450 3175 3350 3175
-Wire Wire Line
-	1950 3175 1850 3175
 NoConn ~ 12350 4175
 NoConn ~ 10850 4175
 NoConn ~ 9350 4175
@@ -526,9 +490,9 @@ NoConn ~ 6350 4175
 NoConn ~ 4850 4175
 NoConn ~ 3350 4175
 NoConn ~ 1850 4175
-Text GLabel 13125 1975 0    40   Input ~ 0
+Text GLabel 13125 1975 0    32   UnSpc ~ 0
 RTG1-57-6
-Text GLabel 14050 1975 2    40   Input ~ 0
+Text GLabel 14050 1975 2    32   UnSpc ~ 0
 LTG1-57-8
 Text GLabel 13975 4175 2    32   UnSpc ~ 0
 ~Q~1-7-15
@@ -1351,9 +1315,6 @@ Text Label 7850 2875 0    40   ~ 0
 J5
 Text Label 9350 2875 0    40   ~ 0
 J4
-NoConn ~ 13850 2675
-NoConn ~ 12350 2675
-NoConn ~ 10850 2675
 Text GLabel 10950 2875 2    32   UnSpc ~ 0
 J3-20-H
 Text GLabel 12450 2875 2    32   UnSpc ~ 0
@@ -1461,4 +1422,36 @@ Text Label 13350 3075 2    40   ~ 0
 W1
 Text HLabel 2625 9300 0    40   UnSpc ~ 0
 W[1..9]
+Text Label 1850 3175 0    40   ~ 0
+~P~9
+Text Label 3350 3175 0    40   ~ 0
+~P~8
+Text Label 4850 3175 0    40   ~ 0
+~P~7
+Text Label 6350 3175 0    40   ~ 0
+~P~6
+Text Label 7850 3175 0    40   ~ 0
+~P~5
+Text Label 9350 3175 0    40   ~ 0
+~P~4
+Text Label 10850 3175 0    40   ~ 0
+~P~3
+Text Label 12350 3175 0    40   ~ 0
+~P~2
+Text Label 13850 3175 0    40   ~ 0
+~P~1
+Text HLabel 3000 9300 0    40   Input ~ 0
+~P~[1..9]
+Text GLabel 10950 2675 2    32   UnSpc ~ 0
+~J~3'-20-7
+Text GLabel 12450 2675 2    32   UnSpc ~ 0
+~J~2'-20-5
+Text GLabel 13950 2675 2    32   UnSpc ~ 0
+~J~1'-20-3
+Wire Wire Line
+	13950 2675 13850 2675
+Wire Wire Line
+	12450 2675 12350 2675
+Wire Wire Line
+	10950 2675 10850 2675
 $EndSCHEMATC

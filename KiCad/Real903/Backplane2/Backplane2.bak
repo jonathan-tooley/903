@@ -4,9 +4,9 @@ EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 6
-Title ""
-Date ""
+Sheet 1 7
+Title "Backplane 2"
+Date "2020-07-20"
 Rev ""
 Comp ""
 Comment1 ""
@@ -17,354 +17,587 @@ $EndDescr
 $Comp
 L Connector_Generic:Conn_01x03 J~0
 U 1 1 5CD562CD
-P 1450 800
-F 0 "J~0" H 1529 796 50  0000 L CNN
-F 1 "~" H 1530 751 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 1450 800 50  0001 C CNN
-F 3 "~" H 1450 800 50  0001 C CNN
-	1    1450 800 
-	1    0    0    -1  
+P 900 1725
+F 0 "J~0" H 979 1721 50  0000 L CNN
+F 1 "~" H 980 1676 50  0000 L CNN
+F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 900 1725 50  0001 C CNN
+F 3 "~" H 900 1725 50  0001 C CNN
+	1    900  1725
+	-1   0    0    -1  
 $EndComp
-Text GLabel 1050 700  0    50   Input ~ 0
+Text GLabel 1300 1625 2    50   Input ~ 0
 GND
-Text GLabel 1050 800  0    50   Input ~ 0
+Text GLabel 1300 1725 2    50   Input ~ 0
 6v
-Text GLabel 1050 900  0    50   Input ~ 0
+Text GLabel 1300 1825 2    50   Input ~ 0
 Neg6v
 Wire Wire Line
-	1050 700  1250 700 
+	1300 1625 1100 1625
 Wire Wire Line
-	1250 800  1050 800 
+	1100 1725 1300 1725
 Wire Wire Line
-	1050 900  1250 900 
+	1300 1825 1100 1825
 $Sheet
-S 3250 1925 1450 2500
+S 3200 2850 1450 3275
 U 5D6D7AFD
 F0 "DRIVERS" 100
 F1 "Drivers.sch" 100
+F2 "GND" U R 4650 2900 40 
+F3 "6v" U R 4650 2950 40 
+F4 "-6v" U R 4650 3000 40 
+F5 "TCS" U L 3200 4925 40 
+F6 "~RESET~1" U L 3200 3300 40 
+F7 "GTAm" U R 4650 5250 40 
+F8 "AA1m" U R 4650 3725 40 
+F9 "AA2m" U R 4650 3650 40 
+F10 "AA3m" U R 4650 3575 40 
+F11 "E1" U L 3200 3750 40 
+F12 "~JIA" U L 3200 3825 40 
+F13 "E2" U L 3200 3675 40 
+F14 "t4" U L 3200 4250 40 
+F15 "WTMa" U L 3200 3600 40 
+F16 "~RESET" U L 3200 3450 40 
+F17 "AA7" U R 4650 3500 40 
+F18 "~RESET~'" U L 3200 3375 40 
+F19 "RESET" U L 3200 3225 40 
+F20 "C" U R 4650 3225 40 
+F21 "RDY" U L 3200 4850 40 
+F22 "FD" U R 4650 3150 40 
+F23 "TEST" U L 3200 4400 40 
+F24 "t6" U L 3200 4050 40 
+F25 "t3-1" U L 3200 3900 40 
+F26 "t2-1" U L 3200 5475 40 
+F27 "~SAO~" I L 3200 3975 40 
+F28 "SB" U L 3200 4775 40 
+F29 "NGA" U L 3200 5000 40 
+F30 "~SB~" U L 3200 4700 40 
+F31 "TM12M13m" U R 4650 5025 40 
+F32 "PTR" U L 3200 5775 40 
+F33 "WFP" U L 3200 5300 40 
+F34 "DTE" U L 3200 5150 40 
+F35 "MARGINS" U R 4650 5850 40 
+F36 "~TCS" U R 4650 4100 40 
+F37 "WFRa" U L 3200 4625 40 
+F38 "1TPCa" U L 3200 5550 40 
+F39 "OTXa" U L 3200 5625 40 
+F40 "OT~X" U L 3200 5700 40 
+F41 "TXQ1" U L 3200 5400 40 
+F42 "YTX" U L 3200 5225 40 
+F43 "Z18" U L 3200 5075 40 
+F44 "OTJa" U L 3200 4475 40 
+F45 "MTIa" U L 3200 5850 40 
+F46 "~RGS" U L 3200 5925 40 
+F47 "DTF1a" U L 3200 4325 40 
+F48 "~WGS~" U L 3200 4175 40 
+F49 "WFPm" U R 4650 4175 40 
+F50 "FTGm" U R 4650 4250 40 
+F51 "ETJ" U R 4650 3825 40 
 $EndSheet
 $Sheet
-S 5650 1925 1875 3375
+S 5600 2850 1875 3375
 U 5D6EDFF8
 F0 "FunctionsA" 100
 F1 "FunctionsA.sch" 100
+F2 "GTAm" U L 5600 5250 40 
+F3 "GND" U R 7475 2900 40 
+F4 "6v" U R 7475 2950 40 
+F5 "AA1m" U L 5600 3725 40 
+F6 "AA2m" U L 5600 3650 40 
+F7 "AA3m" U L 5600 3575 40 
+F8 "-6v" U R 7475 3000 40 
+F9 "TM12M13m" U L 5600 5025 40 
+F10 "D[1..8]" U R 7475 5875 40 
+F11 "S[1..17]" U R 7475 4725 40 
+F12 "WFPm" U L 5600 4175 40 
+F13 "FTGm" U L 5600 4250 40 
 $EndSheet
 $Sheet
-S 8100 1925 2425 3375
-U 5D703877
-F0 "FunctionsB" 100
-F1 "FunctionsB.sch" 100
-$EndSheet
-$Sheet
-S 1100 1925 1625 2500
+S 1050 2850 1625 3275
 U 5D6F7349
 F0 "TIMING" 100
 F1 "TIMING.sch" 100
-F2 "GND" I L 1100 4150 50 
-F3 "6v" I L 1100 4050 50 
+F2 "GND" U L 1050 2900 40 
+F3 "6v" U L 1050 2975 40 
+F4 "-6v" U L 1050 3050 40 
+F5 "TCS" U R 2675 4925 40 
+F6 "~WTM~a" U R 2675 3525 40 
+F7 "~JIA" U R 2675 3825 40 
+F8 "~SAO~" U R 2675 3975 40 
+F9 "WFR" U R 2675 4550 40 
+F10 "~RESET~1" U R 2675 3300 40 
+F11 "E1" U R 2675 3750 40 
+F12 "E2" U R 2675 3675 40 
+F13 "t4" U R 2675 4250 40 
+F14 "~RESET" U R 2675 3450 40 
+F15 "RESET" U R 2675 3225 40 
+F16 "~RESET~'" U R 2675 3375 40 
+F17 "~SB~" U R 2675 4700 40 
+F18 "SB" U R 2675 4775 40 
+F19 "t6" U R 2675 4050 40 
+F20 "TEST" U R 2675 4400 40 
+F21 "RDY" U R 2675 4850 40 
+F22 "NGA" U R 2675 5000 40 
+F23 "DTE" U R 2675 5150 40 
+F24 "PTR" U R 2675 5775 40 
+F25 "WFP" U R 2675 5300 40 
+F26 "t2-1" U R 2675 5475 40 
+F27 "D[1..8]" U R 2675 6000 40 
+F28 "MARGINS" U R 2675 6075 40 
+F29 "~1TPC~" U R 2675 3150 40 
+F30 "CS" U R 2675 3075 40 
+F31 "WTMa" U R 2675 3600 40 
+F32 "WFRa" U R 2675 4625 40 
+F33 "1TPCa" U R 2675 5550 40 
+F34 "OTXa" U R 2675 5625 40 
+F35 "OT~X" U R 2675 5700 40 
+F36 "TXQ1" U R 2675 5400 40 
+F37 "YTX" U R 2675 5225 40 
+F38 "Z18" U R 2675 5075 40 
+F39 "OTJa" U R 2675 4475 40 
+F40 "MTIa" U R 2675 5850 40 
+F41 "~RGS" U R 2675 5925 40 
+F42 "DTF1a" U R 2675 4325 40 
+F43 "~WGS~" U R 2675 4175 40 
+F44 "t3-1" U R 2675 3900 40 
 $EndSheet
-Text Notes 2225 2150 2    100  ~ 0
+Text Notes 2350 3025 2    100  ~ 0
 1  2  3  4  5
-Text Notes 4475 2150 2    100  ~ 0
+Text Notes 4425 3075 2    100  ~ 0
 6  7  8  9 57
-Text Notes 7225 2125 2    100  ~ 0
+Text Notes 7175 3050 2    100  ~ 0
 10  11  12  13  14
-Text Notes 9750 2100 2    100  ~ 0
+Text Notes 9700 3025 2    100  ~ 0
 15  16  17  18  19
 $Sheet
-S 11900 1925 2650 3375
+S 11850 2850 2650 3375
 U 5D750E0E
 F0 "Matrix and Logic" 100
 F1 "Matrix and Logic.sch" 100
+F2 "GND" U R 14500 3050 40 
+F3 "#PC[1..12]" U L 11850 5950 40 
+F4 "6v" U R 14500 3125 40 
+F5 "-6v" U R 14500 3200 40 
+F6 "TCS" U L 11850 4025 40 
+F7 "WFR" U L 11850 4400 40 
+F8 "~WTM~a" U L 11850 3875 40 
+F9 "AA7" U L 11850 3500 40 
+F10 "AA3" U L 11850 3725 40 
+F11 "AA2" U L 11850 3650 40 
+F12 "AA1" U L 11850 3575 40 
+F13 "FD" U R 14500 2950 40 
+F14 "D[1..8]" U L 11850 5875 40 
+F15 "MARGINS" U L 11850 6025 40 
+F16 "~1TPC~" U L 11850 3800 40 
+F17 "~SAO~" U L 11850 3950 40 
+F18 "~TCS" U L 11850 4100 40 
+F19 "S[1..17]" U L 11850 4725 40 
+F20 "CS" U L 11850 4175 40 
+F21 "t2-1" U L 11850 4250 40 
+F22 "WTMa" U L 11850 4325 40 
+F23 "ETJ" U L 11850 4475 40 
 $EndSheet
-Text Notes 14000 2125 2    100  ~ 0
+Text Notes 13950 3050 2    100  ~ 0
 20  21  22  23  24  25
 $Comp
 L Connector_Generic:Conn_01x03 J~3
 U 1 1 5D7B9439
-P 1450 1500
-F 0 "J~3" H 1529 1496 50  0000 L CNN
-F 1 "~" H 1530 1451 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 1450 1500 50  0001 C CNN
-F 3 "~" H 1450 1500 50  0001 C CNN
-	1    1450 1500
-	1    0    0    -1  
+P 900 2425
+F 0 "J~3" H 979 2421 50  0000 L CNN
+F 1 "~" H 980 2376 50  0000 L CNN
+F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 900 2425 50  0001 C CNN
+F 3 "~" H 900 2425 50  0001 C CNN
+	1    900  2425
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J~1
 U 1 1 5D7B9491
-P 1450 1150
-F 0 "J~1" H 1529 1146 50  0000 L CNN
-F 1 "~" H 1530 1101 50  0000 L CNN
-F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 1450 1150 50  0001 C CNN
-F 3 "~" H 1450 1150 50  0001 C CNN
-	1    1450 1150
-	1    0    0    -1  
+P 900 2075
+F 0 "J~1" H 979 2071 50  0000 L CNN
+F 1 "~" H 980 2026 50  0000 L CNN
+F 2 "ELLIOTT:TerminalBlock_5.08_1x03" H 900 2075 50  0001 C CNN
+F 3 "~" H 900 2075 50  0001 C CNN
+	1    900  2075
+	-1   0    0    -1  
 $EndComp
-Text GLabel 1050 1050 0    50   Input ~ 0
+Text GLabel 1300 1975 2    50   Input ~ 0
 GND
-Text GLabel 1050 1150 0    50   Input ~ 0
+Text GLabel 1300 2075 2    50   Input ~ 0
 6v
-Text GLabel 1050 1250 0    50   Input ~ 0
+Text GLabel 1300 2175 2    50   Input ~ 0
 Neg6v
-Text GLabel 1050 1600 0    50   Input ~ 0
+Text GLabel 1300 2525 2    50   Input ~ 0
 Neg6v
-Text GLabel 1050 1500 0    50   Input ~ 0
+Text GLabel 1300 2425 2    50   Input ~ 0
 6v
-Text GLabel 1050 1400 0    50   Input ~ 0
+Text GLabel 1300 2325 2    50   Input ~ 0
 GND
 Wire Wire Line
-	1050 1050 1250 1050
+	1300 1975 1100 1975
 Wire Wire Line
-	1050 1150 1250 1150
+	1300 2075 1100 2075
 Wire Wire Line
-	1250 1250 1050 1250
+	1100 2175 1300 2175
 Wire Wire Line
-	1050 1400 1250 1400
+	1300 2325 1100 2325
 Wire Wire Line
-	1250 1500 1050 1500
+	1100 2425 1300 2425
 Wire Wire Line
-	1050 1600 1250 1600
-Text GLabel 5150 5825 2    32   UnSpc ~ 0
-X1-57-11
-Text GLabel 1800 7025 2    32   UnSpc ~ 0
-C17-5-H
-Text GLabel 1800 5925 2    32   UnSpc ~ 0
-C18-5-8
-Text GLabel 1800 7125 2    32   UnSpc ~ 0
-F18-5-K
-Text GLabel 5150 5925 2    32   UnSpc ~ 0
-X0-57-5
-Text GLabel 5150 6025 2    32   UnSpc ~ 0
-FTG1-57-4
-Text GLabel 5150 6125 2    32   UnSpc ~ 0
-F1-57-7
-Text GLabel 2600 6825 2    32   UnSpc ~ 0
-ITF-8-12
-Text GLabel 5150 6225 2    32   UnSpc ~ 0
-RTG1-57-6
-Text GLabel 5150 6325 2    32   UnSpc ~ 0
-LTG1-57-8
-Text GLabel 5150 6425 2    32   UnSpc ~ 0
-~OTG1~-57-M
-Text GLabel 2600 7225 2    32   UnSpc ~ 0
-DTF2a-8-26
-Text GLabel 1800 6525 2    32   UnSpc ~ 0
-DTF1-2-5-23
-Text GLabel 1800 7625 2    32   UnSpc ~ 0
-~KTJ1~-6-21
-Text GLabel 2600 5825 2    32   UnSpc ~ 0
-~ETJ2~-6-27
-Text GLabel 2600 5925 2    32   UnSpc ~ 0
-~ETJ3~-6-28
-Text GLabel 2600 5725 2    32   UnSpc ~ 0
-~KTJ5~-6-22
-Text GLabel 1800 6425 2    32   UnSpc ~ 0
-DTF1-1-5-22
-Text GLabel 1800 6125 2    32   UnSpc ~ 0
-MTI-5-17
-Text GLabel 4325 6725 2    32   UnSpc ~ 0
-I4-22-L
-Text GLabel 4325 6525 2    32   UnSpc ~ 0
-I3-22-J
-Text GLabel 4325 6325 2    32   UnSpc ~ 0
-I2-22-F
-Text GLabel 4325 6125 2    32   UnSpc ~ 0
-I1-22-D
-Text GLabel 2600 6125 2    32   UnSpc ~ 0
-M18-7-9
-Text GLabel 5150 5725 2    32   UnSpc ~ 0
-IIS-57-15
-Text GLabel 3425 6925 2    32   UnSpc ~ 0
-~J~1'-20-3
-Text GLabel 3425 7025 2    32   UnSpc ~ 0
-J1'-20-4
-Text GLabel 4325 6025 2    32   UnSpc ~ 0
-~J~15-22-29
-Text GLabel 4325 5925 2    32   UnSpc ~ 0
-~J~14-22-28
-Text GLabel 3425 7125 2    32   UnSpc ~ 0
-~J~2'-20-5
-Text GLabel 3425 7225 2    32   UnSpc ~ 0
-J2'-20-6
-Text GLabel 3425 7425 2    32   UnSpc ~ 0
-J3'-20-8
-Text GLabel 3425 7325 2    32   UnSpc ~ 0
-~J~3'-20-7
-Text GLabel 4325 5825 2    32   UnSpc ~ 0
-~J~16-22-26
-Text GLabel 1800 6225 2    32   UnSpc ~ 0
-~OTI~-5-18
-Text GLabel 4325 7325 2    32   UnSpc ~ 0
-~J~8-24-27
-Text GLabel 4325 7425 2    32   UnSpc ~ 0
-~J~9-25-3
-Text GLabel 4325 7225 2    32   UnSpc ~ 0
-~J~7-24-19
-Text GLabel 4325 7125 2    32   UnSpc ~ 0
-~J~6-24-8
-Text GLabel 4325 7025 2    32   UnSpc ~ 0
-~J~5-24-3
-Text GLabel 4325 6925 2    32   UnSpc ~ 0
-~J~4-23-27
-Text GLabel 2600 6425 2    32   UnSpc ~ 0
-M11-7-21
-Text GLabel 2600 6025 2    32   UnSpc ~ 0
-M13-7-6
-Text GLabel 1800 7425 2    32   UnSpc ~ 0
-M12-6-W
-Text GLabel 4325 7525 2    32   UnSpc ~ 0
-~IIG~
-Text GLabel 3425 7525 2    32   UnSpc ~ 0
-J1-20-C
-Text GLabel 3425 7625 2    32   UnSpc ~ 0
-J2-20-E
-Text GLabel 4325 5725 2    32   UnSpc ~ 0
-J3-20-H
-Text GLabel 1800 7525 2    32   UnSpc ~ 0
-~M~13-6-18
-Text GLabel 2600 6225 2    32   UnSpc ~ 0
-~M~18-7-11
-Text GLabel 1800 7325 2    32   UnSpc ~ 0
-~M~12-6-Y
-Text GLabel 4325 6825 2    32   UnSpc ~ 0
-~I~4-22-M
-Text GLabel 4325 6625 2    32   UnSpc ~ 0
-~I~3-22-K
-Text GLabel 4325 6425 2    32   UnSpc ~ 0
-~I~2-22-H
-Text GLabel 4325 6225 2    32   UnSpc ~ 0
-~I~1-22-E
-Text GLabel 2600 6325 2    32   UnSpc ~ 0
-~Q~1-7-15
-Text GLabel 1800 6725 2    32   UnSpc ~ 0
-t4-5-26
-Text GLabel 2600 6925 2    32   UnSpc ~ 0
-WTMa-8-21
-Text GLabel 2600 7025 2    32   UnSpc ~ 0
-GTMa-8-23
-Text GLabel 2600 7125 2    32   UnSpc ~ 0
-GTQa-8-24
-Text GLabel 2600 7325 2    32   UnSpc ~ 0
-GTAa-8-27
-Text GLabel 1800 5825 2    32   UnSpc ~ 0
-~OTA~'-5-7
-Text GLabel 1800 6025 2    32   UnSpc ~ 0
-~OTJ~'-5-11
-Text GLabel 1800 5725 2    32   UnSpc ~ 0
-~RESET~2-2-Y
-Text GLabel 3425 6425 2    32   UnSpc ~ 0
-OTMa-9-23
-Text GLabel 1800 6925 2    32   UnSpc ~ 0
-t3-2-5-29
-Text GLabel 3425 6325 2    32   UnSpc ~ 0
-MTPa-9-22
-Text GLabel 1800 6825 2    32   UnSpc ~ 0
-t1-5-27
-Text GLabel 2600 7425 2    32   UnSpc ~ 0
-GTJa-8-28
-Text GLabel 2600 6525 2    32   UnSpc ~ 0
-CRS-7-AF
-Text GLabel 1800 7225 2    32   UnSpc ~ 0
-SFD-6-R
-Text GLabel 2600 7625 2    32   UnSpc ~ 0
-CRSm-11-AC
-Text GLabel 3425 6825 2    32   UnSpc ~ 0
-SFDm-19-V
-Text GLabel 2600 6725 2    32   UnSpc ~ 0
-VTGa-8-7
-Text GLabel 3425 6025 2    32   UnSpc ~ 0
-~M~TFa-9-13
-Text GLabel 3425 5825 2    32   UnSpc ~ 0
-JTPCa-9-7
-Text GLabel 3425 6725 2    32   UnSpc ~ 0
-QTFa-9-30
-Text GLabel 3425 6225 2    32   UnSpc ~ 0
-ATFa-9-21
-Text GLabel 1800 6625 2    32   UnSpc ~ 0
-t5-5-25
-Text GLabel 1800 6325 2    32   UnSpc ~ 0
-t2-2-5-20
-Text GLabel 3425 5925 2    32   UnSpc ~ 0
-PTG2-a-9-12
-Text GLabel 3425 6625 2    32   UnSpc ~ 0
-LTGa-9-25
-Text GLabel 3425 6525 2    32   UnSpc ~ 0
-JTFa-9-24
-Text GLabel 2600 7525 2    32   UnSpc ~ 0
-MTFa-8-30
-Text GLabel 2600 6625 2    32   UnSpc ~ 0
-FTGa-8-6
-$Comp
-L Connector_Generic:Conn_01x20 JBP1-BP2-1
-U 1 1 5F14492E
-P 1600 6625
-F 0 "JBP1-BP2-1" H 1525 7650 50  0000 C CNN
-F 1 "~" H 1520 7551 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1600 6625 50  0001 C CNN
-F 3 "~" H 1600 6625 50  0001 C CNN
-	1    1600 6625
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x20 JBP1-BP2-2
-U 1 1 5F144935
-P 2400 6625
-F 0 "JBP1-BP2-2" H 2325 7650 50  0000 C CNN
-F 1 "~" H 2320 7551 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 2400 6625 50  0001 C CNN
-F 3 "~" H 2400 6625 50  0001 C CNN
-	1    2400 6625
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x20 JBP1-BP2-3
-U 1 1 5F14493C
-P 3225 6625
-F 0 "JBP1-BP2-3" H 3150 7650 50  0000 C CNN
-F 1 "~" H 3145 7551 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3225 6625 50  0001 C CNN
-F 3 "~" H 3225 6625 50  0001 C CNN
-	1    3225 6625
-	-1   0    0    -1  
-$EndComp
-Text GLabel 3425 6125 2    32   UnSpc ~ 0
-RTGa-9-14
-Text GLabel 3425 5725 2    32   UnSpc ~ 0
-PTG1-a-9-6
-$Comp
-L Connector_Generic:Conn_01x20 JBP1-BP2-4
-U 1 1 5F144945
-P 4125 6625
-F 0 "JBP1-BP2-4" H 4050 7650 50  0000 C CNN
-F 1 "~" H 4045 7551 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4125 6625 50  0001 C CNN
-F 3 "~" H 4125 6625 50  0001 C CNN
-	1    4125 6625
-	-1   0    0    -1  
-$EndComp
-NoConn ~ 4325 7625
-$Comp
-L Connector_Generic:Conn_01x20 JBP1-BP2-5
-U 1 1 5F14494D
-P 4950 6625
-F 0 "JBP1-BP2-5" H 4875 7650 50  0000 C CNN
-F 1 "~" H 4870 7551 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4950 6625 50  0001 C CNN
-F 3 "~" H 4950 6625 50  0001 C CNN
-	1    4950 6625
-	-1   0    0    -1  
-$EndComp
-NoConn ~ 5150 6525
-NoConn ~ 5150 6625
-NoConn ~ 5150 6725
-NoConn ~ 5150 6825
-NoConn ~ 5150 6925
-NoConn ~ 5150 7025
-NoConn ~ 5150 7125
-NoConn ~ 5150 7225
-NoConn ~ 5150 7325
-NoConn ~ 5150 7425
-NoConn ~ 5150 7525
-NoConn ~ 5150 7625
+	1300 2525 1100 2525
+$Sheet
+S 8050 6750 2425 1800
+U 5F2841F0
+F0 "Connections" 100
+F1 "Connections.sch" 100
+F2 "#PC[1..12]" U R 10475 6975 40 
+F3 "MARGINS" U R 10475 7075 40 
+$EndSheet
+Wire Bus Line
+	11850 5950 11000 5950
+Wire Bus Line
+	11000 5950 11000 6975
+Wire Bus Line
+	11000 6975 10475 6975
+Wire Wire Line
+	2675 3225 3200 3225
+Wire Wire Line
+	2675 3300 3200 3300
+Wire Wire Line
+	4650 5250 5600 5250
+Wire Wire Line
+	2675 3750 3200 3750
+Wire Wire Line
+	2675 3825 3200 3825
+Wire Wire Line
+	2675 3675 3200 3675
+Wire Wire Line
+	3200 4250 2675 4250
+Wire Wire Line
+	2675 3375 3200 3375
+$Sheet
+S 8050 2850 2400 3600
+U 5D703877
+F0 "FunctionsB" 100
+F1 "FunctionsB.sch" 100
+F2 "C" U L 8050 3225 40 
+F3 "GND" U R 10450 2900 40 
+F4 "6v" U R 10450 2950 40 
+F5 "AA1m" U L 8050 3575 40 
+F6 "AA2m" U L 8050 3650 40 
+F7 "AA3m" U L 8050 3725 40 
+F8 "D[1..8]" U R 10450 6300 40 
+F9 "S[1..17]" U R 10450 4725 40 
+F10 "FTGm" U L 8050 4250 40 
+$EndSheet
+Wire Wire Line
+	4650 3225 5050 3225
+Wire Wire Line
+	5050 3225 5050 2050
+Wire Wire Line
+	5050 2050 7975 2050
+Wire Wire Line
+	7975 2050 7975 3225
+Wire Wire Line
+	7975 3225 8050 3225
+Wire Wire Line
+	8050 3575 7925 3575
+Wire Wire Line
+	7925 3575 7925 2150
+Wire Wire Line
+	5150 3725 5600 3725
+Wire Wire Line
+	5150 2150 5150 3725
+Wire Wire Line
+	7875 3650 8050 3650
+Wire Wire Line
+	8050 3725 7825 3725
+Wire Wire Line
+	7825 3725 7825 2250
+Wire Wire Line
+	7825 2250 5250 2250
+Wire Wire Line
+	4650 3725 5150 3725
+Connection ~ 5150 3725
+Wire Wire Line
+	2675 3450 3200 3450
+Wire Wire Line
+	3200 3975 2850 3975
+Wire Wire Line
+	2675 4775 3200 4775
+Wire Wire Line
+	2675 4850 3200 4850
+Wire Wire Line
+	3200 4925 2900 4925
+Wire Wire Line
+	3200 5000 2675 5000
+Wire Wire Line
+	2675 4700 3200 4700
+Wire Wire Line
+	11850 3575 11725 3575
+Wire Wire Line
+	5150 2150 7925 2150
+Connection ~ 7925 2150
+Wire Wire Line
+	7925 2150 11725 2150
+Wire Wire Line
+	11850 3650 11675 3650
+Wire Wire Line
+	11675 3650 11675 2200
+Wire Wire Line
+	11675 2200 7875 2200
+Wire Wire Line
+	7875 2200 7875 3650
+Wire Wire Line
+	5200 2200 7875 2200
+Connection ~ 7875 2200
+Wire Wire Line
+	11850 3725 11625 3725
+Wire Wire Line
+	11625 3725 11625 2250
+Wire Wire Line
+	11625 2250 7825 2250
+Connection ~ 7825 2250
+Wire Wire Line
+	11775 3500 11775 2100
+Wire Wire Line
+	11775 2100 5100 2100
+Wire Wire Line
+	5100 2100 5100 3500
+Wire Wire Line
+	5100 3500 4650 3500
+Wire Wire Line
+	11775 3500 11850 3500
+Wire Wire Line
+	4650 3150 5000 3150
+Wire Wire Line
+	5000 3150 5000 2000
+Wire Wire Line
+	5000 2000 14650 2000
+Wire Wire Line
+	14650 2000 14650 2950
+Wire Wire Line
+	14650 2950 14500 2950
+Wire Wire Line
+	3200 4400 2675 4400
+Wire Wire Line
+	2675 5475 2950 5475
+Wire Wire Line
+	5600 5025 4650 5025
+Wire Wire Line
+	2675 5775 3200 5775
+Wire Wire Line
+	3200 5300 2675 5300
+Wire Wire Line
+	2675 5150 3200 5150
+Wire Wire Line
+	3200 4050 2675 4050
+Wire Bus Line
+	11850 5875 10925 5875
+Wire Bus Line
+	10925 5875 10925 6300
+Wire Bus Line
+	10925 6300 10450 6300
+Wire Wire Line
+	10475 7075 11075 7075
+Wire Wire Line
+	11075 7075 11075 6025
+Wire Wire Line
+	11075 6025 11850 6025
+Wire Wire Line
+	4650 5850 4850 5850
+Wire Wire Line
+	4850 5850 4850 6550
+Wire Wire Line
+	4850 8700 11075 8700
+Wire Wire Line
+	11075 8700 11075 7075
+Connection ~ 11075 7075
+Wire Wire Line
+	2675 6075 2875 6075
+Wire Wire Line
+	2875 6075 2875 6550
+Wire Wire Line
+	2875 6550 4850 6550
+Connection ~ 4850 6550
+Wire Wire Line
+	4850 6550 4850 8700
+Wire Wire Line
+	2675 3150 3000 3150
+Wire Wire Line
+	3000 3150 3000 2300
+Wire Wire Line
+	3000 2300 11575 2300
+Wire Bus Line
+	10925 5875 7575 5875
+Connection ~ 10925 5875
+Wire Bus Line
+	2975 6000 2975 6450
+Wire Bus Line
+	2975 6450 7575 6450
+Wire Bus Line
+	7575 6450 7575 5875
+Wire Bus Line
+	2675 6000 2975 6000
+Connection ~ 7575 5875
+Wire Bus Line
+	7575 5875 7475 5875
+Wire Wire Line
+	11575 3800 11850 3800
+Wire Wire Line
+	11575 2300 11575 3800
+Wire Wire Line
+	11850 3875 11525 3875
+Wire Wire Line
+	11525 3875 11525 2350
+Wire Wire Line
+	11525 2350 2800 2350
+Wire Wire Line
+	2800 2350 2800 3525
+Wire Wire Line
+	2800 3525 2675 3525
+Wire Wire Line
+	11850 3950 11475 3950
+Wire Wire Line
+	11475 3950 11475 2400
+Wire Wire Line
+	11475 2400 2850 2400
+Wire Wire Line
+	2850 2400 2850 3975
+Connection ~ 2850 3975
+Wire Wire Line
+	2850 3975 2675 3975
+Wire Wire Line
+	11425 4025 11425 2450
+Wire Wire Line
+	11425 2450 2900 2450
+Wire Wire Line
+	2900 2450 2900 4925
+Connection ~ 2900 4925
+Wire Wire Line
+	2900 4925 2675 4925
+Wire Wire Line
+	11425 4025 11850 4025
+Wire Wire Line
+	11725 3575 11725 2150
+Wire Wire Line
+	4650 3650 5200 3650
+Wire Wire Line
+	5200 2200 5200 3650
+Connection ~ 5200 3650
+Wire Wire Line
+	5200 3650 5600 3650
+Wire Wire Line
+	4650 3575 5250 3575
+Wire Wire Line
+	5250 2250 5250 3575
+Connection ~ 5250 3575
+Wire Wire Line
+	5250 3575 5600 3575
+Wire Wire Line
+	11850 4100 11375 4100
+Wire Wire Line
+	11375 4100 11375 2500
+Wire Wire Line
+	11375 2500 5300 2500
+Wire Wire Line
+	5300 2500 5300 4100
+Wire Wire Line
+	5300 4100 4650 4100
+Wire Wire Line
+	2675 3075 2750 3075
+Wire Wire Line
+	2750 3075 2750 2550
+Wire Wire Line
+	2750 2550 11325 2550
+Wire Wire Line
+	11325 2550 11325 4175
+Wire Wire Line
+	11325 4175 11850 4175
+Wire Wire Line
+	11850 4250 11275 4250
+Wire Wire Line
+	11275 4250 11275 2600
+Wire Wire Line
+	11275 2600 2950 2600
+Wire Wire Line
+	2950 2600 2950 5475
+Connection ~ 2950 5475
+Wire Wire Line
+	2950 5475 3200 5475
+Wire Bus Line
+	11850 4725 10925 4725
+Wire Bus Line
+	7475 4725 7575 4725
+Wire Bus Line
+	7575 4725 7575 4875
+Wire Bus Line
+	7575 4875 10925 4875
+Wire Bus Line
+	10925 4875 10925 4725
+Connection ~ 10925 4725
+Wire Bus Line
+	10925 4725 10450 4725
+Wire Wire Line
+	3200 3600 3050 3600
+Wire Wire Line
+	3200 4625 2675 4625
+Wire Wire Line
+	11850 4325 11225 4325
+Wire Wire Line
+	11225 4325 11225 2650
+Wire Wire Line
+	11225 2650 3050 2650
+Wire Wire Line
+	3050 2650 3050 3600
+Connection ~ 3050 3600
+Wire Wire Line
+	3050 3600 2675 3600
+Wire Wire Line
+	2675 5550 3200 5550
+Wire Wire Line
+	3200 5625 2675 5625
+Wire Wire Line
+	3200 5700 2675 5700
+Wire Wire Line
+	3200 5400 2675 5400
+Wire Wire Line
+	3200 5225 2675 5225
+Wire Wire Line
+	3200 5075 2675 5075
+Wire Wire Line
+	2675 4475 3200 4475
+Wire Wire Line
+	3200 5850 2675 5850
+Wire Wire Line
+	2675 5925 3200 5925
+Wire Wire Line
+	2675 4325 3200 4325
+Wire Wire Line
+	2675 4175 3200 4175
+Wire Wire Line
+	3200 3900 2675 3900
+Wire Wire Line
+	11850 4400 11175 4400
+Wire Wire Line
+	11175 4400 11175 2700
+Wire Wire Line
+	11175 2700 3100 2700
+Wire Wire Line
+	3100 2700 3100 4550
+Wire Wire Line
+	3100 4550 2675 4550
+Wire Wire Line
+	4650 4175 5600 4175
+Wire Wire Line
+	5600 4250 4650 4250
+Wire Wire Line
+	11850 4475 11125 4475
+Wire Wire Line
+	11125 4475 11125 2750
+Wire Wire Line
+	11125 2750 5350 2750
+Wire Wire Line
+	5350 2750 5350 3825
+Wire Wire Line
+	5350 3825 4650 3825
 $EndSCHEMATC

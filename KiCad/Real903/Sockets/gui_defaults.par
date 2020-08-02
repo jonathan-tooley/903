@@ -4,7 +4,7 @@
     (board_frame
       visible
       (bounds
-        -8 -8 1232 787
+        -8 -8 1936 1056
       )
     )
     (color_manager
@@ -138,7 +138,7 @@
     (background
       255 255 204
     )
-    (hilight 0.8
+    (hilight 1.0
       230 255 255
     )
     (incompletes 1.0
@@ -156,14 +156,14 @@
     (violations
       255 0 255
     )
-    (length_matching 0.1
+    (length_matching 1.0
       0 255 0
     )
-    (traces 0.01
+    (traces 1.0
       255 0 0
       0 0 255
     )
-    (fixed_traces 0.01
+    (fixed_traces 1.0
       255 0 0
       0 0 255
     )
@@ -175,19 +175,19 @@
       200 200 0
       200 200 0
     )
-    (pins 0.6
+    (pins 1.0
       150 50 0
       160 80 0
     )
-    (conduction 0.2
+    (conduction 1.0
       0 150 0
       100 100 0
     )
-    (keepout 0.2
+    (keepout 1.0
       0 110 110
       0 100 160
     )
-    (via_keepout 0.2
+    (via_keepout 1.0
       100 100 100
       100 100 100
     )

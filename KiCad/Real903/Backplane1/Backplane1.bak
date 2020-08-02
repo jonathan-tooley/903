@@ -273,6 +273,7 @@ F42 "M[1..9]" U L 4850 2375 30
 F43 "#M[1..9]" U L 4850 2425 30 
 F44 "#P[1..9]" U R 6075 1675 30 
 F45 "W[1..9]" U R 6075 1600 30 
+F46 "~P~[1..9]" I R 6075 1525 30 
 $EndSheet
 Text GLabel 1000 1150 0    25   Input ~ 0
 GND
@@ -281,7 +282,7 @@ Wire Wire Line
 Text GLabel 5100 10600 0    25   Input ~ 0
 GND
 $Sheet
-S 4875 3150 1450 2675
+S 4875 3150 1200 1300
 U 5F060A9A
 F0 "Connections" 50
 F1 "Connections.sch" 50
@@ -293,48 +294,49 @@ F6 "~STORE~[1..18]" I L 4875 4000 30
 F7 "#I[1..4]" I L 4875 3550 30 
 F8 "#P[1..11]" I L 4875 3475 30 
 F9 "#J[1..16]" I L 4875 3175 30 
-F10 "#M[1..18]" I L 4875 3625 30 
+F10 "#M[1..18]" U L 4875 3625 30 
 F11 "IP[1..18]" I L 4875 4150 30 
 F12 "IP'[1..8]" I L 4875 4225 30 
 F13 "M[1..18]" U L 4875 3850 30 
 F14 "J[1..16]" U L 4875 3925 30 
 F15 "W[1..18]" U L 4875 3700 30 
+F16 "~P~[1..13]" I L 4875 4300 30 
 $EndSheet
 Wire Bus Line
 	6075 1825 6200 1825
 Wire Bus Line
 	4750 3325 4875 3325
-Text GLabel 6200 1825 2    25   Input ~ 0
+Text GLabel 6200 1825 2    25   UnSpc ~ 0
 #G[1..18]
-Text GLabel 4750 3325 0    25   Input ~ 0
+Text GLabel 4750 3325 0    25   UnSpc ~ 0
 #G[1..18]
-Text GLabel 6200 1750 2    25   Input ~ 0
+Text GLabel 6200 1750 2    25   UnSpc ~ 0
 #A[1..18]
 Wire Bus Line
 	6200 1750 6075 1750
-Text GLabel 6200 2225 2    25   Input ~ 0
+Text GLabel 6200 2225 2    25   UnSpc ~ 0
 ~A~[1..18]
 Wire Bus Line
 	6075 2225 6200 2225
-Text GLabel 1000 2225 0    25   Input ~ 0
+Text GLabel 1000 2225 0    25   UnSpc ~ 0
 ~A~[1..18]
-Text GLabel 4750 4075 0    25   Input ~ 0
+Text GLabel 4750 4075 0    25   UnSpc ~ 0
 ~A~[1..18]
-Text GLabel 4750 3400 0    25   Input ~ 0
+Text GLabel 4750 3400 0    25   UnSpc ~ 0
 #A[1..18]
 Wire Bus Line
 	4750 3400 4875 3400
 Wire Bus Line
 	4750 4075 4875 4075
-Text GLabel 1000 1825 0    25   Input ~ 0
+Text GLabel 1000 1825 0    25   UnSpc ~ 0
 #G[1..18]
-Text GLabel 1000 1750 0    25   Input ~ 0
+Text GLabel 1000 1750 0    25   UnSpc ~ 0
 #A[1..18]
-Text GLabel 6200 1900 2    25   Input ~ 0
+Text GLabel 6200 1900 2    25   UnSpc ~ 0
 #Q[1..18]
-Text GLabel 1000 1900 0    25   Input ~ 0
+Text GLabel 1000 1900 0    25   UnSpc ~ 0
 #Q[1..18]
-Text GLabel 4750 3250 0    25   Input ~ 0
+Text GLabel 4750 3250 0    25   UnSpc ~ 0
 #Q[1..18]
 Wire Bus Line
 	4750 3250 4875 3250
@@ -380,61 +382,61 @@ Wire Wire Line
 	4600 650  2675 650 
 Wire Wire Line
 	2700 675  4575 675 
-Text GLabel 4750 4000 0    25   Input ~ 0
+Text GLabel 4750 4000 0    25   UnSpc ~ 0
 ~STORE~[1..18]
 Wire Bus Line
 	4750 4000 4875 4000
-Text GLabel 1000 2300 0    25   Input ~ 0
+Text GLabel 1000 2300 0    25   UnSpc ~ 0
 ~STORE~[1..18]
 Wire Bus Line
 	1000 2300 1175 2300
-Text GLabel 4750 3175 0    25   Input ~ 0
+Text GLabel 4750 3175 0    25   UnSpc ~ 0
 #J[1..16]
-Text GLabel 1000 2050 0    25   Input ~ 0
+Text GLabel 1000 2050 0    25   UnSpc ~ 0
 #P[1..11]
 Wire Bus Line
 	1000 1975 1175 1975
 Wire Bus Line
 	1000 2050 1175 2050
-Text GLabel 1000 1475 0    25   Input ~ 0
+Text GLabel 1000 1475 0    25   UnSpc ~ 0
 #I[1..4]
 Wire Bus Line
 	1000 1475 1175 1475
-Text GLabel 6200 2300 2    25   Input ~ 0
+Text GLabel 6200 2300 2    25   UnSpc ~ 0
 ~STORE~[1..18]
 Wire Bus Line
 	6200 2300 6075 2300
-Text GLabel 4750 3550 0    25   Input ~ 0
+Text GLabel 4750 3550 0    25   UnSpc ~ 0
 #I[1..4]
 Wire Bus Line
 	4875 3550 4750 3550
-Text GLabel 4750 3475 0    25   Input ~ 0
+Text GLabel 4750 3475 0    25   UnSpc ~ 0
 #P[1..11]
 Wire Bus Line
 	4750 3475 4875 3475
 Wire Bus Line
 	4875 3175 4750 3175
-Text GLabel 1000 1975 0    25   Input ~ 0
+Text GLabel 1000 1975 0    25   UnSpc ~ 0
 #J[1..16]
-Text GLabel 1000 1675 0    25   Input ~ 0
+Text GLabel 1000 1675 0    25   UnSpc ~ 0
 #M[1..18]
 Wire Bus Line
 	1000 1675 1175 1675
-Text GLabel 4750 3625 0    25   Input ~ 0
+Text GLabel 4750 3625 0    25   UnSpc ~ 0
 #M[1..18]
 Wire Bus Line
 	4750 3625 4875 3625
 Wire Bus Line
 	1175 2375 1000 2375
-Text GLabel 6200 2150 2    25   Input ~ 0
+Text GLabel 6200 2150 2    25   UnSpc ~ 0
 IP[1..18]
 Wire Bus Line
 	6075 2150 6200 2150
-Text GLabel 1000 2150 0    25   Input ~ 0
+Text GLabel 1000 2150 0    25   UnSpc ~ 0
 IP[1..18]
 Wire Bus Line
 	1000 2150 1175 2150
-Text GLabel 4750 4150 0    25   Input ~ 0
+Text GLabel 4750 4150 0    25   UnSpc ~ 0
 IP[1..18]
 Wire Bus Line
 	4750 4150 4875 4150
@@ -460,7 +462,7 @@ Wire Bus Line
 	4550 700  4550 1025
 Text GLabel 4650 2600 0    25   UnSpc ~ 0
 IP'[1..8]
-Text GLabel 4750 4225 0    25   Input ~ 0
+Text GLabel 4750 4225 0    25   UnSpc ~ 0
 IP'[1..8]
 Wire Bus Line
 	4875 4225 4750 4225
@@ -560,7 +562,7 @@ Wire Wire Line
 	4300 2050 4850 2050
 Wire Wire Line
 	4300 2150 4850 2150
-Text GLabel 6200 1975 2    25   Input ~ 0
+Text GLabel 6200 1975 2    25   UnSpc ~ 0
 #J[1..16]
 Wire Bus Line
 	6200 1975 6075 1975
@@ -636,6 +638,7 @@ F47 "~J~[14..16]" I L 1175 2650 30
 F48 "J[10..16]" I L 1175 2600 30 
 F49 "M[10..18]" U L 1175 2550 30 
 F50 "W[10..18]" U L 1175 1600 30 
+F51 "~P~[10..13]" I L 1175 2450 30 
 $EndSheet
 Wire Bus Line
 	1175 2650 1075 2650
@@ -692,7 +695,7 @@ Wire Bus Line
 	4850 2425 4650 2425
 Wire Bus Line
 	6200 1675 6075 1675
-Text GLabel 6200 1675 2    25   Input ~ 0
+Text GLabel 6200 1675 2    25   UnSpc ~ 0
 #P[1..11]
 Text GLabel 6200 1600 2    25   UnSpc ~ 0
 W[1..18]
@@ -761,4 +764,16 @@ F 3 "~" H 3150 10700 50  0001 C CNN
 	1    3150 10700
 	0    -1   -1   0   
 $EndComp
+Text GLabel 1000 2450 0    25   UnSpc ~ 0
+~P~[1..13]
+Wire Bus Line
+	1000 2450 1175 2450
+Text GLabel 6200 1525 2    25   UnSpc ~ 0
+~P~[1..13]
+Wire Bus Line
+	6200 1525 6075 1525
+Text GLabel 4750 4300 0    25   UnSpc ~ 0
+~P~[1..13]
+Wire Bus Line
+	4750 4300 4875 4300
 $EndSCHEMATC

@@ -1,4 +1,4 @@
-update=9/11/2019 2:56:08 PM
+update=8/1/2020 10:22:00 PM
 version=1
 last_client=eeschema
 [general]
@@ -33,11 +33,11 @@ LibDir=
 [eeschema/libraries]
 [schematic_editor]
 version=1
-PageLayoutDescrFile=
+PageLayoutDescrFile=C:/Users/v-jtool/Desktop/pld.kicad_wks
 PlotDirectoryName=
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
 SpiceAjustPassiveValues=0
-LabSize=50
+LabSize=40
 ERC_TestSimilarLabels=1

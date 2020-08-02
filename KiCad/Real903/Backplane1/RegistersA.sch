@@ -331,22 +331,6 @@ Wire Wire Line
 	8725 3900 8625 3900
 Wire Wire Line
 	7225 3900 7125 3900
-Text GLabel 10225 3900 2    32   UnSpc ~ 0
-~P~13-30-18
-Text GLabel 11725 3900 2    32   UnSpc ~ 0
-~P~12-30-T
-Text GLabel 13225 3900 2    32   UnSpc ~ 0
-~P~11-30-W
-Text GLabel 14725 3900 2    32   UnSpc ~ 0
-~P~10-30-X
-Wire Wire Line
-	14725 3900 14625 3900
-Wire Wire Line
-	13225 3900 13125 3900
-Wire Wire Line
-	11725 3900 11625 3900
-Wire Wire Line
-	10125 3900 10225 3900
 Text GLabel 13225 4600 2    32   UnSpc ~ 0
 M11-7-21
 Text GLabel 11725 4600 2    32   UnSpc ~ 0
@@ -1285,9 +1269,6 @@ Text GLabel 4225 4000 2    32   UnSpc ~ 0
 Text Label 4125 4000 0    40   ~ 0
 ~OTI~
 NoConn ~ 10125 3400
-NoConn ~ 11625 3400
-NoConn ~ 13125 3400
-NoConn ~ 14625 3400
 Text Label 5625 3400 0    40   ~ 0
 ~J~16
 Wire Wire Line
@@ -1389,4 +1370,26 @@ Text Label 12625 3800 2    40   ~ 0
 W11
 Text Label 14125 3800 2    40   ~ 0
 W10
+Text Label 10125 3900 0    40   ~ 0
+~P~13
+Text Label 11625 3900 0    40   ~ 0
+~P~12
+Text Label 13125 3900 0    40   ~ 0
+~P~11
+Text Label 14625 3900 0    40   ~ 0
+~P~10
+Text HLabel 1050 6075 0    40   Input ~ 0
+~P~[10..13]
+Text GLabel 13225 3400 2    32   UnSpc ~ 0
+~J~11-25-19
+Text GLabel 11725 3400 2    32   UnSpc ~ 0
+~J~12-25-27
+Text GLabel 14725 3400 2    32   UnSpc ~ 0
+~J~10-25-8
+Wire Wire Line
+	14725 3400 14625 3400
+Wire Wire Line
+	13225 3400 13125 3400
+Wire Wire Line
+	11725 3400 11625 3400
 $EndSCHEMATC
