@@ -1,3 +1,4 @@
 (sym_lib_table
-  (lib (name LSA)(type Legacy)(uri C:/Users/v-jtool/OneDrive/Repos/903/KiCad/Real903/LSA.lib)(options "")(descr ""))
+  (lib (name LSA)(type Legacy)(uri C:/Users/JonathanAlvesTooley/Repos/903/KiCad/Real903/LSA.lib)(options "")(descr ""))
+  (lib (name Sockets-rescue)(type Legacy)(uri ${KIPRJMOD}/Sockets-rescue.lib)(options "")(descr ""))
 )

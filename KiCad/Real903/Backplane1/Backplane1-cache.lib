@@ -1,11 +1,26 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector_Generic:Conn_01x03
+# Backplane1-rescue_MountingHole-Mechanical
 #
-DEF Connector_Generic:Conn_01x03 J 0 40 Y N 1 F N
+DEF Backplane1-rescue_MountingHole-Mechanical MH 0 40 Y Y 1 F N
+F0 "MH" 0 200 50 H V C CNN
+F1 "Backplane1-rescue_MountingHole-Mechanical" 0 125 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ MountingHole*
+$ENDFPLIST
+DRAW
+C 0 0 50 0 1 50 N
+ENDDRAW
+ENDDEF
+#
+# Connector_Generic_Conn_01x03
+#
+DEF Connector_Generic_Conn_01x03 J 0 40 Y N 1 F N
 F0 "J" 0 200 50 H V C CNN
-F1 "Connector_Generic:Conn_01x03" 0 -200 50 H V C CNN
+F1 "Connector_Generic_Conn_01x03" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -22,11 +37,11 @@ X Pin_3 3 -200 -100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_01x18
+# Connector_Generic_Conn_01x18
 #
-DEF Connector_Generic:Conn_01x18 J 0 40 Y N 1 F N
+DEF Connector_Generic_Conn_01x18 J 0 40 Y N 1 F N
 F0 "J" 0 900 50 H V C CNN
-F1 "Connector_Generic:Conn_01x18" 0 -1000 50 H V C CNN
+F1 "Connector_Generic_Conn_01x18" 0 -1000 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -73,11 +88,11 @@ X Pin_9 9 -200 0 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_01x20
+# Connector_Generic_Conn_01x20
 #
-DEF Connector_Generic:Conn_01x20 J 0 40 Y N 1 F N
+DEF Connector_Generic_Conn_01x20 J 0 40 Y N 1 F N
 F0 "J" 0 1000 50 H V C CNN
-F1 "Connector_Generic:Conn_01x20" 0 -1100 50 H V C CNN
+F1 "Connector_Generic_Conn_01x20" 0 -1100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -128,11 +143,11 @@ X Pin_9 9 -200 100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# LSA:Conn_02x32
+# LSA_Conn_02x32
 #
-DEF LSA:Conn_02x32 J 0 40 Y N 1 F N
+DEF LSA_Conn_02x32 J 0 40 Y N 1 F N
 F0 "J" 50 1600 50 H V C CNN
-F1 "LSA:Conn_02x32" 50 -1700 50 H V C CNN
+F1 "LSA_Conn_02x32" 50 -1700 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -268,21 +283,6 @@ X Pin_W W 300 -300 150 L 50 50 1 1 P
 X Pin_X X 300 -400 150 L 50 50 1 1 P
 X Pin_Y Y 300 -500 150 L 50 50 1 1 P
 X Pin_Z Z 300 -600 150 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Mechanical:MountingHole
-#
-DEF Mechanical:MountingHole MH 0 40 Y Y 1 F N
-F0 "MH" 0 200 50 H V C CNN
-F1 "Mechanical:MountingHole" 0 125 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- MountingHole*
-$ENDFPLIST
-DRAW
-C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #

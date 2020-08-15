@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name LSA)(type Legacy)(uri ${KIPRJMOD}/../LSA.lib)(options "")(descr ""))
+  (lib (name Backplane2-rescue)(type Legacy)(uri ${KIPRJMOD}/Backplane2-rescue.lib)(options "")(descr ""))
 )

@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:Backplane1-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -85,43 +84,43 @@ Text Label 2600 2475 0    35   ~ 0
 #G8
 Text Label 2600 2575 0    35   ~ 0
 #G9
-Text Label 2600 2675 0    35   ~ 0
+Text Label 3200 1775 0    35   ~ 0
 #G10
-Text Label 2600 2775 0    35   ~ 0
+Text Label 3200 1875 0    35   ~ 0
 #G11
-Text Label 2600 2875 0    35   ~ 0
+Text Label 3200 1975 0    35   ~ 0
 #G12
-Text Label 2600 2975 0    35   ~ 0
+Text Label 3200 2075 0    35   ~ 0
 #G13
-Text Label 2600 3075 0    35   ~ 0
+Text Label 3200 2175 0    35   ~ 0
 #G14
-Text Label 2600 3175 0    35   ~ 0
+Text Label 3200 2275 0    35   ~ 0
 #G15
-Text Label 2600 3275 0    35   ~ 0
+Text Label 3200 2375 0    35   ~ 0
 #G16
-Text Label 2600 3375 0    35   ~ 0
+Text Label 3200 2475 0    35   ~ 0
 #G17
-Text Label 2600 3475 0    35   ~ 0
+Text Label 3200 2575 0    35   ~ 0
 #G18
 Text HLabel 3025 3525 3    32   UnSpc ~ 0
 #A[1..18]
-Text Label 3200 1775 0    35   ~ 0
+Text Label 2600 2675 0    35   ~ 0
 #A1
-Text Label 3200 1875 0    35   ~ 0
+Text Label 2600 2775 0    35   ~ 0
 #A2
-Text Label 3200 1975 0    35   ~ 0
+Text Label 2600 2875 0    35   ~ 0
 #A3
-Text Label 3200 2075 0    35   ~ 0
+Text Label 2600 2975 0    35   ~ 0
 #A4
-Text Label 3200 2175 0    35   ~ 0
+Text Label 2600 3075 0    35   ~ 0
 #A5
-Text Label 3200 2275 0    35   ~ 0
+Text Label 2600 3175 0    35   ~ 0
 #A6
-Text Label 3200 2375 0    35   ~ 0
+Text Label 2600 3275 0    35   ~ 0
 #A7
-Text Label 3200 2475 0    35   ~ 0
+Text Label 2600 3375 0    35   ~ 0
 #A8
-Text Label 3200 2575 0    35   ~ 0
+Text Label 2600 3475 0    35   ~ 0
 #A9
 Text Label 3200 2675 0    35   ~ 0
 #A10

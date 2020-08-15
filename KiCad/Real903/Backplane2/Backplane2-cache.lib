@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector_Generic:Conn_01x03
+# Backplane2-rescue_Conn_01x03-Connector_Generic
 #
-DEF Connector_Generic:Conn_01x03 J 0 40 Y N 1 F N
+DEF Backplane2-rescue_Conn_01x03-Connector_Generic J 0 40 Y N 1 F N
 F0 "J" 0 200 50 H V C CNN
-F1 "Connector_Generic:Conn_01x03" 0 -200 50 H V C CNN
+F1 "Backplane2-rescue_Conn_01x03-Connector_Generic" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -22,11 +22,11 @@ X Pin_3 3 -200 -100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic:Conn_01x20
+# Backplane2-rescue_Conn_01x20-Connector_Generic
 #
-DEF Connector_Generic:Conn_01x20 J 0 40 Y N 1 F N
+DEF Backplane2-rescue_Conn_01x20-Connector_Generic J 0 40 Y N 1 F N
 F0 "J" 0 1000 50 H V C CNN
-F1 "Connector_Generic:Conn_01x20" 0 -1100 50 H V C CNN
+F1 "Backplane2-rescue_Conn_01x20-Connector_Generic" 0 -1100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -77,11 +77,11 @@ X Pin_9 9 -200 100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# LSA:Conn_02x32
+# LSA_Conn_02x32
 #
-DEF LSA:Conn_02x32 J 0 40 Y N 1 F N
+DEF LSA_Conn_02x32 J 0 40 Y N 1 F N
 F0 "J" 50 1600 50 H V C CNN
-F1 "LSA:Conn_02x32" 50 -1700 50 H V C CNN
+F1 "LSA_Conn_02x32" 50 -1700 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
