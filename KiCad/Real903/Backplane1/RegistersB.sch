@@ -205,150 +205,14 @@ NoConn ~ 9350 4075
 NoConn ~ 10850 4075
 NoConn ~ 12350 4075
 NoConn ~ 13850 4075
-Text GLabel 1250 4475 0    40   Input ~ 0
-GND
-Text GLabel 1250 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 1950 4475 2    40   Input ~ 0
-GND
-Text GLabel 1950 4375 2    40   Input ~ 0
-Neg6v
 Wire Wire Line
 	1250 4375 1350 4375
 Wire Wire Line
 	1250 4475 1350 4475
 Wire Wire Line
-	1850 4475 1950 4475
-Wire Wire Line
-	1850 4375 1950 4375
-Text GLabel 2750 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 4250 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 3450 4375 2    40   Input ~ 0
-Neg6v
-Text GLabel 4950 4375 2    40   Input ~ 0
-Neg6v
-Text GLabel 2750 4475 0    40   Input ~ 0
-GND
-Text GLabel 4250 4475 0    40   Input ~ 0
-GND
-Text GLabel 3450 4475 2    40   Input ~ 0
-GND
-Text GLabel 4950 4475 2    40   Input ~ 0
-GND
-Wire Wire Line
-	2750 4375 2850 4375
-Wire Wire Line
-	2750 4475 2850 4475
-Wire Wire Line
-	3350 4475 3450 4475
-Wire Wire Line
-	3350 4375 3450 4375
-Wire Wire Line
-	4250 4375 4350 4375
-Wire Wire Line
-	4250 4475 4350 4475
-Wire Wire Line
-	4850 4375 4950 4375
-Wire Wire Line
-	4850 4475 4950 4475
-Text GLabel 5750 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 7250 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 8750 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 10250 4375 0    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	10250 4375 10350 4375
-Wire Wire Line
-	8750 4375 8850 4375
-Wire Wire Line
-	7250 4375 7350 4375
-Wire Wire Line
-	5750 4375 5850 4375
-Text GLabel 5750 4475 0    40   Input ~ 0
-GND
-Text GLabel 7250 4475 0    40   Input ~ 0
-GND
-Wire Wire Line
-	7250 4475 7350 4475
-Wire Wire Line
-	5750 4475 5850 4475
-Text GLabel 8750 4475 0    40   Input ~ 0
-GND
-Wire Wire Line
-	8750 4475 8850 4475
-Text GLabel 6450 4475 2    40   Input ~ 0
-GND
-Text GLabel 7950 4475 2    40   Input ~ 0
-GND
-Wire Wire Line
-	7950 4475 7850 4475
-Wire Wire Line
-	6450 4475 6350 4475
-Text GLabel 6450 4375 2    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	6450 4375 6350 4375
-Text GLabel 7950 4375 2    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	7950 4375 7850 4375
-Text GLabel 10250 4475 0    40   Input ~ 0
-GND
-Wire Wire Line
-	10250 4475 10350 4475
-Text GLabel 9450 4475 2    40   Input ~ 0
-GND
-Text GLabel 10950 4475 2    40   Input ~ 0
-GND
-Text GLabel 9450 4375 2    40   Input ~ 0
-Neg6v
-Text GLabel 10950 4375 2    40   Input ~ 0
-Neg6v
-Wire Wire Line
-	10950 4375 10850 4375
-Wire Wire Line
-	10850 4475 10950 4475
-Wire Wire Line
-	9450 4475 9350 4475
-Wire Wire Line
-	9350 4375 9450 4375
-Text GLabel 11750 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 13250 4375 0    40   Input ~ 0
-Neg6v
-Text GLabel 12450 4375 2    40   Input ~ 0
-Neg6v
-Text GLabel 13950 4375 2    40   Input ~ 0
-Neg6v
-Wire Wire Line
 	13950 4375 13850 4375
 Wire Wire Line
-	13350 4375 13250 4375
-Wire Wire Line
-	12450 4375 12350 4375
-Wire Wire Line
-	11850 4375 11750 4375
-Text GLabel 11750 4475 0    40   Input ~ 0
-GND
-Text GLabel 13250 4475 0    40   Input ~ 0
-GND
-Text GLabel 12450 4475 2    40   Input ~ 0
-GND
-Text GLabel 13950 4475 2    40   Input ~ 0
-GND
-Wire Wire Line
 	13950 4475 13850 4475
-Wire Wire Line
-	13350 4475 13250 4475
-Wire Wire Line
-	12450 4475 12350 4475
-Wire Wire Line
-	11850 4475 11750 4475
 Text GLabel 13950 1575 2    32   UnSpc ~ 0
 ITF-8-12
 Wire Wire Line
@@ -1453,4 +1317,76 @@ Wire Wire Line
 	12450 2675 12350 2675
 Wire Wire Line
 	10950 2675 10850 2675
+Text Label 1250 4475 2    40   ~ 0
+GND
+Wire Wire Line
+	1850 4475 2850 4475
+Wire Wire Line
+	3350 4475 4350 4475
+Wire Wire Line
+	4850 4475 5850 4475
+Wire Wire Line
+	6350 4475 7350 4475
+Wire Wire Line
+	7850 4475 8850 4475
+Wire Wire Line
+	9350 4475 10350 4475
+Wire Wire Line
+	10850 4475 11850 4475
+Wire Wire Line
+	12350 4475 13350 4475
+Text Label 13950 4475 0    40   ~ 0
+GND
+Text Label 12850 4475 2    40   ~ 0
+GND
+Text Label 11350 4475 2    40   ~ 0
+GND
+Text Label 9875 4475 2    40   ~ 0
+GND
+Text Label 8375 4475 2    40   ~ 0
+GND
+Text Label 6875 4475 2    40   ~ 0
+GND
+Text Label 5375 4475 2    40   ~ 0
+GND
+Text Label 3825 4475 2    40   ~ 0
+GND
+Text Label 2325 4475 2    40   ~ 0
+GND
+Wire Wire Line
+	1850 4375 2850 4375
+Text Label 2325 4375 2    40   ~ 0
+-6v
+Text HLabel 1250 4375 0    40   Input ~ 0
+-6v
+Wire Wire Line
+	3350 4375 4350 4375
+Wire Wire Line
+	4850 4375 5850 4375
+Text Label 3825 4375 2    40   ~ 0
+-6v
+Text Label 5375 4375 2    40   ~ 0
+-6v
+Wire Wire Line
+	10850 4375 11850 4375
+Wire Wire Line
+	9350 4375 10350 4375
+Wire Wire Line
+	7850 4375 8850 4375
+Text Label 6875 4375 2    40   ~ 0
+-6v
+Wire Wire Line
+	6350 4375 7350 4375
+Text Label 8375 4375 2    40   ~ 0
+-6v
+Text Label 9875 4375 2    40   ~ 0
+-6v
+Text Label 11350 4375 2    40   ~ 0
+-6v
+Wire Wire Line
+	12350 4375 13350 4375
+Text Label 12850 4375 2    40   ~ 0
+-6v
+Text Label 13950 4375 0    40   ~ 0
+-6v
 $EndSCHEMATC

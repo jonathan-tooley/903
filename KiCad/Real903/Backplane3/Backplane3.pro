@@ -1,6 +1,6 @@
-update=8/1/2020 11:32:20 PM
+update=8/16/2020 6:30:40 PM
 version=1
-last_client=eeschema
+last_client=kicad
 [general]
 version=1
 RootSch=
@@ -34,7 +34,7 @@ LibDir=
 [schematic_editor]
 version=1
 PageLayoutDescrFile=C:/Users/v-jtool/Desktop/pld.kicad_wks
-PlotDirectoryName=
+PlotDirectoryName=PDF/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=

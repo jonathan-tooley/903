@@ -4,7 +4,7 @@
     (board_frame
       visible
       (bounds
-        -8 -8 1936 1056
+        -8 -8 1384 888
       )
     )
     (color_manager
@@ -14,7 +14,7 @@
       )
     )
     (layer_visibility
-      visible
+      not_visible
       (bounds
         12 598 359 225
       )
@@ -160,10 +160,10 @@
       0 255 0
     )
     (traces 0.4
-      255 0 0
-      0 0 255
-      255 0 0
-      0 0 255
+      204 51 0
+      0 0 153
+      255 204 0
+      51 153 0
     )
     (fixed_traces 0.4
       255 0 0

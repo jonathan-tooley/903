@@ -1,28 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Connector_TestPoint
+# 6AU6-kit88
 #
-DEF Connector_TestPoint TP 0 30 N N 1 F N
-F0 "TP" 0 270 50 H V C CNN
-F1 "Connector_TestPoint" 0 200 50 H V C CNN
-F2 "" 200 0 50 H I C CNN
-F3 "" 200 0 50 H I C CNN
-$FPLIST
- Pin*
- Test*
-$ENDFPLIST
-DRAW
-C 0 130 30 0 1 0 N
-X 1 1 0 0 100 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# KIT88-rescue_6AU6-kit88
-#
-DEF KIT88-rescue_6AU6-kit88 U 0 0 Y Y 2 L N
+DEF 6AU6-kit88 U 0 0 Y Y 2 L N
 F0 "U" 200 350 50 H V C CNN
-F1 "KIT88-rescue_6AU6-kit88" 250 -300 50 H V C CNN
+F1 "6AU6-kit88" 250 -300 50 H V C CNN
 F2 "Valve:Valve_Octal" 300 -350 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -70,11 +53,11 @@ X ~ 4 100 -400 150 U 50 50 2 1 W
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_B125C1500G-Diode_Bridge
+# B125C1500G-Diode_Bridge
 #
-DEF KIT88-rescue_B125C1500G-Diode_Bridge D 0 0 Y Y 1 F N
+DEF B125C1500G-Diode_Bridge D 0 0 Y Y 1 F N
 F0 "D" 100 275 50 H V L CNN
-F1 "KIT88-rescue_B125C1500G-Diode_Bridge" 100 200 50 H V L CNN
+F1 "B125C1500G-Diode_Bridge" 100 200 50 H V L CNN
 F2 "Diode_THT:Diode_Bridge_Round_D9.8mm" 150 125 50 H I L CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -97,11 +80,11 @@ X ~~ 4 0 300 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_C-Device
+# C-Device
 #
-DEF KIT88-rescue_C-Device C 0 10 N Y 1 F N
+DEF C-Device C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "KIT88-rescue_C-Device" 25 -100 50 H V L CNN
+F1 "C-Device" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -115,11 +98,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_CP-Device
+# CP-Device
 #
-DEF KIT88-rescue_CP-Device C 0 10 N Y 1 F N
+DEF CP-Device C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "KIT88-rescue_CP-Device" 25 -100 50 H V L CNN
+F1 "CP-Device" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -138,11 +121,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_ECC82-kit88
+# ECC82-kit88
 #
-DEF KIT88-rescue_ECC82-kit88 U 0 0 Y Y 3 L N
+DEF ECC82-kit88 U 0 0 Y Y 3 L N
 F0 "U" 130 310 50 H V C CNN
-F1 "KIT88-rescue_ECC82-kit88" 350 -300 50 H V C CNN
+F1 "ECC82-kit88" 350 -300 50 H V C CNN
 F2 "Valve:Valve_Noval_P" 270 -400 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -184,11 +167,11 @@ X ~ 9 300 -150 300 L 50 50 3 1 W
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_KT88-kit88
+# KT88-kit88
 #
-DEF KIT88-rescue_KT88-kit88 U 0 0 Y Y 2 L N
+DEF KT88-kit88 U 0 0 Y Y 2 L N
 F0 "U" 0 -200 50 H V C CNN
-F1 "KIT88-rescue_KT88-kit88" 300 -300 50 H V C CNN
+F1 "KT88-kit88" 300 -300 50 H V C CNN
 F2 "Valve:Valve_Noval_P" 300 -400 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -236,11 +219,11 @@ X F2 7 100 -400 150 U 50 50 2 1 W
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_MountingHole-Mechanical
+# MountingHole-Mechanical
 #
-DEF KIT88-rescue_MountingHole-Mechanical MH 0 40 Y Y 1 F N
+DEF MountingHole-Mechanical MH 0 40 Y Y 1 F N
 F0 "MH" 0 200 50 H V C CNN
-F1 "KIT88-rescue_MountingHole-Mechanical" 0 125 50 H V C CNN
+F1 "MountingHole-Mechanical" 0 125 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -251,11 +234,11 @@ C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_PWR_FLAG-power
+# PWR_FLAG-power
 #
-DEF KIT88-rescue_PWR_FLAG-power #FLG 0 0 N N 1 F P
+DEF PWR_FLAG-power #FLG 0 0 N N 1 F P
 F0 "#FLG" 0 75 50 H I C CNN
-F1 "KIT88-rescue_PWR_FLAG-power" 0 150 50 H V C CNN
+F1 "PWR_FLAG-power" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -264,11 +247,11 @@ X pwr 1 0 0 0 U 50 50 0 0 w
 ENDDRAW
 ENDDEF
 #
-# KIT88-rescue_R-Device
+# R-Device
 #
-DEF KIT88-rescue_R-Device R 0 0 N Y 1 F N
+DEF R-Device R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "KIT88-rescue_R-Device" 0 0 50 V V C CNN
+F1 "R-Device" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
