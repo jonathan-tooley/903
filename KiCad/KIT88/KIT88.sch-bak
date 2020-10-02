@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:KIT88-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -15,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L kit88:6AU6 U7
+L KIT88-rescue:6AU6-kit88 U7
 U 1 1 5E552310
 P 2425 2375
 F 0 "U7" H 2150 2750 50  0000 C CNN
@@ -26,7 +25,7 @@ F 3 "http://www.r-type.org/pdfs/el34.pdf" H 2425 2375 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R17
+L KIT88-rescue:R-Device R17
 U 1 1 5E555242
 P 2425 1550
 F 0 "R17" H 2495 1596 50  0000 L CNN
@@ -43,7 +42,7 @@ Text GLabel 2425 925  1    50   Input ~ 0
 Wire Wire Line
 	2425 925  2425 1400
 $Comp
-L Device:R R36
+L KIT88-rescue:R-Device R36
 U 1 1 5E555394
 P 2900 1925
 F 0 "R36" H 2970 1971 50  0000 L CNN
@@ -70,7 +69,7 @@ Connection ~ 2900 2225
 Wire Wire Line
 	2900 2225 2900 2325
 $Comp
-L Device:R R40
+L KIT88-rescue:R-Device R40
 U 1 1 5E555546
 P 2325 3100
 F 0 "R40" H 2395 3146 50  0000 L CNN
@@ -81,7 +80,7 @@ F 3 "~" H 2325 3100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R34
+L KIT88-rescue:R-Device R34
 U 1 1 5E555654
 P 1675 2425
 F 0 "R34" V 1468 2425 50  0000 C CNN
@@ -94,7 +93,7 @@ $EndComp
 Wire Wire Line
 	1825 2425 2125 2425
 $Comp
-L Device:CP C17
+L KIT88-rescue:CP-Device C17
 U 1 1 5E555785
 P 2325 3575
 F 0 "C17" H 2443 3621 50  0000 L CNN
@@ -107,7 +106,7 @@ $EndComp
 Wire Wire Line
 	2325 3250 2325 3425
 $Comp
-L Device:R R28
+L KIT88-rescue:R-Device R28
 U 1 1 5E5559CB
 P 1375 3100
 F 0 "R28" H 1445 3146 50  0000 L CNN
@@ -124,12 +123,10 @@ Wire Wire Line
 Wire Wire Line
 	1375 3250 1375 3875
 Wire Wire Line
-	1375 3875 1650 3875
-Wire Wire Line
 	2325 3875 2325 3725
 Connection ~ 1375 2425
 $Comp
-L kit88:ECC82 U5
+L KIT88-rescue:ECC82-kit88 U5
 U 2 1 5E55645D
 P 3825 1725
 F 0 "U5" H 4052 1771 50  0000 L CNN
@@ -140,7 +137,7 @@ F 3 "http://www.r-type.org/pdfs/ecc81.pdf" H 3825 1725 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:ECC82 U5
+L KIT88-rescue:ECC82-kit88 U5
 U 1 1 5E556504
 P 3825 2900
 F 0 "U5" H 4052 2854 50  0000 L CNN
@@ -154,7 +151,7 @@ Wire Wire Line
 	3525 1725 3275 1725
 Connection ~ 2900 1725
 $Comp
-L Device:R R21
+L KIT88-rescue:R-Device R21
 U 1 1 5E55680B
 P 4025 2300
 F 0 "R21" V 3818 2300 50  0000 C CNN
@@ -176,7 +173,7 @@ GND
 Wire Wire Line
 	4325 2300 4175 2300
 $Comp
-L Device:R R23
+L KIT88-rescue:R-Device R23
 U 1 1 5E5571F2
 P 3275 2300
 F 0 "R23" H 3345 2346 50  0000 L CNN
@@ -196,7 +193,7 @@ Wire Wire Line
 Wire Wire Line
 	3275 2900 3525 2900
 $Comp
-L Device:C C13
+L KIT88-rescue:C-Device C13
 U 1 1 5E557ED0
 P 3275 3575
 F 0 "C13" H 3100 3675 50  0000 L CNN
@@ -215,7 +212,7 @@ Wire Wire Line
 	3275 3875 2325 3875
 Connection ~ 2325 3875
 $Comp
-L Device:R R70
+L KIT88-rescue:R-Device R70
 U 1 1 5E5599BE
 P 3825 1125
 F 0 "R70" H 3900 1175 50  0000 L CNN
@@ -232,7 +229,7 @@ Wire Wire Line
 Wire Wire Line
 	3825 1275 3825 1300
 $Comp
-L Device:R R240
+L KIT88-rescue:R-Device R240
 U 1 1 5E55C029
 P 3825 3500
 F 0 "R240" H 3900 3575 50  0000 L CNN
@@ -249,7 +246,7 @@ Wire Wire Line
 Wire Wire Line
 	3825 3650 3825 3725
 $Comp
-L Device:C C7
+L KIT88-rescue:C-Device C7
 U 1 1 5E5611C0
 P 4325 1300
 F 0 "C7" V 4200 1300 50  0000 C CNN
@@ -260,7 +257,7 @@ F 3 "~" H 4325 1300 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C C15
+L KIT88-rescue:C-Device C15
 U 1 1 5E56120A
 P 4325 3325
 F 0 "C15" V 4450 3325 50  0000 C CNN
@@ -281,7 +278,7 @@ Connection ~ 3825 3325
 Wire Wire Line
 	3825 3325 3825 3350
 $Comp
-L Device:R R9
+L KIT88-rescue:R-Device R9
 U 1 1 5E563655
 P 4725 1725
 F 0 "R9" H 4795 1771 50  0000 L CNN
@@ -294,7 +291,7 @@ $EndComp
 Text GLabel 4850 2300 2    50   Input ~ 0
 -10v
 $Comp
-L Device:R R30
+L KIT88-rescue:R-Device R30
 U 1 1 5E563A0C
 P 4725 2900
 F 0 "R30" H 4795 2946 50  0000 L CNN
@@ -320,7 +317,7 @@ Connection ~ 4725 2300
 Wire Wire Line
 	4725 2300 4725 1875
 $Comp
-L kit88:KT88 U1
+L KIT88-rescue:KT88-kit88 U1
 U 1 1 5E56555D
 P 5650 1250
 F 0 "U1" H 5875 1500 50  0000 L CNN
@@ -331,7 +328,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 5650 1250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R8
+L KIT88-rescue:R-Device R8
 U 1 1 5E566544
 P 5100 1300
 F 0 "R8" V 4893 1300 50  0000 C CNN
@@ -347,7 +344,7 @@ Connection ~ 4725 1300
 Wire Wire Line
 	5250 1300 5350 1300
 $Comp
-L kit88:KT88 U3
+L KIT88-rescue:KT88-kit88 U3
 U 1 1 5E5676C3
 P 5650 3375
 F 0 "U3" H 6025 3625 50  0000 R CNN
@@ -358,7 +355,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 5650 3375 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:R R31
+L KIT88-rescue:R-Device R31
 U 1 1 5E568447
 P 5100 3325
 F 0 "R31" V 4893 3325 50  0000 C CNN
@@ -384,7 +381,7 @@ Wire Wire Line
 Text GLabel 6550 2300 0    50   Input ~ 0
 510v
 $Comp
-L Device:R R6
+L KIT88-rescue:R-Device R6
 U 1 1 5E56BACC
 P 6225 1725
 F 0 "R6" H 6295 1771 50  0000 L CNN
@@ -395,7 +392,7 @@ F 3 "~" H 6225 1725 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R32
+L KIT88-rescue:R-Device R32
 U 1 1 5E56BB24
 P 6225 2900
 F 0 "R32" H 6295 2946 50  0000 L CNN
@@ -423,7 +420,7 @@ Connection ~ 6225 2300
 Wire Wire Line
 	6225 2300 6225 2750
 $Comp
-L Device:R R13
+L KIT88-rescue:R-Device R13
 U 1 1 5E56EAAC
 P 5550 1825
 F 0 "R13" H 5620 1871 50  0000 L CNN
@@ -434,7 +431,7 @@ F 3 "~" H 5550 1825 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R15
+L KIT88-rescue:R-Device R15
 U 1 1 5E56EC45
 P 5550 2800
 F 0 "R15" H 5620 2846 50  0000 L CNN
@@ -458,7 +455,7 @@ Connection ~ 5550 2300
 Wire Wire Line
 	5550 2300 5550 2650
 $Comp
-L Device:CP C9
+L KIT88-rescue:CP-Device C9
 U 1 1 5E572F11
 P 5350 1825
 F 0 "C9" H 5125 1875 50  0000 L CNN
@@ -469,7 +466,7 @@ F 3 "~" H 5350 1825 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C11
+L KIT88-rescue:CP-Device C11
 U 1 1 5E572F61
 P 5350 2800
 F 0 "C11" H 5600 2850 50  0000 R CNN
@@ -501,12 +498,12 @@ Connection ~ 5550 2975
 Wire Wire Line
 	5550 2975 5550 3025
 $Comp
-L Diode_Bridge:B125C1500G BR1
+L KIT88-rescue:B125C1500G-Diode_Bridge BR1
 U 1 1 5E57D540
 P 8075 1075
 F 0 "BR1" V 8075 1150 50  0000 R CNN
 F 1 "~" V 8030 734 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Vishay_KBU" H 8225 1200 50  0001 L CNN
+F 2 "KIT:Diode_Bridge_32.0x5.6x17.0mm_P10.0mm_P7.5mm" H 8225 1200 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 1075 50  0001 C CNN
 	1    8075 1075
 	0    -1   -1   0   
@@ -514,7 +511,7 @@ $EndComp
 Wire Wire Line
 	7675 1075 7775 1075
 $Comp
-L Device:CP C1
+L KIT88-rescue:CP-Device C1
 U 1 1 5E58F98B
 P 8950 900
 F 0 "C1" H 9068 946 50  0000 L CNN
@@ -525,7 +522,7 @@ F 3 "~" H 8950 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C2
+L KIT88-rescue:CP-Device C2
 U 1 1 5E58F9F1
 P 8950 1250
 F 0 "C2" H 9068 1296 50  0000 L CNN
@@ -549,7 +546,7 @@ Wire Wire Line
 Wire Wire Line
 	8075 750  8950 750 
 $Comp
-L Device:R RS1
+L KIT88-rescue:R-Device RS1
 U 1 1 5E596CF6
 P 9425 925
 F 0 "RS1" H 9495 971 50  0000 L CNN
@@ -560,7 +557,7 @@ F 3 "~" H 9425 925 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R RS2
+L KIT88-rescue:R-Device RS2
 U 1 1 5E596D98
 P 9425 1225
 F 0 "RS2" H 9495 1271 50  0000 L CNN
@@ -600,12 +597,12 @@ Wire Wire Line
 	9700 1400 9425 1400
 Connection ~ 9425 1400
 $Comp
-L Diode_Bridge:B125C1500G BR3
+L KIT88-rescue:B125C1500G-Diode_Bridge BR3
 U 1 1 5E5A484D
 P 8075 1850
 F 0 "BR3" V 8075 1925 50  0000 R CNN
 F 1 "~" V 8030 1509 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Vishay_GBU" H 8225 1975 50  0001 L CNN
+F 2 "Diode_THT:Diode_Bridge_Round_D9.8mm" H 8225 1975 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 1850 50  0001 C CNN
 	1    8075 1850
 	0    -1   -1   0   
@@ -613,7 +610,7 @@ $EndComp
 Wire Wire Line
 	7675 1850 7775 1850
 $Comp
-L Device:CP C4
+L KIT88-rescue:CP-Device C4
 U 1 1 5E5A6F28
 P 8950 1850
 F 0 "C4" H 9068 1896 50  0000 L CNN
@@ -636,7 +633,7 @@ Wire Wire Line
 Wire Wire Line
 	8075 2175 8075 2150
 $Comp
-L Device:R R5
+L KIT88-rescue:R-Device R5
 U 1 1 5E5AB73D
 P 9200 2175
 F 0 "R5" V 8993 2175 50  0000 C CNN
@@ -652,7 +649,7 @@ Connection ~ 8950 2175
 Text GLabel 9700 2175 2    50   Input ~ 0
 -10v
 $Comp
-L Device:R R3
+L KIT88-rescue:R-Device R3
 U 1 1 5E5B086E
 P 9425 1850
 F 0 "R3" H 9495 1896 50  0000 L CNN
@@ -677,18 +674,18 @@ Wire Wire Line
 Wire Wire Line
 	8950 1400 8950 1525
 $Comp
-L Diode_Bridge:B125C1500G BR2
+L KIT88-rescue:B125C1500G-Diode_Bridge BR2
 U 1 1 5E5B84FB
 P 8075 2625
 F 0 "BR2" V 8075 2700 50  0000 R CNN
 F 1 "~" V 8030 2284 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Round_D9.8mm" H 8225 2750 50  0001 L CNN
+F 2 "KIT:Diode_Bridge_Vishay_GBL" H 8225 2750 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 2625 50  0001 C CNN
 	1    8075 2625
 	0    -1   -1   0   
 $EndComp
 $Comp
-L Device:CP C3
+L KIT88-rescue:CP-Device C3
 U 1 1 5E5BC264
 P 8950 2625
 F 0 "C3" H 9068 2671 50  0000 L CNN
@@ -699,15 +696,11 @@ F 3 "~" H 8950 2625 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8950 2475 8950 2300
-Wire Wire Line
 	8075 2300 8075 2325
 Wire Wire Line
 	8075 2925 8075 2950
-Wire Wire Line
-	8950 2950 8950 2775
 $Comp
-L kit88:6AU6 U8
+L KIT88-rescue:6AU6-kit88 U8
 U 1 1 5E5CC41C
 P 2425 5850
 F 0 "U8" H 2150 6225 50  0000 C CNN
@@ -718,7 +711,7 @@ F 3 "http://www.r-type.org/pdfs/el34.pdf" H 2425 5850 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:R R18
+L KIT88-rescue:R-Device R18
 U 1 1 5E5CC423
 P 2425 6675
 F 0 "R18" H 2495 6721 50  0000 L CNN
@@ -735,7 +728,7 @@ Text GLabel 2425 7300 3    50   Input ~ 0
 Wire Wire Line
 	2425 7300 2425 6825
 $Comp
-L Device:R R37
+L KIT88-rescue:R-Device R37
 U 1 1 5E5CC42D
 P 2900 6300
 F 0 "R37" H 2970 6346 50  0000 L CNN
@@ -762,7 +755,7 @@ Connection ~ 2900 6000
 Wire Wire Line
 	2900 6000 2900 5900
 $Comp
-L Device:R R41
+L KIT88-rescue:R-Device R41
 U 1 1 5E5CC43D
 P 2325 5125
 F 0 "R41" H 2395 5171 50  0000 L CNN
@@ -775,7 +768,7 @@ $EndComp
 Wire Wire Line
 	2325 5275 2325 5400
 $Comp
-L Device:R R35
+L KIT88-rescue:R-Device R35
 U 1 1 5E5CC445
 P 1675 5800
 F 0 "R35" V 1468 5800 50  0000 C CNN
@@ -788,7 +781,7 @@ $EndComp
 Wire Wire Line
 	1825 5800 2125 5800
 $Comp
-L Device:CP C18
+L KIT88-rescue:CP-Device C18
 U 1 1 5E5CC44D
 P 2325 4650
 F 0 "C18" H 2443 4696 50  0000 L CNN
@@ -801,7 +794,7 @@ $EndComp
 Wire Wire Line
 	2325 4975 2325 4800
 $Comp
-L Device:R R29
+L KIT88-rescue:R-Device R29
 U 1 1 5E5CC455
 P 1375 5125
 F 0 "R29" H 1445 5171 50  0000 L CNN
@@ -818,12 +811,10 @@ Wire Wire Line
 Wire Wire Line
 	1375 4975 1375 4350
 Wire Wire Line
-	1375 4350 1650 4350
-Wire Wire Line
 	2325 4350 2325 4500
 Connection ~ 1375 5800
 $Comp
-L kit88:ECC82 U6
+L KIT88-rescue:ECC82-kit88 U6
 U 2 1 5E5CC467
 P 3825 6500
 F 0 "U6" H 4052 6546 50  0000 L CNN
@@ -834,7 +825,7 @@ F 3 "http://www.r-type.org/pdfs/ecc81.pdf" H 3825 6500 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L kit88:ECC82 U6
+L KIT88-rescue:ECC82-kit88 U6
 U 1 1 5E5CC46E
 P 3825 5325
 F 0 "U6" H 4052 5279 50  0000 L CNN
@@ -848,7 +839,7 @@ Wire Wire Line
 	3525 6500 3275 6500
 Connection ~ 2900 6500
 $Comp
-L Device:R R22
+L KIT88-rescue:R-Device R22
 U 1 1 5E5CC477
 P 4025 5925
 F 0 "R22" V 3818 5925 50  0000 C CNN
@@ -870,7 +861,7 @@ GND
 Wire Wire Line
 	4325 5925 4175 5925
 $Comp
-L Device:R R25
+L KIT88-rescue:R-Device R25
 U 1 1 5E5CC484
 P 3275 5925
 F 0 "R25" H 3345 5971 50  0000 L CNN
@@ -890,7 +881,7 @@ Wire Wire Line
 Wire Wire Line
 	3275 5325 3525 5325
 $Comp
-L Device:C C14
+L KIT88-rescue:C-Device C14
 U 1 1 5E5CC490
 P 3275 4650
 F 0 "C14" H 3100 4750 50  0000 L CNN
@@ -909,7 +900,7 @@ Wire Wire Line
 	3275 4350 2325 4350
 Connection ~ 2325 4350
 $Comp
-L Device:R R200
+L KIT88-rescue:R-Device R200
 U 1 1 5E5CC49C
 P 3825 7100
 F 0 "R200" H 3875 7125 50  0000 L CNN
@@ -926,7 +917,7 @@ Wire Wire Line
 Wire Wire Line
 	3825 6950 3825 6925
 $Comp
-L Device:R R190
+L KIT88-rescue:R-Device R190
 U 1 1 5E5CC4A6
 P 3825 4725
 F 0 "R190" H 3895 4771 50  0000 L CNN
@@ -943,7 +934,7 @@ Wire Wire Line
 Wire Wire Line
 	3825 4575 3825 4500
 $Comp
-L Device:C C16
+L KIT88-rescue:C-Device C16
 U 1 1 5E5CC4B0
 P 4325 6925
 F 0 "C16" V 4200 6925 50  0000 C CNN
@@ -954,7 +945,7 @@ F 3 "~" H 4325 6925 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L Device:C C8
+L KIT88-rescue:C-Device C8
 U 1 1 5E5CC4B7
 P 4325 4900
 F 0 "C8" V 4450 4900 50  0000 C CNN
@@ -975,7 +966,7 @@ Connection ~ 3825 4900
 Wire Wire Line
 	3825 4900 3825 4875
 $Comp
-L Device:R R26
+L KIT88-rescue:R-Device R26
 U 1 1 5E5CC4C4
 P 4725 6500
 F 0 "R26" H 4795 6546 50  0000 L CNN
@@ -988,7 +979,7 @@ $EndComp
 Text GLabel 4850 5925 2    50   Input ~ 0
 -10v
 $Comp
-L Device:R R11
+L KIT88-rescue:R-Device R11
 U 1 1 5E5CC4CC
 P 4725 5325
 F 0 "R11" H 4795 5371 50  0000 L CNN
@@ -1014,7 +1005,7 @@ Connection ~ 4725 5925
 Wire Wire Line
 	4725 5925 4725 6350
 $Comp
-L kit88:KT88 U4
+L KIT88-rescue:KT88-kit88 U4
 U 1 1 5E5CC4DB
 P 5650 6975
 F 0 "U4" H 5875 7225 50  0000 L CNN
@@ -1025,7 +1016,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 5650 6975 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:R R27
+L KIT88-rescue:R-Device R27
 U 1 1 5E5CC4E2
 P 5100 6925
 F 0 "R27" V 4893 6925 50  0000 C CNN
@@ -1041,7 +1032,7 @@ Connection ~ 4725 6925
 Wire Wire Line
 	5250 6925 5350 6925
 $Comp
-L kit88:KT88 U2
+L KIT88-rescue:KT88-kit88 U2
 U 1 1 5E5CC4EC
 P 5650 4850
 F 0 "U2" H 6025 5100 50  0000 R CNN
@@ -1052,7 +1043,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 5650 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R10
+L KIT88-rescue:R-Device R10
 U 1 1 5E5CC4FA
 P 5100 4900
 F 0 "R10" V 4893 4900 50  0000 C CNN
@@ -1078,7 +1069,7 @@ Wire Wire Line
 Text GLabel 6550 5925 0    50   Input ~ 0
 510v
 $Comp
-L Device:R R33
+L KIT88-rescue:R-Device R33
 U 1 1 5E5CC50A
 P 6225 6500
 F 0 "R33" H 6295 6546 50  0000 L CNN
@@ -1089,7 +1080,7 @@ F 3 "~" H 6225 6500 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:R R12
+L KIT88-rescue:R-Device R12
 U 1 1 5E5CC511
 P 6225 5325
 F 0 "R12" H 6295 5371 50  0000 L CNN
@@ -1117,7 +1108,7 @@ Connection ~ 6225 5925
 Wire Wire Line
 	6225 5925 6225 5475
 $Comp
-L Device:R R16
+L KIT88-rescue:R-Device R16
 U 1 1 5E5CC521
 P 5550 6400
 F 0 "R16" H 5620 6446 50  0000 L CNN
@@ -1128,7 +1119,7 @@ F 3 "~" H 5550 6400 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:R R14
+L KIT88-rescue:R-Device R14
 U 1 1 5E5CC528
 P 5550 5425
 F 0 "R14" H 5620 5471 50  0000 L CNN
@@ -1152,7 +1143,7 @@ Connection ~ 5550 5925
 Wire Wire Line
 	5550 5925 5550 5575
 $Comp
-L Device:CP C12
+L KIT88-rescue:CP-Device C12
 U 1 1 5E5CC536
 P 5350 6400
 F 0 "C12" H 5125 6450 50  0000 L CNN
@@ -1163,7 +1154,7 @@ F 3 "~" H 5350 6400 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Device:CP C10
+L KIT88-rescue:CP-Device C10
 U 1 1 5E5CC53D
 P 5350 5425
 F 0 "C10" H 5600 5475 50  0000 R CNN
@@ -1195,15 +1186,11 @@ Connection ~ 5550 5250
 Wire Wire Line
 	5550 5250 5550 5200
 Wire Wire Line
-	800  3950 800  2425
-Wire Wire Line
 	800  2425 1375 2425
-Wire Wire Line
-	800  4250 800  5800
 Text GLabel 8350 3325 0    50   Input ~ 0
 510v
 $Comp
-L Device:R R1
+L KIT88-rescue:R-Device R1
 U 1 1 5E56396C
 P 8950 3325
 F 0 "R1" V 8743 3325 50  0000 C CNN
@@ -1214,18 +1201,18 @@ F 3 "~" H 8950 3325 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R4
+L KIT88-rescue:R-Device R4
 U 1 1 5E563A61
 P 9675 3325
 F 0 "R4" V 9468 3325 50  0000 C CNN
 F 1 "8.2K 3W" V 9559 3325 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal" V 9605 3325 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P25.40mm_Horizontal" V 9605 3325 50  0001 C CNN
 F 3 "~" H 9675 3325 50  0001 C CNN
 	1    9675 3325
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP C5
+L KIT88-rescue:CP-Device C5
 U 1 1 5E563B4D
 P 9325 3625
 F 0 "C5" H 9443 3671 50  0000 L CNN
@@ -1236,7 +1223,7 @@ F 3 "~" H 9325 3625 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C6
+L KIT88-rescue:CP-Device C6
 U 1 1 5E563C1D
 P 10100 3625
 F 0 "C6" H 10218 3671 50  0000 L CNN
@@ -1280,7 +1267,7 @@ Text GLabel 9325 3200 1    50   Input ~ 0
 Wire Wire Line
 	800  5800 1375 5800
 $Comp
-L Device:R R38
+L KIT88-rescue:R-Device R38
 U 1 1 5E5FF406
 P 2000 2825
 F 0 "R38" V 1793 2825 50  0000 C CNN
@@ -1291,7 +1278,7 @@ F 3 "~" H 2000 2825 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C C19
+L KIT88-rescue:C-Device C19
 U 1 1 5E5FF526
 P 2000 3025
 F 0 "C19" V 1875 3025 50  0000 C CNN
@@ -1307,17 +1294,6 @@ Wire Wire Line
 	2150 3025 2150 2825
 Wire Wire Line
 	1850 3025 1850 2825
-$Comp
-L Connector:TestPoint TP15
-U 1 1 5E624B9C
-P 1775 2825
-F 0 "TP15" V 1878 2899 50  0000 C CNN
-F 1 "~" V 1879 2899 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1975 2825 50  0001 C CNN
-F 3 "~" H 1975 2825 50  0001 C CNN
-	1    1775 2825
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	1775 2825 1850 2825
 Connection ~ 1850 2825
@@ -1328,7 +1304,7 @@ Wire Wire Line
 Wire Wire Line
 	2325 2725 2325 2825
 $Comp
-L Device:R R39
+L KIT88-rescue:R-Device R39
 U 1 1 5E652FD1
 P 2000 5400
 F 0 "R39" V 1825 5400 50  0000 C CNN
@@ -1339,7 +1315,7 @@ F 3 "~" H 2000 5400 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L Device:C C20
+L KIT88-rescue:C-Device C20
 U 1 1 5E652FD8
 P 2000 5200
 F 0 "C20" V 1875 5200 50  0000 C CNN
@@ -1351,17 +1327,6 @@ F 3 "~" H 2000 5200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1850 5200 1850 5400
-$Comp
-L Connector:TestPoint TP19
-U 1 1 5E652FE0
-P 1775 5400
-F 0 "TP19" V 1672 5474 50  0000 C CNN
-F 1 "~" V 1879 5474 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1975 5400 50  0001 C CNN
-F 3 "~" H 1975 5400 50  0001 C CNN
-	1    1775 5400
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	1775 5400 1850 5400
 Connection ~ 1850 5400
@@ -1374,61 +1339,7 @@ Wire Wire Line
 	2150 5200 2150 5400
 Connection ~ 2150 5400
 $Comp
-L Connector:TestPoint TP16
-U 1 1 5E6A7C9F
-P 675 3950
-F 0 "TP16" V 750 4025 50  0000 C CNN
-F 1 "~" V 779 4024 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 875 3950 50  0001 C CNN
-F 3 "~" H 875 3950 50  0001 C CNN
-	1    675  3950
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:TestPoint TP18
-U 1 1 5E6A7E84
-P 675 4250
-F 0 "TP18" V 575 4325 50  0000 C CNN
-F 1 "~" V 779 4324 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 875 4250 50  0001 C CNN
-F 3 "~" H 875 4250 50  0001 C CNN
-	1    675  4250
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	675  4250 800  4250
-Wire Wire Line
-	675  3950 800  3950
-$Comp
-L Connector:TestPoint TP14
-U 1 1 5E6D164E
-P 1650 3875
-F 0 "TP14" H 1708 3949 50  0000 L CNN
-F 1 "~" H 1708 3904 50  0000 L CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1850 3875 50  0001 C CNN
-F 3 "~" H 1850 3875 50  0001 C CNN
-	1    1650 3875
-	1    0    0    -1  
-$EndComp
-Connection ~ 1650 3875
-Wire Wire Line
-	1650 3875 2325 3875
-$Comp
-L Connector:TestPoint TP20
-U 1 1 5E6D19A7
-P 1650 4350
-F 0 "TP20" H 1592 4423 50  0000 R CNN
-F 1 "~" H 1592 4468 50  0000 R CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1850 4350 50  0001 C CNN
-F 3 "~" H 1850 4350 50  0001 C CNN
-	1    1650 4350
-	-1   0    0    1   
-$EndComp
-Connection ~ 1650 4350
-Wire Wire Line
-	1650 4350 2325 4350
-$Comp
-L Mechanical:MountingHole MH3
+L KIT88-rescue:MountingHole-Mechanical MH3
 U 1 1 5E573A80
 P 10350 4425
 F 0 "MH3" H 10450 4425 50  0000 L CNN
@@ -1439,7 +1350,7 @@ F 3 "~" H 10350 4425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH2
+L KIT88-rescue:MountingHole-Mechanical MH2
 U 1 1 5E573BA0
 P 10000 4425
 F 0 "MH2" H 10100 4425 50  0000 L CNN
@@ -1450,7 +1361,7 @@ F 3 "~" H 10000 4425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH1
+L KIT88-rescue:MountingHole-Mechanical MH1
 U 1 1 5E573C76
 P 9650 4425
 F 0 "MH1" H 9750 4425 50  0000 L CNN
@@ -1461,7 +1372,7 @@ F 3 "~" H 9650 4425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH6
+L KIT88-rescue:MountingHole-Mechanical MH6
 U 1 1 5E573D72
 P 10350 4600
 F 0 "MH6" H 10450 4600 50  0000 L CNN
@@ -1472,7 +1383,7 @@ F 3 "~" H 10350 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH5
+L KIT88-rescue:MountingHole-Mechanical MH5
 U 1 1 5E573E76
 P 10000 4600
 F 0 "MH5" H 10100 4600 50  0000 L CNN
@@ -1483,7 +1394,7 @@ F 3 "~" H 10000 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH4
+L KIT88-rescue:MountingHole-Mechanical MH4
 U 1 1 5E573F52
 P 9650 4600
 F 0 "MH4" H 9750 4600 50  0000 L CNN
@@ -1503,7 +1414,7 @@ Connection ~ 2325 4100
 Wire Wire Line
 	2325 4100 2325 4350
 $Comp
-L kit88:6AU6 U8
+L KIT88-rescue:6AU6-kit88 U8
 U 2 1 5E5F32BB
 P 11600 2000
 F 0 "U8" H 11525 2150 50  0000 L CNN
@@ -1514,7 +1425,7 @@ F 3 "http://www.r-type.org/pdfs/el34.pdf" H 11600 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:6AU6 U7
+L KIT88-rescue:6AU6-kit88 U7
 U 2 1 5E5F36A3
 P 12325 2000
 F 0 "U7" H 12250 2150 50  0000 L CNN
@@ -1525,7 +1436,7 @@ F 3 "http://www.r-type.org/pdfs/el34.pdf" H 12325 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:ECC82 U6
+L KIT88-rescue:ECC82-kit88 U6
 U 3 1 5E60B631
 P 13075 1950
 F 0 "U6" H 13000 2100 50  0000 L CNN
@@ -1536,7 +1447,7 @@ F 3 "http://www.r-type.org/pdfs/ecc81.pdf" H 13075 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:ECC82 U5
+L KIT88-rescue:ECC82-kit88 U5
 U 3 1 5E60B71F
 P 13800 1950
 F 0 "U5" H 13725 2100 50  0000 L CNN
@@ -1547,7 +1458,7 @@ F 3 "http://www.r-type.org/pdfs/ecc81.pdf" H 13800 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT88 U4
+L KIT88-rescue:KT88-kit88 U4
 U 2 1 5E6103C1
 P 11600 3175
 F 0 "U4" H 11525 3350 50  0000 L CNN
@@ -1558,7 +1469,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 11600 3175 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT88 U3
+L KIT88-rescue:KT88-kit88 U3
 U 2 1 5E6104A7
 P 12325 3175
 F 0 "U3" H 12250 3350 50  0000 L CNN
@@ -1569,7 +1480,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 12325 3175 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT88 U2
+L KIT88-rescue:KT88-kit88 U2
 U 2 1 5E610591
 P 13075 3175
 F 0 "U2" H 13000 3350 50  0000 L CNN
@@ -1580,7 +1491,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 13075 3175 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT88 U1
+L KIT88-rescue:KT88-kit88 U1
 U 2 1 5E61067B
 P 13800 3175
 F 0 "U1" H 13725 3350 50  0000 L CNN
@@ -1719,7 +1630,7 @@ Wire Wire Line
 Wire Wire Line
 	6750 2400 6925 2400
 $Comp
-L Device:R R71
+L KIT88-rescue:R-Device R71
 U 1 1 5E6BB3F8
 P 3700 1125
 F 0 "R71" H 3475 1175 50  0000 L CNN
@@ -1737,7 +1648,7 @@ Wire Wire Line
 Wire Wire Line
 	3700 1300 3825 1300
 $Comp
-L Device:R R191
+L KIT88-rescue:R-Device R191
 U 1 1 5E6E893F
 P 3700 4725
 F 0 "R191" H 3450 4775 50  0000 L CNN
@@ -1755,7 +1666,7 @@ Wire Wire Line
 Wire Wire Line
 	3700 4900 3825 4900
 $Comp
-L Device:R R241
+L KIT88-rescue:R-Device R241
 U 1 1 5E6D7D7C
 P 3700 3500
 F 0 "R241" H 3450 3575 50  0000 L CNN
@@ -1773,7 +1684,7 @@ Wire Wire Line
 Wire Wire Line
 	3700 3325 3825 3325
 $Comp
-L Device:R R201
+L KIT88-rescue:R-Device R201
 U 1 1 5E7229B0
 P 3700 7100
 F 0 "R201" H 3450 7125 50  0000 L CNN
@@ -1817,16 +1728,16 @@ F 3 "~" H 8675 1075 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7675 2625 7775 2625
+	7675 2625 7750 2625
 Wire Wire Line
-	8375 2625 8475 2625
+	8375 2625 8400 2625
 $Comp
 L Connector:TestPoint TP4
 U 1 1 5E7BEB13
 P 7675 2625
 F 0 "TP4" H 7733 2745 50  0000 L CNN
 F 1 "~" H 7733 2654 50  0000 L CNN
-F 2 "KIT:2HolePad" H 7875 2625 50  0001 C CNN
+F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 7875 2625 50  0001 C CNN
 F 3 "~" H 7875 2625 50  0001 C CNN
 	1    7675 2625
 	0    -1   -1   0   
@@ -1837,7 +1748,7 @@ U 1 1 5E7BEC2D
 P 8475 2625
 F 0 "TP5" H 8250 2750 50  0000 L CNN
 F 1 "~" H 8533 2654 50  0000 L CNN
-F 2 "KIT:2HolePad" H 8675 2625 50  0001 C CNN
+F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 8675 2625 50  0001 C CNN
 F 3 "~" H 8675 2625 50  0001 C CNN
 	1    8475 2625
 	0    1    1    0   
@@ -1865,18 +1776,7 @@ F 3 "~" H 8675 1850 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:TestPoint TP21
-U 1 1 5E8022B5
-P 2325 4100
-F 0 "TP21" V 2325 4425 50  0000 C CNN
-F 1 "~" V 2429 4174 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 2525 4100 50  0001 C CNN
-F 3 "~" H 2525 4100 50  0001 C CNN
-	1    2325 4100
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:PWR_FLAG #FLG0101
+L KIT88-rescue:PWR_FLAG-power #FLG0101
 U 1 1 5E8404DE
 P 11500 2600
 F 0 "#FLG0101" H 11500 2675 50  0001 C CNN
@@ -1887,7 +1787,7 @@ F 3 "~" H 11500 2600 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG0102
+L KIT88-rescue:PWR_FLAG-power #FLG0102
 U 1 1 5E86E6D0
 P 12225 2600
 F 0 "#FLG0102" H 12225 2675 50  0001 C CNN
@@ -1898,7 +1798,7 @@ F 3 "~" H 12225 2600 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG0103
+L KIT88-rescue:PWR_FLAG-power #FLG0103
 U 1 1 5E8714D1
 P 11700 2600
 F 0 "#FLG0103" H 11700 2675 50  0001 C CNN
@@ -1909,7 +1809,7 @@ F 3 "~" H 11700 2600 50  0001 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG0104
+L KIT88-rescue:PWR_FLAG-power #FLG0104
 U 1 1 5E87329B
 P 12425 2600
 F 0 "#FLG0104" H 12425 2675 50  0001 C CNN
@@ -2057,7 +1957,7 @@ Wire Wire Line
 Wire Wire Line
 	13900 3575 13900 3600
 $Comp
-L power:PWR_FLAG #FLG0105
+L KIT88-rescue:PWR_FLAG-power #FLG0105
 U 1 1 5E91AF3E
 P 11500 3600
 F 0 "#FLG0105" H 11500 3675 50  0001 C CNN
@@ -2069,7 +1969,7 @@ F 3 "~" H 11500 3600 50  0001 C CNN
 $EndComp
 Connection ~ 11500 3600
 $Comp
-L power:PWR_FLAG #FLG0106
+L KIT88-rescue:PWR_FLAG-power #FLG0106
 U 1 1 5E91B049
 P 12225 3600
 F 0 "#FLG0106" H 12225 3675 50  0001 C CNN
@@ -2081,7 +1981,7 @@ F 3 "~" H 12225 3600 50  0001 C CNN
 $EndComp
 Connection ~ 12225 3600
 $Comp
-L power:PWR_FLAG #FLG0107
+L KIT88-rescue:PWR_FLAG-power #FLG0107
 U 1 1 5E91B154
 P 12975 3600
 F 0 "#FLG0107" H 12975 3675 50  0001 C CNN
@@ -2093,7 +1993,7 @@ F 3 "~" H 12975 3600 50  0001 C CNN
 $EndComp
 Connection ~ 12975 3600
 $Comp
-L power:PWR_FLAG #FLG0108
+L KIT88-rescue:PWR_FLAG-power #FLG0108
 U 1 1 5E91B25F
 P 13700 3600
 F 0 "#FLG0108" H 13700 3675 50  0001 C CNN
@@ -2105,7 +2005,7 @@ F 3 "~" H 13700 3600 50  0001 C CNN
 $EndComp
 Connection ~ 13700 3600
 $Comp
-L power:PWR_FLAG #FLG0109
+L KIT88-rescue:PWR_FLAG-power #FLG0109
 U 1 1 5E91B3F3
 P 11700 3600
 F 0 "#FLG0109" H 11700 3675 50  0001 C CNN
@@ -2117,7 +2017,7 @@ F 3 "~" H 11700 3600 50  0001 C CNN
 $EndComp
 Connection ~ 11700 3600
 $Comp
-L power:PWR_FLAG #FLG0110
+L KIT88-rescue:PWR_FLAG-power #FLG0110
 U 1 1 5E91B4FE
 P 12425 3600
 F 0 "#FLG0110" H 12425 3675 50  0001 C CNN
@@ -2129,7 +2029,7 @@ F 3 "~" H 12425 3600 50  0001 C CNN
 $EndComp
 Connection ~ 12425 3600
 $Comp
-L power:PWR_FLAG #FLG0111
+L KIT88-rescue:PWR_FLAG-power #FLG0111
 U 1 1 5E91B609
 P 13175 3600
 F 0 "#FLG0111" H 13175 3675 50  0001 C CNN
@@ -2141,7 +2041,7 @@ F 3 "~" H 13175 3600 50  0001 C CNN
 $EndComp
 Connection ~ 13175 3600
 $Comp
-L power:PWR_FLAG #FLG0112
+L KIT88-rescue:PWR_FLAG-power #FLG0112
 U 1 1 5E91B89B
 P 13900 3600
 F 0 "#FLG0112" H 13900 3675 50  0001 C CNN
@@ -2179,7 +2079,7 @@ Wire Wire Line
 Wire Wire Line
 	13700 2400 13700 2425
 $Comp
-L power:PWR_FLAG #FLG0113
+L KIT88-rescue:PWR_FLAG-power #FLG0113
 U 1 1 5E9526B0
 P 12975 2425
 F 0 "#FLG0113" H 12975 2500 50  0001 C CNN
@@ -2191,7 +2091,7 @@ F 3 "~" H 12975 2425 50  0001 C CNN
 $EndComp
 Connection ~ 12975 2425
 $Comp
-L power:PWR_FLAG #FLG0114
+L KIT88-rescue:PWR_FLAG-power #FLG0114
 U 1 1 5E9527BD
 P 13700 2425
 F 0 "#FLG0114" H 13700 2500 50  0001 C CNN
@@ -2233,7 +2133,7 @@ F 3 "~" H 14300 1900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG0115
+L KIT88-rescue:PWR_FLAG-power #FLG0115
 U 1 1 5E976E95
 P 13375 2100
 F 0 "#FLG0115" H 13375 2175 50  0001 C CNN
@@ -2244,7 +2144,7 @@ F 3 "~" H 13375 2100 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG0116
+L KIT88-rescue:PWR_FLAG-power #FLG0116
 U 1 1 5E976FA6
 P 14100 2100
 F 0 "#FLG0116" H 14100 2175 50  0001 C CNN
@@ -2262,9 +2162,9 @@ Connection ~ 12425 2600
 Connection ~ 12225 2600
 Wire Wire Line
 	9325 3200 9325 3325
-Text Label 8475 2300 0    40   ~ 0
+Text Label 8475 2275 0    40   ~ 0
 Stage1Heater+
-Text Label 8475 2950 0    40   ~ 0
+Text Label 8475 3025 0    40   ~ 0
 Stage1Heater-
 Text Label 11500 2475 0    30   ~ 0
 V8H+
@@ -2429,7 +2329,7 @@ U8Grid
 Text Label 2875 2325 2    30   ~ 0
 U7Grid
 $Comp
-L Mechanical:MountingHole MH10
+L KIT88-rescue:MountingHole-Mechanical MH10
 U 1 1 5EC381A4
 P 9675 5250
 F 0 "MH10" H 9775 5250 50  0000 L CNN
@@ -2440,7 +2340,7 @@ F 3 "~" H 9675 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH11
+L KIT88-rescue:MountingHole-Mechanical MH11
 U 1 1 5EC38E30
 P 9675 5425
 F 0 "MH11" H 9775 5425 50  0000 L CNN
@@ -2451,7 +2351,7 @@ F 3 "~" H 9675 5425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH12
+L KIT88-rescue:MountingHole-Mechanical MH12
 U 1 1 5EC38F52
 P 9675 5600
 F 0 "MH12" H 9775 5600 50  0000 L CNN
@@ -2462,7 +2362,7 @@ F 3 "~" H 9675 5600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH13
+L KIT88-rescue:MountingHole-Mechanical MH13
 U 1 1 5EC39080
 P 9675 5800
 F 0 "MH13" H 9775 5800 50  0000 L CNN
@@ -2473,7 +2373,7 @@ F 3 "~" H 9675 5800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH14
+L KIT88-rescue:MountingHole-Mechanical MH14
 U 1 1 5EC391AA
 P 9675 5975
 F 0 "MH14" H 9775 5975 50  0000 L CNN
@@ -2484,7 +2384,7 @@ F 3 "~" H 9675 5975 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH20
+L KIT88-rescue:MountingHole-Mechanical MH20
 U 1 1 5EC393C9
 P 10550 5250
 F 0 "MH20" H 10650 5250 50  0000 L CNN
@@ -2495,7 +2395,7 @@ F 3 "~" H 10550 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH21
+L KIT88-rescue:MountingHole-Mechanical MH21
 U 1 1 5EC393D0
 P 10550 5425
 F 0 "MH21" H 10650 5425 50  0000 L CNN
@@ -2506,7 +2406,7 @@ F 3 "~" H 10550 5425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH22
+L KIT88-rescue:MountingHole-Mechanical MH22
 U 1 1 5EC393D7
 P 10550 5600
 F 0 "MH22" H 10650 5600 50  0000 L CNN
@@ -2517,7 +2417,7 @@ F 3 "~" H 10550 5600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH23
+L KIT88-rescue:MountingHole-Mechanical MH23
 U 1 1 5EC393DE
 P 10550 5800
 F 0 "MH23" H 10650 5800 50  0000 L CNN
@@ -2528,7 +2428,7 @@ F 3 "~" H 10550 5800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH24
+L KIT88-rescue:MountingHole-Mechanical MH24
 U 1 1 5EC393E5
 P 10550 5975
 F 0 "MH24" H 10650 5975 50  0000 L CNN
@@ -2539,7 +2439,7 @@ F 3 "~" H 10550 5975 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH30
+L KIT88-rescue:MountingHole-Mechanical MH30
 U 1 1 5EC4D896
 P 9675 6250
 F 0 "MH30" H 9775 6250 50  0000 L CNN
@@ -2550,7 +2450,7 @@ F 3 "~" H 9675 6250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH31
+L KIT88-rescue:MountingHole-Mechanical MH31
 U 1 1 5EC4D89D
 P 9675 6425
 F 0 "MH31" H 9775 6425 50  0000 L CNN
@@ -2561,7 +2461,7 @@ F 3 "~" H 9675 6425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH32
+L KIT88-rescue:MountingHole-Mechanical MH32
 U 1 1 5EC4D8A4
 P 9675 6600
 F 0 "MH32" H 9775 6600 50  0000 L CNN
@@ -2572,7 +2472,7 @@ F 3 "~" H 9675 6600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH33
+L KIT88-rescue:MountingHole-Mechanical MH33
 U 1 1 5EC4D8AB
 P 9675 6800
 F 0 "MH33" H 9775 6800 50  0000 L CNN
@@ -2583,7 +2483,7 @@ F 3 "~" H 9675 6800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH34
+L KIT88-rescue:MountingHole-Mechanical MH34
 U 1 1 5EC4D8B2
 P 9675 6975
 F 0 "MH34" H 9775 6975 50  0000 L CNN
@@ -2594,7 +2494,7 @@ F 3 "~" H 9675 6975 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH40
+L KIT88-rescue:MountingHole-Mechanical MH40
 U 1 1 5EC4D8B9
 P 10550 6250
 F 0 "MH40" H 10650 6250 50  0000 L CNN
@@ -2605,7 +2505,7 @@ F 3 "~" H 10550 6250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH41
+L KIT88-rescue:MountingHole-Mechanical MH41
 U 1 1 5EC4D8C0
 P 10550 6425
 F 0 "MH41" H 10650 6425 50  0000 L CNN
@@ -2616,7 +2516,7 @@ F 3 "~" H 10550 6425 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH42
+L KIT88-rescue:MountingHole-Mechanical MH42
 U 1 1 5EC4D8C7
 P 10550 6600
 F 0 "MH42" H 10650 6600 50  0000 L CNN
@@ -2627,7 +2527,7 @@ F 3 "~" H 10550 6600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH43
+L KIT88-rescue:MountingHole-Mechanical MH43
 U 1 1 5EC4D8CE
 P 10550 6800
 F 0 "MH43" H 10650 6800 50  0000 L CNN
@@ -2638,7 +2538,7 @@ F 3 "~" H 10550 6800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole MH44
+L KIT88-rescue:MountingHole-Mechanical MH44
 U 1 1 5EC4D8D5
 P 10550 6975
 F 0 "MH44" H 10650 6975 50  0000 L CNN
@@ -2662,4 +2562,93 @@ $EndComp
 Connection ~ 8625 3975
 Wire Wire Line
 	8625 3975 9325 3975
+$Comp
+L Connector:TestPoint TP92
+U 1 1 5F57E3D5
+P 7750 2550
+F 0 "TP92" H 7825 2750 50  0000 R CNN
+F 1 "~" H 7692 2668 50  0000 R CNN
+F 2 "KIT:2HolePad" H 7950 2550 50  0001 C CNN
+F 3 "~" H 7950 2550 50  0001 C CNN
+	1    7750 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP93
+U 1 1 5F580BCE
+P 8400 2550
+F 0 "TP93" H 8475 2750 50  0000 R CNN
+F 1 "~" H 8342 2668 50  0000 R CNN
+F 2 "KIT:2HolePad" H 8600 2550 50  0001 C CNN
+F 3 "~" H 8600 2550 50  0001 C CNN
+	1    8400 2550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5F6E3680
+P 1575 2925
+F 0 "J1" H 1493 2692 50  0000 C CNN
+F 1 "~" H 1655 2826 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" H 1575 2925 50  0001 C CNN
+F 3 "~" H 1575 2925 50  0001 C CNN
+	1    1575 2925
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1375 3875 1775 3875
+Wire Wire Line
+	1775 2925 1775 3875
+Connection ~ 1775 3875
+Wire Wire Line
+	1775 3875 2325 3875
+Wire Wire Line
+	1375 4350 1775 4350
+$Comp
+L Connector_Generic:Conn_01x02 J2
+U 1 1 5F6F9205
+P 1575 5300
+F 0 "J2" H 1493 5425 50  0000 C CNN
+F 1 "~" H 1655 5201 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" H 1575 5300 50  0001 C CNN
+F 3 "~" H 1575 5300 50  0001 C CNN
+	1    1575 5300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1775 5300 1775 4350
+Connection ~ 1775 4350
+Wire Wire Line
+	1775 4350 2325 4350
+$Comp
+L Connector_Generic:Conn_01x03 J3
+U 1 1 5F715FE1
+P 600 4100
+F 0 "J3" H 518 3867 50  0000 C CNN
+F 1 "~" H 518 3866 50  0000 C CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0003_1x03_P3.96mm_Vertical" H 600 4100 50  0001 C CNN
+F 3 "~" H 600 4100 50  0001 C CNN
+	1    600  4100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	800  4200 800  5800
+Wire Wire Line
+	800  4100 2325 4100
+Wire Wire Line
+	800  4000 800  2425
+Wire Wire Line
+	8950 2300 8950 2475
+Wire Wire Line
+	7750 2550 7750 2625
+Wire Wire Line
+	8950 2775 8950 2950
+Connection ~ 7750 2625
+Wire Wire Line
+	7750 2625 7775 2625
+Wire Wire Line
+	8400 2550 8400 2625
+Connection ~ 8400 2625
+Wire Wire Line
+	8400 2625 8475 2625
 $EndSCHEMATC

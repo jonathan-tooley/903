@@ -1,4 +1,4 @@
-(module TestPoint_Plated_Hole_D2.0mm (layer F.Cu) (tedit 5EC5BB72)
+(module TestPoint_Plated_Hole_D2.0mm (layer F.Cu) (tedit 5F52A129)
   (descr "Plated Hole as test Point, diameter 2.0mm")
   (tags "test point plated hole")
   (attr virtual)
@@ -14,4 +14,5 @@
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (pad 1 thru_hole circle (at 0 0) (size 3 3) (drill 2) (layers *.Cu *.Mask))
+  (pad 1 thru_hole circle (at 0 5) (size 3 3) (drill 2) (layers *.Cu *.Mask))
 )

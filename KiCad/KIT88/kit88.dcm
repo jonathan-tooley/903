@@ -12,10 +12,30 @@ K triode valve
 F http://www.r-type.org/pdfs/ecc81.pdf
 $ENDCMP
 #
+$CMP GZ32
+D triple diode triode
+K diode triode valve
+F https://frank.pocnet.net/sheets/082/e/EABC80.pdf
+$ENDCMP
+#
+$CMP KT66
+D pentode, 12W
+K pentode valve
+F http://www.r-type.org/pdfs/el84.pdf
+$ENDCMP
+#
 $CMP KT88
 D pentode, 12W
 K pentode valve
 F http://www.r-type.org/pdfs/el84.pdf
+$ENDCMP
+#
+$CMP QuadOPT
+F http://www.breve.pl/pdf/ANG/TEZ_ang.pdf
+$ENDCMP
+#
+$CMP QuadPwrTrf
+F http://www.breve.pl/pdf/ANG/TEZ_ang.pdf
 $ENDCMP
 #
 #End Doc Library

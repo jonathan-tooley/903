@@ -11,12 +11,12 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1211)
+    (start_pass_no 2055)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 3.2)
+      (against_preferred_direction_trace_costs 3.1)
     )
     (layer_rule B.Cu
       (active on)
@@ -104,7 +104,7 @@
     /TR4 /TR3 /TR5 /BiasV /TR2 /V1Cathode /V2Cathode /V3Cathode
     /V4Cathode /U7Cathode2 /U8Cathode2 /U7Cathode /U8Cathode /V1Grid /V2Grid /U5Cathode
     /U6Cathode /V3Grid /V4Grid /U7Grid /U8Grid /V3Anode /V1Anode /V2Anode
-    /V4Anode
+    /V4Anode "Net-(BR2-Pad1)" "Net-(BR2-Pad3)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -136,8 +136,7 @@
     )
   )
   (class Heater
-    /Stage1Heater+ "/Stage1Heater-" "/V5H-" /V5H+ "/V6H-" /V6H+ "/V7H-" /V7H+
-    "/V8H-" /V8H+
+    "/V5H-" /V5H+ "/V6H-" /V6H+ "/V7H-" /V7H+ "/V8H-" /V8H+
     (clearance_class Heater)
     (via_rule Heater)
     (rule

@@ -1,9 +1,9 @@
-(pcb "C:\Users\v-jtool\OneDrive\Repos\903\KiCad\KIT88\KIT88.dsn"
+(pcb C:\Users\JonathanAlvesTooley\Repos\903\KiCad\KIT88\KIT88.dsn
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
     (host_cad "KiCad's Pcbnew")
-    (host_version "(5.0.0)")
+    (host_version "(5.1.6)-1")
   )
   (resolution um 10)
   (unit um)
@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  336550 -241300  12700 -241300  12700 -95250  336550 -95250
-            336550 -241300)
+      (path pcb 0  330200 -241300  19050 -241300  19050 -95250  330200 -95250
+            330200 -241300)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,17 +33,20 @@
     )
   )
   (placement
+    (component Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P20.32mm_Horizontal
+      (place R4 184506 -144958 front 180 (PN "8.2K 3W"))
+    )
     (component KIT:TestPoint_Plated_Hole_D2.0mm
-      (place TP1 19050 -119380 front 0 (PN ~))
-      (place TP2 56921.4 -101600 front 0 (PN ~))
-      (place TP6 19050 -130810 front 0 (PN ~))
-      (place TP7 19050 -142240 front 0 (PN ~))
-      (place TP8 330200 -142240 front 0 (PN ~))
-      (place TP9 254000 -101600 front 0 (PN ~))
-      (place TP10 287020 -101600 front 0 (PN ~))
-      (place TP11 279400 -101600 front 0 (PN ~))
-      (place TP12 330200 -130810 front 0 (PN ~))
-      (place TP13 330200 -119380 front 0 (PN ~))
+      (place TP10 257810 -101600 front 0 (PN ~))
+      (place TP13 308610 -101600 front 0 (PN ~))
+      (place TP1 40640 -101600 front 0 (PN ~))
+      (place TP2 77470 -101600 front 0 (PN ~))
+      (place TP6 34290 -101600 front 0 (PN ~))
+      (place TP7 96520 -101600 front 0 (PN ~))
+      (place TP8 300990 -101600 front 0 (PN ~))
+      (place TP9 245110 -101600 front 0 (PN ~))
+      (place TP11 251460 -101600 front 0 (PN ~))
+      (place TP12 293370 -101600 front 0 (PN ~))
       (place TP14 155410 -235344 front 0 (PN ~))
       (place TP15 109360 -233680 front 0 (PN ~))
       (place TP16 148298 -235344 front 0 (PN ~))
@@ -51,15 +54,15 @@
       (place TP19 264287 -233680 front 0 (PN ~))
       (place TP20 257823 -233680 front 0 (PN ~))
       (place TP21 102959 -233832 front 0 (PN ~))
-      (place TP3 67056 -101600 front 0 (PN ~))
+      (place TP3 83820 -101600 front 0 (PN ~))
     )
     (component KIT:2HolePad
-      (place TP100 91262.2 -106464 front 270 (PN ~))
-      (place TP101 96050.1 -108496 front 90 (PN ~))
+      (place TP100 86360 -110998 front 270 (PN ~))
+      (place TP101 91440 -113030 front 90 (PN ~))
       (place TP200 220180 -107124 front 270 (PN ~))
       (place TP201 224968 -109182 front 90 (PN ~))
-      (place TP300 19545.3 -174066 front 270 (PN ~))
-      (place TP301 25311.1 -176124 front 90 (PN ~))
+      (place TP300 83820 -174066 front 270 (PN ~))
+      (place TP301 78740 -176124 front 90 (PN ~))
       (place TP400 283274 -207759 front 270 (PN ~))
       (place TP401 279082 -209791 front 90 (PN ~))
       (place TP50 114960 -202400 front 36 (PN ~))
@@ -72,8 +75,8 @@
       (place TP91 40894 -125730 front 0 (PN ~))
       (place TP70 168846 -220167 front 0 (PN ~))
       (place TP71 168846 -215900 front 0 (PN ~))
-      (place TP5 41960.8 -101410 front 0 (PN ~))
-      (place TP4 34531.3 -101511 front 0 (PN ~))
+      (place TP5 30988 -114300 front 0 (PN ~))
+      (place TP4 30988 -118110 front 0 (PN ~))
     )
     (component KIT:Valve_Mini_P
       (place U7 155575 -219075 back 292 (PN 6AU6))
@@ -138,7 +141,7 @@
       (place BR1 270815 -118059 front 0 (PN ~))
     )
     (component Diode_THT:Diode_Bridge_Vishay_GBU
-      (place BR3 72212.2 -109576 front 180 (PN ~))
+      (place BR3 71120 -113030 front 180 (PN ~))
     )
     (component Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn
       (place C1 156210 -119380 front 270 (PN "470u 350v"))
@@ -147,11 +150,11 @@
       (place C2 193040 -119380 front 270 (PN "470u 350v"))
     )
     (component Capacitor_THT:CP_Radial_D17.0mm_P7.50mm
-      (place C3 72212.2 -121818 front 0 (PN "4700u 16v"))
+      (place C3 71120 -124460 front 0 (PN "4700u 16v"))
       (place C17 115913 -219342 front 90 (PN "4700u 10v"))
     )
     (component Capacitor_THT:CP_Radial_D10.0mm_P7.50mm
-      (place C4 64744.6 -121844 front 180 (PN 100u))
+      (place C4 63500 -128270 front 180 (PN 100u))
     )
     (component Capacitor_THT:CP_Radial_D25.0mm_P10.00mm_SnapIn
       (place C5 153035 -165062 front 90 (PN "100u 450v"))
@@ -189,10 +192,10 @@
       (place C20 224511 -236309 front 0 (PN "3.9n 160v"))
     )
     (component Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P30.48mm
-      (place R1 104127 -100216 front 0 (PN "5.6K 6W"))
+      (place R1 104127 -101600 front 0 (PN "5.6K 6W"))
     )
     (component Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P15.24mm_Horizontal
-      (place R3 72720.2 -133401 front 180 (PN 13K))
+      (place R3 68580 -137160 front 180 (PN 13K))
       (place R9 101549 -167068 front 90 (PN 330K))
       (place R10 242519 -153949 front 270 (PN 1K))
       (place R11 246253 -169202 front 90 (PN 330K))
@@ -204,20 +207,8 @@
       (place R38 98183.7 -228194 front 180 (PN 330R))
       (place R41 222987 -229578 front 180 (PN 6.8R))
     )
-    (component Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal
-      (place R4 184506 -144958 front 180 (PN "8.2K 3W"))
-      (place R6 126556 -144843 front 270 (PN "100R 1W"))
-      (place R33 330581 -171755 front 90 (PN "100R 1W"))
-      (place R70 136817 -144831 front 270 (PN 75K))
-      (place R190 261493 -173444 front 270 (PN 100K))
-      (place R191 256438 -173444 front 270 (PN 91K))
-      (place R200 271590 -193764 front 90 (PN 75K))
-      (place R201 266535 -193764 front 90 (PN 68K))
-      (place R240 160718 -178473 front 0 (PN 100K))
-      (place RS1 146228 -101905 front 0 (PN "220K 2W"))
-    )
     (component Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P15.24mm_Horizontal::1
-      (place R5 57467.5 -137109 front 0 (PN "36K 1W"))
+      (place R5 53340 -140970 front 0 (PN "36K 1W"))
       (place R8 105283 -151841 front 270 (PN 1K))
       (place R25 204737 -185014 front 270 (PN 1M))
       (place R26 259461 -200114 front 0 (PN 330K))
@@ -229,6 +220,17 @@
       (place R39 229298 -229591 front 0 (PN 330R))
       (place R40 136233 -228105 front 180 (PN 6.8R))
     )
+    (component Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal
+      (place R6 126556 -144843 front 270 (PN "100R 1W"))
+      (place R33 325120 -142240 front 180 (PN "100R 1W"))
+      (place R70 136817 -144831 front 270 (PN 75K))
+      (place R190 261493 -173444 front 270 (PN 100K))
+      (place R191 256438 -173444 front 270 (PN 91K))
+      (place R200 271590 -193764 front 90 (PN 75K))
+      (place R201 266535 -193764 front 90 (PN 68K))
+      (place R240 160718 -178473 front 0 (PN 100K))
+      (place RS1 146228 -101600 front 0 (PN "220K 2W"))
+    )
     (component Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal::1
       (place R12 273596 -137401 front 0 (PN "100R 1W"))
       (place R17 146685 -177508 front 180 (PN "39K 3W"))
@@ -238,27 +240,54 @@
       (place R32 80479.9 -215544 front 180 (PN "100R 1W"))
       (place R71 131585 -144831 front 270 (PN 68K))
       (place R241 160718 -183528 front 0 (PN 91K))
-      (place RS2 182804 -101905 front 0 (PN "220K 2W"))
+      (place RS2 182804 -101600 front 0 (PN "220K 2W"))
     )
     (component KIT:StarGround
-      (place TP0 174625 -163170 front 90 (PN ~))
+      (place TP0 174295 -161176 front 90 (PN ~))
+    )
+    (component KIT:TestPoint_Plated_Hole_D2.0mm::1
+      (place TP92 53340 -101680 front 0 (PN ~))
+    )
+    (component KIT:TestPoint_Plated_Hole_D2.0mm::2
+      (place TP93 46990 -101680 front 0 (PN ~))
     )
   )
   (library
+    (image Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P20.32mm_Horizontal
+      (outline (path signal 100  2410 2500  2410 -2500))
+      (outline (path signal 100  2410 -2500  17910 -2500))
+      (outline (path signal 100  17910 -2500  17910 2500))
+      (outline (path signal 100  17910 2500  2410 2500))
+      (outline (path signal 100  0 0  2410 0))
+      (outline (path signal 100  20320 0  17910 0))
+      (outline (path signal 120  2290 2620  2290 -2620))
+      (outline (path signal 120  2290 -2620  18030 -2620))
+      (outline (path signal 120  18030 -2620  18030 2620))
+      (outline (path signal 120  18030 2620  2290 2620))
+      (outline (path signal 120  1440 0  2290 0))
+      (outline (path signal 120  18880 0  18030 0))
+      (outline (path signal 50  -1450 2750  -1450 -2750))
+      (outline (path signal 50  -1450 -2750  21770 -2750))
+      (outline (path signal 50  21770 -2750  21770 2750))
+      (outline (path signal 50  21770 2750  -1450 2750))
+      (pin Oval[A]Pad_2400x2400_um 2 20320 0)
+      (pin Round[A]Pad_2400_um 1 0 0)
+    )
     (image KIT:TestPoint_Plated_Hole_D2.0mm
-      (outline (path signal 50  1800 0  1720.03 -530.559  1487.23 -1013.98  1122.28 -1407.3
-            657.614 -1675.57  134.514 -1794.97  -400.538 -1754.87  -900 -1558.85
-            -1319.49 -1224.31  -1621.74 -780.991  -1779.89 -268.276  -1779.89 268.276
-            -1621.74 780.991  -1319.49 1224.31  -900 1558.85  -400.538 1754.87
-            134.514 1794.97  657.614 1675.57  1122.28 1407.3  1487.23 1013.98
-            1720.03 530.559  1800 0))
       (outline (path signal 120  1700 0  1616.8 -525.329  1375.33 -999.235  999.235 -1375.33
             525.329 -1616.8  0 -1700  -525.329 -1616.8  -999.235 -1375.33
             -1375.33 -999.235  -1616.8 -525.329  -1700 0  -1616.8 525.329
             -1375.33 999.235  -999.235 1375.33  -525.329 1616.8  0 1700
             525.329 1616.8  999.235 1375.33  1375.33 999.235  1616.8 525.329
             1700 0))
-      (pin Round[A]Pad_3000_um 1 0 0)
+      (outline (path signal 50  1800 0  1720.03 -530.559  1487.23 -1013.98  1122.28 -1407.3
+            657.614 -1675.57  134.514 -1794.97  -400.538 -1754.87  -900 -1558.85
+            -1319.49 -1224.31  -1621.74 -780.991  -1779.89 -268.276  -1779.89 268.276
+            -1621.74 780.991  -1319.49 1224.31  -900 1558.85  -400.538 1754.87
+            134.514 1794.97  657.614 1675.57  1122.28 1407.3  1487.23 1013.98
+            1720.03 530.559  1800 0))
+      (pin Round[A]Pad_3000_um 1 0 -5000)
+      (pin Round[A]Pad_3000_um 1@1 0 0)
     )
     (image KIT:2HolePad
       (outline (path signal 120  -1270 1270  3302 1270))
@@ -4152,26 +4181,6 @@
       (pin Oval[A]Pad_1600x1600_um 2 15240 0)
       (pin Round[A]Pad_1600_um 1 0 0)
     )
-    (image Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal
-      (outline (path signal 100  4210 2250  4210 -2250))
-      (outline (path signal 100  4210 -2250  16110 -2250))
-      (outline (path signal 100  16110 -2250  16110 2250))
-      (outline (path signal 100  16110 2250  4210 2250))
-      (outline (path signal 100  0 0  4210 0))
-      (outline (path signal 100  20320 0  16110 0))
-      (outline (path signal 120  4090 2370  4090 -2370))
-      (outline (path signal 120  4090 -2370  16230 -2370))
-      (outline (path signal 120  16230 -2370  16230 2370))
-      (outline (path signal 120  16230 2370  4090 2370))
-      (outline (path signal 120  1440 0  4090 0))
-      (outline (path signal 120  18880 0  16230 0))
-      (outline (path signal 50  -1450 2500  -1450 -2500))
-      (outline (path signal 50  -1450 -2500  21770 -2500))
-      (outline (path signal 50  21770 -2500  21770 2500))
-      (outline (path signal 50  21770 2500  -1450 2500))
-      (pin Round[A]Pad_2400_um 1 0 0)
-      (pin Oval[A]Pad_2400x2400_um 2 20320 0)
-    )
     (image Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P15.24mm_Horizontal::1
       (outline (path signal 100  3120 1600  3120 -1600))
       (outline (path signal 100  3120 -1600  12120 -1600))
@@ -4191,6 +4200,26 @@
       (outline (path signal 50  16290 1850  -1050 1850))
       (pin Round[A]Pad_1600_um 1 0 0)
       (pin Oval[A]Pad_1600x1600_um 2 15240 0)
+    )
+    (image Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal
+      (outline (path signal 100  4210 2250  4210 -2250))
+      (outline (path signal 100  4210 -2250  16110 -2250))
+      (outline (path signal 100  16110 -2250  16110 2250))
+      (outline (path signal 100  16110 2250  4210 2250))
+      (outline (path signal 100  0 0  4210 0))
+      (outline (path signal 100  20320 0  16110 0))
+      (outline (path signal 120  4090 2370  4090 -2370))
+      (outline (path signal 120  4090 -2370  16230 -2370))
+      (outline (path signal 120  16230 -2370  16230 2370))
+      (outline (path signal 120  16230 2370  4090 2370))
+      (outline (path signal 120  1440 0  4090 0))
+      (outline (path signal 120  18880 0  16230 0))
+      (outline (path signal 50  -1450 2500  -1450 -2500))
+      (outline (path signal 50  -1450 -2500  21770 -2500))
+      (outline (path signal 50  21770 -2500  21770 2500))
+      (outline (path signal 50  21770 2500  -1450 2500))
+      (pin Round[A]Pad_2400_um 1 0 0)
+      (pin Oval[A]Pad_2400x2400_um 2 20320 0)
     )
     (image Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal::1
       (outline (path signal 50  21770 2500  -1450 2500))
@@ -4221,10 +4250,42 @@
       (outline (path signal 50  -8636 5540  -8636 -5588))
       (outline (path signal 50  12700 -5588  12700 5588))
       (outline (path signal 50  12700 -5588  -8636 -5588))
-      (pin Rect[A]Pad_2100x2000_um 1 -5588 0)
-      (pin Rect[A]Pad_2100x2000_um 1@1 -3048 0)
+      (pin Round[A]Pad_2500_um 1 -5588 0)
+      (pin Round[A]Pad_2500_um 1@1 -3048 0)
       (pin Oval[A]Pad_20000x10000_um 1@2 2032 0)
-      (pin Rect[A]Pad_2100x2000_um 1@3 -762 0)
+      (pin Round[A]Pad_2500_um 1@3 -762 0)
+    )
+    (image KIT:TestPoint_Plated_Hole_D2.0mm::1
+      (outline (path signal 120  1700 0  1616.8 -525.329  1375.33 -999.235  999.235 -1375.33
+            525.329 -1616.8  0 -1700  -525.329 -1616.8  -999.235 -1375.33
+            -1375.33 -999.235  -1616.8 -525.329  -1700 0  -1616.8 525.329
+            -1375.33 999.235  -999.235 1375.33  -525.329 1616.8  0 1700
+            525.329 1616.8  999.235 1375.33  1375.33 999.235  1616.8 525.329
+            1700 0))
+      (outline (path signal 50  1800 0  1720.03 -530.559  1487.23 -1013.98  1122.28 -1407.3
+            657.614 -1675.57  134.514 -1794.97  -400.538 -1754.87  -900 -1558.85
+            -1319.49 -1224.31  -1621.74 -780.991  -1779.89 -268.276  -1779.89 268.276
+            -1621.74 780.991  -1319.49 1224.31  -900 1558.85  -400.538 1754.87
+            134.514 1794.97  657.614 1675.57  1122.28 1407.3  1487.23 1013.98
+            1720.03 530.559  1800 0))
+      (pin Round[A]Pad_3000_um 1 0 0)
+      (pin Round[A]Pad_3000_um 1@1 0 -5000)
+    )
+    (image KIT:TestPoint_Plated_Hole_D2.0mm::2
+      (outline (path signal 50  1800 0  1720.03 -530.559  1487.23 -1013.98  1122.28 -1407.3
+            657.614 -1675.57  134.514 -1794.97  -400.538 -1754.87  -900 -1558.85
+            -1319.49 -1224.31  -1621.74 -780.991  -1779.89 -268.276  -1779.89 268.276
+            -1621.74 780.991  -1319.49 1224.31  -900 1558.85  -400.538 1754.87
+            134.514 1794.97  657.614 1675.57  1122.28 1407.3  1487.23 1013.98
+            1720.03 530.559  1800 0))
+      (outline (path signal 120  1700 0  1616.8 -525.329  1375.33 -999.235  999.235 -1375.33
+            525.329 -1616.8  0 -1700  -525.329 -1616.8  -999.235 -1375.33
+            -1375.33 -999.235  -1616.8 -525.329  -1700 0  -1616.8 525.329
+            -1375.33 999.235  -999.235 1375.33  -525.329 1616.8  0 1700
+            525.329 1616.8  999.235 1375.33  1375.33 999.235  1616.8 525.329
+            1700 0))
+      (pin Round[A]Pad_3000_um 1 0 -5000)
+      (pin Round[A]Pad_3000_um 1@1 0 0)
     )
     (padstack Round[A]Pad_1600_um
       (shape (circle F.Cu 1600))
@@ -4239,6 +4300,11 @@
     (padstack Round[A]Pad_2400_um
       (shape (circle F.Cu 2400))
       (shape (circle B.Cu 2400))
+      (attach off)
+    )
+    (padstack Round[A]Pad_2500_um
+      (shape (circle F.Cu 2500))
+      (shape (circle B.Cu 2500))
       (attach off)
     )
     (padstack Round[A]Pad_2540_um
@@ -4349,36 +4415,30 @@
   )
   (network
     (net GND
-      (pins TP14-1 TP20-1 TP21-1 R13-2 R14-1 R15-1 R16-2 BR1-3 BR3-1 C2-2 C4-1 C5-2
-        C6-2 C9-2 C10-2 C11-2 C12-2 C13-2 C14-2 C17-2 C18-2 R3-1 R21-1 R22-1 R28-2
-        R29-2 RS2-2)
+      (pins TP14-1 TP14-1@1 TP20-1 TP20-1@1 TP21-1 TP21-1@1 R13-2 R14-1 R15-1 R16-2
+        BR1-3 BR3-1 C2-2 C4-1 C5-2 C6-2 C9-2 C10-2 C11-2 C12-2 C13-2 C14-2 C17-2 C18-2
+        R3-1 R21-1 R22-1 R28-2 R29-2 RS2-2 TP0-1 TP0-1@1 TP0-1@2 TP0-1@3)
     )
     (net 510v
-      (pins TP7-1 TP8-1 BR1-1 C1-1 R1-2 RS1-1)
+      (pins TP7-1 TP7-1@1 TP8-1 TP8-1@1 BR1-1 C1-1 R1-2 RS1-1)
     )
     (net -10v
       (pins R3-2 R5-1 R9-2 R11-1 R26-2 R30-1)
     )
     (net 225v
-      (pins TP9-1 C1-2 C2-1 R6-2 R12-1 R32-1 R33-2 RS1-2 RS2-1)
+      (pins TP9-1 TP9-1@1 C1-2 C2-1 R6-2 R12-1 R32-1 R33-2 RS1-2 RS2-1)
     )
     (net 365v
-      (pins C5-1 R1-1 R4-2 R70-1 R71-1 R190-2 R191-2 R200-1 R201-1 R240-2 R241-2)
+      (pins R4-2 C5-1 R1-1 R70-1 R71-1 R190-2 R191-2 R200-1 R201-1 R240-2 R241-2)
     )
     (net 290v
-      (pins C6-1 R4-1 R17-1 R18-1)
+      (pins R4-1 C6-1 R17-1 R18-1)
     )
     (net /TR6
-      (pins TP11-1 BR1-2)
+      (pins TP11-1 TP11-1@1 BR1-2)
     )
     (net /TR1
-      (pins TP10-1 BR1-4)
-    )
-    (net /Stage1Heater+
-      (pins TP90-1 TP90-1@1 BR2-1 C3-1)
-    )
-    (net "/Stage1Heater-"
-      (pins TP91-1 TP91-1@1 BR2-3 C3-2)
+      (pins TP10-1 TP10-1@1 BR1-4)
     )
     (net /TR4
       (pins TP5-1 TP5-1@1 BR2-2)
@@ -4387,13 +4447,13 @@
       (pins TP4-1 TP4-1@1 BR2-4)
     )
     (net /TR5
-      (pins TP3-1 BR3-2)
+      (pins TP3-1 TP3-1@1 BR3-2)
     )
     (net /BiasV
       (pins BR3-3 C4-2 R5-2)
     )
     (net /TR2
-      (pins TP2-1 BR3-4)
+      (pins TP2-1 TP2-1@1 BR3-4)
     )
     (net /Signal3Ra
       (pins U5-1 C7-2 R70-2 R71-2)
@@ -4447,10 +4507,10 @@
       (pins U7-7 C19-1 R38-1 R40-1)
     )
     (net /FBR
-      (pins TP15-1 C19-2 R38-2)
+      (pins TP15-1 TP15-1@1 C19-2 R38-2)
     )
     (net /FBL
-      (pins TP19-1 R39-2 C20-2)
+      (pins TP19-1 TP19-1@1 R39-2 C20-2)
     )
     (net /U8Cathode
       (pins U8-7 R39-1 R41-1 C20-1)
@@ -4483,10 +4543,10 @@
       (pins U4-5 R27-1)
     )
     (net /Signal1R
-      (pins TP16-1 R28-1 R34-2)
+      (pins TP16-1 TP16-1@1 R28-1 R34-2)
     )
     (net /Signal1L
-      (pins TP18-1 R29-1 R35-2)
+      (pins TP18-1 TP18-1@1 R29-1 R35-2)
     )
     (net /Signal5Rb
       (pins U3-5 R31-1)
@@ -4510,16 +4570,16 @@
       (pins U8-6 U8-2 R37-2)
     )
     (net /V3Anode
-      (pins TP1-1 U3-3)
+      (pins TP1-1 TP1-1@1 U3-3)
     )
     (net /V1Anode
-      (pins TP6-1 U1-3)
+      (pins TP6-1 TP6-1@1 U1-3)
     )
     (net /V2Anode
-      (pins TP12-1 U2-3)
+      (pins TP12-1 TP12-1@1 U2-3)
     )
     (net /V4Anode
-      (pins TP13-1 U4-3)
+      (pins TP13-1 TP13-1@1 U4-3)
     )
     (net "/V5H-"
       (pins TP50-1 TP50-1@1 U5-9)
@@ -4569,10 +4629,17 @@
     (net "/V4H-"
       (pins TP401-1 TP401-1@1 U4-2)
     )
+    (net "Net-(BR2-Pad1)"
+      (pins TP90-1 TP90-1@1 BR2-1 C3-1 TP92-1 TP92-1@1)
+    )
+    (net "Net-(BR2-Pad3)"
+      (pins TP91-1 TP91-1@1 BR2-3 C3-2 TP93-1 TP93-1@1)
+    )
     (class kicad_default "" -10v /BiasV /TR1 /TR2 /TR3 /TR4 /TR5 /TR6 /U5Cathode
       /U6Cathode /U7Cathode /U7Cathode2 /U7Grid /U8Cathode /U8Cathode2 /U8Grid
       /V1Anode /V1Cathode /V1Grid /V2Anode /V2Cathode /V2Grid /V3Anode /V3Cathode
-      /V3Grid /V4Anode /V4Cathode /V4Grid 225v 290v 365v 510v GND
+      /V3Grid /V4Anode /V4Cathode /V4Grid 225v 290v 365v 510v GND "Net-(BR2-Pad1)"
+      "Net-(BR2-Pad3)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
@@ -4599,8 +4666,7 @@
         (clearance 2540.1)
       )
     )
-    (class Heater /Stage1Heater+ "/Stage1Heater-" /V5H+ "/V5H-" /V6H+ "/V6H-"
-      /V7H+ "/V7H-" /V8H+ "/V8H-"
+    (class Heater /V5H+ "/V5H-" /V6H+ "/V6H-" /V7H+ "/V7H-" /V8H+ "/V8H-"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

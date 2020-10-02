@@ -123,8 +123,6 @@ Wire Wire Line
 Wire Wire Line
 	1375 3250 1375 3875
 Wire Wire Line
-	1375 3875 1650 3875
-Wire Wire Line
 	2325 3875 2325 3725
 Connection ~ 1375 2425
 $Comp
@@ -505,7 +503,7 @@ U 1 1 5E57D540
 P 8075 1075
 F 0 "BR1" V 8075 1150 50  0000 R CNN
 F 1 "~" V 8030 734 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Vishay_KBU" H 8225 1200 50  0001 L CNN
+F 2 "KIT:Diode_Bridge_32.0x5.6x17.0mm_P10.0mm_P7.5mm" H 8225 1200 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 1075 50  0001 C CNN
 	1    8075 1075
 	0    -1   -1   0   
@@ -604,7 +602,7 @@ U 1 1 5E5A484D
 P 8075 1850
 F 0 "BR3" V 8075 1925 50  0000 R CNN
 F 1 "~" V 8030 1509 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Vishay_GBU" H 8225 1975 50  0001 L CNN
+F 2 "Diode_THT:Diode_Bridge_Round_D9.8mm" H 8225 1975 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 1850 50  0001 C CNN
 	1    8075 1850
 	0    -1   -1   0   
@@ -681,7 +679,7 @@ U 1 1 5E5B84FB
 P 8075 2625
 F 0 "BR2" V 8075 2700 50  0000 R CNN
 F 1 "~" V 8030 2284 50  0000 R CNN
-F 2 "Diode_THT:Diode_Bridge_Round_D9.8mm" H 8225 2750 50  0001 L CNN
+F 2 "KIT:Diode_Bridge_Vishay_GBL" H 8225 2750 50  0001 L CNN
 F 3 "https://www.vishay.com/docs/88501/b40c1500g.pdf" H 8075 2625 50  0001 C CNN
 	1    8075 2625
 	0    -1   -1   0   
@@ -698,13 +696,9 @@ F 3 "~" H 8950 2625 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8950 2475 8950 2300
-Wire Wire Line
 	8075 2300 8075 2325
 Wire Wire Line
 	8075 2925 8075 2950
-Wire Wire Line
-	8950 2950 8950 2775
 $Comp
 L KIT88-rescue:6AU6-kit88 U8
 U 1 1 5E5CC41C
@@ -816,8 +810,6 @@ Wire Wire Line
 	1375 5800 1525 5800
 Wire Wire Line
 	1375 4975 1375 4350
-Wire Wire Line
-	1375 4350 1650 4350
 Wire Wire Line
 	2325 4350 2325 4500
 Connection ~ 1375 5800
@@ -1194,11 +1186,7 @@ Connection ~ 5550 5250
 Wire Wire Line
 	5550 5250 5550 5200
 Wire Wire Line
-	800  3950 800  2425
-Wire Wire Line
 	800  2425 1375 2425
-Wire Wire Line
-	800  4250 800  5800
 Text GLabel 8350 3325 0    50   Input ~ 0
 510v
 $Comp
@@ -1218,7 +1206,7 @@ U 1 1 5E563A61
 P 9675 3325
 F 0 "R4" V 9468 3325 50  0000 C CNN
 F 1 "8.2K 3W" V 9559 3325 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P20.32mm_Horizontal" V 9605 3325 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P25.40mm_Horizontal" V 9605 3325 50  0001 C CNN
 F 3 "~" H 9675 3325 50  0001 C CNN
 	1    9675 3325
 	0    1    1    0   
@@ -1306,17 +1294,6 @@ Wire Wire Line
 	2150 3025 2150 2825
 Wire Wire Line
 	1850 3025 1850 2825
-$Comp
-L Connector:TestPoint TP15
-U 1 1 5E624B9C
-P 1775 2825
-F 0 "TP15" V 1878 2899 50  0000 C CNN
-F 1 "~" V 1879 2899 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1975 2825 50  0001 C CNN
-F 3 "~" H 1975 2825 50  0001 C CNN
-	1    1775 2825
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	1775 2825 1850 2825
 Connection ~ 1850 2825
@@ -1350,17 +1327,6 @@ F 3 "~" H 2000 5200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1850 5200 1850 5400
-$Comp
-L Connector:TestPoint TP19
-U 1 1 5E652FE0
-P 1775 5400
-F 0 "TP19" V 1672 5474 50  0000 C CNN
-F 1 "~" V 1879 5474 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1975 5400 50  0001 C CNN
-F 3 "~" H 1975 5400 50  0001 C CNN
-	1    1775 5400
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	1775 5400 1850 5400
 Connection ~ 1850 5400
@@ -1372,60 +1338,6 @@ Wire Wire Line
 Wire Wire Line
 	2150 5200 2150 5400
 Connection ~ 2150 5400
-$Comp
-L Connector:TestPoint TP16
-U 1 1 5E6A7C9F
-P 675 3950
-F 0 "TP16" V 750 4025 50  0000 C CNN
-F 1 "~" V 779 4024 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 875 3950 50  0001 C CNN
-F 3 "~" H 875 3950 50  0001 C CNN
-	1    675  3950
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:TestPoint TP18
-U 1 1 5E6A7E84
-P 675 4250
-F 0 "TP18" V 575 4325 50  0000 C CNN
-F 1 "~" V 779 4324 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 875 4250 50  0001 C CNN
-F 3 "~" H 875 4250 50  0001 C CNN
-	1    675  4250
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	675  4250 800  4250
-Wire Wire Line
-	675  3950 800  3950
-$Comp
-L Connector:TestPoint TP14
-U 1 1 5E6D164E
-P 1650 3875
-F 0 "TP14" H 1708 3949 50  0000 L CNN
-F 1 "~" H 1708 3904 50  0000 L CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1850 3875 50  0001 C CNN
-F 3 "~" H 1850 3875 50  0001 C CNN
-	1    1650 3875
-	1    0    0    -1  
-$EndComp
-Connection ~ 1650 3875
-Wire Wire Line
-	1650 3875 2325 3875
-$Comp
-L Connector:TestPoint TP20
-U 1 1 5E6D19A7
-P 1650 4350
-F 0 "TP20" H 1592 4423 50  0000 R CNN
-F 1 "~" H 1592 4468 50  0000 R CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 1850 4350 50  0001 C CNN
-F 3 "~" H 1850 4350 50  0001 C CNN
-	1    1650 4350
-	-1   0    0    1   
-$EndComp
-Connection ~ 1650 4350
-Wire Wire Line
-	1650 4350 2325 4350
 $Comp
 L KIT88-rescue:MountingHole-Mechanical MH3
 U 1 1 5E573A80
@@ -1816,16 +1728,16 @@ F 3 "~" H 8675 1075 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7675 2625 7775 2625
+	7675 2625 7750 2625
 Wire Wire Line
-	8375 2625 8475 2625
+	8375 2625 8400 2625
 $Comp
 L Connector:TestPoint TP4
 U 1 1 5E7BEB13
 P 7675 2625
 F 0 "TP4" H 7733 2745 50  0000 L CNN
 F 1 "~" H 7733 2654 50  0000 L CNN
-F 2 "KIT:2HolePad" H 7875 2625 50  0001 C CNN
+F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 7875 2625 50  0001 C CNN
 F 3 "~" H 7875 2625 50  0001 C CNN
 	1    7675 2625
 	0    -1   -1   0   
@@ -1836,7 +1748,7 @@ U 1 1 5E7BEC2D
 P 8475 2625
 F 0 "TP5" H 8250 2750 50  0000 L CNN
 F 1 "~" H 8533 2654 50  0000 L CNN
-F 2 "KIT:2HolePad" H 8675 2625 50  0001 C CNN
+F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 8675 2625 50  0001 C CNN
 F 3 "~" H 8675 2625 50  0001 C CNN
 	1    8475 2625
 	0    1    1    0   
@@ -1862,17 +1774,6 @@ F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 8675 1850 50  0001 C CNN
 F 3 "~" H 8675 1850 50  0001 C CNN
 	1    8475 1850
 	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP21
-U 1 1 5E8022B5
-P 2325 4100
-F 0 "TP21" V 2325 4425 50  0000 C CNN
-F 1 "~" V 2429 4174 50  0000 C CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 2525 4100 50  0001 C CNN
-F 3 "~" H 2525 4100 50  0001 C CNN
-	1    2325 4100
-	0    -1   -1   0   
 $EndComp
 $Comp
 L KIT88-rescue:PWR_FLAG-power #FLG0101
@@ -2261,9 +2162,9 @@ Connection ~ 12425 2600
 Connection ~ 12225 2600
 Wire Wire Line
 	9325 3200 9325 3325
-Text Label 8475 2300 0    40   ~ 0
+Text Label 8475 2275 0    40   ~ 0
 Stage1Heater+
-Text Label 8475 2950 0    40   ~ 0
+Text Label 8475 3025 0    40   ~ 0
 Stage1Heater-
 Text Label 11500 2475 0    30   ~ 0
 V8H+
@@ -2305,9 +2206,9 @@ Text Label 7700 1075 0    30   ~ 0
 TR1
 Text Label 7675 1850 0    30   ~ 0
 TR2
-Text Label 7675 2625 0    30   ~ 0
+Text Label 7700 2625 2    30   ~ 0
 TR3
-Text Label 8375 2625 0    30   ~ 0
+Text Label 8450 2625 0    30   ~ 0
 TR4
 Text Label 8375 1850 0    30   ~ 0
 TR5
@@ -2661,4 +2562,93 @@ $EndComp
 Connection ~ 8625 3975
 Wire Wire Line
 	8625 3975 9325 3975
+$Comp
+L Connector:TestPoint TP92
+U 1 1 5F57E3D5
+P 7750 2550
+F 0 "TP92" H 7825 2750 50  0000 R CNN
+F 1 "~" H 7692 2668 50  0000 R CNN
+F 2 "KIT:2HolePad" H 7950 2550 50  0001 C CNN
+F 3 "~" H 7950 2550 50  0001 C CNN
+	1    7750 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP93
+U 1 1 5F580BCE
+P 8400 2550
+F 0 "TP93" H 8475 2750 50  0000 R CNN
+F 1 "~" H 8342 2668 50  0000 R CNN
+F 2 "KIT:2HolePad" H 8600 2550 50  0001 C CNN
+F 3 "~" H 8600 2550 50  0001 C CNN
+	1    8400 2550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5F6E3680
+P 1575 2925
+F 0 "J1" H 1493 2692 50  0000 C CNN
+F 1 "~" H 1655 2826 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" H 1575 2925 50  0001 C CNN
+F 3 "~" H 1575 2925 50  0001 C CNN
+	1    1575 2925
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1375 3875 1775 3875
+Wire Wire Line
+	1775 2925 1775 3875
+Connection ~ 1775 3875
+Wire Wire Line
+	1775 3875 2325 3875
+Wire Wire Line
+	1375 4350 1775 4350
+$Comp
+L Connector_Generic:Conn_01x02 J2
+U 1 1 5F6F9205
+P 1575 5300
+F 0 "J2" H 1493 5425 50  0000 C CNN
+F 1 "~" H 1655 5201 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" H 1575 5300 50  0001 C CNN
+F 3 "~" H 1575 5300 50  0001 C CNN
+	1    1575 5300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1775 5300 1775 4350
+Connection ~ 1775 4350
+Wire Wire Line
+	1775 4350 2325 4350
+$Comp
+L Connector_Generic:Conn_01x03 J3
+U 1 1 5F715FE1
+P 600 4100
+F 0 "J3" H 518 3867 50  0000 C CNN
+F 1 "~" H 518 3866 50  0000 C CNN
+F 2 "Connector_Molex:Molex_KK-396_A-41791-0003_1x03_P3.96mm_Vertical" H 600 4100 50  0001 C CNN
+F 3 "~" H 600 4100 50  0001 C CNN
+	1    600  4100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	800  4200 800  5800
+Wire Wire Line
+	800  4100 2325 4100
+Wire Wire Line
+	800  4000 800  2425
+Wire Wire Line
+	8950 2300 8950 2475
+Wire Wire Line
+	7750 2550 7750 2625
+Wire Wire Line
+	8950 2775 8950 2950
+Connection ~ 7750 2625
+Wire Wire Line
+	7750 2625 7775 2625
+Wire Wire Line
+	8400 2550 8400 2625
+Connection ~ 8400 2625
+Wire Wire Line
+	8400 2625 8475 2625
 $EndSCHEMATC
