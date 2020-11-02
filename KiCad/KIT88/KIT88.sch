@@ -498,7 +498,7 @@ Connection ~ 5550 2975
 Wire Wire Line
 	5550 2975 5550 3025
 $Comp
-L KIT88-rescue:B125C1500G-Diode_Bridge BR1
+L KIT88-rescue:B125C1500G-Diode_Bridge-KIT88-rescue BR1
 U 1 1 5E57D540
 P 8075 1075
 F 0 "BR1" V 8075 1150 50  0000 R CNN
@@ -597,7 +597,7 @@ Wire Wire Line
 	9700 1400 9425 1400
 Connection ~ 9425 1400
 $Comp
-L KIT88-rescue:B125C1500G-Diode_Bridge BR3
+L kit88:BridgeRectRound BR3
 U 1 1 5E5A484D
 P 8075 1850
 F 0 "BR3" V 8075 1925 50  0000 R CNN
@@ -674,7 +674,7 @@ Wire Wire Line
 Wire Wire Line
 	8950 1400 8950 1525
 $Comp
-L KIT88-rescue:B125C1500G-Diode_Bridge BR2
+L KIT88-rescue:B125C1500G-Diode_Bridge-KIT88-rescue BR2
 U 1 1 5E5B84FB
 P 8075 2625
 F 0 "BR2" V 8075 2700 50  0000 R CNN
@@ -1708,24 +1708,24 @@ Wire Wire Line
 $Comp
 L Connector:TestPoint TP10
 U 1 1 5E77536B
-P 7675 1075
-F 0 "TP10" H 7733 1195 50  0000 L CNN
-F 1 "~" H 7733 1104 50  0000 L CNN
-F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 7875 1075 50  0001 C CNN
-F 3 "~" H 7875 1075 50  0001 C CNN
-	1    7675 1075
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:TestPoint TP11
-U 1 1 5E7B17AE
 P 8475 1075
-F 0 "TP11" H 8250 1200 50  0000 L CNN
+F 0 "TP10" H 8533 1195 50  0000 L CNN
 F 1 "~" H 8533 1104 50  0000 L CNN
 F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 8675 1075 50  0001 C CNN
 F 3 "~" H 8675 1075 50  0001 C CNN
 	1    8475 1075
 	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP11
+U 1 1 5E7B17AE
+P 7675 1075
+F 0 "TP11" H 7450 1200 50  0000 L CNN
+F 1 "~" H 7733 1104 50  0000 L CNN
+F 2 "KIT:TestPoint_Plated_Hole_D2.0mm" H 7875 1075 50  0001 C CNN
+F 3 "~" H 7875 1075 50  0001 C CNN
+	1    7675 1075
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	7675 2625 7750 2625

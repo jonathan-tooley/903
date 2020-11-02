@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name KIT88-rescue)(type Legacy)(uri ${KIPRJMOD}/KIT88-rescue.lib)(options "")(descr ""))
+  (lib (name kit88)(type Legacy)(uri ${KIPRJMOD}/kit88.lib)(options "")(descr ""))
 )

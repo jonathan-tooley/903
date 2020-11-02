@@ -4,4 +4,5 @@
   (lib (name Valve)(type Legacy)(uri ${KICAD_SYMBOL_DIR}/Valve.lib)(options "")(descr ""))
   (lib (name kit88)(type Legacy)(uri C:/Users/JonathanAlvesTooley/Repos/903/KiCad/KIT88/kit88.lib)(options "")(descr ""))
   (lib (name Quad-rescue)(type Legacy)(uri ${KIPRJMOD}/Quad-rescue.lib)(options "")(descr ""))
+  (lib (name Triac_Thyristor)(type Legacy)(uri ${KICAD_SYMBOL_DIR}/Triac_Thyristor.lib)(options "")(descr ""))
 )

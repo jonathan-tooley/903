@@ -14,147 +14,15 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Relay:FRT5_separated K1
-U 2 1 5F5FA6F0
-P 1550 1525
-F 0 "K1" V 1317 1525 50  0000 C CNN
-F 1 "~" V 1316 1525 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 1425 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 1525 50  0001 C CNN
-	2    1550 1525
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K2
-U 2 1 5F5FB92E
-P 1550 2275
-F 0 "K2" V 1317 2275 50  0000 C CNN
-F 1 "~" V 1316 2275 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 2175 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 2275 50  0001 C CNN
-	2    1550 2275
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K3
-U 2 1 5F5FBAB0
-P 1550 3025
-F 0 "K3" V 1317 3025 50  0000 C CNN
-F 1 "~" V 1316 3025 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 2925 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 3025 50  0001 C CNN
-	2    1550 3025
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K4
-U 2 1 5F5FC498
-P 1550 3775
-F 0 "K4" V 1317 3775 50  0000 C CNN
-F 1 "~" V 1316 3775 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 3675 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 3775 50  0001 C CNN
-	2    1550 3775
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K4
-U 3 1 5F60236F
-P 1550 4075
-F 0 "K4" V 1317 4075 50  0000 C CNN
-F 1 "~" V 1316 4075 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 3975 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 4075 50  0001 C CNN
-	3    1550 4075
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K3
-U 3 1 5F602369
-P 1550 3325
-F 0 "K3" V 1317 3325 50  0000 C CNN
-F 1 "~" V 1316 3325 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 3225 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 3325 50  0001 C CNN
-	3    1550 3325
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K2
-U 3 1 5F602363
-P 1550 2575
-F 0 "K2" V 1317 2575 50  0000 C CNN
-F 1 "~" V 1316 2575 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 2475 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 2575 50  0001 C CNN
-	3    1550 2575
-	0    1    1    0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K1
-U 3 1 5F60235D
-P 1550 1825
-F 0 "K1" V 1317 1825 50  0000 C CNN
-F 1 "~" V 1316 1825 50  0000 C CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 1750 1725 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 1550 1825 50  0001 C CNN
-	3    1550 1825
-	0    1    1    0   
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x03 J0
 U 1 1 5F6093D8
-P 2325 750
-F 0 "J0" V 2243 562 50  0000 R CNN
-F 1 "~" V 2198 562 50  0000 R CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 2325 750 50  0001 C CNN
-F 3 "~" H 2325 750 50  0001 C CNN
-	1    2325 750 
+P 2325 575
+F 0 "J0" V 2243 387 50  0000 R CNN
+F 1 "~" V 2198 387 50  0000 R CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 2325 575 50  0001 C CNN
+F 3 "~" H 2325 575 50  0001 C CNN
+	1    2325 575 
 	0    -1   -1   0   
-$EndComp
-$Comp
-L Relay:FRT5_separated K1
-U 1 1 5F61677E
-P 4175 1725
-F 0 "K1" H 4075 1750 50  0000 L CNN
-F 1 "~" H 4330 1680 50  0000 L CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 4375 1625 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 4175 1725 50  0001 C CNN
-	1    4175 1725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Relay:FRT5_separated K2
-U 1 1 5F616DA0
-P 4625 1725
-F 0 "K2" H 4525 1750 50  0000 L CNN
-F 1 "~" H 4780 1680 50  0000 L CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 4825 1625 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 4625 1725 50  0001 C CNN
-	1    4625 1725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Relay:FRT5_separated K3
-U 1 1 5F6176BF
-P 5075 1725
-F 0 "K3" H 4975 1750 50  0000 L CNN
-F 1 "~" H 5230 1680 50  0000 L CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 5275 1625 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 5075 1725 50  0001 C CNN
-	1    5075 1725
-	1    0    0    -1  
-$EndComp
-$Comp
-L Relay:FRT5_separated K4
-U 1 1 5F61821C
-P 5525 1725
-F 0 "K4" H 5425 1750 50  0000 L CNN
-F 1 "~" H 5680 1680 50  0000 L CNN
-F 2 "Relay_THT:Relay_DPDT_FRT5" H 5725 1625 50  0001 L CNN
-F 3 "https://www.elpro.org/de/index.php?controller=attachment&id_attachment=8663" H 5525 1725 50  0001 C CNN
-	1    5525 1725
-	1    0    0    -1  
 $EndComp
 $Comp
 L Device:Q_NPN_EBC Q4
@@ -214,7 +82,7 @@ U 1 1 5F6209A5
 P 5725 1700
 F 0 "D4" V 5825 1675 50  0000 R CNN
 F 1 "~" V 5673 1582 50  0000 R CNN
-F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" H 5725 1700 50  0001 C CNN
+F 2 "LED_THT:LED_D4.0mm" H 5725 1700 50  0001 C CNN
 F 3 "~" H 5725 1700 50  0001 C CNN
 	1    5725 1700
 	0    -1   -1   0   
@@ -225,7 +93,7 @@ U 1 1 5F623CCF
 P 5275 1700
 F 0 "D3" V 5375 1675 50  0000 R CNN
 F 1 "~" V 5223 1582 50  0000 R CNN
-F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" H 5275 1700 50  0001 C CNN
+F 2 "LED_THT:LED_D4.0mm" H 5275 1700 50  0001 C CNN
 F 3 "~" H 5275 1700 50  0001 C CNN
 	1    5275 1700
 	0    -1   -1   0   
@@ -236,7 +104,7 @@ U 1 1 5F624396
 P 4825 1700
 F 0 "D2" V 4925 1675 50  0000 R CNN
 F 1 "~" V 4773 1582 50  0000 R CNN
-F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" H 4825 1700 50  0001 C CNN
+F 2 "LED_THT:LED_D4.0mm" H 4825 1700 50  0001 C CNN
 F 3 "~" H 4825 1700 50  0001 C CNN
 	1    4825 1700
 	0    -1   -1   0   
@@ -247,7 +115,7 @@ U 1 1 5F624953
 P 4375 1700
 F 0 "D1" V 4475 1675 50  0000 R CNN
 F 1 "~" V 4323 1582 50  0000 R CNN
-F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" H 4375 1700 50  0001 C CNN
+F 2 "LED_THT:LED_D4.0mm" H 4375 1700 50  0001 C CNN
 F 3 "~" H 4375 1700 50  0001 C CNN
 	1    4375 1700
 	0    -1   -1   0   
@@ -266,39 +134,16 @@ $EndComp
 Wire Wire Line
 	4175 1300 4375 1300
 Wire Wire Line
-	4625 1300 4625 1425
-Wire Wire Line
-	4175 1300 4175 1425
-Wire Wire Line
-	4625 1300 4825 1300
-Wire Wire Line
-	5075 1300 5075 1425
-Connection ~ 4625 1300
-Wire Wire Line
-	5075 1300 5275 1300
-Wire Wire Line
-	5525 1300 5525 1425
-Connection ~ 5075 1300
-Wire Wire Line
-	5525 1300 5725 1300
-Wire Wire Line
 	5725 1300 5725 1550
-Connection ~ 5525 1300
 Wire Wire Line
 	5275 1550 5275 1300
 Connection ~ 5275 1300
 Wire Wire Line
-	5275 1300 5525 1300
-Wire Wire Line
 	4825 1550 4825 1300
 Connection ~ 4825 1300
 Wire Wire Line
-	4825 1300 5075 1300
-Wire Wire Line
 	4375 1550 4375 1300
 Connection ~ 4375 1300
-Wire Wire Line
-	4375 1300 4625 1300
 $Comp
 L Device:R_Small R3
 U 1 1 5F62E716
@@ -486,7 +331,7 @@ U 1 1 5F65B36B
 P 4700 3350
 F 0 "D6" H 4775 3400 30  0000 C CNN
 F 1 "~" H 4700 3466 50  0000 C CNN
-F 2 "LED_THT:LED_D5.0mm" V 4700 3350 50  0001 C CNN
+F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" V 4700 3350 50  0001 C CNN
 F 3 "~" V 4700 3350 50  0001 C CNN
 	1    4700 3350
 	1    0    0    -1  
@@ -497,7 +342,7 @@ U 1 1 5F65BFAA
 P 4700 3250
 F 0 "D5" H 4775 3300 30  0000 C CNN
 F 1 "~" H 4700 3366 50  0000 C CNN
-F 2 "LED_THT:LED_D5.0mm" V 4700 3250 50  0001 C CNN
+F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" V 4700 3250 50  0001 C CNN
 F 3 "~" V 4700 3250 50  0001 C CNN
 	1    4700 3250
 	-1   0    0    -1  
@@ -508,7 +353,7 @@ U 1 1 5F65EAC8
 P 4700 3550
 F 0 "D8" H 4775 3600 30  0000 C CNN
 F 1 "~" H 4700 3666 50  0000 C CNN
-F 2 "LED_THT:LED_D5.0mm" V 4700 3550 50  0001 C CNN
+F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" V 4700 3550 50  0001 C CNN
 F 3 "~" V 4700 3550 50  0001 C CNN
 	1    4700 3550
 	-1   0    0    -1  
@@ -519,7 +364,7 @@ U 1 1 5F65EFC8
 P 4700 3450
 F 0 "D7" H 4775 3500 30  0000 C CNN
 F 1 "~" H 4700 3566 50  0000 C CNN
-F 2 "LED_THT:LED_D5.0mm" V 4700 3450 50  0001 C CNN
+F 2 "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal" V 4700 3450 50  0001 C CNN
 F 3 "~" V 4700 3450 50  0001 C CNN
 	1    4700 3450
 	1    0    0    -1  
@@ -623,23 +468,6 @@ Text GLabel 5675 3650 3    50   Input ~ 0
 Wire Wire Line
 	5675 3650 5675 3550
 $Comp
-L Device:R_Small R9
-U 1 1 5F6A09FE
-P 975 1175
-F 0 "R9" H 1034 1175 50  0000 L CNN
-F 1 "~" H 1034 1130 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" H 975 1175 50  0001 C CNN
-F 3 "~" H 975 1175 50  0001 C CNN
-	1    975  1175
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	1075 1175 1150 1175
-Text GLabel 750  1175 0    50   Input ~ 0
-0v
-Wire Wire Line
-	750  1175 875  1175
-$Comp
 L Connector_Generic:Conn_01x03 J1
 U 1 1 5F60E98A
 P 775 1675
@@ -653,136 +481,186 @@ $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J2
 U 1 1 5F60EF7B
-P 775 2425
-F 0 "J2" H 693 2650 50  0000 C CNN
-F 1 "~" H 693 2651 50  0000 C CNN
-F 2 "KIT:RCA" H 775 2425 50  0001 C CNN
-F 3 "~" H 775 2425 50  0001 C CNN
-	1    775  2425
+P 775 3075
+F 0 "J2" H 693 3300 50  0000 C CNN
+F 1 "~" H 693 3301 50  0000 C CNN
+F 2 "KIT:RCA" H 775 3075 50  0001 C CNN
+F 3 "~" H 775 3075 50  0001 C CNN
+	1    775  3075
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J3
 U 1 1 5F60FB13
-P 775 3175
-F 0 "J3" H 693 3400 50  0000 C CNN
-F 1 "~" H 693 3401 50  0000 C CNN
-F 2 "KIT:RCA" H 775 3175 50  0001 C CNN
-F 3 "~" H 775 3175 50  0001 C CNN
-	1    775  3175
+P 775 4500
+F 0 "J3" H 693 4725 50  0000 C CNN
+F 1 "~" H 693 4726 50  0000 C CNN
+F 2 "KIT:RCA" H 775 4500 50  0001 C CNN
+F 3 "~" H 775 4500 50  0001 C CNN
+	1    775  4500
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J4
 U 1 1 5F61057A
-P 775 3925
-F 0 "J4" H 693 4150 50  0000 C CNN
-F 1 "~" H 693 4151 50  0000 C CNN
-F 2 "KIT:RCA" H 775 3925 50  0001 C CNN
-F 3 "~" H 775 3925 50  0001 C CNN
-	1    775  3925
+P 775 5925
+F 0 "J4" H 693 6150 50  0000 C CNN
+F 1 "~" H 693 6151 50  0000 C CNN
+F 2 "KIT:RCA" H 775 5925 50  0001 C CNN
+F 3 "~" H 775 5925 50  0001 C CNN
+	1    775  5925
 	-1   0    0    -1  
 $EndComp
+NoConn ~ 1850 1775
+NoConn ~ 1850 1375
+$Comp
+L Relay:FINDER-30.22 K1
+U 1 1 5F9FB1BC
+P 1550 1475
+F 0 "K1" V 783 1475 50  0000 C CNN
+F 1 "FINDER-30.22" V 874 1475 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Finder_30.22" H 2900 1445 50  0001 C CNN
+F 3 "http://gfinder.findernet.com/assets/Series/354/S30EN.pdf" H 1550 1475 50  0001 C CNN
+	1    1550 1475
+	0    1    1    0   
+$EndComp
+Text Label 1850 1075 0    50   ~ 0
+K1
+Text Label 4175 2025 0    50   ~ 0
+K1
 Wire Wire Line
-	975  1575 975  1525
+	4375 1300 4825 1300
 Wire Wire Line
-	975  1525 1250 1525
+	4825 1300 5275 1300
 Wire Wire Line
-	975  1775 975  1825
+	5275 1300 5725 1300
+$Comp
+L Relay:FINDER-30.22 K2
+U 1 1 5FA093AA
+P 1550 2900
+F 0 "K2" V 783 2900 50  0000 C CNN
+F 1 "FINDER-30.22" V 874 2900 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Finder_30.22" H 2900 2870 50  0001 C CNN
+F 3 "http://gfinder.findernet.com/assets/Series/354/S30EN.pdf" H 1550 2900 50  0001 C CNN
+	1    1550 2900
+	0    1    1    0   
+$EndComp
+$Comp
+L Relay:FINDER-30.22 K3
+U 1 1 5FA0B280
+P 1550 4325
+F 0 "K3" V 783 4325 50  0000 C CNN
+F 1 "FINDER-30.22" V 874 4325 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Finder_30.22" H 2900 4295 50  0001 C CNN
+F 3 "http://gfinder.findernet.com/assets/Series/354/S30EN.pdf" H 1550 4325 50  0001 C CNN
+	1    1550 4325
+	0    1    1    0   
+$EndComp
+$Comp
+L Relay:FINDER-30.22 K4
+U 1 1 5FA0CC9F
+P 1550 5750
+F 0 "K4" V 783 5750 50  0000 C CNN
+F 1 "FINDER-30.22" V 874 5750 50  0000 C CNN
+F 2 "Relay_THT:Relay_DPDT_Finder_30.22" H 2900 5720 50  0001 C CNN
+F 3 "http://gfinder.findernet.com/assets/Series/354/S30EN.pdf" H 1550 5750 50  0001 C CNN
+	1    1550 5750
+	0    1    1    0   
+$EndComp
+Text Label 2225 775  3    50   ~ 0
+0v
 Wire Wire Line
-	975  1825 1250 1825
+	2325 775  2325 1575
 Wire Wire Line
-	975  2325 975  2275
+	2425 775  2425 1975
+Text Label 975  1675 0    50   ~ 0
+0v
 Wire Wire Line
-	975  2275 1250 2275
+	975  1575 1250 1575
 Wire Wire Line
-	975  2525 975  2575
+	1250 1575 1250 1475
 Wire Wire Line
-	975  2575 1250 2575
+	975  1775 1250 1775
 Wire Wire Line
-	975  3075 975  3025
+	1250 1775 1250 1875
 Wire Wire Line
-	975  3025 1250 3025
+	975  2975 1250 2975
 Wire Wire Line
-	975  3275 975  3325
+	1250 2975 1250 2900
 Wire Wire Line
-	975  3325 1250 3325
+	975  3175 1250 3175
 Wire Wire Line
-	975  3825 975  3775
+	1250 3175 1250 3300
+Text Label 975  3075 0    50   ~ 0
+0v
+Text Label 975  4500 0    50   ~ 0
+0v
 Wire Wire Line
-	975  3775 1250 3775
+	975  4400 1250 4400
 Wire Wire Line
-	975  4025 975  4075
+	1250 4400 1250 4325
 Wire Wire Line
-	975  4075 1250 4075
-NoConn ~ 1850 3975
-NoConn ~ 1850 3675
-NoConn ~ 1850 3225
-NoConn ~ 1850 2925
-NoConn ~ 1850 2475
-NoConn ~ 1850 2175
-NoConn ~ 1850 1725
-NoConn ~ 1850 1425
+	975  4600 1250 4600
 Wire Wire Line
-	1850 1625 2325 1625
+	1250 4600 1250 4725
+Text Label 975  5925 0    50   ~ 0
+0v
 Wire Wire Line
-	2325 1625 2325 950 
+	975  5825 1250 5825
 Wire Wire Line
-	1850 2375 2325 2375
+	1250 5825 1250 5750
 Wire Wire Line
-	2325 2375 2325 1625
-Connection ~ 2325 1625
+	975  6025 1250 6025
 Wire Wire Line
-	1850 3125 2325 3125
+	1250 6025 1250 6150
+Text Label 1250 1075 2    50   ~ 0
++12v
+Text Label 1250 2500 2    50   ~ 0
++12v
+Text Label 1850 2500 0    50   ~ 0
+K2
+Text Label 4625 2025 0    50   ~ 0
+K2
+Text Label 5075 2025 0    50   ~ 0
+K3
+Text Label 5525 2025 0    50   ~ 0
+K4
 Wire Wire Line
-	2325 3125 2325 2375
-Connection ~ 2325 2375
+	1850 1575 2325 1575
+Connection ~ 2325 1575
 Wire Wire Line
-	1850 3875 2325 3875
+	2325 1575 2325 3000
 Wire Wire Line
-	2325 3875 2325 3125
-Connection ~ 2325 3125
+	1850 1975 2425 1975
+Connection ~ 2425 1975
 Wire Wire Line
-	1850 4175 2425 4175
+	2425 1975 2425 3400
 Wire Wire Line
-	2425 4175 2425 3425
+	1850 3000 2325 3000
+Connection ~ 2325 3000
 Wire Wire Line
-	1850 1925 2425 1925
-Connection ~ 2425 1925
+	1850 3400 2425 3400
+Connection ~ 2425 3400
 Wire Wire Line
-	2425 1925 2425 950 
+	2325 5850 1850 5850
 Wire Wire Line
-	1850 2675 2425 2675
-Connection ~ 2425 2675
+	2325 3000 2325 4425
 Wire Wire Line
-	2425 2675 2425 1925
+	1850 6250 2425 6250
 Wire Wire Line
-	1850 3425 2425 3425
-Connection ~ 2425 3425
+	2425 3400 2425 4825
 Wire Wire Line
-	2425 3425 2425 2675
+	1850 4425 2325 4425
+Connection ~ 2325 4425
 Wire Wire Line
-	975  1675 1150 1675
+	2325 4425 2325 5850
 Wire Wire Line
-	1150 1675 1150 1175
+	1850 4825 2425 4825
+Connection ~ 2425 4825
 Wire Wire Line
-	1150 1175 2225 1175
-Wire Wire Line
-	2225 1175 2225 950 
-Wire Wire Line
-	1150 1675 1150 2425
-Wire Wire Line
-	1150 2425 975  2425
-Connection ~ 1150 1675
-Wire Wire Line
-	1150 2425 1150 3175
-Wire Wire Line
-	1150 3175 975  3175
-Connection ~ 1150 2425
-Wire Wire Line
-	1150 3175 1150 3925
-Wire Wire Line
-	1150 3925 975  3925
-Connection ~ 1150 3175
-Connection ~ 1150 1175
+	2425 4825 2425 6250
+Text Label 1850 3925 0    50   ~ 0
+K3
+Text Label 1850 5350 0    50   ~ 0
+K4
 $EndSCHEMATC
