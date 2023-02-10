@@ -90,9 +90,9 @@ F 3 "~" H 8325 850 50  0001 C CNN
 	1    8325 850 
 	1    0    0    -1  
 $EndComp
-Text GLabel 7925 850  0    25   Input ~ 0
+Text GLabel 7925 850  0    40   Input ~ 0
 6v
-Text GLabel 7925 950  0    25   Input ~ 0
+Text GLabel 7925 950  0    40   Input ~ 0
 Neg6v
 Wire Wire Line
 	7925 750  8125 750 

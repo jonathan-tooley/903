@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L kit88:EF86 V?
+L QuadNew-rescue:EF86-kit88 V?
 U 2 1 5F75EDA6
 P 2275 4075
 AR Path="/5F75EDA6" Ref="V?"  Part="2" 
@@ -28,7 +28,7 @@ F 3 "" H 2275 4075 35  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:EF86 V?
+L QuadNew-rescue:EF86-kit88 V?
 U 2 1 5F75EDAC
 P 3000 4075
 AR Path="/5F75EDAC" Ref="V?"  Part="2" 
@@ -438,7 +438,7 @@ Text HLabel 2375 4725 3    40   Input ~ 0
 Text Label 2825 1750 2    35   ~ 0
 0v
 $Comp
-L kit88:EF86 V1
+L QuadNew-rescue:EF86-kit88 V1
 U 1 1 5F7BBE9F
 P 2575 1200
 F 0 "V1" H 2150 1425 50  0000 C CNN
@@ -449,7 +449,7 @@ F 3 "" H 2575 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:EF86 V2
+L QuadNew-rescue:EF86-kit88 V2
 U 1 1 5F7BFE34
 P 2575 2300
 F 0 "V2" H 2150 2525 50  0000 C CNN

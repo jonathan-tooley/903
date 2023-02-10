@@ -1,6 +1,6 @@
-update=8/16/2020 6:30:40 PM
+update=10/02/2023 17:45:14
 version=1
-last_client=kicad
+last_client=eeschema
 [general]
 version=1
 RootSch=
@@ -37,7 +37,7 @@ PageLayoutDescrFile=C:/Users/v-jtool/Desktop/pld.kicad_wks
 PlotDirectoryName=PDF/
 SubpartIdSeparator=0
 SubpartFirstId=65
-NetFmtName=
+NetFmtName=Pcbnew
 SpiceAjustPassiveValues=0
 LabSize=40
 ERC_TestSimilarLabels=1

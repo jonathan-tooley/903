@@ -53,23 +53,10 @@ F 3 "" H 3475 -700 50  0001 C CNN
 	1    2925 1300
 	1    0    0    -1  
 $EndComp
-$Comp
-L Sockets-rescue:Circ32-LSA JSKT10
-U 1 1 5F2F7C62
-P 4400 1300
-F 0 "JSKT10" H 4650 1517 50  0000 C CNN
-F 1 "Circ32" H 4650 1426 50  0000 C CNN
-F 2 "ELLIOTT:MC32" H 4950 -700 50  0001 C CNN
-F 3 "" H 4950 -700 50  0001 C CNN
-	1    4400 1300
-	1    0    0    -1  
-$EndComp
 Text Notes 1525 1000 0    50   ~ 0
 Power Supply
 Text Notes 3000 1000 0    50   ~ 0
 Marginal Test Unit
-Text Notes 4475 1000 0    50   ~ 0
-Paper Tape Controller
 NoConn ~ 3425 2600
 NoConn ~ 3425 2500
 NoConn ~ 3425 2400
@@ -105,96 +92,11 @@ Text Label 2925 1900 2    40   ~ 0
 0v
 Text Label 2925 1800 2    40   ~ 0
 VREF
-Text Label 4900 2800 0    40   ~ 0
-GND
-Text Label 4900 1700 0    40   ~ 0
-0v
-Text Label 4900 1600 0    40   ~ 0
-+24v
-Text Label 4900 1500 0    40   ~ 0
--24v
-$Comp
-L Sockets-rescue:Conn_01x20-Connector_Generic DSP-BP3-6
-U 1 1 5F2F7C9C
-P 4025 2200
-F 0 "DSP-BP3-6" V 4125 2200 50  0000 C CNN
-F 1 "~" H 3945 3226 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 4025 2200 50  0001 C CNN
-F 3 "~" H 4025 2200 50  0001 C CNN
-	1    4025 2200
-	-1   0    0    -1  
-$EndComp
-Text HLabel 4900 1900 2    40   UnSpc ~ 0
-RDR-INT
-Text HLabel 4900 2100 2    40   UnSpc ~ 0
-PUNCH-INT
-Text HLabel 4900 2200 2    40   UnSpc ~ 0
-AUT
-Text Label 4900 1300 0    32   ~ 0
-RTP-30-C
-Text Label 4900 1400 0    32   ~ 0
-STP_30_15
-Text Label 4900 1800 0    32   ~ 0
-RESET-31-16
-Text Label 4900 2000 0    32   ~ 0
-P4-32-19
-Text Label 4900 2300 0    32   ~ 0
-P2-32-15
-Text Label 4900 2400 0    32   ~ 0
-P1-32-17
-Text Label 4900 2500 0    32   ~ 0
-RTR-30-D
-Text Label 4900 2600 0    32   ~ 0
-STR-30-14
-Text Label 4900 2700 0    32   ~ 0
-P3-32-18
-Text Label 4225 2900 0    32   ~ 0
-P4-32-19
-Text Label 4225 3000 0    32   ~ 0
-P3-32-18
-Text Label 4225 3100 0    32   ~ 0
-MARGIN-30-10
 Text Label 2925 2100 2    32   ~ 0
 MARGIN-30-10
 Text Label 2925 2200 2    32   ~ 0
 MARGIN-4-3
 Text Label 2925 2300 2    32   ~ 0
-MARGIN-25-12
-Text Label 4225 3200 0    32   ~ 0
-MARGIN-4-3
-Wire Wire Line
-	4400 1300 4225 1300
-Wire Wire Line
-	4225 1400 4400 1400
-Wire Wire Line
-	4400 1500 4225 1500
-Wire Wire Line
-	4225 1600 4400 1600
-Wire Wire Line
-	4400 1700 4225 1700
-Wire Wire Line
-	4225 1800 4400 1800
-Wire Wire Line
-	4400 1900 4225 1900
-Wire Wire Line
-	4225 2000 4400 2000
-Wire Wire Line
-	4400 2100 4225 2100
-Wire Wire Line
-	4225 2200 4400 2200
-Wire Wire Line
-	4400 2300 4225 2300
-Wire Wire Line
-	4225 2400 4400 2400
-Wire Wire Line
-	4400 2500 4225 2500
-Wire Wire Line
-	4225 2600 4400 2600
-Wire Wire Line
-	4400 2700 4225 2700
-Wire Wire Line
-	4225 2800 4400 2800
-Text Label 5400 3200 2    32   ~ 0
 MARGIN-25-12
 Text Label 1275 1300 2    40   ~ 0
 GND
@@ -294,21 +196,6 @@ Wire Wire Line
 	1950 2100 2100 2100
 Text HLabel 1675 2250 3    20   Input ~ 0
 PW[1..19]
-$Comp
-L Connector_Generic:Conn_01x02 J1
-U 1 1 63FA1FD7
-P 6250 1500
-F 0 "J1" H 6330 1492 50  0000 L CNN
-F 1 "Conn_01x02" H 6330 1401 50  0000 L CNN
-F 2 "" H 6250 1500 50  0001 C CNN
-F 3 "~" H 6250 1500 50  0001 C CNN
-	1    6250 1500
-	1    0    0    -1  
-$EndComp
-Text Label 6050 1500 2    40   ~ 0
--24v
-Text Label 6050 1600 2    40   ~ 0
-+24v
 $Comp
 L Connector_Generic:Conn_01x10 J2
 U 1 1 63FA5717

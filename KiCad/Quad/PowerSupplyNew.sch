@@ -27,7 +27,7 @@ F 3 "~" H 1075 1025 35  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L kit88:QuadPwrTrf TR?
+L QuadNew-rescue:QuadPwrTrf-kit88 TR?
 U 1 1 5F7830F5
 P 6925 1275
 AR Path="/5F7830F5" Ref="TR?"  Part="1" 
