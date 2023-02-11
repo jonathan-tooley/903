@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L kit88:KT66 V?
+L QuadNew-rescue:KT66-kit88 V?
 U 1 1 5F7CA359
 P 2350 2000
 AR Path="/5F7CA359" Ref="V?"  Part="1" 
@@ -27,7 +27,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 2350 2000 35  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT66 V?
+L QuadNew-rescue:KT66-kit88 V?
 U 1 1 5F7CA35F
 P 3200 2000
 AR Path="/5F7CA35F" Ref="V?"  Part="1" 
@@ -92,7 +92,7 @@ X
 Text Label 1550 1925 0    50   ~ 0
 W
 $Comp
-L kit88:KT66 V?
+L QuadNew-rescue:KT66-kit88 V?
 U 2 1 5F7F1688
 P 4500 2000
 AR Path="/5F7F1688" Ref="V?"  Part="2" 
@@ -106,7 +106,7 @@ F 3 "http://www.r-type.org/pdfs/el84.pdf" H 4500 2000 35  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kit88:KT66 V?
+L QuadNew-rescue:KT66-kit88 V?
 U 2 1 5F7F168E
 P 5275 2000
 AR Path="/5F7F168E" Ref="V?"  Part="2" 

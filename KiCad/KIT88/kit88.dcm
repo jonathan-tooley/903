@@ -1,15 +1,33 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 12AU7
+D double triode
+K triode valve
+F http://www.r-type.org/pdfs/ecc81.pdf
+$ENDCMP
+#
 $CMP 6AU6
 D pentode, 25W
 K pentode valve
 F http://www.r-type.org/pdfs/el34.pdf
 $ENDCMP
 #
+$CMP Conn_Coaxial_x2
+D double coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, ...)
+K BNC SMA SMB SMC coaxial connector CINCH RCA
+F  ~
+$ENDCMP
+#
 $CMP ECC82
 D double triode
 K triode valve
 F http://www.r-type.org/pdfs/ecc81.pdf
+$ENDCMP
+#
+$CMP ECC83
+D double triode
+K triode valve
+F http://www.r-type.org/pdfs/ecc83.pdf
 $ENDCMP
 #
 $CMP GZ32
@@ -36,6 +54,12 @@ $ENDCMP
 #
 $CMP QuadPwrTrf
 F http://www.breve.pl/pdf/ANG/TEZ_ang.pdf
+$ENDCMP
+#
+$CMP SW_Rotary4
+D 3 rotary switches with 4 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
 $ENDCMP
 #
 #End Doc Library

@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L kit88:QuadOPT TR?
+L QuadNew-rescue:QuadOPT-kit88 TR?
 U 1 1 5F7A15FF
 P 3025 1475
 AR Path="/5F7A15FF" Ref="TR?"  Part="1" 
