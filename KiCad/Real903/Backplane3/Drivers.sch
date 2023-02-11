@@ -196,7 +196,7 @@ MARGIN-30-10
 Text GLabel 5700 2275 2    32   UnSpc ~ 0
 RTR-30-D
 Text GLabel 5700 2675 2    32   UnSpc ~ 0
-SZ1-9-16
+SZ1-9-15
 Text GLabel 5700 2475 2    32   UnSpc ~ 0
 TZ1-4-T
 Text GLabel 5700 2975 2    32   UnSpc ~ 0

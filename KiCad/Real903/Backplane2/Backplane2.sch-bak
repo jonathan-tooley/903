@@ -233,7 +233,7 @@ U 5F2841F0
 F0 "Connections" 100
 F1 "Connections.sch" 100
 F2 "#PC[1..12]" U R 9500 8325 40 
-F3 "MARGINS" U R 9500 8425 40 
+F3 "MARGIN-30-16" U R 9500 8425 40 
 $EndSheet
 Wire Bus Line
 	11850 5950 11000 5950

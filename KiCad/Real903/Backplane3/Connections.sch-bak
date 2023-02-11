@@ -18,8 +18,8 @@ L Connector_Generic:Conn_01x20 JSKT4-?
 U 1 1 5F16BB22
 P 2575 1825
 AR Path="/5F16BB22" Ref="JSKT4-?"  Part="1" 
-AR Path="/5F16162D/5F16BB22" Ref="BP3-DSP-3"  Part="1" 
-F 0 "BP3-DSP-3" H 2575 2850 50  0000 C CNN
+AR Path="/5F16162D/5F16BB22" Ref="BP3-IO-2"  Part="1" 
+F 0 "BP3-IO-2" H 2575 2850 50  0000 C CNN
 F 1 "~" H 2495 2751 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 2575 1825 50  0001 C CNN
 F 3 "~" H 2575 1825 50  0001 C CNN
@@ -303,8 +303,8 @@ L Connector_Generic:Conn_01x20 JSKT10-?
 U 1 1 5F1D1FC4
 P 1800 1825
 AR Path="/5F1D1FC4" Ref="JSKT10-?"  Part="1" 
-AR Path="/5F16162D/5F1D1FC4" Ref="BP3-DSP-2"  Part="1" 
-F 0 "BP3-DSP-2" H 1575 2850 50  0000 L CNN
+AR Path="/5F16162D/5F1D1FC4" Ref="BP3-CNT-1"  Part="1" 
+F 0 "BP3-CNT-1" H 1575 2850 50  0000 L CNN
 F 1 "~" H 1720 2751 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1800 1825 50  0001 C CNN
 F 3 "~" H 1800 1825 50  0001 C CNN
@@ -316,7 +316,6 @@ NoConn ~ 1600 1825
 NoConn ~ 1600 1925
 NoConn ~ 1600 2025
 NoConn ~ 1600 2125
-NoConn ~ 1600 2225
 NoConn ~ 1600 2325
 NoConn ~ 1600 2425
 Text Label 1600 925  2    40   ~ 0
@@ -452,10 +451,10 @@ F 3 "~" H 1150 7350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x20 BP3-DSP-1
+L Connector_Generic:Conn_01x20 BP3-IO-1
 U 1 1 5F183DD2
 P 1150 1825
-F 0 "BP3-DSP-1" H 1075 2850 50  0000 C CNN
+F 0 "BP3-IO-1" H 1075 2850 50  0000 C CNN
 F 1 "~" H 1070 2751 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 1150 1825 50  0001 C CNN
 F 3 "~" H 1150 1825 50  0001 C CNN
@@ -517,16 +516,16 @@ TZ1-4-T
 Text GLabel 950  7350 0    32   UnSpc ~ 0
 ~RESET~2-2-Y
 Text GLabel 950  7450 0    32   UnSpc ~ 0
-SZ1-9-16
+SZ1-9-15
 Text GLabel 950  7550 0    32   UnSpc ~ 0
 t4-2-5-14
-Text GLabel 925  7650 0    32   UnSpc ~ 0
+Text GLabel 950  7650 0    32   UnSpc ~ 0
 PC5-12=0-25-20
-Text GLabel 925  7750 0    32   UnSpc ~ 0
+Text GLabel 950  7750 0    32   UnSpc ~ 0
 PC1-4=1-22-AC
 Text GLabel 950  7850 0    32   UnSpc ~ 0
 ~Z2~-4-L
-Text GLabel 3175 2225 0    32   UnSpc ~ 0
+Text GLabel 1600 2225 0    32   UnSpc ~ 0
 AUDIO-32-14
 NoConn ~ 1600 4500
 Text GLabel 4675 2725 0    32   UnSpc ~ 0
@@ -563,9 +562,9 @@ F 3 "~" H 2575 4800 50  0001 C CNN
 	1    2575 4800
 	1    0    0    -1  
 $EndComp
-Text Label 975  2975 2    40   ~ 0
+Text Label 1600 2625 2    40   ~ 0
 INT2-3-10
-Text Label 975  3100 2    40   ~ 0
+Text Label 1600 2525 2    40   ~ 0
 INT-3-3-11
 Text Label 1600 2725 2    40   ~ 0
 NG17-1-18
@@ -576,4 +575,5 @@ MARGIN-4-3
 NoConn ~ 3175 2025
 NoConn ~ 2375 2725
 NoConn ~ 2375 2825
+NoConn ~ 3175 2225
 $EndSCHEMATC

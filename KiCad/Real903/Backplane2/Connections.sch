@@ -368,10 +368,10 @@ Text HLabel 1475 3875 3    40   Input ~ 0
 Text GLabel 3325 2800 2    32   UnSpc ~ 0
 #INT1-3-F
 $Comp
-L Backplane2-rescue:Conn_01x20-Connector_Generic BP2-DSP-3
+L Backplane2-rescue:Conn_01x20-Connector_Generic BP2-CNT-1
 U 1 1 5F1ECBC3
 P 3125 2800
-F 0 "BP2-DSP-3" H 3125 3825 50  0000 C CNN
+F 0 "BP2-CNT-1" H 3125 3825 50  0000 C CNN
 F 1 "~" H 3045 3826 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 3125 2800 50  0001 C CNN
 F 3 "~" H 3125 2800 50  0001 C CNN
@@ -469,7 +469,7 @@ NoConn ~ 4225 6900
 Text Notes 4275 6900 0    35   ~ 0
 IIG If we need it
 Text HLabel 1700 10175 2    40   UnSpc ~ 0
-MARGINS
+MARGIN-30-16
 Text GLabel 4225 7000 2    32   UnSpc ~ 0
 W17-1-W
 Text GLabel 5050 5900 2    32   UnSpc ~ 0
@@ -492,10 +492,10 @@ NoConn ~ 1700 3500
 NoConn ~ 1700 3600
 NoConn ~ 1700 3700
 $Comp
-L Backplane2-rescue:Conn_01x20-Connector_Generic BP2-DSP-4
+L Backplane2-rescue:Conn_01x20-Connector_Generic BP2-CNT-2
 U 1 1 63E324D9
 P 4025 2800
-F 0 "BP2-DSP-4" H 4025 3825 50  0000 C CNN
+F 0 "BP2-CNT-2" H 4025 3825 50  0000 C CNN
 F 1 "~" H 3945 3826 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock" H 4025 2800 50  0001 C CNN
 F 3 "~" H 4025 2800 50  0001 C CNN
@@ -510,5 +510,6 @@ NoConn ~ 4225 3500
 NoConn ~ 4225 3600
 NoConn ~ 4225 3700
 NoConn ~ 4225 3800
-NoConn ~ 3325 2000
+Text GLabel 3325 2000 2    32   UnSpc ~ 0
+RESET-2-U
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 7
+Sheet 3 7
 Title "Backplane 2"
 Date "2020-07-20"
 Rev ""
@@ -406,8 +406,6 @@ Text GLabel 4225 1875 2    32   UnSpc ~ 0
 #STOP-2-E
 Text GLabel 4225 3575 2    32   UnSpc ~ 0
 #RESET-2-Z
-Text GLabel 4225 3475 2    32   UnSpc ~ 0
-~RESET~2-2-Y
 Text GLabel 4225 3875 2    32   UnSpc ~ 0
 #NOTRDY-2-AC
 Wire Wire Line
@@ -631,7 +629,6 @@ Text HLabel 9425 2675 0    40   UnSpc ~ 0
 WFR
 Text HLabel 1550 4075 0    40   UnSpc ~ 0
 ~RESET~1
-NoConn ~ 4025 3075
 Wire Wire Line
 	4025 3575 4225 3575
 Text HLabel 1550 3675 0    40   UnSpc ~ 0
@@ -768,4 +765,10 @@ Text HLabel 9925 2975 2    40   UnSpc ~ 0
 ~WGS~
 Text HLabel 9425 4175 0    40   UnSpc ~ 0
 t3-1
+Text GLabel 4225 3075 2    32   UnSpc ~ 0
+RESET-2-U
+Wire Wire Line
+	4025 3075 4225 3075
+Text GLabel 4225 3475 2    32   UnSpc ~ 0
+~RESET~2-2-Y
 $EndSCHEMATC
