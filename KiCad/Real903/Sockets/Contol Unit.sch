@@ -4,8 +4,8 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 5
-Title ""
-Date ""
+Title "Sockets"
+Date "2023-02-11"
 Rev ""
 Comp ""
 Comment1 ""
@@ -18,7 +18,7 @@ L Sockets-rescue:Circ41-LSA JSKT5
 U 1 1 5F2FB942
 P 2975 1725
 F 0 "JSKT5" H 3225 1942 50  0000 C CNN
-F 1 "Circ41" H 3225 1851 50  0000 C CNN
+F 1 "~" H 3225 1851 50  0000 C CNN
 F 2 "ELLIOTT:MC41" H 3525 -275 50  0001 C CNN
 F 3 "" H 3525 -275 50  0001 C CNN
 	1    2975 1725
@@ -42,7 +42,7 @@ L Sockets-rescue:Circ41-LSA JSKT11
 U 1 1 5F3018A5
 P 6225 1725
 F 0 "JSKT11" H 6475 1942 50  0000 C CNN
-F 1 "Circ41" H 6475 1851 50  0000 C CNN
+F 1 "~" H 6475 1851 50  0000 C CNN
 F 2 "ELLIOTT:MC41" H 6775 -275 50  0001 C CNN
 F 3 "" H 6775 -275 50  0001 C CNN
 	1    6225 1725
@@ -148,10 +148,10 @@ Text Label 9675 1900 0    40   ~ 0
 Text Label 9675 2000 0    40   ~ 0
 ~W~4
 $Comp
-L Connector_Generic:Conn_01x20 DSP-BP2-3
+L Connector_Generic:Conn_01x20 CNT-BP2-1
 U 1 1 5F8ADA47
 P 3100 4225
-F 0 "DSP-BP2-3" V 3225 4171 50  0000 C CNN
+F 0 "CNT-BP2-1" V 3225 4171 50  0000 C CNN
 F 1 "~" V 3316 4171 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 3100 4225 50  0001 C CNN
 F 3 "~" H 3100 4225 50  0001 C CNN
@@ -343,10 +343,10 @@ NoConn ~ 5750 3125
 NoConn ~ 5750 3225
 NoConn ~ 5750 3325
 $Comp
-L Connector_Generic:Conn_01x20 DSP-BP3-2
+L Connector_Generic:Conn_01x20 CNT-BP3-1
 U 1 1 64378531
 P 9475 2700
-F 0 "DSP-BP3-2" H 9393 1567 50  0000 C CNN
+F 0 "CNT-BP3-1" H 9393 1567 50  0000 C CNN
 F 1 "~" V 9691 2646 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 9475 2700 50  0001 C CNN
 F 3 "~" H 9475 2700 50  0001 C CNN
@@ -369,14 +369,13 @@ NoConn ~ 9675 2700
 NoConn ~ 9675 2800
 NoConn ~ 9675 2900
 NoConn ~ 9675 3000
-NoConn ~ 9675 3100
 NoConn ~ 9675 3200
 NoConn ~ 9675 3300
 $Comp
-L Connector_Generic:Conn_01x20 DSP-BP2-4
+L Connector_Generic:Conn_01x20 CNT-BP2-2
 U 1 1 643911D4
 P 8325 2700
-F 0 "DSP-BP2-4" H 8243 1567 50  0000 C CNN
+F 0 "CNT-BP2-2" H 8243 1567 50  0000 C CNN
 F 1 "~" V 8541 2646 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 8325 2700 50  0001 C CNN
 F 3 "~" H 8325 2700 50  0001 C CNN
@@ -534,8 +533,6 @@ Text Label 1675 1675 0    20   ~ 0
 0v
 Wire Wire Line
 	1675 1675 1550 1675
-Text HLabel 3475 2125 2    32   Input ~ 0
-AUDIO-32-14
 Text Label 8525 1800 0    32   ~ 0
 #RESET-2-Z
 Text Label 8525 1900 0    32   ~ 0
@@ -548,4 +545,8 @@ Text Label 9675 3500 0    32   ~ 0
 INT2-3-10
 Text Label 9675 3400 0    32   ~ 0
 INT3-3-11
+Text Label 3475 2125 0    32   ~ 0
+AUDIO-32-14
+Text Label 9675 3100 0    32   ~ 0
+AUDIO-32-14
 $EndSCHEMATC

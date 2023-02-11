@@ -4,8 +4,8 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 4 5
-Title ""
-Date ""
+Title "Sockets"
+Date "2023-02-11"
 Rev ""
 Comp ""
 Comment1 ""
@@ -18,8 +18,8 @@ L Connector_Generic:Conn_01x20 JSKT4-?
 U 1 1 5F301144
 P 3075 2025
 AR Path="/5F301144" Ref="JSKT4-?"  Part="1" 
-AR Path="/5F2F538B/5F301144" Ref="DSP-BP3-3"  Part="1" 
-F 0 "DSP-BP3-3" V 3175 2025 50  0000 C CNN
+AR Path="/5F2F538B/5F301144" Ref="IO-BP3-2"  Part="1" 
+F 0 "IO-BP3-2" V 3175 2025 50  0000 C CNN
 F 1 "~" H 2995 3051 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 3075 2025 50  0001 C CNN
 F 3 "~" H 3075 2025 50  0001 C CNN
@@ -43,7 +43,7 @@ P 4175 1025
 AR Path="/5F301156" Ref="JSKT?"  Part="1" 
 AR Path="/5F2F538B/5F301156" Ref="JSKT4"  Part="1" 
 F 0 "JSKT4" H 4425 1242 50  0000 C CNN
-F 1 "Circ61" H 4425 1151 50  0000 C CNN
+F 1 "~" H 4425 1151 50  0000 C CNN
 F 2 "ELLIOTT:MC61" H 4375 -475 50  0001 C CNN
 F 3 "~" H 4375 -475 50  0001 C CNN
 	1    4175 1025
@@ -56,8 +56,8 @@ L Connector_Generic:Conn_01x20 JSKT4-?
 U 1 1 5F30115F
 P 5150 2425
 AR Path="/5F30115F" Ref="JSKT4-?"  Part="1" 
-AR Path="/5F2F538B/5F30115F" Ref="DSP-BP3-5"  Part="1" 
-F 0 "DSP-BP3-5" V 5250 2425 50  0000 C CNN
+AR Path="/5F2F538B/5F30115F" Ref="IO-BP3-4"  Part="1" 
+F 0 "IO-BP3-4" V 5250 2425 50  0000 C CNN
 F 1 "~" H 5070 3451 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 5150 2425 50  0001 C CNN
 F 3 "~" H 5150 2425 50  0001 C CNN
@@ -69,8 +69,8 @@ L Sockets-rescue:Conn_01x18-Connector_Generic JSKT4-?
 U 1 1 5F301165
 P 3675 3725
 AR Path="/5F301165" Ref="JSKT4-?"  Part="1" 
-AR Path="/5F2F538B/5F301165" Ref="DSP-BP3-4"  Part="1" 
-F 0 "DSP-BP3-4" V 3775 3725 50  0000 C CNN
+AR Path="/5F2F538B/5F301165" Ref="IO-BP3-3"  Part="1" 
+F 0 "IO-BP3-3" V 3775 3725 50  0000 C CNN
 F 1 "~" H 3595 4751 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 3675 3725 50  0001 C CNN
 F 3 "~" H 3675 3725 50  0001 C CNN
@@ -193,12 +193,6 @@ OS11
 Text Label 4675 1025 0    32   ~ 0
 RESET-32-20
 Wire Wire Line
-	4675 1025 4900 1025
-Wire Wire Line
-	4900 1025 4900 1425
-Wire Wire Line
-	4900 1425 4950 1425
-Wire Wire Line
 	4950 3325 4675 3325
 Wire Wire Line
 	4675 3225 4950 3225
@@ -287,7 +281,7 @@ L Sockets-rescue:Circ19-LSA JSKT13
 U 1 1 63E78D08
 P 6700 1025
 F 0 "JSKT13" H 6950 1242 50  0000 C CNN
-F 1 "Circ19-LSA" H 6950 1151 50  0000 C CNN
+F 1 "~" H 6950 1151 50  0000 C CNN
 F 2 "" H 6900 -475 50  0001 C CNN
 F 3 "" H 6900 -475 50  0001 C CNN
 	1    6700 1025
@@ -325,8 +319,8 @@ U 1 1 63EBD7C4
 P 8225 2500
 AR Path="/63EBD7C4" Ref="BP1-DSP-?"  Part="1" 
 AR Path="/5F307B10/63EBD7C4" Ref="BP1-DSP-?"  Part="1" 
-AR Path="/5F2F538B/63EBD7C4" Ref="DSP-BP3-1"  Part="1" 
-F 0 "DSP-BP3-1" V 8325 2600 50  0000 C CNN
+AR Path="/5F2F538B/63EBD7C4" Ref="IO-BP3-1"  Part="1" 
+F 0 "IO-BP3-1" V 8325 2600 50  0000 C CNN
 F 1 "~" H 8145 3526 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 8225 2500 50  0001 C CNN
 F 3 "~" H 8225 2500 50  0001 C CNN
@@ -429,8 +423,6 @@ Text Label 8425 2200 0    32   ~ 0
 RESET-32-16
 Text Label 8425 2300 0    32   ~ 0
 RESET-32-20
-Text HLabel 3875 4225 2    32   Input ~ 0
-AUDIO-32-14
 $Comp
 L Sockets-rescue:Circ32-LSA JSKT?
 U 1 1 63E8BE6D
@@ -438,7 +430,7 @@ P 10100 875
 AR Path="/5F3239EA/63E8BE6D" Ref="JSKT?"  Part="1" 
 AR Path="/5F2F538B/63E8BE6D" Ref="JSKT10"  Part="1" 
 F 0 "JSKT10" H 10350 1092 50  0000 C CNN
-F 1 "Circ32" H 10350 1001 50  0000 C CNN
+F 1 "~" H 10350 1001 50  0000 C CNN
 F 2 "ELLIOTT:MC32" H 10650 -1125 50  0001 C CNN
 F 3 "" H 10650 -1125 50  0001 C CNN
 	1    10100 875 
@@ -459,8 +451,8 @@ L Sockets-rescue:Conn_01x20-Connector_Generic DSP-BP3-?
 U 1 1 63E8BE78
 P 9725 1775
 AR Path="/5F3239EA/63E8BE78" Ref="DSP-BP3-?"  Part="1" 
-AR Path="/5F2F538B/63E8BE78" Ref="DSP-BP3-6"  Part="1" 
-F 0 "DSP-BP3-6" V 9825 1775 50  0000 C CNN
+AR Path="/5F2F538B/63E8BE78" Ref="IO-BP3-5"  Part="1" 
+F 0 "IO-BP3-5" V 9825 1775 50  0000 C CNN
 F 1 "~" H 9645 2801 50  0000 C CNN
 F 2 "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" H 9725 1775 50  0001 C CNN
 F 3 "~" H 9725 1775 50  0001 C CNN
@@ -535,4 +527,55 @@ Text Label 10600 1675 0    40   ~ 0
 PUNCH-INT
 Text Label 10600 1475 0    40   ~ 0
 RDR-INT
+$Comp
+L Connector_Generic:Conn_01x02 J?
+U 1 1 63E9AA3C
+P 6475 2750
+AR Path="/5F3239EA/63E9AA3C" Ref="J?"  Part="1" 
+AR Path="/5F2F538B/63E9AA3C" Ref="J1"  Part="1" 
+F 0 "J1" H 6555 2742 50  0000 L CNN
+F 1 "Conn_01x02" H 6555 2651 50  0000 L CNN
+F 2 "" H 6475 2750 50  0001 C CNN
+F 3 "~" H 6475 2750 50  0001 C CNN
+	1    6475 2750
+	1    0    0    -1  
+$EndComp
+Text Label 6275 2750 2    40   ~ 0
+-24v
+Text Label 6275 2850 2    40   ~ 0
++24v
+NoConn ~ 3875 4225
+Text Label 9975 875  0    32   ~ 0
+IR1
+Text Label 9975 975  0    32   ~ 0
+IR2
+Text Label 9975 1075 0    32   ~ 0
+IR3
+Text Label 9975 1175 0    32   ~ 0
+IR4
+Text Label 9975 1275 0    32   ~ 0
+IR5
+Text Label 9975 1375 0    32   ~ 0
+IR6
+Text Label 9975 1475 0    32   ~ 0
+IR7
+Text Label 9975 1575 0    32   ~ 0
+IR8
+Text Label 9975 1675 0    32   ~ 0
+OP1
+Text Label 9975 1775 0    32   ~ 0
+OP2
+Text Label 9975 1875 0    32   ~ 0
+OP3
+Text Label 9975 1975 0    32   ~ 0
+OP4
+Text Label 9975 2075 0    32   ~ 0
+OP5
+Text Label 9975 2175 0    32   ~ 0
+OP6
+Text Label 9975 2275 0    32   ~ 0
+OP7
+Text Label 9975 2375 0    32   ~ 0
+OP8
+NoConn ~ 4950 1425
 $EndSCHEMATC
