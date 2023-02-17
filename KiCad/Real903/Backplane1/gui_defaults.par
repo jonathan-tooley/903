@@ -8,140 +8,140 @@
       )
     )
     (color_manager
-      not_visible
+      visible
       (bounds
-        0 600 1126 177
+        0 600 1126 209
       )
     )
     (layer_visibility
       not_visible
       (bounds
-        12 598 359 225
+        12 598 343 260
       )
     )
     (object_visibility
       not_visible
       (bounds
-        0 550 383 407
+        1278 282 362 512
       )
     )
     (display_miscellanious
       not_visible
       (bounds
-        0 350 236 355
+        0 350 300 348
       )
     )
     (snapshots
       not_visible
       (bounds
-        0 250 216 269
+        0 250 300 254
       )
     )
     (select_parameter
       not_visible
       (bounds
-        0 0 208 547
+        0 0 300 521
       )
     )
     (route_parameter
       not_visible
       (bounds
-        0 100 236 573
+        0 100 300 557
       )
     )
     (manual_rules
       not_visible
       (bounds
-        0 0 288 210
+        0 0 300 200
       )
     )
     (route_details
       not_visible
       (bounds
-        0 0 240 255
+        0 0 300 256
       )
     )
     (move_parameter
       not_visible
       (bounds
-        0 50 266 153
+        0 50 330 200
       )
     )
     (clearance_matrix
       not_visible
       (bounds
-        0 150 676 300
+        0 150 676 292
       )
     )
     (via_rules
       not_visible
       (bounds
-        50 150 303 467
+        50 150 398 448
       )
     )
     (edit_vias
       not_visible
       (bounds
-        100 150 419 146
+        100 150 418 200
       )
     )
     (edit_net_rules
       not_visible
       (bounds
-        100 200 919 146
+        100 200 1018 200
       )
     )
     (assign_net_rules
       not_visible
       (bounds
-        100 250 234 382
+        100 250 300 386
       )
     )
     (padstack_info
       not_visible
       (bounds
-        100 30 0 0
+        100 30 300 200
       )
     )
     (package_info
       not_visible
       (bounds
-        200 30 0 0
+        200 30 300 200
       )
     )
     (component_info
       not_visible
       (bounds
-        300 30 0 0
+        300 30 300 200
       )
     )
     (net_info
       not_visible
       (bounds
-        350 30 0 0
+        350 30 300 200
       )
     )
     (incompletes_info
       not_visible
       (bounds
-        400 30 0 0
+        400 30 300 200
       )
     )
     (violations_info
       not_visible
       (bounds
-        500 30 0 0
+        500 30 300 200
       )
     )
   )
   (colors
     (background
-      255 255 204
+      255 255 255
     )
-    (hilight 0.8
+    (hilight 1.0
       230 255 255
     )
-    (incompletes 0.8
+    (incompletes 1.0
       255 255 255
     )
     (outline
@@ -156,16 +156,16 @@
     (violations
       255 0 255
     )
-    (length_matching 0.1
+    (length_matching 1.0
       0 255 0
     )
-    (traces 0.4
+    (traces 1.0
       204 51 0
       0 0 153
       255 204 0
       51 153 0
     )
-    (fixed_traces 0.4
+    (fixed_traces 1.0
       255 0 0
       0 0 255
       255 0 0
@@ -183,25 +183,25 @@
       200 200 0
       200 200 0
     )
-    (pins 0.38
+    (pins 1.0
       150 50 0
       160 80 0
       150 50 0
       160 80 0
     )
-    (conduction 0.2
+    (conduction 1.0
       0 150 0
       100 100 0
       0 150 0
       100 100 0
     )
-    (keepout 0.2
+    (keepout 1.0
       0 110 110
       0 100 160
       0 110 110
       0 100 160
     )
-    (via_keepout 0.2
+    (via_keepout 1.0
       100 100 100
       100 100 100
       100 100 100

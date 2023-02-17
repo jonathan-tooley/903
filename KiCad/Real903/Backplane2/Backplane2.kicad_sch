@@ -2760,34 +2760,34 @@
 
   (symbol_instances
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f28487f"
-      (reference "BP2-BP1-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP1-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f284886"
-      (reference "BP2-BP1-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP1-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f28488d"
-      (reference "BP2-BP1-3") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP1-3") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f284896"
-      (reference "BP2-BP1-4") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP1-4") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f28489e"
-      (reference "BP2-BP1-5") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP1-5") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f1ecf0a"
-      (reference "BP2-BP3-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-BP3-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f1ecbc3"
-      (reference "BP2-CNT-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-CNT-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-000063e324d9"
-      (reference "BP2-CNT-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-CNT-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f2848b1"
-      (reference "BP2-DSP-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-DSP-1") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2841f0/00000000-0000-0000-0000-00005f2848d2"
-      (reference "BP2-DSP-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal_Lock")
+      (reference "BP2-DSP-2") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Latch_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005d6f7349/00000000-0000-0000-0000-00005da21243"
       (reference "J1") (unit 1) (value "~") (footprint "ELLIOTT:DIN41612_B_2x32_Vertical")

@@ -573,7 +573,6 @@
   )
 
 
-
   (no_connect (at 110.49 53.34) (uuid 03de9dab-7054-4421-9c49-782d87206f12))
   (no_connect (at 97.79 58.42) (uuid 132ce2b3-f7ce-4777-802e-3e01b30d1d07))
   (no_connect (at 97.79 40.64) (uuid 1efc5a3c-3117-4bb3-a567-edcb666091ae))
@@ -1103,7 +1102,7 @@
     (property "Value" "Conn_01x10" (id 1) (at 45.212 77.4446 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 43.18 74.93 0)
+    (property "Footprint" "Connector_Wago:Wago_734-140_1x10_P3.50mm_Vertical" (id 2) (at 43.18 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 43.18 74.93 0)

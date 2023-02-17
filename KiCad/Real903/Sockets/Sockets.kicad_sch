@@ -12,7 +12,6 @@
   (lib_symbols
   )
 
-
   (junction (at 74.93 72.39) (diameter 0) (color 0 0 0 0)
     (uuid a0de319e-5bf6-4b50-8ec0-3a087946a2ef)
   )
@@ -306,10 +305,10 @@
       (reference "IO-BP3-5") (unit 1) (value "~") (footprint "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f2f538b/00000000-0000-0000-0000-000063e9aa3c"
-      (reference "J1") (unit 1) (value "Conn_01x02") (footprint "")
+      (reference "J1") (unit 1) (value "Conn_01x02") (footprint "Connector_Wago:Wago_734-132_1x02_P3.50mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f3239ea/00000000-0000-0000-0000-000063fa5717"
-      (reference "J2") (unit 1) (value "Conn_01x10") (footprint "")
+      (reference "J2") (unit 1) (value "Conn_01x10") (footprint "Connector_Wago:Wago_734-140_1x10_P3.50mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005f307b10/00000000-0000-0000-0000-00005f3205dd"
       (reference "JSKT1") (unit 1) (value "~") (footprint "ELLIOTT:MC61")
@@ -339,7 +338,7 @@
       (reference "JSKT11") (unit 1) (value "~") (footprint "ELLIOTT:MC41")
     )
     (path "/00000000-0000-0000-0000-00005f2f538b/00000000-0000-0000-0000-000063e78d08"
-      (reference "JSKT13") (unit 1) (value "~") (footprint "")
+      (reference "JSKT13") (unit 1) (value "~") (footprint "ELLIOTT:MC19")
     )
   )
 )
