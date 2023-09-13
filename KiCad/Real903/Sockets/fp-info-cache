@@ -1,4 +1,4 @@
-21037936082027484
+21044644895292747
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -52668,12 +52668,26 @@ MC19
 19
 19
 ELLIOTT
+MC19_Hole
+
+
+0
+1
+1
+ELLIOTT
 MC32
 
 
 0
 32
 32
+ELLIOTT
+MC32_Hole
+
+
+0
+1
+1
 ELLIOTT
 MC41
 
@@ -52682,12 +52696,26 @@ MC41
 41
 41
 ELLIOTT
+MC41_Hole
+
+
+0
+1
+1
+ELLIOTT
 MC61
 
 
 0
 61
 61
+ELLIOTT
+MC61_Hole
+
+
+0
+1
+1
 ELLIOTT
 MiniSPDTSwitch
 

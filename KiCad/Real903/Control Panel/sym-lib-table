@@ -1,3 +1,5 @@
 (sym_lib_table
-  (lib (name LSA)(type Legacy)(uri C:/Users/v-jtool/OneDrive/Repos/903/KiCad/Real903/LSA.lib)(options "")(descr ""))
+  (lib (name "LSA")(type "Legacy")(uri "C:/Users/v-jtool/OneDrive/Repos/903/KiCad/Real903/LSA.lib")(options "")(descr ""))
+  (lib (name "Control-Panel1-rescue")(type "Legacy")(uri "${KIPRJMOD}/Control Panel1-rescue.lib")(options "")(descr ""))
+  (lib (name "Control-Panel-rescue")(type "Legacy")(uri "${KIPRJMOD}/Control Panel-rescue.lib")(options "")(descr ""))
 )
